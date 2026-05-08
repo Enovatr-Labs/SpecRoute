@@ -70,6 +70,26 @@ web_modules/
 .env.*
 !.env.example
 
+# Claude Code per-user settings
+.claude/settings.local.json
+
+# SpecForge sanitization wordlist — per-installation, contains private terms
+.claude/.forbidden-strings.txt
+
+# Internal bootstrap spec — not for public release
+initial.md
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache

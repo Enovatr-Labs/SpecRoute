@@ -1,0 +1,32 @@
+{
+  "_comment": "Gemini CLI command configuration template. Drop into .gemini/gemini_cli_config.json in your repo. Each entry under 'commands' is a named shell shortcut.",
+
+  "commands": {
+    "list_files": {
+      "command": "ls -la",
+      "description": "List all files and directories in the current directory."
+    },
+    "run_tests": {
+      "command": "<your test runner; e.g. 'npm test' or 'pytest'>",
+      "description": "Run the project test suite."
+    },
+    "lint": {
+      "command": "<your linter; e.g. 'ruff check .' or 'eslint .'>",
+      "description": "Run linter across the repo."
+    },
+    "git_status": {
+      "command": "git status --short",
+      "description": "Show short-form git status."
+    },
+    "git_log": {
+      "command": "git log --oneline -10",
+      "description": "Show last 10 commits."
+    }
+  },
+
+  "_field_reference": {
+    "command": "Required. Shell command string. Multi-step ops should call a script in scripts/.",
+    "description": "Required. Shown in command picker.",
+    "directory": "Optional. Working directory relative to repo root. Omit for repo root."
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "_comment": "Claude Code hooks template. Drop into .claude/hooks/hooks.json in the consumer's repo (or runtimes/.claude/hooks/hooks.json for SpecForge's own runtime template). Each top-level key is a trigger type (SessionStart, PreToolUse, PostToolUse). Each entry has an optional 'matcher' (tool name or regex) and a list of hooks (commands to execute).",
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/session-start-status.sh"
+          }
+        ]
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/pre-bash-validate.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/pre-write-check.sh"
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/post-edit-validate.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/post-bash-log.sh"
+          }
+        ]
+      }
+    ]
+  },
+
+  "_trigger_reference": {
+    "SessionStart": "Fires once when a session begins. Use for: status banners, environment checks, orientation. Cannot block (informational only).",
+    "PreToolUse": "Fires before any tool invocation that matches 'matcher'. Use for: validation gates, blocking unsafe operations. Exit non-zero to block; stderr is shown to the user.",
+    "PostToolUse": "Fires after a tool completes. Use for: validation, lint, follow-up actions. Cannot block (the action already happened); use stderr for warnings."
+  },
+
+  "_matcher_reference": {
+    "_": "Empty string matches all invocations of the trigger.",
+    "ToolName": "Exact tool name match (e.g. 'Bash', 'Write', 'Edit', 'Read').",
+    "Tool1|Tool2": "Pipe-separated regex - matches multiple tools.",
+    "matcher_examples": ["Bash", "Write", "Edit", "Write|Edit", ""]
+  },
+
+  "_protocol": {
+    "stdin": "Hook scripts receive a JSON object on stdin: { 'tool_input': { ... }, ... }. Parse with python3 or jq.",
+    "exit_codes": {
+      "0": "Allow / proceed.",
+      "non_zero": "Block (PreToolUse only). PostToolUse and SessionStart hooks cannot block - non-zero is treated as informational."
+    },
+    "stderr": "Anything written to stderr is shown to the user. Use for actionable messages."
+  },
+
+  "_anti_patterns": [
+    "Don't run slow operations in hooks. Sub-second target.",
+    "Don't ask the user questions in a hook - hooks can't be interactive. Use a skill.",
+    "Don't make hooks non-idempotent. They fire on every event.",
+    "Don't skip exit-code discipline. Failing closed is the safe default for PreToolUse."
+  ],
+
+  "_reference_implementations": "See .claude/hooks/ at the repo root for working hooks: session-start-status.sh (banner), pre-bash-sanitize.sh (sanitization gate on git commit), post-edit-frontmatter.sh (frontmatter validation on agent/skill writes)."
+}

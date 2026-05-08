@@ -1,0 +1,64 @@
+# MCP Servers — Canonical Single Source of Truth
+#
+# This is the authoritative inventory of MCP servers for the project. Renderers
+# under render/ emit per-vendor configs from this file:
+#
+#   - .claude/claude_desktop_config.json  (Claude Desktop)
+#   - .codex/config.toml [mcp_servers]    (Codex)
+#   - .gemini/settings.json [mcpServers]  (Gemini CLI)
+#
+# When you add or remove a server, edit this file then run:
+#
+#   python3 runtimes/mcp/render/render_claude.py > runtimes/.claude/claude_desktop_config.template.json
+#   python3 runtimes/mcp/render/render_codex.py  > runtimes/.codex/config.template.toml
+#   python3 runtimes/mcp/render/render_gemini.py > runtimes/.gemini/settings.template.json
+#
+# Default set is vendor-neutral. Add proprietary servers only if your project
+# truly needs them and the consumer can supply credentials.
+
+servers:
+  - name: filesystem
+    description: File system access scoped to the project root.
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-filesystem"
+      - "."
+    # Per-tool approval mode is Codex-specific; Claude / Gemini ignore it.
+    codex_tool_approvals:
+      move_file: approve
+      create_directory: approve
+      write_file: approve
+
+  - name: github
+    description: GitHub API access (repos, issues, PRs).
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-github"
+    # GITHUB_PERSONAL_ACCESS_TOKEN must be set in the shell or .env (gitignored).
+    requires_env:
+      - GITHUB_PERSONAL_ACCESS_TOKEN
+
+  - name: memory
+    description: In-conversation memory store.
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-memory"
+
+  - name: sequential-thinking
+    description: Structured reasoning helper.
+    command: npx
+    args:
+      - "-y"
+      - "@modelcontextprotocol/server-sequential-thinking"
+
+  - name: playwright
+    description: Browser automation for E2E testing and scraping.
+    command: npx
+    args:
+      - "-y"
+      - "@executeautomation/playwright-mcp-server"
+    codex_tool_approvals:
+      playwright_navigate: approve
