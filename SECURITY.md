@@ -25,7 +25,7 @@ The following are not security issues we can address here:
 
 Please report suspected vulnerabilities **privately** before opening a public issue:
 
-- **Email:** TODO add security contact (e.g. `security@enovatr-labs.com`)
+- **Email:** `security@enovatr.com` (primary), `chika@enovatr.com` (fallback)
 - **GitHub:** open a private security advisory at <repo>/security/advisories/new
 - **Subject line:** `[SpecForge SECURITY] <short description>`
 
