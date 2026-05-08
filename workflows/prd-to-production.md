@@ -81,7 +81,7 @@ Each stage has an entry condition, an output, and an exit gate.
 
 **Owner**: tech lead (with `prompt-engineer` agent if many tasks). Optionally generate a phased master-prompt set per [`prompts/shared/global-master-prompt-template.md`](../prompts/shared/global-master-prompt-template.md).
 
-**Output**: `agent-roster.md` (assignments); `prompts/000_master.md` and numbered task prompts (for multi-week initiatives) using [`prompts/shared/task-prompt-template.md`](../prompts/shared/task-prompt-template.md); an `implementation-plan.md` for the operational view.
+**Output**: `agent-roster.md` (assignments); `prompts/000_GLOBAL_MASTER.md` and numbered task prompts under `prompts/phase{N}_<name>/` (for multi-week initiatives) using [`prompts/shared/task-prompt-template.md`](../prompts/shared/task-prompt-template.md); an `implementation-plan.md` for the operational view.
 
 **Exit gate**: every task in `tasks.md` has a primary agent assigned; the implementation plan has a defensible schedule.
 

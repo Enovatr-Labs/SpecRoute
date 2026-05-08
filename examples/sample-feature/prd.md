@@ -7,7 +7,7 @@
 **Architecture Reference**: [`design.md`](design.md)
 **Scope**: Add a paginated, filterable, indexed user-directory search to the platform's admin and self-service surfaces. In scope: API + frontend + observability. Out of scope: bulk export (separate PRD), cross-tenant federation.
 
-> This is the canonical worked example for SpecForge. It exercises every artifact shape end-to-end: a 23-section PRD; a spec triplet (`requirements.md`, `design.md`, `tasks.md`); an agent roster; phased implementation prompts (`prompts/000_master.md`, `001_*.md`, `002_*.md`); and an implementation plan. Generic feature, no proprietary domain.
+> This is the canonical worked example for SpecForge. It exercises every artifact shape end-to-end: a 23-section PRD; a spec triplet (`requirements.md`, `design.md`, `tasks.md`); an agent roster; the full phased prompt set (1 global master, 4 phase masters, 22 numbered task prompts under `prompts/`); and an implementation plan. Generic feature, no proprietary domain.
 
 ---
 

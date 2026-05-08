@@ -1,4 +1,4 @@
-# Task 001: Add User Search Indexes Migration
+# Task 004: Add User Search Indexes Migration
 
 > Production task prompt. First task of Phase 1 (Backend Implementation).
 
@@ -12,18 +12,19 @@ After this task lands, `EXPLAIN ANALYZE` on representative search queries shows 
 
 ## 2. Context
 
-**PRD Reference**: [`../prd.md`](../prd.md) Section 7 (Data Strategy)
-**Spec Reference**: [`../requirements.md`](../requirements.md) — Requirements: R1.1, R1.2, R2.1, R3.1, NFR-1.1
-**Architecture Reference**: [`../design.md`](../design.md) Section 3 (Data Model), Section 3.4 (Migrations)
-**Phase Master**: [`000_master.md`](000_master.md)
-**Related Tasks**: this is task 4 in [`../tasks.md`](../tasks.md). Phase 0 spikes (tasks 1–3) must be complete before starting.
+**PRD Reference**: [`../../prd.md`](../../prd.md) Section 7 (Data Strategy)
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) — Requirements: R1.1, R1.2, R2.1, R3.1, NFR-1.1
+**Architecture Reference**: [`../../design.md`](../../design.md) Section 3 (Data Model), Section 3.4 (Migrations)
+**Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
+**Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
+**Related Tasks**: this is task 4 in [`../../tasks.md`](../../tasks.md). Phase 0 spikes (tasks 1–3) must be complete before starting.
 **Current File(s)**: `migrations/` (no existing search-related migration).
 
 The platform already has indexes on `users.id` (PK), `users.email` (unique), and `users.organization_id` (FK). For search, we need additional indexes on the lowered name and email (substring search), the `status` column (filter), and the `role` column (filter). The `status` index is partial (only on `status='active'`) because the vast majority of search traffic is scoped to active users; this keeps the index small and the partial-index plan well-understood.
 
 ## 3. Agent Assignment
 
-**Primary Agent**: `database-engineer` (see [`../agent-roster.md`](../agent-roster.md))
+**Primary Agent**: `database-engineer` (see [`../../agent-roster.md`](../../agent-roster.md))
 **Supporting Agents**:
 
 - `deployment-validator` — runs the migration in staging and validates with `EXPLAIN ANALYZE`.

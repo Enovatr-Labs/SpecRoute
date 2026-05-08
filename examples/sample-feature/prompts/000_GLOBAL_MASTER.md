@@ -80,17 +80,50 @@ Execute the 4-phase implementation plan to:
 2. Read [`../prd.md`](../prd.md) Sections 1–4 (executive summary through scope).
 3. Read [`../design.md`](../design.md) Sections 1–3 (overview through data model).
 4. Read [`../tasks.md`](../tasks.md) end to end.
-5. Open `001_index_migration.md` (Phase 1's first task) when Phase 0 is complete; until then, work Phase 0 tasks (1, 2, 3) which don't have prompts here — they're spike work, not implementation.
-6. Execute tasks in order. Don't skip Phase 0.
+5. Open the phase master for the current phase: start with [`phase0_foundation/000_MASTER_foundation.md`](phase0_foundation/000_MASTER_foundation.md).
+6. Work tasks in number order within the phase. Run the phase's exit gate before advancing.
+7. Don't skip Phase 0 — the spikes' decisions feed Phase 1.
 
 ---
 
 ## What's in this directory
 
-| File | Purpose |
-|---|---|
-| `000_master.md` | This file. Always read first. |
-| `001_index_migration.md` | Task 4: add user search indexes (Phase 1 entry point). |
-| `002_implement_search_endpoint.md` | Task 10: wire the API endpoint (Phase 1 mid-point). |
+```
+prompts/
+├── 000_GLOBAL_MASTER.md             this file (always read first)
+├── README.md                        phase index
+├── phase0_foundation/
+│   ├── 000_MASTER_foundation.md     phase entry-point
+│   ├── 001_cache_ttl_spike.md       task 1
+│   ├── 002_cursor_encoding_spike.md task 2
+│   └── 003_privacy_review.md        task 3
+├── phase1_backend/
+│   ├── 000_MASTER_backend.md        phase entry-point
+│   ├── 004_index_migration.md       task 4
+│   ├── 005_request_validator.md     task 5
+│   ├── 006_rbac_scoping.md          task 6
+│   ├── 007_query_builder.md         task 7
+│   ├── 008_cursor_encoding.md       task 8
+│   ├── 009_cache_layer.md           task 9
+│   ├── 010_wire_endpoint.md         task 10
+│   ├── 011_observability.md         task 11
+│   └── 012_rate_limiting.md         task 12
+├── phase2_frontend/
+│   ├── 000_MASTER_frontend.md       phase entry-point
+│   ├── 013_search_input.md          task 13
+│   ├── 014_filter_chips.md          task 14
+│   ├── 015_result_table.md          task 15
+│   ├── 016_cursor_pagination.md     task 16
+│   └── 017_compose_page.md          task 17
+└── phase3_validation/
+    ├── 000_MASTER_validation.md     phase entry-point
+    ├── 018_load_test.md             task 18
+    ├── 019_feature_flag.md          task 19
+    ├── 020_production_rollout.md    task 20
+    ├── 021_documentation.md         task 21
+    └── 022_rollback_drill.md        task 22
+```
 
-**Note:** This worked example shows the *shape* of the phased prompt pattern with two illustrative task prompts. A real initiative would have one prompt file per task in `tasks.md`. The two shown here exercise the production task-prompt template ([`../../../prompts/shared/task-prompt-template.md`](../../../prompts/shared/task-prompt-template.md)) end to end.
+**Filename convention:** Task prompts use the global task number from [`../tasks.md`](../tasks.md) (`004_*` implements task 4). Phase masters always start with `000_MASTER_<phase>` so they sort first within their phase directory. The global master is `000_GLOBAL_MASTER` so it sorts first overall.
+
+This worked example exercises the production task-prompt template ([`../../../prompts/shared/task-prompt-template.md`](../../../prompts/shared/task-prompt-template.md)) across all 22 tasks. The detail level varies appropriately: spike prompts (Phase 0) are scoped to exploration; backend implementation prompts (Phase 1) are most detailed; frontend prompts (Phase 2) are component-scoped; validation prompts (Phase 3) are procedural.

@@ -1,4 +1,4 @@
-# Task 002: Implement `GET /api/users/search` Endpoint
+# Task 010: Implement `GET /api/users/search` Endpoint
 
 > Production task prompt. Phase 1 mid-point (composes earlier Phase 1 components).
 
@@ -10,18 +10,19 @@ Wire `GET /api/users/search` end-to-end: accept the request, validate, RBAC-scop
 
 ## 2. Context
 
-**PRD Reference**: [`../prd.md`](../prd.md) Section 5 (Target Architecture), Section 10 (Backend / Integration Contracts)
-**Spec Reference**: [`../requirements.md`](../requirements.md) — Requirements: R1.1, R1.2, R1.3, R2.1, R3.1, R4.1, R4.2, R5.1, R5.2, R5.3, NFR-1.1, NFR-2.1, NFR-2.2, NFR-2.3, NFR-3.1, NFR-3.3, NFR-3.4
-**Architecture Reference**: [`../design.md`](../design.md) Section 2 (Architecture), Section 4 (API Contracts), Section 7 (Performance), Section 8 (Security), Section 9 (Observability)
-**Phase Master**: [`000_master.md`](000_master.md)
-**Related Tasks**: this is task 10 in [`../tasks.md`](../tasks.md). Depends on tasks 4 (indexes), 5 (validator), 6 (RBAC scoping), 7 (query builder), 8 (cursor), 9 (cache), 11 (observability). Task 12 (rate limiting) ships in parallel.
+**PRD Reference**: [`../../prd.md`](../../prd.md) Section 5 (Target Architecture), Section 10 (Backend / Integration Contracts)
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) — Requirements: R1.1, R1.2, R1.3, R2.1, R3.1, R4.1, R4.2, R5.1, R5.2, R5.3, NFR-1.1, NFR-2.1, NFR-2.2, NFR-2.3, NFR-3.1, NFR-3.3, NFR-3.4
+**Architecture Reference**: [`../../design.md`](../../design.md) Section 2 (Architecture), Section 4 (API Contracts), Section 7 (Performance), Section 8 (Security), Section 9 (Observability)
+**Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
+**Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
+**Related Tasks**: this is task 10 in [`../../tasks.md`](../../tasks.md). Depends on tasks 4 (indexes, [`004_index_migration.md`](004_index_migration.md)), 5 ([`005_request_validator.md`](005_request_validator.md)), 6 ([`006_rbac_scoping.md`](006_rbac_scoping.md)), 7 ([`007_query_builder.md`](007_query_builder.md)), 8 ([`008_cursor_encoding.md`](008_cursor_encoding.md)), 9 ([`009_cache_layer.md`](009_cache_layer.md)), 11 ([`011_observability.md`](011_observability.md)). Task 12 ([`012_rate_limiting.md`](012_rate_limiting.md)) ships in parallel.
 **Current File(s)**: `src/services/users/search/` (new module).
 
 By the time this task runs, the components built in tasks 5–9 and 11 exist as separate units. This task composes them into the request handler that serves `/api/users/search`.
 
 ## 3. Agent Assignment
 
-**Primary Agent**: `backend-engineer` (see [`../agent-roster.md`](../agent-roster.md))
+**Primary Agent**: `backend-engineer` (see [`../../agent-roster.md`](../../agent-roster.md))
 **Supporting Agents**:
 
 - `integration-test-generator` — drafts the integration tests covering the full request lifecycle.
@@ -146,7 +147,7 @@ None.
 - [ ] All error cases (400 invalid input, 401 unauthenticated, 429 rate-limited) return structured bodies.
 - [ ] Feature flag `users.search.enabled` controls the endpoint (404 when off).
 - [ ] Observability instrumentation emits the four metrics, the structured log, and the trace span (NFR-3.1, NFR-3.2, NFR-3.3, NFR-3.4).
-- [ ] Integration tests cover every requirement (R1.1–R5.3) — coverage table updated in [`../tasks.md`](../tasks.md).
+- [ ] Integration tests cover every requirement (R1.1–R5.3) — coverage table updated in [`../../tasks.md`](../../tasks.md).
 - [ ] Local synthetic 100 RPS load: p95 < 200ms.
 - [ ] `/audit` returns clean.
 - [ ] `security-auditor` signed off on the auth → RBAC → query path.

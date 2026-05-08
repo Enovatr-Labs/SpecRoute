@@ -7,7 +7,7 @@
 **Source PRD**: [`prd.md`](prd.md)
 **Source Spec Triplet**: [`requirements.md`](requirements.md), [`design.md`](design.md), [`tasks.md`](tasks.md)
 **Source Agent Roster**: [`agent-roster.md`](agent-roster.md)
-**Source Master Prompt**: [`prompts/000_master.md`](prompts/000_master.md)
+**Source Master Prompt**: [`prompts/000_GLOBAL_MASTER.md`](prompts/000_GLOBAL_MASTER.md)
 
 > The implementation plan is the operational view: who does what, when, with which dependencies, and how we know it landed cleanly. It composes the PRD, spec triplet, agent roster, and prompts into a single execution document.
 
@@ -160,4 +160,4 @@ This document is the operational view. The authoritative content lives elsewhere
 | How do we build it? | [`design.md`](design.md) |
 | What's the work plan? | [`tasks.md`](tasks.md) |
 | Who runs each task? | [`agent-roster.md`](agent-roster.md) |
-| How do agents pick up the work? | [`prompts/000_master.md`](prompts/000_master.md) and the numbered task prompts |
+| How do agents pick up the work? | [`prompts/000_GLOBAL_MASTER.md`](prompts/000_GLOBAL_MASTER.md) and the numbered task prompts |
