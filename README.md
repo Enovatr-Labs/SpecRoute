@@ -8,11 +8,26 @@ SpecForge captures production-grade patterns for PRDs, specifications, prompts, 
 
 Agent-assisted development drifts when there is no contract for *what* is being built. SpecForge formalizes the flow:
 
-```
-PRD → Spec (requirements + design + tasks) → Implementation → Validation → Review
+```mermaid
+flowchart LR
+    PRD["PRD<br/>business intent<br/>+ acceptance criteria"]
+    REQ["requirements.md<br/>stable IDs<br/>(R1.1, NFR-1.1, …)"]
+    DES["design.md<br/>architecture<br/>(references R*)"]
+    TSK["tasks.md<br/>numbered<br/>(back-refs to R*)"]
+    IMP["Implementation<br/>code + tests<br/>(one test per R*)"]
+    VAL["Validation<br/>coverage table<br/>+ NFR measurements"]
+    REV["Review + Merge"]
+
+    PRD --> REQ
+    PRD --> DES
+    REQ --> TSK
+    DES --> TSK
+    TSK --> IMP
+    IMP --> VAL
+    VAL --> REV
 ```
 
-Each stage has a template, an agent assignment, and an acceptance criterion. The point is not to slow down — it's to make the agent's output reviewable.
+Each stage has a template, an agent assignment, and an acceptance criterion. The cross-references that survive across stages — stable requirement IDs, design `Satisfies:` annotations, task back-refs, test back-refs — are what make the agent's output reviewable.
 
 ## Core artifact taxonomy
 
