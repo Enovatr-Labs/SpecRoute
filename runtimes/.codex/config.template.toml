@@ -1,0 +1,43 @@
+# Codex configuration template. Drop into .codex/config.toml in your repo.
+# This file is tracked. Per-user secrets belong in environment variables.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+# ─── MCP Servers ──────────────────────────────────────────────────────────
+# Mirror runtimes/mcp/servers.yaml. Run runtimes/mcp/render/render_codex.py to
+# regenerate this section from the canonical source.
+
+[mcp_servers.filesystem]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem", "."]
+
+# Per-tool approval mode for filesystem operations:
+[mcp_servers.filesystem.tools.move_file]
+approval_mode = "approve"
+
+[mcp_servers.filesystem.tools.create_directory]
+approval_mode = "approve"
+
+[mcp_servers.filesystem.tools.write_file]
+approval_mode = "approve"
+
+[mcp_servers.github]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-github"]
+# Set GITHUB_PERSONAL_ACCESS_TOKEN in your shell or .env (gitignored).
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+
+[mcp_servers.sequential-thinking]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@executeautomation/playwright-mcp-server"]
+
+[mcp_servers.playwright.tools.playwright_navigate]
+approval_mode = "approve"

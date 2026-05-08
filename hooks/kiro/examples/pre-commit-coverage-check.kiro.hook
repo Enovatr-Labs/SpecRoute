@@ -1,0 +1,14 @@
+{
+  "enabled": true,
+  "name": "Pre-commit Coverage Check",
+  "description": "Before commit, confirm that any modified source files have at least one corresponding test. Surfaces coverage gaps before they land.",
+  "version": "1",
+  "when": {
+    "type": "manual",
+    "trigger": "pre-commit"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "For each file in `git diff --cached --name-only` that matches a source pattern (src/**/*.py, src/**/*.ts, src/**/*.tsx), verify a corresponding test file exists in tests/ or alongside the source (e.g. *.test.ts). Report missing coverage as a punch list. Do NOT block - this is informational. The author may proceed with a clear conscience or add the missing tests."
+  }
+}
