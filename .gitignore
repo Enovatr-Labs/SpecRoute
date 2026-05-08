@@ -70,6 +70,15 @@ web_modules/
 .env.*
 !.env.example
 
+# Claude Code per-user settings
+.claude/settings.local.json
+
+# SpecForge sanitization wordlist — per-installation, contains private terms
+.claude/.forbidden-strings.txt
+
+# Internal bootstrap spec — not for public release
+initial.md
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
