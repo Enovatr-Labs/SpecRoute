@@ -79,6 +79,17 @@ web_modules/
 # Internal bootstrap spec — not for public release
 initial.md
 
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
 # parcel-bundler cache (https://parceljs.org/)
 .cache
 .parcel-cache
