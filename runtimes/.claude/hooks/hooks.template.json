@@ -1,0 +1,41 @@
+{
+  "_comment": "Claude Code hooks template for the consumer runtime. Drop into .claude/hooks/hooks.json. Replace <project>-specific paths and add hooks specific to your project.",
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/session-start-status.sh"
+          }
+        ]
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/pre-bash-sanitize.sh"
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .claude/hooks/scripts/post-edit-frontmatter.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

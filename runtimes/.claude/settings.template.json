@@ -1,0 +1,25 @@
+{
+  "_comment": "Claude Code project settings template. Drop into .claude/settings.json in your repo. This file is tracked. Per-user overrides go in .claude/settings.local.json (gitignored).",
+
+  "permissions": {
+    "_comment": "Permissions tighten or relax what Claude Code can do without prompting. See settings.local.json for the personal-override layer.",
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git grep:*)",
+      "Read(./**)"
+    ],
+    "deny": []
+  },
+
+  "model": "opus",
+
+  "_env_comment": "Environment variables passed to tools. Do NOT put secrets here - they belong in .env (gitignored) or in your shell profile.",
+  "env": {},
+
+  "_hooks_comment": "Hooks are configured separately in .claude/hooks/hooks.json. See runtimes/.claude/hooks/hooks.template.json.",
+
+  "_mcp_comment": "MCP server configuration is in claude_desktop_config.json (for the desktop app) or in this file under mcpServers (for project-scoped servers). See runtimes/.claude/claude_desktop_config.template.json for the desktop config and runtimes/mcp/servers.yaml for the cross-vendor source of truth."
+}

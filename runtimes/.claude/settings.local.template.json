@@ -1,0 +1,20 @@
+{
+  "_comment_about_this_template": "Per-user Claude Code settings template. Drop into .claude/settings.local.json in your repo and customize for YOUR machine. This file is gitignored - do not commit it. Add '.claude/settings.local.json' to your .gitignore.",
+
+  "_comment_relationship_to_settings_json": "settings.local.json overrides .claude/settings.json. Use it for: machine-specific paths, personal permission preferences, locally-enabled MCP servers. The PR review experience improves when settings.json contains only project-wide invariants and settings.local.json holds your personal additions.",
+
+  "permissions": {
+    "_comment": "Add commands you've deemed safe to run without prompting. Be conservative - allowed commands run without your review. Examples below; uncomment what you trust.",
+    "allow": [
+      "// Bash(npm run dev:*)",
+      "// Bash(make test:*)",
+      "// Read(/Users/yourname/notes/**)"
+    ]
+  },
+
+  "enabledMcpjsonServers": [
+    "_comment_about_mcp_servers": "List MCP server names from claude_desktop_config.json that you want enabled in this project. Empty list = all enabled."
+  ],
+
+  "enableAllProjectMcpServers": true
+}
