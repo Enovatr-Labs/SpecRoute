@@ -1,0 +1,39 @@
+cff-version: 1.2.0
+message: "If you use SpecForge in academic work, blog posts, or other published material, please cite it as below."
+title: "SpecForge: An open-source framework for spec-driven agentic software engineering"
+abstract: >-
+  SpecForge is a vendor-neutral framework for spec-driven agentic software
+  engineering. It captures production-grade patterns for PRDs, specifications
+  (requirements / design / tasks triplet), agents, skills, slash commands,
+  hooks, prompts, workflows, and engineering rules across six agent CLIs:
+  Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf. The framework
+  ships markdown content (templates, runtime layouts, worked examples)
+  rather than application code; consumers drop the per-vendor runtime
+  layouts into their own repositories and adapt the templates to their stack.
+type: software
+authors:
+  - family-names: Ihejimba
+    given-names: Chika
+    affiliation: Enovatr Labs
+    email: chika@enovatr.com
+url: "https://github.com/Enovatr-Labs/SpecForge"
+repository-code: "https://github.com/Enovatr-Labs/SpecForge"
+license: Apache-2.0
+date-released: 2026-05-09
+version: "0.1.0"
+keywords:
+  - agentic engineering
+  - spec-driven development
+  - large language models
+  - claude code
+  - codex
+  - gemini cli
+  - prompts
+  - prompt engineering
+  - software architecture
+  - architecture decision records
+  - developer tooling
+identifiers:
+  - description: "Source code repository"
+    type: url
+    value: "https://github.com/Enovatr-Labs/SpecForge"

@@ -32,7 +32,7 @@ rules/
 The shared rule files are content; the per-vendor files are mechanism. Keeping them separate means:
 
 - Updating a rule (content) is one edit.
-- Adding a new vendor is one new file (`<new-vendor>-rules.md`) — the existing rules don't move.
+- Adding a new vendor is one new file (`<new-vendor>-rules.md`) - the existing rules don't move.
 - Vendors that don't natively load rules still surface the content via root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`).
 
 ## Authoring
@@ -41,5 +41,5 @@ Rules are owned by the `framework-docs-author` agent. Cross-cutting changes (e.g
 
 ## See also
 
-- [`docs/multi-vendor-context-files.md`](../docs/multi-vendor-context-files.md) — how the canonical `AGENTS.md` and per-vendor delegation shims work.
-- [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) — when to enforce via rule vs hook vs review.
+- [`agentic-docs/multi-vendor-context-files.md`](../agentic-docs/multi-vendor-context-files.md) - how the canonical `AGENTS.md` and per-vendor delegation shims work.
+- [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) - when to enforce via rule vs hook vs review.

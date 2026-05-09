@@ -1,0 +1,15 @@
+{
+  "_comment_about_this_template": "Per-user Claude Code settings template. After copying this example folder, rename to .claude/settings.local.json and customize for YOUR machine. Add '.claude/settings.local.json' to your project's .gitignore.",
+
+  "permissions": {
+    "_comment": "Add commands you've deemed safe to run without prompting. Examples below; uncomment what you trust.",
+    "allow": [
+      "// Bash(npm test:*)",
+      "// Bash(pytest:*)",
+      "// Bash(make:*)"
+    ]
+  },
+
+  "enabledMcpjsonServers": [],
+  "enableAllProjectMcpServers": true
+}

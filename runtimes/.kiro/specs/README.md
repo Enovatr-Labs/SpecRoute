@@ -1,6 +1,6 @@
 # `.kiro/specs/`
 
-Kiro's spec triplet location — `<feature>/{requirements,design,tasks}.md`. Same triplet shape SpecForge uses elsewhere; Kiro reads it from this directory natively.
+Kiro's spec triplet location - `<feature>/{requirements,design,tasks}.md`. Same triplet shape SpecForge uses elsewhere; Kiro reads it from this directory natively.
 
 ## Layout
 

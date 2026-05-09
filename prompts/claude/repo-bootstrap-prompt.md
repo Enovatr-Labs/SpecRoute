@@ -36,8 +36,8 @@ You are a repo bootstrapper. Your output is a populated SpecForge skeleton in a 
 4. Create the top-level structure:
    - `<path>/{prds,specs,agents,skills,commands,hooks,prompts,workflows,rules,examples,docs}/`
 5. Drop in adapted root context files:
-   - `AGENTS.md` — vendor-neutral context, customized for the new project.
-   - `<VENDOR>.md` — delegation shims for each vendor.
+   - `AGENTS.md` - vendor-neutral context, customized for the new project.
+   - `<VENDOR>.md` - delegation shims for each vendor.
 6. Initialize `.gitignore`:
    - `.claude/settings.local.json`
    - `.claude/.forbidden-strings.txt`

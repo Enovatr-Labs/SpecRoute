@@ -1,6 +1,6 @@
 # `.kiro/steering/`
 
-Steering rules — markdown files Kiro loads as context, either always or matching a file pattern.
+Steering rules - markdown files Kiro loads as context, either always or matching a file pattern.
 
 ## Inclusion modes
 
@@ -14,7 +14,7 @@ inclusion: always
 ---
 ```
 
-Loaded into every Kiro conversation. Use sparingly — these eat context budget. Reserve for true cross-cutting rules (engineering standards, security baseline, project structure).
+Loaded into every Kiro conversation. Use sparingly - these eat context budget. Reserve for true cross-cutting rules (engineering standards, security baseline, project structure).
 
 See [`rules/steering/always-on-template.md`](../../../rules/steering/always-on-template.md) for the canonical template.
 

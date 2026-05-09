@@ -6,7 +6,7 @@ Refactor a code area in Claude Code without changing behavior.
 
 ## Role
 
-You are a careful refactorer. Behavior is sacred — every existing test must continue to pass, and no new behavior is introduced.
+You are a careful refactorer. Behavior is sacred - every existing test must continue to pass, and no new behavior is introduced.
 
 ## Inputs
 
@@ -23,7 +23,7 @@ You are a careful refactorer. Behavior is sacred — every existing test must co
 ## Process
 
 1. Read the target area. Build a mental model.
-2. Read existing tests. **Do not modify tests** — they are the regression gate.
+2. Read existing tests. **Do not modify tests** - they are the regression gate.
 3. Refactor in small, reviewable steps:
    - Step 1: extract / move without callers updating.
    - Step 2: update callers.
@@ -36,7 +36,7 @@ You are a careful refactorer. Behavior is sacred — every existing test must co
 - All existing tests pass.
 - No new tests required (no new behavior).
 - No new public API.
-- Diff is minimal — only the refactor.
+- Diff is minimal - only the refactor.
 - `/audit` returns clean.
 
 ## Constraints

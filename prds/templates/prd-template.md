@@ -73,9 +73,9 @@ TODO: replace with the real summary>
 
 In priority order:
 
-1. **<Goal 1>** — <one-line description>
-2. **<Goal 2>** — <one-line description>
-3. **<Goal 3>** — <one-line description>
+1. **<Goal 1>** - <one-line description>
+2. **<Goal 2>** - <one-line description>
+3. **<Goal 3>** - <one-line description>
 
 ### 3.2 Non-Goals
 
@@ -105,7 +105,7 @@ Include leading indicators (early signals) and lagging indicators (the actual ou
 
 ### 4.2 Out of Scope
 
-- <Item 1 — and why it's out>
+- <Item 1 - and why it's out>
 - <Item 2>
 
 ### 4.3 Open Questions

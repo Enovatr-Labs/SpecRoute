@@ -6,7 +6,7 @@
 **Status**: Draft | Approved | In Implementation | Complete
 **Source PRD**: <link>
 
-> **Lightweight single-file alternative to the spec triplet.** Use this template for features that genuinely fit on one page — single team, single owner, single acceptance criterion. Anything larger uses [`requirements-template.md`](requirements-template.md), [`design-template.md`](design-template.md), [`tasks-template.md`](tasks-template.md).
+> **Lightweight single-file alternative to the spec triplet.** Use this template for features that genuinely fit on one page - single team, single owner, single acceptance criterion. Anything larger uses [`requirements-template.md`](requirements-template.md), [`design-template.md`](design-template.md), [`tasks-template.md`](tasks-template.md).
 
 ---
 
@@ -18,9 +18,9 @@
 
 Each requirement has a stable ID. `WHEN <event>, THE <system> SHALL <action>` form for testability.
 
-- **R1** — TODO
-- **R2** — TODO
-- **R3** — TODO
+- **R1** - TODO
+- **R2** - TODO
+- **R3** - TODO
 
 ## 3. Design
 

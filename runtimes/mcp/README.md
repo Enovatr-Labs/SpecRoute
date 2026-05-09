@@ -1,10 +1,10 @@
-# `runtimes/mcp/` — MCP Single Source of Truth
+# `runtimes/mcp/` - MCP Single Source of Truth
 
 The Model Context Protocol (MCP) server inventory lives here. Three vendors consume MCP configs in different shapes:
 
-- **Claude Desktop**: `claude_desktop_config.json` — `mcpServers` object
-- **Codex**: `config.toml` — `[mcp_servers.<name>]` sections
-- **Gemini CLI**: `settings.json` — `mcpServers` object (same shape as Claude)
+- **Claude Desktop**: `claude_desktop_config.json` - `mcpServers` object
+- **Codex**: `config.toml` - `[mcp_servers.<name>]` sections
+- **Gemini CLI**: `settings.json` - `mcpServers` object (same shape as Claude)
 
 Maintaining three configs by hand is the failure mode. This directory establishes a **single source of truth** (`servers.yaml`) and per-vendor renderers that emit each config from it.
 
@@ -42,18 +42,18 @@ runtimes/mcp/
 
 For each server:
 
-- `name` — slug used as the map key in vendor configs.
-- `description` — human-readable purpose. Not emitted to vendor configs.
-- `command` + `args` — how the MCP server starts.
-- `requires_env` (optional) — environment variables the server needs (e.g. API tokens).
-- `codex_tool_approvals` (optional) — Codex-specific per-tool approval modes; ignored by Claude / Gemini renderers.
+- `name` - slug used as the map key in vendor configs.
+- `description` - human-readable purpose. Not emitted to vendor configs.
+- `command` + `args` - how the MCP server starts.
+- `requires_env` (optional) - environment variables the server needs (e.g. API tokens).
+- `codex_tool_approvals` (optional) - Codex-specific per-tool approval modes; ignored by Claude / Gemini renderers.
 
 ## Adding a new server
 
 1. Append a new entry to `servers.yaml`.
 2. Re-run all three renderers.
 3. Verify the `_comment` field at the top of each generated file is preserved.
-4. If the server requires credentials, document them in `requires_env` — never inline secrets.
+4. If the server requires credentials, document them in `requires_env` - never inline secrets.
 
 ## Removing a server
 
@@ -79,4 +79,4 @@ A new vendor that consumes MCP configs in a new shape gets a new renderer:
 
 ## Reference
 
-- [`docs/cross-vendor-sync.md`](../../docs/cross-vendor-sync.md) — the broader cross-vendor sync pattern (skills, agents, MCP).
+- [`agentic-docs/cross-vendor-sync.md`](../../agentic-docs/cross-vendor-sync.md) - the broader cross-vendor sync pattern (skills, agents, MCP).

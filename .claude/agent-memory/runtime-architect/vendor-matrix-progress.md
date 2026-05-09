@@ -1,4 +1,4 @@
-# Runtime Architect — Vendor Matrix Progress
+# Runtime Architect - Vendor Matrix Progress
 
 Tracks the build-out state of each supported vendor's runtime layout. Update on every commit that adds or modifies a `runtimes/.<vendor>/` directory.
 
@@ -50,5 +50,5 @@ Scope (when built):
 
 ## Open questions
 
-- Should `runtimes/.codex/` include a `scripts/sync.py` that mirrors `tools/sync-skills.py` for in-runtime use? (Common pattern in upstream private references.) Probably yes — but make it a thin wrapper.
-- Cursor `.mdc` vs `.md` — confirm current Cursor expectation before building.
+- Should `runtimes/.codex/` include a `scripts/sync.py` that mirrors `tools/sync-skills.py` for in-runtime use? (Common pattern in upstream private references.) Probably yes - but make it a thin wrapper.
+- Cursor `.mdc` vs `.md` - confirm current Cursor expectation before building.

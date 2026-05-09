@@ -98,7 +98,7 @@ Then decides:
 
 - **Approve**: agent found nothing material; human concurs.
 - **Request changes**: agent's blockers are real, OR the human sees something the agent missed.
-- **Block**: structural problem — wrong design choice, wrong scope, wrong abstraction. Often surfaces only at human review.
+- **Block**: structural problem - wrong design choice, wrong scope, wrong abstraction. Often surfaces only at human review.
 
 The human is not deferring to the agent. The human reads the agent's findings as a comprehensive checklist and adds judgment on top.
 
@@ -163,11 +163,11 @@ Agent review quality is a function of prompt quality + agent definition quality.
 
 | Vendor | Agent review viability |
 |---|---|
-| Claude Code | Strong — sub-agents via `Task` tool; can dispatch a code-reviewer agent |
-| Codex | Strong — skills with `user-invocable: true` work as review entry points |
-| Gemini CLI | Limited — no skill primitive; review prompts pasted directly |
-| Cursor | Limited — rule-based, not workflow-based |
-| Kiro | Strong — file-saved hook can trigger review on PR-relevant changes |
+| Claude Code | Strong - sub-agents via `Task` tool; can dispatch a code-reviewer agent |
+| Codex | Strong - skills with `user-invocable: true` work as review entry points |
+| Gemini CLI | Limited - no skill primitive; review prompts pasted directly |
+| Cursor | Limited - rule-based, not workflow-based |
+| Kiro | Strong - file-saved hook can trigger review on PR-relevant changes |
 | Windsurf | Limited |
 
 For vendors with limited agent-review support, fall back to manual prompt invocation: paste the code-review-prompt + diff into a conversation.
@@ -178,6 +178,6 @@ The agent that performs the review is project-specific (e.g. `code-reviewer`, `s
 
 ## See also
 
-- [`prompts/shared/code-review-prompt.md`](../prompts/shared/code-review-prompt.md) — the actual prompt.
-- [`rules/code-review-rules.md`](../rules/code-review-rules.md) — the rules the review applies.
-- [`spec-to-implementation.md`](spec-to-implementation.md) — the implementation loop the review caps.
+- [`prompts/shared/code-review-prompt.md`](../prompts/shared/code-review-prompt.md) - the actual prompt.
+- [`rules/code-review-rules.md`](../rules/code-review-rules.md) - the rules the review applies.
+- [`spec-to-implementation.md`](spec-to-implementation.md) - the implementation loop the review caps.

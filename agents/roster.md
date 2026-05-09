@@ -28,7 +28,7 @@ Total Agents: <N>
 | `spec-author` | Spec triplet author | opus | cyan | project | No |
 | `agent-roster-architect` | Agent roster designer | opus | purple | project | No |
 
-**Purpose:** Defines what's being built — PRDs, spec triplets, agent assignments.
+**Purpose:** Defines what's being built - PRDs, spec triplets, agent assignments.
 
 ## Department 2: Implementation
 
@@ -70,7 +70,7 @@ Total Agents: <N>
 |---|---|---|---|---|---|
 | `<advisor-1>` | <role> | opus | <color> | project | Yes |
 
-**Purpose:** Higher-level guidance — architecture, build-vs-buy, governance. Optional.
+**Purpose:** Higher-level guidance - architecture, build-vs-buy, governance. Optional.
 
 ## Roster maintenance
 

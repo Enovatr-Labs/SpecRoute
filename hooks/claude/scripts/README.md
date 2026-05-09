@@ -11,7 +11,7 @@ Supporting shell scripts referenced by `hooks/claude/hooks.template.json`. Each 
   COMMAND="$(printf '%s' "$INPUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("command",""))')"
   ```
 
-- **Exit codes**: `0` allows / proceeds. Non-zero **blocks** (PreToolUse only); `PostToolUse` and `SessionStart` cannot block — non-zero is informational.
+- **Exit codes**: `0` allows / proceeds. Non-zero **blocks** (PreToolUse only); `PostToolUse` and `SessionStart` cannot block - non-zero is informational.
 
 - **Stderr**: Anything on stderr is shown to the user. Use for actionable messages.
 
@@ -21,11 +21,11 @@ Supporting shell scripts referenced by `hooks/claude/hooks.template.json`. Each 
 
 See [`../../../.claude/hooks/`](../../../.claude/hooks/) at the repo root for working hooks:
 
-- `session-start-status.sh` — prints a SpecForge skeleton status banner.
-- `pre-bash-sanitize.sh` — blocks `git commit`/`git push` if forbidden strings appear in tracked files.
-- `post-edit-frontmatter.sh` — validates frontmatter when agent/skill/command files are written or edited.
+- `session-start-status.sh` - prints a SpecForge skeleton status banner.
+- `pre-bash-sanitize.sh` - blocks `git commit`/`git push` if forbidden strings appear in tracked files.
+- `post-edit-frontmatter.sh` - validates frontmatter when agent/skill/command files are written or edited.
 
-These are the canonical worked examples — copy and adapt them rather than starting from scratch.
+These are the canonical worked examples - copy and adapt them rather than starting from scratch.
 
 ## Common patterns
 
@@ -85,12 +85,12 @@ exit 0
 
 ## Hardening
 
-- **Quote variables**: `"$var"` not `$var` — paths with spaces will break.
+- **Quote variables**: `"$var"` not `$var` - paths with spaces will break.
 - **Avoid eval and unquoted command interpolation**.
 - **Use `set -u`** to catch unset variables.
 - **Sub-second execution target**. Slow hooks degrade the agent CLI.
 - **Be idempotent**. Hooks fire on every matching event.
-- **Don't write to tracked files** during PostToolUse — that creates infinite loops with PostToolUse hooks that match Write.
+- **Don't write to tracked files** during PostToolUse - that creates infinite loops with PostToolUse hooks that match Write.
 
 ## Adding a hook script
 

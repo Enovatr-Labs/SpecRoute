@@ -42,7 +42,7 @@
 
 ## Implementation notes
 
-<Bullet points covering anything non-obvious: data changes, API impact, migration steps, performance considerations, rollback approach. Keep terse — if this section grows past ~10 bullets, escalate to the full PRD template.>
+<Bullet points covering anything non-obvious: data changes, API impact, migration steps, performance considerations, rollback approach. Keep terse - if this section grows past ~10 bullets, escalate to the full PRD template.>
 
 ## Risks
 

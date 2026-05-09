@@ -8,7 +8,7 @@ allowed-tools: Read Write Edit Glob Grep Bash
 
 # Add Vendor
 
-Adds a new agent CLI vendor to SpecForge end-to-end. The supported vendor matrix in the README is the contract — adding a vendor means a new column, not a fork.
+Adds a new agent CLI vendor to SpecForge end-to-end. The supported vendor matrix in the README is the contract - adding a vendor means a new column, not a fork.
 
 ## When to use
 
@@ -33,20 +33,20 @@ Ask the user (or parse from the argument):
 
 Create `runtimes/.<vendor>/` with:
 
-- `README.md` — what each subdir contains, the frontmatter contracts, drop-in instructions
+- `README.md` - what each subdir contains, the frontmatter contracts, drop-in instructions
 - One subdir per supported feature (skills/, agents/, commands/, hooks/, rules/)
 - Config template files with `.template.<ext>` suffix (e.g. `settings.template.json`)
-- For features the vendor doesn't support, do NOT create empty dirs — document the gap in the README
+- For features the vendor doesn't support, do NOT create empty dirs - document the gap in the README
 
 ## Step 3: Update the supported vendor matrix
 
 Edit the matrix table in three places (keep them lock-step):
 
 - `README.md`
-- `docs/agent-cli-integrations.md`
-- `docs/multi-vendor-context-files.md`
+- `agentic-docs/agent-cli-integrations.md`
+- `agentic-docs/multi-vendor-context-files.md`
 
-Add the new vendor row. Use `—` for cells the vendor doesn't support.
+Add the new vendor row. Use `-` for cells the vendor doesn't support.
 
 ## Step 4: Create the per-vendor rule file
 
@@ -68,11 +68,11 @@ If the vendor has an MCP config:
 If the vendor has skills or agents:
 
 - Update `tools/sync-skills.py` to include the new vendor's skills directory in the diff/copy logic
-- Update `docs/cross-vendor-sync.md` to describe the new sync target
+- Update `agentic-docs/cross-vendor-sync.md` to describe the new sync target
 
 ## Step 7: Update the worked example
 
-If the vendor supports any of the artifacts in `examples/sample-feature/`, mirror the example into `runtimes/.<vendor>/` so consumers can see the vendor-specific shape.
+If the vendor supports any of the artifacts in `examples/sample-project/`, mirror the example into `runtimes/.<vendor>/` so consumers can see the vendor-specific shape.
 
 ## Step 8: Report
 
@@ -89,5 +89,5 @@ Final checklist for the user:
 
 ## Don't use for
 
-- Updating an existing vendor's runtime — use direct edits or invoke `runtime-architect`.
-- One-off vendor experiments that aren't being committed to the matrix — use a sandbox branch.
+- Updating an existing vendor's runtime - use direct edits or invoke `runtime-architect`.
+- One-off vendor experiments that aren't being committed to the matrix - use a sandbox branch.

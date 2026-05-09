@@ -11,7 +11,7 @@ You are a **senior reviewer** with the authority to request changes, raise conce
 ## Inputs
 
 - The change set (PR diff or `git diff`).
-- The corresponding spec triplet (`requirements.md`, `design.md`, `tasks.md`) — find the task ID in the PR title or commit messages.
+- The corresponding spec triplet (`requirements.md`, `design.md`, `tasks.md`) - find the task ID in the PR title or commit messages.
 - The relevant rules under `rules/` (engineering, code-review, security, documentation).
 
 ## Review steps
@@ -42,17 +42,17 @@ Walk the diff with these lenses:
 
 - **Correctness**: does the code implement what `design.md` says it should?
 - **Boundaries**: does the change respect ownership (per the spec triplet's component map)?
-- **Security**: per `rules/security-rules.md` — input validation, output encoding, secret handling, auth posture.
-- **Performance**: per `rules/engineering-rules.md` and the design's performance section — query plans, allocations, bundle size.
-- **Observability**: per NFR-3 — does the code emit the required metrics, logs, traces?
-- **Error handling**: per `rules/engineering-rules.md` — explicit error paths, structured responses, no silent swallows.
+- **Security**: per `rules/security-rules.md` - input validation, output encoding, secret handling, auth posture.
+- **Performance**: per `rules/engineering-rules.md` and the design's performance section - query plans, allocations, bundle size.
+- **Observability**: per NFR-3 - does the code emit the required metrics, logs, traces?
+- **Error handling**: per `rules/engineering-rules.md` - explicit error paths, structured responses, no silent swallows.
 
 ### 4. Check the tests
 
 - Test names describe behavior, not implementation.
 - Real assertions, not just `assert true`.
-- Mocks at external boundaries only — do not mock the system under test.
-- Deterministic — no flake-prone constructs (`time.sleep`, real network, real clock without injection).
+- Mocks at external boundaries only - do not mock the system under test.
+- Deterministic - no flake-prone constructs (`time.sleep`, real network, real clock without injection).
 
 ### 5. Check the docs
 
@@ -87,13 +87,13 @@ Structure your review as:
 - <thing 2>
 ```
 
-Be specific. "This is unclear" is not actionable; "function `foo` does X but variable `bar` implies Y — rename or split" is.
+Be specific. "This is unclear" is not actionable; "function `foo` does X but variable `bar` implies Y - rename or split" is.
 
 ## Anti-patterns to avoid
 
 - **Reviewing without the spec.** Without `requirements.md` you can't tell if the PR is in-scope.
 - **Bikeshedding.** Style nits don't block; correctness, security, and missing tests do.
-- **Approving with caveats.** If you have a blocker, request changes — don't approve and hope.
+- **Approving with caveats.** If you have a blocker, request changes - don't approve and hope.
 
 ## Quality gate
 

@@ -1,6 +1,6 @@
 # PRDs
 
-Product Requirements Documents — the business intent layer of the spec-driven flow.
+Product Requirements Documents - the business intent layer of the spec-driven flow.
 
 ```
 prds/
@@ -27,11 +27,11 @@ prds/
 ## Lifecycle
 
 1. **Draft** in `prds/active/` with status `Draft`.
-2. **Review** — promote to status `Under Review` once the author considers it ready.
-3. **Approve** — flip to status `Approved` when stakeholders sign off; this is the gate before spec-triplet work begins.
-4. **Implement** — status `In Implementation` while the matching `specs/examples/<feature>/` is being built and the work is in flight.
-5. **Ship** — status `Shipped` and move to `prds/archive/`.
-6. **Deprecate** — when superseded, move to `prds/deprecated/` with a pointer to the replacement PRD.
+2. **Review** - promote to status `Under Review` once the author considers it ready.
+3. **Approve** - flip to status `Approved` when stakeholders sign off; this is the gate before spec-triplet work begins.
+4. **Implement** - status `In Implementation` while the matching `specs/examples/<feature>/` is being built and the work is in flight.
+5. **Ship** - status `Shipped` and move to `prds/archive/`.
+6. **Deprecate** - when superseded, move to `prds/deprecated/` with a pointer to the replacement PRD.
 
 Filenames in `active/` should be `<slug>.md` (e.g. `notification-preferences.md`). Filenames in `archive/` should prefix the year for sorting (e.g. `2026-04-notification-preferences.md`).
 
@@ -50,7 +50,7 @@ Scope: <one-line scope statement>
 ---
 ```
 
-A PRD without `Status` is not actionable — reviewers can't tell what gate it's at. A PRD without `Architecture Reference` is missing context downstream stages need.
+A PRD without `Status` is not actionable - reviewers can't tell what gate it's at. A PRD without `Architecture Reference` is missing context downstream stages need.
 
 ## Authoring agent
 
@@ -58,6 +58,6 @@ Drafting and reviewing PRDs is owned by the `prd-author` agent. See `.claude/age
 
 ## Related documents
 
-- [`specs/README.md`](../specs/README.md) — what comes after the PRD is approved
-- [`docs/spec-driven-development.md`](../docs/spec-driven-development.md) — the end-to-end flow
-- [`prompts/shared/prd-to-spec-prompt.md`](../prompts/shared/prd-to-spec-prompt.md) — a reusable prompt for converting a PRD into the spec triplet
+- [`specs/README.md`](../specs/README.md) - what comes after the PRD is approved
+- [`agentic-docs/spec-driven-development.md`](../agentic-docs/spec-driven-development.md) - the end-to-end flow
+- [`prompts/shared/prd-to-spec-prompt.md`](../prompts/shared/prd-to-spec-prompt.md) - a reusable prompt for converting a PRD into the spec triplet

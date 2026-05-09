@@ -1,6 +1,6 @@
 # Agent Examples
 
-Concrete agent definitions that demonstrate the flat-file frontmatter contract. These are **the canonical file shape** — not the archetypes in `../archetypes/`, which describe responsibilities.
+Concrete agent definitions that demonstrate the flat-file frontmatter contract. These are **the canonical file shape** - not the archetypes in `../archetypes/`, which describe responsibilities.
 
 ```
 agents/examples/
@@ -22,11 +22,11 @@ memory: project | user | absent          # optional
 internet: Yes | No | absent              # optional
 ---
 
-You are the <Role Title> for <Project> — <one-sentence scope>.
+You are the <Role Title> for <Project> - <one-sentence scope>.
 
 ## Owns
 
-- `<file/dir>` — <why>
+- `<file/dir>` - <why>
 
 ## Operating principles
 
@@ -34,7 +34,7 @@ You are the <Role Title> for <Project> — <one-sentence scope>.
 
 ## Don't use for
 
-- <Adjacent concern> — <other agent>.
+- <Adjacent concern> - <other agent>.
 ```
 
 See [`../agent-template.md`](../agent-template.md) for full guidance and the [`../roster.md`](../roster.md) for cross-vendor inventory.
@@ -43,9 +43,9 @@ See [`../agent-template.md`](../agent-template.md) for full guidance and the [`.
 
 The 11 agents under [`.claude/agents/`](../../.claude/agents/) at the repository root are real, tracked implementations of this contract. Read them as worked examples:
 
-- `prd-author.md`, `spec-author.md` — opus-tier author roles, `description` with explicit triggers
-- `command-author.md`, `hooks-author.md` — sonnet-tier narrower-scope roles
-- `sanitization-auditor.md`, `template-quality-reviewer.md` — quality-gate agents
+- `prd-author.md`, `spec-author.md` - opus-tier author roles, `description` with explicit triggers
+- `command-author.md`, `hooks-author.md` - sonnet-tier narrower-scope roles
+- `sanitization-auditor.md`, `template-quality-reviewer.md` - quality-gate agents
 
 ## Adding an example
 

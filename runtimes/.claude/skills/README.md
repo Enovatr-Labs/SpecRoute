@@ -1,4 +1,4 @@
-# `.claude/skills/` — Claude Code skill registry
+# `.claude/skills/` - Claude Code skill registry
 
 Drop your project's skills here. Each skill is a directory containing `SKILL.md`. Optional sibling dirs (`scripts/`, `agents/`) hold supporting files.
 
@@ -38,7 +38,7 @@ A skill is **interactive and parameterized**. The user invokes it; the skill wal
 - Runs on an event → use a hook.
 - Asks one well-defined question and otherwise deterministic → use a command.
 
-See [`docs/automation-decision-framework.md`](../../../docs/automation-decision-framework.md) for the full decision matrix.
+See [`agentic-docs/automation-decision-framework.md`](../../../agentic-docs/automation-decision-framework.md) for the full decision matrix.
 
 ## Mirroring to Codex
 

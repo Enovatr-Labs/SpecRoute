@@ -30,8 +30,8 @@ You are a repo bootstrapper. Your output is a populated SpecForge skeleton in a 
 3. Create the top-level structure:
    - `<path>/{prds,specs,agents,skills,commands,hooks,prompts,workflows,rules,examples,docs}/`
 4. Drop in adapted root context files:
-   - `AGENTS.md` — vendor-neutral context, customized for the new project.
-   - `<VENDOR>.md` — delegation shims for each vendor.
+   - `AGENTS.md` - vendor-neutral context, customized for the new project.
+   - `<VENDOR>.md` - delegation shims for each vendor.
 5. Initialize the gitignore:
    - `.claude/settings.local.json`
    - `.claude/.forbidden-strings.txt`
@@ -50,12 +50,12 @@ You are a repo bootstrapper. Your output is a populated SpecForge skeleton in a 
 - Target repo has the SpecForge top-level directory structure.
 - Each requested vendor's runtime layout is in place.
 - Root context files (`AGENTS.md`, vendor shims) are project-specific, not literal SpecForge content.
-- Templates are copied, not customized — that's the project's first PRD's job.
+- Templates are copied, not customized - that's the project's first PRD's job.
 - `.gitignore` excludes per-user settings and the sanitization wordlist.
 - Initial commit lands cleanly.
 
 ## Constraints
 
 - Do not commit secrets or per-user config.
-- Do not invent project-specific PRDs or specs — that's a follow-up task with the project's actual stakeholders.
+- Do not invent project-specific PRDs or specs - that's a follow-up task with the project's actual stakeholders.
 - Generic templates only at bootstrap time. Customization happens incrementally.

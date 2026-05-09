@@ -1,4 +1,4 @@
-# `.kiro/` — Kiro runtime layout
+# `.kiro/` - Kiro runtime layout
 
 Drop this directory into the root of your project. Kiro reads from these paths.
 
@@ -13,9 +13,9 @@ Drop this directory into the root of your project. Kiro reads from these paths.
 
 ## What Kiro consumes
 
-- **Steering files** (`*.md` under `steering/`) — rules with `inclusion: always` (loaded into every conversation) or `inclusion: fileMatch` (loaded when matching a file pattern).
-- **Specs** (`<feature>/{requirements,design,tasks}.md`) — the spec triplet pattern Kiro pioneered.
-- **Hooks** (`<name>.kiro.hook` JSON files) — file-pattern triggers that fire on `fileEdited`, `fileSaved`, or `manual`.
+- **Steering files** (`*.md` under `steering/`) - rules with `inclusion: always` (loaded into every conversation) or `inclusion: fileMatch` (loaded when matching a file pattern).
+- **Specs** (`<feature>/{requirements,design,tasks}.md`) - the spec triplet pattern Kiro pioneered.
+- **Hooks** (`<name>.kiro.hook` JSON files) - file-pattern triggers that fire on `fileEdited`, `fileSaved`, or `manual`.
 
 Kiro does NOT consume:
 

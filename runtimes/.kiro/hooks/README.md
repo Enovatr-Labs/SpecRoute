@@ -40,13 +40,13 @@ Kiro hook configurations. Each hook is a JSON file with the `.kiro.hook` extensi
 
 See [`../../../hooks/kiro/examples/`](../../../hooks/kiro/examples/) for worked examples:
 
-- `auto-test-runner.kiro.hook` — runs scoped tests when source files change.
-- `pre-commit-coverage-check.kiro.hook` — verifies test coverage before commit.
-- `doc-sync-checker.kiro.hook` — validates doc cross-references when docs are saved.
+- `auto-test-runner.kiro.hook` - runs scoped tests when source files change.
+- `pre-commit-coverage-check.kiro.hook` - verifies test coverage before commit.
+- `doc-sync-checker.kiro.hook` - validates doc cross-references when docs are saved.
 
 ## Anti-patterns
 
 - **Slow hooks**. Sub-second target. Slow hooks degrade the editor.
 - **Non-idempotent hooks**. Hooks fire on every event; corrupt state if not idempotent.
-- **Hooks that ask the user questions**. Hooks can't be interactive — use a steering rule or a manual workflow instead.
+- **Hooks that ask the user questions**. Hooks can't be interactive - use a steering rule or a manual workflow instead.
 - **Hooks for occasional work**. If the user does it once a week, a manual workflow is better than a hook.

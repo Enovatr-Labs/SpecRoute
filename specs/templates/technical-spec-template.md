@@ -5,7 +5,7 @@
 **Author**: <Name>
 **Status**: Draft | Approved | Implemented | Superseded
 
-> Technical specs cover non-product-facing work — refactors, migrations, infrastructure changes, library upgrades — where there is no user-facing PRD. For product features, use the spec triplet ([`requirements-template.md`](requirements-template.md) + [`design-template.md`](design-template.md) + [`tasks-template.md`](tasks-template.md)) or [`feature-spec-template.md`](feature-spec-template.md).
+> Technical specs cover non-product-facing work - refactors, migrations, infrastructure changes, library upgrades - where there is no user-facing PRD. For product features, use the spec triplet ([`requirements-template.md`](requirements-template.md) + [`design-template.md`](design-template.md) + [`tasks-template.md`](tasks-template.md)) or [`feature-spec-template.md`](feature-spec-template.md).
 
 ---
 
@@ -25,7 +25,7 @@
 
 ## 4. Current State
 
-<What exists today. Be concrete — file paths, line counts, latency numbers, error rates.>
+<What exists today. Be concrete - file paths, line counts, latency numbers, error rates.>
 
 ## 5. Proposed Changes
 

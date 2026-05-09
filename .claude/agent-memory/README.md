@@ -19,15 +19,15 @@ Per-agent persistent context for the SpecForge implementation team. Each subdire
 
 ## What does NOT go in here
 
-- Anything that would leak in a public repo. These files **are tracked** — they ship as part of SpecForge. Treat them with the same sanitization bar as any other tracked file. Do not write upstream private project names, internal paths, or domain-specific business logic into these notes.
+- Anything that would leak in a public repo. These files **are tracked** - they ship as part of SpecForge. Treat them with the same sanitization bar as any other tracked file. Do not write upstream private project names, internal paths, or domain-specific business logic into these notes.
 - Live secrets, tokens, credentials.
-- Information that belongs in a real artifact (PRD, spec, doc) — write the artifact instead.
-- Information that belongs in user-level memory (cross-project facts about the user) — those live in `~/.claude/projects/-Users-chika-LocalDev-SpecForge/memory/` and stay out of git.
+- Information that belongs in a real artifact (PRD, spec, doc) - write the artifact instead.
+- Information that belongs in user-level memory (cross-project facts about the user) - those live in `~/.claude/projects/-Users-chika-LocalDev-SpecForge/memory/` and stay out of git.
 
 ## Currently populated
 
-- `sanitization-auditor/` — pointer to user-level memory; checklist
-- `runtime-architect/` — supported vendor matrix progress
-- `framework-docs-author/` — docs status
+- `sanitization-auditor/` - pointer to user-level memory; checklist
+- `runtime-architect/` - supported vendor matrix progress
+- `framework-docs-author/` - docs status
 
 Other agents have memory dirs as needed; empty dirs are not pre-created.

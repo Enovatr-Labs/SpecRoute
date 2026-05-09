@@ -35,7 +35,7 @@ If the argument is missing or unclear, ask:
 
 ## Step 3: <Third step title>
 
-<Continue the guided walkthrough. Validation checkpoints belong here — confirm before destructive actions.>
+<Continue the guided walkthrough. Validation checkpoints belong here - confirm before destructive actions.>
 
 ## Step 4: Report
 
@@ -48,8 +48,8 @@ If the argument is missing or unclear, ask:
 
 ## Don't use for
 
-- <Adjacent operation 1> — use <other skill or agent>.
-- <Adjacent operation 2> — use <other skill or agent>.
+- <Adjacent operation 1> - use <other skill or agent>.
+- <Adjacent operation 2> - use <other skill or agent>.
 
 ---
 
@@ -59,11 +59,11 @@ If the argument is missing or unclear, ask:
 
 2. **Write the description with triggers.** Most important field. Concrete user utterances that should invoke the skill. Pattern: `"Triggers - 'do X', 'help me with Y', 'set up Z'."`
 
-3. **`argument-hint`** — show the expected argument shape. Use `""` if no arguments. Use `[arg]` for required, `[arg?]` for optional.
+3. **`argument-hint`** - show the expected argument shape. Use `""` if no arguments. Use `[arg]` for required, `[arg?]` for optional.
 
-4. **`user-invocable: true`** — almost always. Set to `false` only for skills meant to be invoked programmatically by other skills or agents.
+4. **`user-invocable: true`** - almost always. Set to `false` only for skills meant to be invoked programmatically by other skills or agents.
 
-5. **`allowed-tools`** — specify the **minimum** set the skill needs. Skills should not be granted Bash by default unless they shell out. Common sets:
+5. **`allowed-tools`** - specify the **minimum** set the skill needs. Skills should not be granted Bash by default unless they shell out. Common sets:
    - Read-only audit: `Read Glob Grep`
    - File-creating wizard: `Read Write Edit Glob`
    - Shell-driven workflow: `Read Write Edit Glob Grep Bash`
@@ -80,7 +80,7 @@ If the argument is missing or unclear, ask:
 
 Inside `<slug>/` alongside `SKILL.md`:
 
-- `scripts/` — supporting shell or Python scripts the skill invokes.
-- `agents/` — sub-agents scoped specifically to this skill (advanced use).
+- `scripts/` - supporting shell or Python scripts the skill invokes.
+- `agents/` - sub-agents scoped specifically to this skill (advanced use).
 
 These are optional. Most skills are a single `SKILL.md`.

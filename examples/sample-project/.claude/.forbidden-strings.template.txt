@@ -1,0 +1,17 @@
+# SpecForge sanitization wordlist - per-installation, gitignored after rename.
+#
+# After copying this example folder, rename to .claude/.forbidden-strings.txt
+# and add '.claude/.forbidden-strings.txt' to your project's .gitignore.
+#
+# One forbidden string per line. Lines starting with '#' are comments.
+# Matched case-insensitively in tracked files by:
+#   - .claude/hooks/pre-bash-sanitize.sh  (blocks git commit / git push)
+#   - .claude/hooks/session-start-status.sh  (warns at session start)
+#   - .claude/commands/sanitize.md  (full /sanitize report)
+#
+# Add the names of any upstream private project, internal product, or
+# proprietary term that must never appear in tracked files.
+#
+# Example entries (replace with your own):
+# acme-corp
+# internal-product-name
