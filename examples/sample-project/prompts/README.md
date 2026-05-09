@@ -34,14 +34,25 @@ prompts/
 │   ├── 016_cursor_pagination.md     prev / next + URL state
 │   └── 017_compose_page.md          /users/search page; E2E suite
 │
-└── phase3_validation/
-    ├── 000_MASTER_validation.md
-    ├── 018_load_test.md             100 RPS in staging; budgets confirmed
-    ├── 019_feature_flag.md          flag wiring (defense-in-depth)
-    ├── 020_production_rollout.md    10% → 50% → 100%, 7-day soak
-    ├── 021_documentation.md         API ref + admin guide + changelog
-    └── 022_rollback_drill.md        execute the rollback in staging
+├── phase3_validation/
+│   ├── 000_MASTER_validation.md
+│   ├── 018_load_test.md             100 RPS in staging; budgets confirmed
+│   ├── 019_feature_flag.md          flag wiring (defense-in-depth)
+│   ├── 020_production_rollout.md    10% → 50% → 100%, 7-day soak
+│   ├── 021_documentation.md         API ref + admin guide + changelog
+│   └── 022_rollback_drill.md        execute the rollback in staging
+│
+└── runtime/                         operational prompts (not task-implementation)
+    ├── pickup-next-task.md          find the next unblocked task; route to its agent
+    └── daily-checkpoint.md          scannable status across all four phases
 ```
+
+## Operational (runtime) prompts
+
+Two prompts under `runtime/` aren't tied to a specific task - they're the daily-driver prompts you run during execution:
+
+- **`pickup-next-task.md`** - "what's next?" Reads `tasks.md`, finds the next unblocked task, identifies the primary agent, hands off cleanly.
+- **`daily-checkpoint.md`** - "where are we?" Phase rollup, open questions, PRD acceptance criteria check, risks, next milestone.
 
 ## Phase summary
 

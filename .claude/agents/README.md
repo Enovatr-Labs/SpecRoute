@@ -31,7 +31,7 @@ Consumer-facing agent templates live separately in `agents/` (the SpecForge arti
 
 | Scenario | Lead | Supporting |
 |---|---|---|
-| Build the worked example in `examples/sample-feature/` | `prd-author` (PRD) → `spec-author` (triplet) → `agent-roster-architect` (roster) → `prompt-engineer` (prompts) | `template-quality-reviewer` (final) |
+| Build the worked example in `examples/sample-project/` | `prd-author` (PRD) → `spec-author` (triplet) → `agent-roster-architect` (roster) → `prompt-engineer` (prompts) | `template-quality-reviewer` (final) |
 | Add a new vendor to the matrix | `runtime-architect` | `framework-docs-author`, `command-author`, `hooks-author`, `skill-author` (vendor-specific shapes) |
 | Set up the MCP single-source-of-truth | `runtime-architect` | `framework-docs-author` (`agentic-docs/cross-vendor-sync.md`) |
 | Pre-publish review | `sanitization-auditor` | `template-quality-reviewer` |

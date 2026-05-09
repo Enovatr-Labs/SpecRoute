@@ -183,7 +183,7 @@ But: don't skip Stages 9 (review), 10 (validation), and 11 (rollout). Those are 
 
 ## Worked example
 
-[`examples/sample-feature/`](../examples/sample-feature/) walks this entire workflow for the `user-search` feature. Read it as the canonical demonstration.
+[`examples/sample-project/`](../examples/sample-project/) walks this entire workflow for the `user-search` feature. Read it as the canonical demonstration.
 
 ## See also
 

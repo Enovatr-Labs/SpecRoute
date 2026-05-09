@@ -63,7 +63,7 @@ Vendor neutrality is the contract: adding a new tool means a new column, not a f
 1. **Read the philosophy** - [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md), [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md), [`agentic-docs/agentic-coding-model.md`](agentic-docs/agentic-coding-model.md).
 2. **Pick your vendors** - copy the relevant `runtimes/.<vendor>/` directories into your own repo.
 3. **Pick a starting artifact** - PRD template for a new feature, spec triplet for an existing one, agent roster template for a new team.
-4. **Walk the worked example** - [`examples/sample-feature/`](examples/sample-feature/) shows every artifact shape end-to-end (PRD, requirements, design, tasks, agent roster, phased prompts, implementation plan).
+4. **Walk the worked example** - [`examples/sample-project/`](examples/sample-project/) shows every artifact shape end-to-end (PRD, requirements, design, tasks, agent roster, phased prompts, implementation plan).
 
 ## Repository structure
 
@@ -80,7 +80,7 @@ specforge/
 ├── workflows/       end-to-end engineering execution models
 ├── rules/           per-vendor and shared engineering rules
 ├── runtimes/        copy-pasteable .claude/, .codex/, .gemini/, .kiro/, .cursor/, .windsurf/ layouts
-├── examples/        sample-feature/ - canonical worked example
+├── examples/        sample-project/ - canonical worked example
 ├── tools/           cross-vendor sync utilities
 └── assets/
 ```

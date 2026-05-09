@@ -17,7 +17,7 @@ The four skills under [`.claude/skills/`](../../.claude/skills/) at the reposito
 
 - `scaffold-artifact/SKILL.md` - interactive scaffolding for any SpecForge artifact type
 - `add-vendor/SKILL.md` - walks a contributor through adding a new agent CLI to the matrix
-- `example-walkthrough/SKILL.md` - guided end-to-end build of `examples/sample-feature/`
+- `example-walkthrough/SKILL.md` - guided end-to-end build of `examples/sample-project/`
 - `frontmatter-lint/SKILL.md` - interactive frontmatter validation across artifacts
 
 ## Adding an example skill

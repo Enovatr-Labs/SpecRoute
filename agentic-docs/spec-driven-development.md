@@ -101,12 +101,12 @@ Don't skip validation or review. Those are the gate.
 2. **Tasks without back-refs.** Looks like progress until someone asks "what requirement does task #14 satisfy?" and nobody can answer. Solution: enforce back-references in `tasks.md`.
 3. **One-shot implementation prompts for multi-week work.** Burns context, loses thread, diverges. Solution: phased master-prompt pattern.
 4. **Stale PRDs that don't match the spec.** PRD said one thing, design diverged, nobody updated the PRD. Solution: PRD is the source of truth - when design must diverge, update the PRD first.
-5. **No worked example.** Templates without an end-to-end demonstration leave contributors guessing. Solution: `examples/sample-feature/` exists for this reason.
+5. **No worked example.** Templates without an end-to-end demonstration leave contributors guessing. Solution: `examples/sample-project/` exists for this reason.
 
 ## Tools that help here
 
 - `prd-author`, `spec-author`, `prompt-engineer` agents - see `.claude/agents/` for their operating principles.
 - `scaffold-artifact` skill - bootstrap a new PRD, spec triplet, or prompt with the right frontmatter.
-- `example-walkthrough` skill - guided end-to-end build of `examples/sample-feature/`.
+- `example-walkthrough` skill - guided end-to-end build of `examples/sample-project/`.
 - `/audit` command - pre-commit comprehensive check.
 - `template-quality-reviewer` agent - production-grade-and-immediately-usable bar for templates.

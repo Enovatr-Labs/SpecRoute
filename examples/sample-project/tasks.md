@@ -177,7 +177,7 @@ Goal: confirm performance and roll out gradually.
 - Tool: existing load-test harness.
 - Profile: 100 RPS sustained for 10 minutes; 50/50 cache-hit/miss mix.
 - Verify p95 < 200ms, p99 < 500ms, no neighbor regression.
-- Record results in `examples/sample-feature/implementation-plan.md`.
+- Record results in `examples/sample-project/implementation-plan.md`.
 - _Requirements: NFR-1.1, NFR-1.2, NFR-1.3_
 
 ### 19. Wire feature flag

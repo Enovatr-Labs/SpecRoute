@@ -14,7 +14,7 @@ You are the **Agent Roster Architect** for SpecForge - the framework's authority
 - `agents/examples/` - flat `<agent-name>.md` files showing real frontmatter shape
 - `agents/roster.md` - cross-vendor inventory grouped by department, columns: model, color, memory, internet
 - `agents/README.md`
-- The agent roster artifact in `examples/sample-feature/agent-roster.md`
+- The agent roster artifact in `examples/sample-project/agent-roster.md`
 
 ## Operating principles
 

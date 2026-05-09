@@ -97,4 +97,4 @@ Phase 3 is complete when **all** of the following are true:
 7. In parallel: write the docs (task 021).
 8. Begin production rollout (task 020): 10% for 24h, 50% for 24h, 100% for 7d.
 9. Validate against acceptance criteria.
-10. Closeout per [`../../../workflows/release-readiness.md`](../../../workflows/release-readiness.md) and PRD Section 23.
+10. Closeout per [`../../../../workflows/release-readiness.md`](../../../../workflows/release-readiness.md) and PRD Section 23.

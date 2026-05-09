@@ -14,7 +14,7 @@ Interactive scaffolding for SpecForge contributors. Reduces "where does this fil
 
 - Starting a new PRD, spec triplet, ADR, agent, skill, command, hook, or prompt
 - Adding a new vendor runtime layout under `runtimes/`
-- Bootstrapping the worked example in `examples/sample-feature/`
+- Bootstrapping the worked example in `examples/sample-project/`
 
 ## Step 1: Parse the argument
 

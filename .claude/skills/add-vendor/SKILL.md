@@ -72,7 +72,7 @@ If the vendor has skills or agents:
 
 ## Step 7: Update the worked example
 
-If the vendor supports any of the artifacts in `examples/sample-feature/`, mirror the example into `runtimes/.<vendor>/` so consumers can see the vendor-specific shape.
+If the vendor supports any of the artifacts in `examples/sample-project/`, mirror the example into `runtimes/.<vendor>/` so consumers can see the vendor-specific shape.
 
 ## Step 8: Report
 

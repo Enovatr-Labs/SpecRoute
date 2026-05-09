@@ -1,6 +1,6 @@
 # Spec Examples
 
-Worked specifications demonstrating how the templates are used. The canonical end-to-end worked example lives in [`../../examples/sample-feature/`](../../examples/sample-feature/), which exercises the full spec triplet against a generic `user-search` feature.
+Worked specifications demonstrating how the templates are used. The canonical end-to-end worked example lives in [`../../examples/sample-project/`](../../examples/sample-project/), which exercises the full spec triplet against a generic `user-search` feature.
 
 Smaller examples in this directory may use any template. Generic domains only - no proprietary business logic.
 

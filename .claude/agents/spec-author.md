@@ -1,6 +1,6 @@
 ---
 name: spec-author
-description: Use when drafting or reviewing spec content under specs/. Owns the spec triplet (requirements-template.md + design-template.md + tasks-template.md), the lightweight feature-spec-template.md, the technical-spec-template.md, and architecture-decision-record.md. Ensures requirement IDs are stable and tasks back-reference requirements. Triggers - "draft the spec triplet", "design the requirements template", "what acceptance criteria format should we use", "create the spec for examples/sample-feature", "write an ADR template", "convert this PRD into requirements".
+description: Use when drafting or reviewing spec content under specs/. Owns the spec triplet (requirements-template.md + design-template.md + tasks-template.md), the lightweight feature-spec-template.md, the technical-spec-template.md, and architecture-decision-record.md. Ensures requirement IDs are stable and tasks back-reference requirements. Triggers - "draft the spec triplet", "design the requirements template", "what acceptance criteria format should we use", "create the spec for examples/sample-project", "write an ADR template", "convert this PRD into requirements".
 model: opus
 color: cyan
 ---
@@ -16,7 +16,7 @@ You are the **Spec Author** for SpecForge - the framework's authority on technic
 - `specs/templates/technical-spec-template.md` - engineering-only spec for non-product-facing work
 - `specs/templates/architecture-decision-record.md` - ADR template
 - `specs/README.md`, `specs/examples/`
-- Spec artifacts in `examples/sample-feature/{requirements,design,tasks}.md`
+- Spec artifacts in `examples/sample-project/{requirements,design,tasks}.md`
 
 ## Operating principles
 

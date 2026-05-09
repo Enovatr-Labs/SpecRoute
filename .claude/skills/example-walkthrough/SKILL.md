@@ -1,6 +1,6 @@
 ---
 name: example-walkthrough
-description: Guided end-to-end build of the canonical worked example under examples/sample-feature/. Walks through each artifact in spec-driven order (PRD → requirements → design → tasks → agent roster → phased prompts → implementation plan), invoking the right specialist agent for each. Use when bootstrapping the worked example or when reviewing whether the existing example is complete.
+description: Guided end-to-end build of the canonical worked example under examples/sample-project/. Walks through each artifact in spec-driven order (PRD → requirements → design → tasks → agent roster → phased prompts → implementation plan), invoking the right specialist agent for each. Use when bootstrapping the worked example or when reviewing whether the existing example is complete.
 argument-hint: "[feature-name?]"
 user-invocable: true
 allowed-tools: Read Write Edit Glob
@@ -8,7 +8,7 @@ allowed-tools: Read Write Edit Glob
 
 # Example Walkthrough
 
-Builds (or audits) the worked example in `examples/sample-feature/` artifact-by-artifact, using the spec-driven flow as the script.
+Builds (or audits) the worked example in `examples/sample-project/` artifact-by-artifact, using the spec-driven flow as the script.
 
 ## When to use
 
@@ -33,14 +33,19 @@ For each step, verify the artifact exists and is complete; if not, invoke the na
 
 | Step | Artifact | Path | Agent |
 |---|---|---|---|
-| 1 | PRD (full 23-section) | `examples/sample-feature/prd.md` | `prd-author` |
-| 2 | Requirements | `examples/sample-feature/requirements.md` | `spec-author` |
-| 3 | Design | `examples/sample-feature/design.md` | `spec-author` |
-| 4 | Tasks | `examples/sample-feature/tasks.md` | `spec-author` |
-| 5 | Agent roster | `examples/sample-feature/agent-roster.md` | `agent-roster-architect` |
-| 6 | Global master prompt | `examples/sample-feature/prompts/000_master.md` | `prompt-engineer` |
-| 7 | Numbered task prompts | `examples/sample-feature/prompts/001_*.md`, `002_*.md`, … | `prompt-engineer` |
-| 8 | Implementation plan | `examples/sample-feature/implementation-plan.md` | `framework-docs-author` |
+| 1 | PRD (full 23-section) | `examples/sample-project/prd.md` | `prd-author` |
+| 2 | Requirements | `examples/sample-project/requirements.md` | `spec-author` |
+| 3 | Design | `examples/sample-project/design.md` | `spec-author` |
+| 4 | Tasks | `examples/sample-project/tasks.md` | `spec-author` |
+| 5 | Agent roster | `examples/sample-project/agent-roster.md` | `agent-roster-architect` |
+| 6 | Global master prompt | `examples/sample-project/prompts/000_GLOBAL_MASTER.md` | `prompt-engineer` |
+| 7 | Phase masters | `examples/sample-project/prompts/phase{N}_<name>/000_MASTER_<phase>.md` | `prompt-engineer` |
+| 8 | Numbered task prompts | `examples/sample-project/prompts/phase{N}_<name>/<NNN>_<task>.md` | `prompt-engineer` |
+| 9 | Runtime ops prompts | `examples/sample-project/prompts/runtime/{pickup-next-task,daily-checkpoint}.md` | `prompt-engineer` |
+| 10 | Implementation plan | `examples/sample-project/implementation-plan.md` | `framework-docs-author` |
+| 11 | Project root context | `examples/sample-project/CLAUDE.md` | `framework-docs-author` |
+| 12 | Drop-in README | `examples/sample-project/README.md` | `framework-docs-author` |
+| 13 | Runtime layout | `examples/sample-project/.claude/{settings,agents,commands,hooks,agent-memory}` | `runtime-architect` |
 
 ## Step 3: Cross-artifact validation
 

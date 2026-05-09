@@ -92,5 +92,5 @@ When adding a new top-level artifact, prefer invoking the corresponding agent (`
 1. Read [`README.md`](README.md) for the public framing.
 2. Read [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md) and [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md) for the why.
 3. Read [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) for when to reach for which artifact.
-4. Walk the worked example in [`examples/sample-feature/`](examples/sample-feature/) - it exercises every artifact shape end-to-end.
+4. Walk the worked example in [`examples/sample-project/`](examples/sample-project/) - it exercises every artifact shape end-to-end.
 5. Pick a vendor and copy `runtimes/.<vendor>/` into your own repo to start using SpecForge.

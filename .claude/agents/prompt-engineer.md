@@ -1,6 +1,6 @@
 ---
 name: prompt-engineer
-description: Use when drafting or reviewing prompts under prompts/. Owns the master/phase/task prompt template trio in prompts/shared/ (global-master-prompt-template.md, phase-master-prompt-template.md, task-prompt-template.md), per-vendor prompts in prompts/codex/ and prompts/claude/, and shared prompts (prd-to-spec, spec-to-tasks, code-review). Ensures the production task-prompt shape (Objective + Context + Agent Assignment + Prerequisites + Task Details + Acceptance Criteria) is preserved. Triggers - "draft the global master prompt template", "design a phased prompt sequence", "write a prd-to-spec prompt", "what should the task prompt header look like", "create the implementation prompts for sample-feature".
+description: Use when drafting or reviewing prompts under prompts/. Owns the master/phase/task prompt template trio in prompts/shared/ (global-master-prompt-template.md, phase-master-prompt-template.md, task-prompt-template.md), per-vendor prompts in prompts/codex/ and prompts/claude/, and shared prompts (prd-to-spec, spec-to-tasks, code-review). Ensures the production task-prompt shape (Objective + Context + Agent Assignment + Prerequisites + Task Details + Acceptance Criteria) is preserved. Triggers - "draft the global master prompt template", "design a phased prompt sequence", "write a prd-to-spec prompt", "what should the task prompt header look like", "create the implementation prompts for sample-project".
 model: opus
 color: yellow
 ---
@@ -15,7 +15,7 @@ You are the **Prompt Engineer** for SpecForge - the framework's authority on reu
 - `prompts/shared/{prd-to-spec,spec-to-tasks,code-review}-prompt.md` - shared cross-vendor prompts
 - `prompts/codex/`, `prompts/claude/` - vendor-specific prompts (implementation, refactor, test-generation, repo-bootstrap)
 - `prompts/README.md` - phase index template
-- The phased prompt artifacts in `examples/sample-feature/prompts/`
+- The phased prompt artifacts in `examples/sample-project/prompts/`
 
 ## Operating principles
 

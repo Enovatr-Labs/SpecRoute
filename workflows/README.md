@@ -66,7 +66,7 @@ Workflows describe **how to execute recurring engineering work**:
 | What standard must always hold? | `rules/` |
 | How is the runtime layout for Claude Code structured? | `runtimes/.claude/README.md` |
 | How do I write a PRD? | `prds/templates/prd-template.md` + `prds/README.md` |
-| What's the canonical worked example? | `examples/sample-feature/` |
+| What's the canonical worked example? | `examples/sample-project/` |
 
 ## Vendor-neutral
 
@@ -80,4 +80,4 @@ Workflows are owned by `framework-docs-author`. Updates to a workflow that affec
 
 - [`agentic-docs/spec-driven-development.md`](../agentic-docs/spec-driven-development.md) - the underlying philosophy.
 - [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) - when to reach for skills vs agents vs commands vs hooks during a workflow.
-- [`examples/sample-feature/implementation-plan.md`](../examples/sample-feature/implementation-plan.md) - a worked example of these workflows in operation.
+- [`examples/sample-project/implementation-plan.md`](../examples/sample-project/implementation-plan.md) - a worked example of these workflows in operation.

@@ -34,7 +34,7 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 - ☐ Command templates (`command-template.claude.md`, `command-template.gemini.json`)
 - ☐ Hook templates (`hooks.template.json`, sample `.kiro.hook` files)
 - ☐ Prompt templates: global-master, phase-master, task (production-grade)
-- ☐ Worked example end-to-end in `examples/sample-feature/` - generic feature (e.g. notification preferences), all artifact shapes present, cross-referenced
+- ☐ Worked example end-to-end in `examples/sample-project/` - generic feature (e.g. notification preferences), all artifact shapes present, cross-referenced
 
 ## Phase 3 - Runtime layouts & cross-vendor tooling
 
@@ -56,7 +56,7 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 
 **Goal:** Real-world adoption signals, additional vendors, and community-contributed examples that prove the framework's reusability.
 
-- ☐ Additional worked examples beyond `sample-feature/`
+- ☐ Additional worked examples beyond `sample-project/`
 - ☐ Additional vendor support based on community demand
 - ☐ Versioned releases (`v0.1.0`, etc.) with release notes
 - ☐ Adoption case studies (anonymous welcome) under `examples/`

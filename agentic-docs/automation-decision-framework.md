@@ -39,7 +39,7 @@ A skill is a parameterized, guided multi-step workflow. The user invokes it by n
 
 - `scaffold-artifact` - interactive scaffolding for any artifact type with target-path resolution.
 - `add-vendor` - walks a contributor through adding a new agent CLI to the matrix.
-- `example-walkthrough` - guided end-to-end build of `examples/sample-feature/`.
+- `example-walkthrough` - guided end-to-end build of `examples/sample-project/`.
 - `frontmatter-lint` - interactive frontmatter validation with offered fixes.
 
 **Usage pattern:**

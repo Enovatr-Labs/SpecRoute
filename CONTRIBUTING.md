@@ -6,7 +6,7 @@ Thanks for considering a contribution. SpecForge is a community-curated framewor
 
 1. Read the [README](README.md) to understand the artifact taxonomy and the supported vendor matrix.
 2. Read [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md) and [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md).
-3. Skim the worked example in [`examples/sample-feature/`](examples/sample-feature/) to see the artifact shapes end-to-end.
+3. Skim the worked example in [`examples/sample-project/`](examples/sample-project/) to see the artifact shapes end-to-end.
 4. Search [issues](../../issues) and [pull requests](../../pulls) for related work in flight.
 
 ## What we accept
