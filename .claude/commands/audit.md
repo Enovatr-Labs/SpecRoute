@@ -1,12 +1,12 @@
 ---
-description: Comprehensive pre-commit audit — sanitization, frontmatter validity, vendor matrix consistency, broken links, TODO health.
+description: Comprehensive pre-commit audit - sanitization, frontmatter validity, vendor matrix consistency, broken links, TODO health.
 ---
 
 Run a comprehensive audit. This is the gate before any push or PR.
 
 ## 1. Sanitization
 
-Run `/sanitize` first. If it fails, stop and report the failures — do not continue with later checks until sanitization is clean.
+Run `/sanitize` first. If it fails, stop and report the failures - do not continue with later checks until sanitization is clean.
 
 ## 2. Frontmatter validation
 
@@ -89,7 +89,7 @@ echo "Files with TODOs:"
 git grep -l "TODO" 2>/dev/null | head -20
 ```
 
-TODOs are intentional placeholders. The audit doesn't fail on TODO count — it just reports.
+TODOs are intentional placeholders. The audit doesn't fail on TODO count - it just reports.
 
 ## Final report
 

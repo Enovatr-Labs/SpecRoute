@@ -1,6 +1,6 @@
 # SpecForge
 
-**An open-source framework for spec-driven agentic software engineering — vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf.**
+**An open-source framework for spec-driven agentic software engineering - vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf.**
 
 SpecForge captures production-grade patterns for PRDs, specifications, prompts, agents, skills, slash commands, hooks, workflows, and engineering rules. It is content, not an application: drop the templates and runtime layouts into your own repo and adapt them to your stack.
 
@@ -27,7 +27,7 @@ flowchart LR
     VAL --> REV
 ```
 
-Each stage has a template, an agent assignment, and an acceptance criterion. The cross-references that survive across stages — stable requirement IDs, design `Satisfies:` annotations, task back-refs, test back-refs — are what make the agent's output reviewable.
+Each stage has a template, an agent assignment, and an acceptance criterion. The cross-references that survive across stages - stable requirement IDs, design `Satisfies:` annotations, task back-refs, test back-refs - are what make the agent's output reviewable.
 
 ## Core artifact taxonomy
 
@@ -39,7 +39,7 @@ Each stage has a template, an agent assignment, and an acceptance criterion. The
 | **Skill** | Interactive parameterized workflow (`SKILL.md` per skill) | `skills/` |
 | **Command** | Simple slash-invoked operation, vendor-specific shape | `commands/` |
 | **Hook** | Event-triggered automation (file-edit, pre-commit, session-start) | `hooks/` |
-| **Prompt** | Reusable prompt — global master, phase master, or task | `prompts/` |
+| **Prompt** | Reusable prompt - global master, phase master, or task | `prompts/` |
 | **Workflow** | End-to-end execution model | `workflows/` |
 | **Rule** | Engineering standard, vendor-specific or shared | `rules/` |
 
@@ -49,21 +49,21 @@ When to reach for which: see [`docs/automation-decision-framework.md`](docs/auto
 
 | Vendor | Runtime dir | Root context file | Skills | Agents | Commands | Hooks | MCP config |
 |---|---|---|---|---|---|---|---|
-| Claude Code | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` | flat `<name>.md` + frontmatter | `commands/<name>.md` | `hooks/hooks.json` | `claude_desktop_config.json` |
-| Codex | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` | flat `<name>.md` | via skills (`user-invocable: true`) | — | `config.toml [mcp_servers]` |
-| Gemini CLI | `.gemini/` | `GEMINI.md` (delegation shim) | — | — | `gemini_cli_config.json` | — | `settings.json [mcpServers]` |
-| Kiro | `.kiro/` | `steering/` files | — | — | — | `*.kiro.hook` | — |
-| Cursor | `.cursor/rules/` | `.cursorrules` | — | — | — | — | — |
-| Windsurf | `.windsurf/rules/` | — | — | — | — | — | — |
+| Claude Code | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` | flat `<name>.md` + frontmatter | `commands/<name>.md` | `settings.json hooks` (~27 events, 5 hook types) | `claude_desktop_config.json` |
+| Codex | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` | flat `<name>.md` | via skills (`user-invocable: true`) | `hooks.json` or `config.toml [hooks]` (6 events; flag `codex_hooks=true`) | `config.toml [mcp_servers]` |
+| Gemini CLI | `.gemini/` | `GEMINI.md` (delegation shim) | - | - | `gemini_cli_config.json` | `settings.json hooks` (11 events; v0.26.0+) | `settings.json [mcpServers]` |
+| Kiro | `.kiro/` | `steering/` files | - | - | - | `*.kiro.hook` (10 events incl. file/agent triggers) | - |
+| Cursor | `.cursor/rules/` | `.cursorrules` | - | - | - | `hooks.json` v1 (~19 events; permission/decision schema) | - |
+| Windsurf | `.windsurf/rules/` | - | - | - | - | `hooks.json` (12 events; pre/post for read/write/run/mcp) | - |
 
 Vendor neutrality is the contract: adding a new tool means a new column, not a fork.
 
 ## Getting started
 
-1. **Read the philosophy** — [`docs/philosophy.md`](docs/philosophy.md), [`docs/spec-driven-development.md`](docs/spec-driven-development.md), [`docs/agentic-coding-model.md`](docs/agentic-coding-model.md).
-2. **Pick your vendors** — copy the relevant `runtimes/.<vendor>/` directories into your own repo.
-3. **Pick a starting artifact** — PRD template for a new feature, spec triplet for an existing one, agent roster template for a new team.
-4. **Walk the worked example** — [`examples/sample-feature/`](examples/sample-feature/) shows every artifact shape end-to-end (PRD, requirements, design, tasks, agent roster, phased prompts, implementation plan).
+1. **Read the philosophy** - [`docs/philosophy.md`](docs/philosophy.md), [`docs/spec-driven-development.md`](docs/spec-driven-development.md), [`docs/agentic-coding-model.md`](docs/agentic-coding-model.md).
+2. **Pick your vendors** - copy the relevant `runtimes/.<vendor>/` directories into your own repo.
+3. **Pick a starting artifact** - PRD template for a new feature, spec triplet for an existing one, agent roster template for a new team.
+4. **Walk the worked example** - [`examples/sample-feature/`](examples/sample-feature/) shows every artifact shape end-to-end (PRD, requirements, design, tasks, agent roster, phased prompts, implementation plan).
 
 ## Repository structure
 
@@ -80,7 +80,7 @@ specforge/
 ├── workflows/    end-to-end engineering execution models
 ├── rules/        per-vendor and shared engineering rules
 ├── runtimes/     copy-pasteable .claude/, .codex/, .gemini/, .kiro/, .cursor/, .windsurf/ layouts
-├── examples/     sample-feature/ — canonical worked example
+├── examples/     sample-feature/ - canonical worked example
 ├── tools/        cross-vendor sync utilities
 └── assets/
 ```

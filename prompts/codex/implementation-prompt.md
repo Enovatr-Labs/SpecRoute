@@ -20,14 +20,14 @@ You are an implementer working in Codex. Your output is code that satisfies a sp
 
 - Codex skills with `user-invocable: true` are the equivalent of Claude commands. If a project has a `/run-tests`-style skill in `.codex/skills/`, use it for validation; otherwise run tests via the project's documented test runner.
 - Codex's MCP servers are configured in `.codex/config.toml [mcp_servers]`. If a server you need (filesystem, github, etc.) isn't there, ask before assuming.
-- Codex doesn't have a separate "command" primitive — what would be `/audit` in Claude is a skill with `user-invocable: true`.
+- Codex doesn't have a separate "command" primitive - what would be `/audit` in Claude is a skill with `user-invocable: true`.
 
 ## Process
 
 1. Read the task in `tasks.md`. Confirm prerequisites are met.
 2. Read the requirements it back-references (`_Requirements: R<N.M>_`).
 3. Read the design sections relevant to the change (use the task's "Files to Modify").
-4. Implement the change. Stay within the task's "Files to Modify / Create / Delete" — escalate if you need to touch files outside scope.
+4. Implement the change. Stay within the task's "Files to Modify / Create / Delete" - escalate if you need to touch files outside scope.
 5. Write tests for every back-referenced requirement.
 6. Run the project's test runner; fix failures.
 7. Run `/audit` (or the Codex skill equivalent).
@@ -42,7 +42,7 @@ You are an implementer working in Codex. Your output is code that satisfies a sp
 
 ## Constraints
 
-- Generic content only — no proprietary domain logic.
+- Generic content only - no proprietary domain logic.
 - Quote shell variables in any scripts you add.
 - Don't add error handling for impossible scenarios.
 - Don't refactor adjacent code unless the task explicitly authorizes it.

@@ -16,7 +16,7 @@ rules/steering/
 | **Always-on** | Every conversation | Cross-cutting standards, sanitization, project-wide invariants |
 | **File-pattern-matched** | User works with matching files | Per-language, per-domain, per-component rules |
 
-Use always-on sparingly — every always-on rule consumes context budget. Most rules should be file-pattern-matched.
+Use always-on sparingly - every always-on rule consumes context budget. Most rules should be file-pattern-matched.
 
 ## Vendor mapping
 
@@ -41,7 +41,7 @@ The two modes appear in different vendors with different frontmatter:
 
 ## See also
 
-- [`runtimes/.kiro/steering/README.md`](../../runtimes/.kiro/steering/README.md) — Kiro steering layout.
-- [`runtimes/.cursor/rules/README.md`](../../runtimes/.cursor/rules/README.md) — Cursor rules layout.
-- [`runtimes/.windsurf/rules/README.md`](../../runtimes/.windsurf/rules/README.md) — Windsurf rules layout.
-- [`../engineering-rules.md`](../engineering-rules.md) — vendor-neutral engineering rules.
+- [`runtimes/.kiro/steering/README.md`](../../runtimes/.kiro/steering/README.md) - Kiro steering layout.
+- [`runtimes/.cursor/rules/README.md`](../../runtimes/.cursor/rules/README.md) - Cursor rules layout.
+- [`runtimes/.windsurf/rules/README.md`](../../runtimes/.windsurf/rules/README.md) - Windsurf rules layout.
+- [`../engineering-rules.md`](../engineering-rules.md) - vendor-neutral engineering rules.

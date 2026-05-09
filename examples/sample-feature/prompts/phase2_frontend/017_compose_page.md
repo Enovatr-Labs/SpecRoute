@@ -1,6 +1,6 @@
 # Task 017: Compose `/users/search` Page
 
-> Production task prompt. Phase 2 final task — wires the four components into the page.
+> Production task prompt. Phase 2 final task - wires the four components into the page.
 
 ---
 
@@ -13,7 +13,7 @@ After this task: the page is reachable in develop, exercises the full user flow,
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R1.1–R5.3, NFR-1.4
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1–R5.3, NFR-1.4
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 2 (Architecture)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,7 +25,7 @@ After this task: the page is reachable in develop, exercises the full user flow,
 **Primary Agent**: `frontend-engineer`
 **Supporting Agents**:
 
-- `integration-test-generator` — drafts the E2E tests covering each user story.
+- `integration-test-generator` - drafts the E2E tests covering each user story.
 
 ## 4. Prerequisites
 
@@ -56,7 +56,7 @@ The page owns: filter state, cursor state, sort state, URL synchronization, API 
 ### 5.2 State management
 
 - Local component state for the in-progress filter/sort/cursor values.
-- URL reflects the current filter/sort/cursor — readers can refresh and get the same view.
+- URL reflects the current filter/sort/cursor - readers can refresh and get the same view.
 - On filter or sort change: clear the cursor (return to the first page).
 - On cursor change: keep filters/sort.
 
@@ -82,10 +82,10 @@ Add a "Search users" button on the `/users` page that links here. Don't change t
 
 | File | Change |
 |---|---|
-| `frontend/pages/users/search.tsx` | Create — page component |
+| `frontend/pages/users/search.tsx` | Create - page component |
 | `frontend/pages/users/index.tsx` | Add the "Search users" link |
-| `frontend/pages/users/search.test.tsx` | Create — page-level integration tests |
-| `e2e/users-search.spec.ts` (or equivalent) | Create — E2E covering each user story |
+| `frontend/pages/users/search.test.tsx` | Create - page-level integration tests |
+| `e2e/users-search.spec.ts` (or equivalent) | Create - E2E covering each user story |
 
 ## 6. Acceptance Criteria
 
@@ -103,9 +103,9 @@ Add a "Search users" button on the `/users` page that links here. Don't change t
 
 ## 7. Out of Scope
 
-- Bulk export — separate PRD.
-- Saved searches — v2.
-- Cross-tenant federation — out of scope.
+- Bulk export - separate PRD.
+- Saved searches - v2.
+- Cross-tenant federation - out of scope.
 
 ## 8. Validation
 

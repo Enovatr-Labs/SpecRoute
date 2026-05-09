@@ -1,5 +1,5 @@
 ---
-description: Cross-vendor parity check — diff skills, agents, commands, and hooks between runtimes/.claude/, runtimes/.codex/, and other runtime layouts. Reports drift.
+description: Cross-vendor parity check - diff skills, agents, commands, and hooks between runtimes/.claude/, runtimes/.codex/, and other runtime layouts. Reports drift.
 ---
 
 Check parity between vendor runtime layouts. Drift is sometimes intentional (a Claude-only skill) but should be explicit, not accidental.
@@ -16,7 +16,7 @@ if [ -d "runtimes/.claude/skills" ] && [ -d "runtimes/.codex/skills" ]; then
   echo "Both:"
   comm -12 <(echo "$claude_skills") <(echo "$codex_skills") | wc -l | xargs echo "  shared count:"
 else
-  echo "  (one or both runtime skill dirs missing — skipping)"
+  echo "  (one or both runtime skill dirs missing - skipping)"
 fi
 
 echo
@@ -42,7 +42,7 @@ if [ -f "runtimes/mcp/servers.yaml" ]; then
     fi
   done
 else
-  echo "  (runtimes/mcp/servers.yaml missing — single source not yet established)"
+  echo "  (runtimes/mcp/servers.yaml missing - single source not yet established)"
 fi
 
 echo

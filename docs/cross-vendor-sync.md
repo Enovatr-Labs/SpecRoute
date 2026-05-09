@@ -17,7 +17,7 @@ Things that don't need syncing: vendor-specific config files (`.claude/settings.
 
 ## Tools that maintain sync
 
-### `tools/sync-skills.py` — agents + skills
+### `tools/sync-skills.py` - agents + skills
 
 Two vendors (Claude Code and Codex) consume the same agent and skill shapes. They live in two parallel directories:
 
@@ -44,13 +44,13 @@ python3 tools/sync-skills.py --source codex --apply
 
 Output categorizes drift as:
 
-- **MISSING** — exists in source but not target.
-- **EXTRA** — exists in target but not source. (Never auto-removed; you decide if it's intentional.)
-- **DRIFT** — exists in both with different content.
+- **MISSING** - exists in source but not target.
+- **EXTRA** - exists in target but not source. (Never auto-removed; you decide if it's intentional.)
+- **DRIFT** - exists in both with different content.
 
 When drift is intentional (a skill that uses Claude's `Task` tool has no Codex equivalent), document it in `runtimes/README.md` so future audits don't regenerate it.
 
-### `runtimes/mcp/render/` — MCP server configs
+### `runtimes/mcp/render/` - MCP server configs
 
 Three vendors consume MCP configs in different shapes:
 
@@ -76,7 +76,7 @@ Workflow when adding a server:
 
 This is an architectural choice with a maintenance benefit: source of truth is one file, divergence is impossible.
 
-### `/parity` command — quick check
+### `/parity` command - quick check
 
 The `/parity` slash command runs both checks (skills/agents and MCP source-of-truth alignment) and reports drift without writing. Use as a pre-commit gate.
 
@@ -84,10 +84,10 @@ The `/parity` slash command runs both checks (skills/agents and MCP source-of-tr
 
 When to run sync tools:
 
-- **Before every commit that touches `runtimes/.claude/` or `runtimes/.codex/`** — confirm the change applied to both, or that the asymmetry is intentional.
-- **After editing `runtimes/mcp/servers.yaml`** — re-render and commit.
-- **Pre-PR** — `/parity` as part of `/audit`.
-- **Periodically** — even without active changes, run `tools/sync-skills.py` weekly. Drift can sneak in via merge conflicts.
+- **Before every commit that touches `runtimes/.claude/` or `runtimes/.codex/`** - confirm the change applied to both, or that the asymmetry is intentional.
+- **After editing `runtimes/mcp/servers.yaml`** - re-render and commit.
+- **Pre-PR** - `/parity` as part of `/audit`.
+- **Periodically** - even without active changes, run `tools/sync-skills.py` weekly. Drift can sneak in via merge conflicts.
 
 ## When vendor parity should NOT be the goal
 
@@ -100,7 +100,7 @@ Some artifacts genuinely belong to only one vendor:
 Document these asymmetries explicitly in `runtimes/README.md` so audits don't regenerate them. The form is:
 
 > **Claude-only skills** (intentional, will not mirror to Codex):
-> - `<skill-slug>` — uses Claude's `Task` tool for sub-agent delegation; no Codex equivalent.
+> - `<skill-slug>` - uses Claude's `Task` tool for sub-agent delegation; no Codex equivalent.
 
 ## Anti-patterns
 
@@ -126,7 +126,7 @@ Cross-vendor sync utilities are owned by the `runtime-architect` agent. See [`.c
 
 ## See also
 
-- [`agent-cli-integrations.md`](agent-cli-integrations.md) — concrete vendor wiring.
-- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) — root context-file pattern.
-- [`tools/sync-skills.py`](../tools/sync-skills.py) — the sync tool itself.
-- [`runtimes/mcp/`](../runtimes/mcp/) — MCP single source of truth and renderers.
+- [`agent-cli-integrations.md`](agent-cli-integrations.md) - concrete vendor wiring.
+- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) - root context-file pattern.
+- [`tools/sync-skills.py`](../tools/sync-skills.py) - the sync tool itself.
+- [`runtimes/mcp/`](../runtimes/mcp/) - MCP single source of truth and renderers.

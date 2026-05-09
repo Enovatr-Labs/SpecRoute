@@ -1,4 +1,4 @@
-# `.claude/skills/` — Claude Code skill registry
+# `.claude/skills/` - Claude Code skill registry
 
 Drop your project's skills here. Each skill is a directory containing `SKILL.md`. Optional sibling dirs (`scripts/`, `agents/`) hold supporting files.
 

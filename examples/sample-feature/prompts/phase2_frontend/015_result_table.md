@@ -6,15 +6,15 @@
 
 ## 1. Objective
 
-Build the `ResultTable` component — renders user-search results with five columns (name, email, role, status, last activity) and handles empty / error / loading states. Row clicks emit a navigation event consumed by the page.
+Build the `ResultTable` component - renders user-search results with five columns (name, email, role, status, last activity) and handles empty / error / loading states. Row clicks emit a navigation event consumed by the page.
 
 After this task: component renders all four states, exposes a clean row-click contract, and is keyboard-navigable.
 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R1.1–R3.1, NFR-1.4
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract — response shape)
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1–R3.1, NFR-1.4
+**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract - response shape)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 15. Independent of tasks 13, 14, 16. Composed by task 17.
@@ -25,7 +25,7 @@ After this task: component renders all four states, exposes a clean row-click co
 **Primary Agent**: `frontend-engineer`
 **Supporting Agents**:
 
-- `unit-test-writer` — embedded.
+- `unit-test-writer` - embedded.
 
 ## 4. Prerequisites
 
@@ -81,8 +81,8 @@ Render `lastActivityAt` as a relative time (e.g. "2 hours ago"). Null displays a
 
 | File | Change |
 |---|---|
-| `frontend/components/users/search/ResultTable.tsx` | Create — the component |
-| `frontend/components/users/search/ResultTable.test.tsx` | Create — each state |
+| `frontend/components/users/search/ResultTable.tsx` | Create - the component |
+| `frontend/components/users/search/ResultTable.test.tsx` | Create - each state |
 | `frontend/components/users/search/index.ts` | Export |
 
 ## 6. Acceptance Criteria
@@ -96,8 +96,8 @@ Render `lastActivityAt` as a relative time (e.g. "2 hours ago"). Null displays a
 
 ## 7. Out of Scope
 
-- Pagination controls — task 16.
-- Composing into the page — task 17.
+- Pagination controls - task 16.
+- Composing into the page - task 17.
 - Sorting (the table is read-only; sort is dispatched via the page's sort selector).
 
 ## 8. Validation

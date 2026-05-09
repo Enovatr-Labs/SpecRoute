@@ -68,8 +68,8 @@ runtimes/
 
 Two vendors share most artifact shapes (Claude Code and Codex):
 
-- Agents (flat `<name>.md` with frontmatter) — identical.
-- Skills (folder-per-skill `SKILL.md`) — identical.
+- Agents (flat `<name>.md` with frontmatter) - identical.
+- Skills (folder-per-skill `SKILL.md`) - identical.
 
 The other vendors have different concepts. The matrix is documented in the root [`README.md`](../README.md). Adding a new vendor means a new column in the matrix and a new runtime directory here.
 

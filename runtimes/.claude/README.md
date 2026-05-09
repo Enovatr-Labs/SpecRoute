@@ -1,4 +1,4 @@
-# `.claude/` — Claude Code runtime layout
+# `.claude/` - Claude Code runtime layout
 
 Drop this directory into the root of your project (rename or merge with any existing `.claude/`). Claude Code reads from these paths automatically.
 
@@ -36,11 +36,10 @@ Drop this directory into the root of your project (rename or merge with any exis
    .claude/.forbidden-strings.txt
    ```
 
-3. **Install hook scripts** (copy from this repo's `.claude/hooks/` or write your own):
+3. **Install hook scripts** (starter scripts are included under `hooks/scripts/`):
 
    ```bash
    mkdir -p .claude/hooks/scripts
-   # copy session-start-status.sh, pre-bash-sanitize.sh, post-edit-frontmatter.sh
    chmod +x .claude/hooks/scripts/*.sh
    ```
 

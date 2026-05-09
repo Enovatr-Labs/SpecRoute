@@ -22,7 +22,7 @@ How to review a PR (human or agent-authored) against SpecForge standards. Reuses
 
 9. **Docs.** PRD Section 12 documentation updates landed (or are explicitly out of scope).
 
-10. **Sanitization.** Run `/sanitize` (or equivalent) — no forbidden strings in tracked content.
+10. **Sanitization.** Run `/sanitize` (or equivalent) - no forbidden strings in tracked content.
 
 ## Review structure
 
@@ -30,7 +30,7 @@ Output as a punch list:
 
 ```
 ## Summary
-<approve / request changes / block — one sentence>
+<approve / request changes / block - one sentence>
 
 ## Blockers
 - <file:line> <issue> <fix>
@@ -45,7 +45,7 @@ Output as a punch list:
 - <positive callout>
 ```
 
-Be specific. "Section 5 is unclear" is not actionable; "function `foo` does X but variable `bar` implies Y — rename or split" is.
+Be specific. "Section 5 is unclear" is not actionable; "function `foo` does X but variable `bar` implies Y - rename or split" is.
 
 ## Approval bar
 

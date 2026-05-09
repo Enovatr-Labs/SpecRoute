@@ -1,12 +1,12 @@
 # Task 021: Documentation Updates
 
-> Production task prompt. Phase 3 — documentation gate before rollout.
+> Production task prompt. Phase 3 - documentation gate before rollout.
 
 ---
 
 ## 1. Objective
 
-Update documentation per the PRD's Section 12 (Documentation Plan). The new endpoint, the new admin surface, and the index migration all need entries before rollout — late docs are stale docs.
+Update documentation per the PRD's Section 12 (Documentation Plan). The new endpoint, the new admin surface, and the index migration all need entries before rollout - late docs are stale docs.
 
 After this task: API reference describes `/api/users/search`; admin user guide includes the search-page walkthrough; data-model doc notes the new indexes; changelog entry drafted.
 
@@ -24,7 +24,7 @@ After this task: API reference describes `/api/users/search`; admin user guide i
 **Primary Agent**: `prd-author`
 **Supporting Agents**:
 
-- `spec-author` — confirms cross-references to design doc are correct.
+- `spec-author` - confirms cross-references to design doc are correct.
 
 ## 4. Prerequisites
 
@@ -53,7 +53,7 @@ Add a section walking through the search workflow:
 - How to interpret the result columns.
 - Edge cases: empty result, network error, rate limit.
 
-Use screenshots if the project's docs include them. Generic data only — no real user names, real emails, etc. (Use placeholders like "Jane Example", "jane@example.com".)
+Use screenshots if the project's docs include them. Generic data only - no real user names, real emails, etc. (Use placeholders like "Jane Example", "jane@example.com".)
 
 ### 5.3 Data-model documentation
 
@@ -71,7 +71,7 @@ Brief rationale for each.
 Draft a changelog entry:
 
 ```markdown
-## <Release version> — <date>
+## <Release version> - <date>
 
 ### Added
 
@@ -100,9 +100,9 @@ The product owner finalizes the customer-facing copy.
 
 ## 7. Out of Scope
 
-- Marketing copy — separate workstream.
-- Internal architecture docs beyond the data-model entry — out of scope for this task.
-- Customer email comms — handled by product / marketing.
+- Marketing copy - separate workstream.
+- Internal architecture docs beyond the data-model entry - out of scope for this task.
+- Customer email comms - handled by product / marketing.
 
 ## 8. Validation
 

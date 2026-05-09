@@ -23,7 +23,7 @@ GEMINI.md         (~30 lines, shim)       ├── spec-driven-development.md
 
 ### The cost of long root context
 
-Every file that the agent CLI loads at session start consumes context budget — every token in `AGENTS.md` is a token unavailable for the user's actual problem. A 2,000-line root context file is a slow leak from the agent's working memory.
+Every file that the agent CLI loads at session start consumes context budget - every token in `AGENTS.md` is a token unavailable for the user's actual problem. A 2,000-line root context file is a slow leak from the agent's working memory.
 
 It also makes orientation slower. If the user wants to know "what should I do for a security incident?", they don't need the spec-driven-development primer first. The root file should be a navigation surface, not a content dump.
 
@@ -42,10 +42,10 @@ This is the same pattern operating systems use (kernel API surface vs. man pages
 
 In `AGENTS.md` (canonical) and per-vendor delegation shims:
 
-- **What this repository is** — one paragraph.
-- **Core artifact taxonomy** — a table.
-- **Hard constraints** — the rules that aren't obvious from the code (vendor neutrality, sanitization, frontmatter contracts).
-- **Pointers to deep references** — "for X, see [`docs/<topic>.md`](docs/<topic>.md)".
+- **What this repository is** - one paragraph.
+- **Core artifact taxonomy** - a table.
+- **Hard constraints** - the rules that aren't obvious from the code (vendor neutrality, sanitization, frontmatter contracts).
+- **Pointers to deep references** - "for X, see [`docs/<topic>.md`](docs/<topic>.md)".
 - **Vendor-specific overrides** (in the per-vendor shims only).
 
 In `CLAUDE.md` and `GEMINI.md` specifically: ~30–50 lines, mostly pointers. They delegate to `AGENTS.md` and add per-vendor specifics.
@@ -54,11 +54,11 @@ In `CLAUDE.md` and `GEMINI.md` specifically: ~30–50 lines, mostly pointers. Th
 
 In `docs/`:
 
-- **Philosophy** — why we do things the way we do (`philosophy.md`).
-- **Decision frameworks** — when to choose X vs Y (`automation-decision-framework.md`).
-- **Patterns** — recurring shapes (`two-tier-docs-pattern.md` — this file; `multi-vendor-context-files.md`).
-- **Integration guides** — concrete wiring per vendor (`agent-cli-integrations.md`).
-- **Conceptual deep-dives** — anything substantive that doesn't fit in 30 lines.
+- **Philosophy** - why we do things the way we do (`philosophy.md`).
+- **Decision frameworks** - when to choose X vs Y (`automation-decision-framework.md`).
+- **Patterns** - recurring shapes (`two-tier-docs-pattern.md` - this file; `multi-vendor-context-files.md`).
+- **Integration guides** - concrete wiring per vendor (`agent-cli-integrations.md`).
+- **Conceptual deep-dives** - anything substantive that doesn't fit in 30 lines.
 
 ## How the tiers reference each other
 
@@ -91,7 +91,7 @@ the reader has already encountered it)
 
 ### Tier 2 only (no root file)
 
-- Agent CLIs have no anchor — they don't know what to load first.
+- Agent CLIs have no anchor - they don't know what to load first.
 - Conventions get re-explained in every conversation because they're not in the always-loaded surface.
 - Tier 2 docs grow to fill the gap, getting longer than they should be.
 
@@ -117,10 +117,10 @@ If a Tier 1 file passes the hard cap, ask: which sections can move to Tier 2?
 - **Codex** loads `AGENTS.md` automatically.
 - **Gemini CLI** loads `GEMINI.md` automatically.
 - **Cursor / Windsurf** load rule files (`*.mdc`, `*.md` under `.cursor/rules/`, `.windsurf/rules/`); the two-tier pattern is enforced through which rules are `alwaysApply`-flagged vs glob-scoped.
-- **Kiro** loads `.kiro/steering/*.md` per its `inclusion` frontmatter — same pattern, different syntax.
+- **Kiro** loads `.kiro/steering/*.md` per its `inclusion` frontmatter - same pattern, different syntax.
 
 ## See also
 
-- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) — how `AGENTS.md` + per-vendor delegation shims work.
-- [`documentation-structure.md`](documentation-structure.md) — where new docs go (the broader decision tree).
-- [`rules/documentation-rules.md`](../rules/documentation-rules.md) — content standards.
+- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) - how `AGENTS.md` + per-vendor delegation shims work.
+- [`documentation-structure.md`](documentation-structure.md) - where new docs go (the broader decision tree).
+- [`rules/documentation-rules.md`](../rules/documentation-rules.md) - content standards.

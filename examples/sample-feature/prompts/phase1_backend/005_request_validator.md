@@ -6,28 +6,28 @@
 
 ## 1. Objective
 
-Implement `search.validate_request(filters, actor)` — the gate that converts raw HTTP query parameters into a typed, sanitized filter set or a structured 400 error. Every request to `/api/users/search` passes through this validator first.
+Implement `search.validate_request(filters, actor)` - the gate that converts raw HTTP query parameters into a typed, sanitized filter set or a structured 400 error. Every request to `/api/users/search` passes through this validator first.
 
 After this task: validator function exists, unit tests cover every validation rule, and structured 400 errors are returned for every invalid input shape documented in `design.md`.
 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R1.1, R1.2, R2.1, R3.1, R4.1, NFR-2.3
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract — error table)
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1, R1.2, R2.1, R3.1, R4.1, NFR-2.3
+**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract - error table)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: this is task 5 in [`../../tasks.md`](../../tasks.md). Independent of tasks 4, 6, 7, 8, 9. Consumed by task 10 (compose endpoint).
 **Current File(s)**: `src/services/users/search/validator.py` (new).
 
-The validator runs before the cache lookup. Invalid requests fail fast without touching DB or cache. The function is pure — no I/O — which makes it easy to unit-test exhaustively.
+The validator runs before the cache lookup. Invalid requests fail fast without touching DB or cache. The function is pure - no I/O - which makes it easy to unit-test exhaustively.
 
 ## 3. Agent Assignment
 
 **Primary Agent**: `backend-engineer` (see [`../../agent-roster.md`](../../agent-roster.md))
 **Supporting Agents**:
 
-- `unit-test-writer` — drafts the unit tests against each validation rule.
+- `unit-test-writer` - drafts the unit tests against each validation rule.
 
 ## 4. Prerequisites
 
@@ -77,9 +77,9 @@ HTTP status: 400 for all validation errors. The framework's error middleware add
 
 | File | Change |
 |---|---|
-| `src/services/users/search/validator.py` | Create — `validate_request` + `Filters` dataclass + `ValidationError` |
+| `src/services/users/search/validator.py` | Create - `validate_request` + `Filters` dataclass + `ValidationError` |
 | `src/services/users/search/__init__.py` | Export the new symbols |
-| `tests/services/users/search/test_validator.py` | Create — exhaustive validation tests |
+| `tests/services/users/search/test_validator.py` | Create - exhaustive validation tests |
 
 ## 6. Acceptance Criteria
 
@@ -87,15 +87,15 @@ HTTP status: 400 for all validation errors. The framework's error middleware add
 - [ ] Every rule in the table has at least one passing test.
 - [ ] Every error code returns the documented response shape.
 - [ ] Defaults applied where the spec specifies (e.g. `page_size=50`).
-- [ ] Pure function — no I/O, no DB, no cache.
+- [ ] Pure function - no I/O, no DB, no cache.
 - [ ] `/audit` returns clean.
 
 ## 7. Out of Scope
 
-- RBAC scoping based on the actor — task 6.
-- Cursor decoding — task 8 (validator just checks "non-empty if provided").
-- DB query — task 7.
-- Rate limiting — task 12 (gateway-level).
+- RBAC scoping based on the actor - task 6.
+- Cursor decoding - task 8 (validator just checks "non-empty if provided").
+- DB query - task 7.
+- Rate limiting - task 12 (gateway-level).
 
 ## 8. Validation
 

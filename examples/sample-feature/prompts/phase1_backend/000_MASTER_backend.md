@@ -1,4 +1,4 @@
-# 000_MASTER_backend — Phase 1: Backend Implementation
+# 000_MASTER_backend - Phase 1: Backend Implementation
 
 > Phase entry-point. Read this before any task in Phase 1.
 
@@ -50,24 +50,24 @@ By the end of Phase 1:
               │
         ┌─────┴────────────────────────────┐
         ▼                                  │
-    005, 006, 007, 008, 009    (parallel — independent components)
+    005, 006, 007, 008, 009    (parallel - independent components)
         │                                  │
         └──────────► 010 ◄─────────────────┘
                      │
-                     ├── 011 (observability — wired via 010 decoration)
+                     ├── 011 (observability - wired via 010 decoration)
                      │
-                     └── 012 (rate limiting — gateway-level, parallel with 010)
+                     └── 012 (rate limiting - gateway-level, parallel with 010)
 ```
 
 005–009 can run in any order or in parallel. 010 composes them. 011 wires observability into 010's components. 012 is gateway-level configuration that runs parallel to all of the above.
 
 ## Agent Assignments
 
-- **`backend-engineer`** — owns the search module (validator, RBAC scoping, query builder, cursor encoding, cache layer, endpoint composition, rate limiting). 7 of 9 tasks.
-- **`database-engineer`** — owns the index migration.
-- **`security-auditor`** — reviews RBAC scoping, cursor signing, audit log content, rate limit config.
-- **`unit-test-writer`** / **`integration-test-generator`** — embedded in implementation tasks.
-- **`deployment-validator`** — validates the migration in staging; runs synthetic load test.
+- **`backend-engineer`** - owns the search module (validator, RBAC scoping, query builder, cursor encoding, cache layer, endpoint composition, rate limiting). 7 of 9 tasks.
+- **`database-engineer`** - owns the index migration.
+- **`security-auditor`** - reviews RBAC scoping, cursor signing, audit log content, rate limit config.
+- **`unit-test-writer`** / **`integration-test-generator`** - embedded in implementation tasks.
+- **`deployment-validator`** - validates the migration in staging; runs synthetic load test.
 
 ## Acceptance Criteria
 
@@ -99,6 +99,6 @@ Phase 1 is complete when **all** of the following are true:
 5. Fan out tasks 005–009 (parallel where you have engineers; serial otherwise).
 6. After 005–009 land, run task 010 to compose.
 7. Wire 011 (observability) into 010's components.
-8. Run task 012 (rate limiting) parallel to 010 — they don't conflict.
+8. Run task 012 (rate limiting) parallel to 010 - they don't conflict.
 9. Validate against acceptance criteria.
 10. Promote to Phase 2 ([`../phase2_frontend/000_MASTER_frontend.md`](../phase2_frontend/000_MASTER_frontend.md)).

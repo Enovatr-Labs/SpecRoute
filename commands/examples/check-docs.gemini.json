@@ -1,0 +1,10 @@
+{
+  "_comment": "Gemini CLI example command config. Copy the check_docs entry into .gemini/gemini_cli_config.json under the top-level commands object.",
+  "commands": {
+    "check_docs": {
+      "command": "sh -c 'rg -n \"[T]ODO\" examples prds/examples specs/examples agents/examples skills/examples commands/examples || true'",
+      "description": "Check example docs for unresolved placeholder markers.",
+      "directory": "."
+    }
+  }
+}

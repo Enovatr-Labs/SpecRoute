@@ -1,5 +1,5 @@
 ---
-description: Report the current state of the SpecForge skeleton — which top-level dirs exist, which artifacts have been drafted, what's outstanding.
+description: Report the current state of the SpecForge skeleton - which top-level dirs exist, which artifacts have been drafted, what's outstanding.
 ---
 
 Report the SpecForge skeleton state at a glance. Run these checks and summarize the output as a status table.

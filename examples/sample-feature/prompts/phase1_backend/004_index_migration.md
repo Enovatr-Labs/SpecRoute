@@ -13,7 +13,7 @@ After this task lands, `EXPLAIN ANALYZE` on representative search queries shows 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 7 (Data Strategy)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — Requirements: R1.1, R1.2, R2.1, R3.1, NFR-1.1
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - Requirements: R1.1, R1.2, R2.1, R3.1, NFR-1.1
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 3 (Data Model), Section 3.4 (Migrations)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -27,8 +27,8 @@ The platform already has indexes on `users.id` (PK), `users.email` (unique), and
 **Primary Agent**: `database-engineer` (see [`../../agent-roster.md`](../../agent-roster.md))
 **Supporting Agents**:
 
-- `deployment-validator` — runs the migration in staging and validates with `EXPLAIN ANALYZE`.
-- `unit-test-writer` — writes the smoke test that confirms each index exists.
+- `deployment-validator` - runs the migration in staging and validates with `EXPLAIN ANALYZE`.
+- `unit-test-writer` - writes the smoke test that confirms each index exists.
 
 ## 4. Prerequisites
 
@@ -77,7 +77,7 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_users_role
 2. Add a corresponding `down` migration that drops each index `IF EXISTS`.
 3. In CI, run the migration against a synthetic dataset (~100k rows) and capture timing.
 4. Run `EXPLAIN ANALYZE` for each filter combination listed in the test matrix below; confirm each uses an index.
-5. Run the migration in staging during low-traffic window. Monitor lock-pid counts (should stay flat — `CONCURRENTLY` is non-blocking).
+5. Run the migration in staging during low-traffic window. Monitor lock-pid counts (should stay flat - `CONCURRENTLY` is non-blocking).
 6. Add a smoke test under `tests/migrations/` that asserts each index exists after migration.
 7. Have `deployment-validator` sign off on the staging run before merging.
 
@@ -85,8 +85,8 @@ CREATE INDEX CONCURRENTLY IF NOT EXISTS idx_users_role
 
 | File | Change |
 |---|---|
-| `migrations/202605xx_add_user_search_indexes.sql` | Create — the new migration |
-| `tests/migrations/test_user_search_indexes.py` (or equivalent) | Create — smoke test |
+| `migrations/202605xx_add_user_search_indexes.sql` | Create - the new migration |
+| `tests/migrations/test_user_search_indexes.py` (or equivalent) | Create - smoke test |
 
 ### 5.6 Files to Create
 
@@ -119,10 +119,10 @@ None.
 
 ## 7. Out of Scope
 
-- Endpoint implementation — task 10.
-- Cache layer — task 9.
-- Frontend — Phase 2.
-- Removing existing indexes — they remain.
+- Endpoint implementation - task 10.
+- Cache layer - task 9.
+- Frontend - Phase 2.
+- Removing existing indexes - they remain.
 
 ## 8. Validation
 

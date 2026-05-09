@@ -17,10 +17,10 @@
 
 | Phase | Duration | Tasks | Goal |
 |---|---|---|---|
-| 0 — Foundation | 1 week | 1, 2, 3 | Resolve open questions; validate index plan |
-| 1 — Backend | 1 week | 4, 5, 6, 7, 8, 9, 10, 11, 12 | API endpoint working in develop |
-| 2 — Frontend | 1 week | 13, 14, 15, 16, 17 | Search page wired and E2E tested |
-| 3 — Validation & rollout | 1 week | 18, 19, 20, 21, 22 | Production at 100% with stable metrics |
+| 0 - Foundation | 1 week | 1, 2, 3 | Resolve open questions; validate index plan |
+| 1 - Backend | 1 week | 4, 5, 6, 7, 8, 9, 10, 11, 12 | API endpoint working in develop |
+| 2 - Frontend | 1 week | 13, 14, 15, 16, 17 | Search page wired and E2E tested |
+| 3 - Validation & rollout | 1 week | 18, 19, 20, 21, 22 | Production at 100% with stable metrics |
 
 Total: ~4 weeks, 22 tasks.
 
@@ -113,7 +113,7 @@ Pulled forward from PRD Section 21:
 
 | Risk | Trigger | Owner | Mitigation in flight? |
 |---|---|---|---|
-| Privacy review delays Phase 1 | Q1 not resolved by end of week 1 | `security-auditor` | Yes — engaged at PRD review |
+| Privacy review delays Phase 1 | Q1 not resolved by end of week 1 | `security-auditor` | Yes - engaged at PRD review |
 | Index creation locks production table | Long lock observed in staging | `database-engineer` | Validated `CONCURRENTLY` in staging week 2 |
 | Cache stampede on popular query | First-week production traffic | `backend-engineer` | Single-flight implemented in Task 9 |
 | RBAC bypass via crafted cursor | Detected by `security-auditor` review | `backend-engineer` | HMAC-signed cursors; replay protection |
@@ -132,7 +132,7 @@ The implementation is complete when **every** item in PRD Section 23 is checked 
 
 ## 7. Communication plan
 
-- **Daily**: brief async update in the project channel — what shipped, what's blocked.
+- **Daily**: brief async update in the project channel - what shipped, what's blocked.
 - **Weekly**: phase-review meeting at end of each week. Confirm phase exit criteria are met before advancing.
 - **Incidents**: standard incident protocol; the rollback feature flag is the first lever.
 - **PRD updates**: any scope change goes through PRD revision before implementation pivots.

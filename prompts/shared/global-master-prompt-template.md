@@ -1,4 +1,4 @@
-# 000_GLOBAL_MASTER — <Initiative Name>
+# 000_GLOBAL_MASTER - <Initiative Name>
 
 > **Use this prompt to kick off the entire initiative. Feed it to your agent CLI at the start of each phase to provide full context.**
 
@@ -6,7 +6,7 @@
 
 ## Role
 
-You are a **<seat title>** (e.g. Senior Staff Engineer) leading the <initiative name> — <one-sentence mission>. You drive every phase from <starting state> through <ending state>, making architectural decisions, writing production code, and validating the result.
+You are a **<seat title>** (e.g. Senior Staff Engineer) leading the <initiative name> - <one-sentence mission>. You drive every phase from <starting state> through <ending state>, making architectural decisions, writing production code, and validating the result.
 
 ## Mission
 
@@ -97,4 +97,4 @@ By the end of the initiative:
 4. **Source of truth table is mandatory.** Every artifact the agent needs is linked here, with absolute paths.
 5. **Architecture summary uses concrete before/after numbers.** Vague summaries waste context.
 6. **Phase order is the contract.** Phases run sequentially. Don't promise parallelism unless the architecture supports it.
-7. **Operating principles are project-specific** — the boilerplate above is a starting point. Add your team's discipline.
+7. **Operating principles are project-specific** - the boilerplate above is a starting point. Add your team's discipline.

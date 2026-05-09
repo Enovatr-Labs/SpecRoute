@@ -18,7 +18,7 @@ If any entry condition is missing, surface it and stop. Don't proceed with parti
 
 Read these in order:
 
-1. The task in `tasks.md` — title, sub-steps, requirement back-references, prerequisites.
+1. The task in `tasks.md` - title, sub-steps, requirement back-references, prerequisites.
 2. The corresponding task prompt under `<feature>/prompts/<NNN>_*.md` if one exists.
 3. Each requirement back-referenced (`R<N.M>`, `NFR-<N.M>`) in `requirements.md`.
 4. Design sections relevant to the task's "Files to Modify" in `design.md`.
@@ -33,7 +33,7 @@ Write the change in your head before writing it in files:
 
 - What's the smallest set of edits that satisfies the task?
 - Which existing utilities, types, or patterns does this work compose with?
-- What's the test plan — which requirements does each test cover?
+- What's the test plan - which requirements does each test cover?
 - What's the rollback plan if the task ships and is found broken?
 
 Don't produce a planning document. Internal thinking, not external artifact. The exception: if the task itself produces a doc (an ADR, a runbook), that's the deliverable.
@@ -54,9 +54,9 @@ Discipline:
 For every back-referenced requirement:
 
 - One or more tests assert the behavior described in the requirement's acceptance criteria.
-- Tests are real — actual assertions, not `assert true` or logging-only.
+- Tests are real - actual assertions, not `assert true` or logging-only.
 - Mocks at external boundaries only. Don't mock the system under test.
-- Deterministic — no real network, no real clock without injection.
+- Deterministic - no real network, no real clock without injection.
 
 For NFRs back-referenced:
 
@@ -93,7 +93,7 @@ Open the PR with:
 When the reviewer requests changes:
 
 - Read every comment.
-- For blockers: implement the fix. Push a new commit (don't amend the original — readers want to see what changed since their last review).
+- For blockers: implement the fix. Push a new commit (don't amend the original - readers want to see what changed since their last review).
 - For concerns: respond with rationale or change accordingly. Reviewer's call which.
 - For nits: usually fix; cheap.
 
@@ -126,7 +126,7 @@ Surface this before implementing. Going ahead with broken prerequisites either p
 
 Update `design.md` first. Then return to implementation. Bypassing this produces drift between design and code.
 
-### "The test is hard to write — I'll add it next sprint"
+### "The test is hard to write - I'll add it next sprint"
 
 The test isn't an after-hours task. If the test is hard, the implementation is probably wrong (e.g. boundaries are unclear, dependencies are excessive). Refactor toward testability.
 
@@ -144,7 +144,7 @@ Stages A–I run once per task. The PRD-to-production workflow ([`prd-to-product
 
 ## See also
 
-- [`prd-to-production.md`](prd-to-production.md) — the outer workflow.
-- [`agent-review-loop.md`](agent-review-loop.md) — Stage G in detail.
-- [`testing-and-validation.md`](testing-and-validation.md) — Stage D in depth.
-- [`prompts/shared/task-prompt-template.md`](../prompts/shared/task-prompt-template.md) — the prompt shape that drives Stage A.
+- [`prd-to-production.md`](prd-to-production.md) - the outer workflow.
+- [`agent-review-loop.md`](agent-review-loop.md) - Stage G in detail.
+- [`testing-and-validation.md`](testing-and-validation.md) - Stage D in depth.
+- [`prompts/shared/task-prompt-template.md`](../prompts/shared/task-prompt-template.md) - the prompt shape that drives Stage A.

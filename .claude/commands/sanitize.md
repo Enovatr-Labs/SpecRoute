@@ -17,7 +17,7 @@ echo
 echo "── forbidden strings ──"
 WORDLIST=".claude/.forbidden-strings.txt"
 if [ ! -f "$WORDLIST" ]; then
-  echo "WARN  $WORDLIST missing — no terms to scan. Populate it with any private upstream names."
+  echo "WARN  $WORDLIST missing - no terms to scan. Populate it with any private upstream names."
 else
   while IFS= read -r line || [ -n "$line" ]; do
     case "$line" in '#'*|'') continue ;; esac
@@ -57,7 +57,7 @@ git status --short
 After running:
 
 - Report findings as a clear punch list: file, line, the specific string, suggested replacement.
-- If any "FAIL" appears, treat it as a blocker — do not proceed with `git commit` or `git push` until resolved.
-- If everything is "OK", say so plainly — don't pad the response.
+- If any "FAIL" appears, treat it as a blocker - do not proceed with `git commit` or `git push` until resolved.
+- If everything is "OK", say so plainly - don't pad the response.
 
 For a deeper review (logic-level audit, not just string match), invoke the `sanitization-auditor` agent.

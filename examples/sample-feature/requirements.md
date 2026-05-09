@@ -6,7 +6,7 @@
 **Status**: Approved
 **Source PRD**: [`prd.md`](prd.md)
 
-> **Spec triplet — part 1 of 3.** Companion documents: [`design.md`](design.md), [`tasks.md`](tasks.md).
+> **Spec triplet - part 1 of 3.** Companion documents: [`design.md`](design.md), [`tasks.md`](tasks.md).
 
 ---
 
@@ -66,7 +66,7 @@ Linked requirements: NFR-1.1.
 
 ### Requirement Group 1: Search by name and email
 
-#### R1.1 — Substring search on name
+#### R1.1 - Substring search on name
 
 **User Story:** Story 1.
 
@@ -76,7 +76,7 @@ Linked requirements: NFR-1.1.
 2. WHEN the substring is empty, THE system SHALL not apply the name filter.
 3. WHEN the substring contains only whitespace, THE system SHALL treat it as empty.
 
-#### R1.2 — Substring search on email
+#### R1.2 - Substring search on email
 
 **User Story:** Story 1.
 
@@ -85,7 +85,7 @@ Linked requirements: NFR-1.1.
 1. WHEN an actor submits a search with `email=<substring>`, THE system SHALL return users whose email contains `<substring>` (case-insensitive).
 2. WHEN the substring contains characters invalid in email addresses (e.g. spaces, control chars), THE system SHALL reject the request with HTTP 400.
 
-#### R1.3 — Combined name and email search
+#### R1.3 - Combined name and email search
 
 **User Story:** Story 1.
 
@@ -95,7 +95,7 @@ Linked requirements: NFR-1.1.
 
 ### Requirement Group 2: Filter by role
 
-#### R2.1 — Filter by role
+#### R2.1 - Filter by role
 
 **User Story:** Story 2.
 
@@ -106,7 +106,7 @@ Linked requirements: NFR-1.1.
 
 ### Requirement Group 3: Filter by status
 
-#### R3.1 — Filter by active or disabled
+#### R3.1 - Filter by active or disabled
 
 **User Story:** Story 3.
 
@@ -118,7 +118,7 @@ Linked requirements: NFR-1.1.
 
 ### Requirement Group 4: Pagination
 
-#### R4.1 — Cursor-based pagination forward
+#### R4.1 - Cursor-based pagination forward
 
 **User Story:** Story 4.
 
@@ -129,7 +129,7 @@ Linked requirements: NFR-1.1.
 3. WHEN the page size is not specified, THE system SHALL default to 50.
 4. WHEN the page size is greater than 100, THE system SHALL respond with HTTP 400.
 
-#### R4.2 — Cursor-based pagination backward
+#### R4.2 - Cursor-based pagination backward
 
 **User Story:** Story 4.
 
@@ -140,7 +140,7 @@ Linked requirements: NFR-1.1.
 
 ### Requirement Group 5: Authorization
 
-#### R5.1 — Authentication required
+#### R5.1 - Authentication required
 
 **User Story:** Story 5.
 
@@ -148,7 +148,7 @@ Linked requirements: NFR-1.1.
 
 1. WHEN an unauthenticated request hits `/api/users/search`, THE system SHALL respond with HTTP 401.
 
-#### R5.2 — Admin sees the full corpus
+#### R5.2 - Admin sees the full corpus
 
 **User Story:** Story 5.
 
@@ -156,41 +156,41 @@ Linked requirements: NFR-1.1.
 
 1. WHEN an actor with role `admin` searches, THE system SHALL include all users in the corpus.
 
-#### R5.3 — Non-admin sees only own organization
+#### R5.3 - Non-admin sees only own organization
 
 **User Story:** Story 5.
 
 **Acceptance Criteria:**
 
 1. WHEN an actor without `admin` role searches, THE system SHALL include only users with `organization_id` matching the actor's organization.
-2. WHEN a result row would otherwise reveal a user outside the actor's organization, THE system SHALL exclude it (not redact — exclude entirely).
+2. WHEN a result row would otherwise reveal a user outside the actor's organization, THE system SHALL exclude it (not redact - exclude entirely).
 
 ## 5. Non-Functional Requirements
 
 ### NFR-1: Performance
 
-- **NFR-1.1** — The system SHALL respond within p95 of 200ms for queries returning ≤ 50 results.
-- **NFR-1.2** — The system SHALL respond within p99 of 500ms for queries returning ≤ 50 results.
-- **NFR-1.3** — The system SHALL sustain 100 RPS without latency regression on neighboring endpoints.
-- **NFR-1.4** — The frontend page SHALL load within 1 second on a reference network.
+- **NFR-1.1** - The system SHALL respond within p95 of 200ms for queries returning ≤ 50 results.
+- **NFR-1.2** - The system SHALL respond within p99 of 500ms for queries returning ≤ 50 results.
+- **NFR-1.3** - The system SHALL sustain 100 RPS without latency regression on neighboring endpoints.
+- **NFR-1.4** - The frontend page SHALL load within 1 second on a reference network.
 
 ### NFR-2: Security
 
-- **NFR-2.1** — All requests to `/api/users/search` SHALL require authentication.
-- **NFR-2.2** — All requests SHALL be authorized against the actor's role (RBAC).
-- **NFR-2.3** — All filter values SHALL be validated server-side (length, character set, allowed values).
-- **NFR-2.4** — The system SHALL rate-limit search requests to 100 per minute per actor.
+- **NFR-2.1** - All requests to `/api/users/search` SHALL require authentication.
+- **NFR-2.2** - All requests SHALL be authorized against the actor's role (RBAC).
+- **NFR-2.3** - All filter values SHALL be validated server-side (length, character set, allowed values).
+- **NFR-2.4** - The system SHALL rate-limit search requests to 100 per minute per actor.
 
 ### NFR-3: Observability
 
-- **NFR-3.1** — The system SHALL emit a metric `search.duration_ms` (histogram) on every request, labeled with `cache_hit` and `result_count_bucket`.
-- **NFR-3.2** — The system SHALL emit a metric `search.filter_usage_total` (counter) labeled with the filter name(s) used.
-- **NFR-3.3** — The system SHALL emit a structured log entry on every search with `request_id`, `actor_id`, `filter_set_hash`, `result_count`, `duration_ms`.
-- **NFR-3.4** — The system SHALL emit a trace span linked to the API gateway span.
+- **NFR-3.1** - The system SHALL emit a metric `search.duration_ms` (histogram) on every request, labeled with `cache_hit` and `result_count_bucket`.
+- **NFR-3.2** - The system SHALL emit a metric `search.filter_usage_total` (counter) labeled with the filter name(s) used.
+- **NFR-3.3** - The system SHALL emit a structured log entry on every search with `request_id`, `actor_id`, `filter_set_hash`, `result_count`, `duration_ms`.
+- **NFR-3.4** - The system SHALL emit a trace span linked to the API gateway span.
 
 ### NFR-4: Reliability
 
-- **NFR-4.1** — The endpoint SHALL meet the existing user-service SLO of 99.9% availability.
+- **NFR-4.1** - The endpoint SHALL meet the existing user-service SLO of 99.9% availability.
 
 ## 6. Out of Scope
 
@@ -205,8 +205,8 @@ Linked requirements: NFR-1.1.
 | ID | Question | Owner | Resolution target |
 |---|---|---|---|
 | Q1 | Should the search log query strings for analytics? Privacy review needed. | Privacy lead | Before Phase 1 |
-| Q2 | Cache TTL — 60s or 300s? | Performance lead | Phase 0 spike |
-| Q3 | Cursor encoding — opaque base64 vs structured ID? | Tech lead | Phase 0 spike |
+| Q2 | Cache TTL - 60s or 300s? | Performance lead | Phase 0 spike |
+| Q3 | Cursor encoding - opaque base64 vs structured ID? | Tech lead | Phase 0 spike |
 
 ---
 

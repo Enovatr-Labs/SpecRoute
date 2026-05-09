@@ -7,7 +7,7 @@
 **Supersedes**: <prior SRS or "none">
 **Architecture Reference**: <link to canonical architecture doc>
 
-> A System Requirements Specification (SRS) describes the platform as a whole — what it is, what it does, and the contracts between its parts. Distinct from a feature PRD, which scopes a specific change. Use this template once per platform; revise rather than duplicate.
+> A System Requirements Specification (SRS) describes the platform as a whole - what it is, what it does, and the contracts between its parts. Distinct from a feature PRD, which scopes a specific change. Use this template once per platform; revise rather than duplicate.
 
 ---
 
@@ -92,13 +92,13 @@ Each functional requirement has a stable ID for cross-reference (e.g. `FR-1.1`).
 
 ### 4.1 <Capability Group 1>
 
-- **FR-1.1** — The system SHALL <action> when <condition>.
-- **FR-1.2** — The system SHALL <action> when <condition>.
+- **FR-1.1** - The system SHALL <action> when <condition>.
+- **FR-1.2** - The system SHALL <action> when <condition>.
 
 ### 4.2 <Capability Group 2>
 
-- **FR-2.1** — TODO
-- **FR-2.2** — TODO
+- **FR-2.1** - TODO
+- **FR-2.2** - TODO
 
 ---
 

@@ -8,7 +8,7 @@
 **Source Requirements**: [`requirements.md`](requirements.md)
 **Source Design**: [`design.md`](design.md)
 
-> **Spec triplet — part 3 of 3.** Numbered work plan with requirement back-references.
+> **Spec triplet - part 3 of 3.** Numbered work plan with requirement back-references.
 
 ---
 

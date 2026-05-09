@@ -1,6 +1,6 @@
 # Task 022: Rollback Drill in Staging
 
-> Production task prompt. Phase 3 — final gate before production rollout.
+> Production task prompt. Phase 3 - final gate before production rollout.
 
 ---
 
@@ -24,7 +24,7 @@ After this task: rollback drill outcome recorded in PRD Section 19; staging reco
 **Primary Agent**: `deployment-validator`
 **Supporting Agents**:
 
-- `backend-engineer` — observes the rollback; confirms recovery in metrics.
+- `backend-engineer` - observes the rollback; confirms recovery in metrics.
 
 ## 4. Prerequisites
 
@@ -42,7 +42,7 @@ Simulate a triggered rollback scenario: the search endpoint exhibits sustained l
 ### 5.2 Procedure to execute
 
 1. **Setup**: Enable `users.search.enabled` in staging at 100%. Run the load test from task 18 to establish baseline metrics.
-2. **Inject**: Introduce a synthetic latency regression — e.g. add a 1-second sleep to the cache hit path, or force the cache to always miss. The goal is to make p95 cross the 500ms rollback threshold.
+2. **Inject**: Introduce a synthetic latency regression - e.g. add a 1-second sleep to the cache hit path, or force the cache to always miss. The goal is to make p95 cross the 500ms rollback threshold.
 3. **Detect**: Confirm the on-call alert fires (or simulate the trigger if alerts haven't been wired yet).
 4. **Trigger**: Toggle `users.search.enabled` to 0%.
 5. **Recover**: Watch metrics. Within 1 minute, error rate and latency should drop to baseline (no requests are reaching the regression).
@@ -55,7 +55,7 @@ Simulate a triggered rollback scenario: the search endpoint exhibits sustained l
 |---|---|
 | [`../../prd.md`](../../prd.md) | Update Section 19 with the drill date and outcome |
 | Validation report | Record the drill |
-| (Synthetic regression code) | Remove after the drill — never ship to production |
+| (Synthetic regression code) | Remove after the drill - never ship to production |
 
 ## 6. Acceptance Criteria
 
@@ -70,15 +70,15 @@ Simulate a triggered rollback scenario: the search endpoint exhibits sustained l
 
 ## 7. Out of Scope
 
-- Production rollback drill — production rollout itself is the test of the rollback at scale.
-- Multi-failure scenarios (e.g. cache + DB both regressed) — out of scope for v1; standard playbooks cover compounded failures.
+- Production rollback drill - production rollout itself is the test of the rollback at scale.
+- Multi-failure scenarios (e.g. cache + DB both regressed) - out of scope for v1; standard playbooks cover compounded failures.
 
 ## 8. Validation
 
-The drill itself is the validation. Recovery time is the metric — under 5 minutes from trigger to baseline is acceptable; under 1 minute is the target.
+The drill itself is the validation. Recovery time is the metric - under 5 minutes from trigger to baseline is acceptable; under 1 minute is the target.
 
 ## 9. Rollback
 
 If the drill goes wrong (e.g. the synthetic regression causes a real outage in staging that doesn't recover): treat as a real staging incident. Standard incident playbooks apply.
 
-This task is fundamentally a deliberate failure exercise — having a runbook for "the drill itself failed" is appropriate.
+This task is fundamentally a deliberate failure exercise - having a runbook for "the drill itself failed" is appropriate.

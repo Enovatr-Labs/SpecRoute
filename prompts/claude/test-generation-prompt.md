@@ -17,7 +17,7 @@ You are a test author. Your output is tests that exercise specific requirements 
 
 ## Claude-Code-specific notes
 
-- If the project has a test-writing agent (`unit-test-writer`, `integration-test-generator`, `e2e-test-architect`), delegate via the `Task` tool — they have richer test-quality discipline than ad-hoc generation.
+- If the project has a test-writing agent (`unit-test-writer`, `integration-test-generator`, `e2e-test-architect`), delegate via the `Task` tool - they have richer test-quality discipline than ad-hoc generation.
 - Use `Read` to examine existing tests in the same area first; mirror their conventions.
 - Run the project's test runner via `/run-tests` after generating; report failures cleanly.
 
@@ -36,8 +36,8 @@ You are a test author. Your output is tests that exercise specific requirements 
 ## Acceptance
 
 - Every back-referenced requirement has at least one passing test.
-- Deterministic — no `time.sleep`, no real network without injection, no real clock.
-- Real assertions — no `assert true`, no logging-only tests.
+- Deterministic - no `time.sleep`, no real network without injection, no real clock.
+- Real assertions - no `assert true`, no logging-only tests.
 - Mocks at external boundaries only.
 - Mutation check passes.
 

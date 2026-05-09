@@ -1,36 +1,20 @@
 {
-  "_comment_about_this_template": "Gemini CLI commands are JSON entries in .gemini/gemini_cli_config.json under the top-level 'commands' object. This file demonstrates the shape of a single entry. Copy the inner object into your gemini_cli_config.json's commands map, keyed by the command name (slug). DO NOT ship the wrapper around this object literally; consume only the entry shape.",
-
+  "_comment": "Gemini CLI command configuration template. Drop into .gemini/gemini_cli_config.json. Each entry under 'commands' is a named shell shortcut.",
   "commands": {
-    "<command-slug>": {
-      "command": "echo 'Replace this with the actual shell command to run'",
-      "description": "<One-line description of what this command does. Shown in Gemini's command picker.>",
-      "directory": "<optional working directory; omit for repo root>"
-    },
-
-    "_additional_example_run_tests": {
-      "command": "npm test",
-      "description": "Run all frontend tests using the default test runner.",
-      "directory": "frontend"
-    },
-
-    "_additional_example_lint_check": {
-      "command": "ruff check .",
-      "description": "Run linter across the repo.",
+    "<command_slug>": {
+      "command": "scripts/<command>.sh",
+      "description": "<One-line description shown in Gemini's command picker.>",
       "directory": "."
     }
   },
-
   "_field_reference": {
-    "command": "Required. The shell command to execute. Use a single string; for multi-step operations, write a small wrapper script in scripts/ and reference it here.",
+    "command": "Required. Shell command string. For multi-step operations, call a small script instead of embedding a long pipeline.",
     "description": "Required. One concise line for the command picker.",
     "directory": "Optional. Working directory relative to the repo root. Omit for repo root."
   },
-
   "_anti_patterns": [
-    "Don't put a multi-line shell pipeline directly in 'command' — write a script and call it.",
-    "Don't shadow built-in slash commands without a clear reason.",
-    "Don't include secrets in 'command' — they'll appear in shell history.",
-    "Don't use this for interactive workflows — those are skills (Claude Code) or skills with user-invocable=true (Codex). Gemini doesn't have a separate skill primitive."
+    "Do not put secrets in command strings.",
+    "Do not use commands for interactive workflows.",
+    "Do not shadow built-in commands without a clear reason."
   ]
 }

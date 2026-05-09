@@ -4,7 +4,7 @@
 
 ## Purpose
 
-The QA agent owns the validation gate — test coverage, test quality, and ensuring every requirement has a measurable check.
+The QA agent owns the validation gate - test coverage, test quality, and ensuring every requirement has a measurable check.
 
 ## Responsibilities
 
@@ -24,17 +24,17 @@ The QA agent owns the validation gate — test coverage, test quality, and ensur
 
 ## Suggested instantiations
 
-- `unit-test-writer` — drafts unit tests against the spec triplet.
-- `integration-test-generator` — drafts service-to-service integration tests.
-- `e2e-test-architect` — owns end-to-end test infrastructure and flows.
-- `load-test-generator` — drafts load and soak tests against NFR-1 budgets.
-- `test-coverage-improver` — focuses on filling coverage gaps in legacy code.
+- `unit-test-writer` - drafts unit tests against the spec triplet.
+- `integration-test-generator` - drafts service-to-service integration tests.
+- `e2e-test-architect` - owns end-to-end test infrastructure and flows.
+- `load-test-generator` - drafts load and soak tests against NFR-1 budgets.
+- `test-coverage-improver` - focuses on filling coverage gaps in legacy code.
 
 ## Boundaries
 
-- Does NOT decide what the system does — that's product / architect.
-- Does NOT implement features — that's the implementation agents.
-- Does NOT do security testing in depth — that's the security agent (`pen-test-engineer`).
+- Does NOT decide what the system does - that's product / architect.
+- Does NOT implement features - that's the implementation agents.
+- Does NOT do security testing in depth - that's the security agent (`pen-test-engineer`).
 
 ## Cross-references
 

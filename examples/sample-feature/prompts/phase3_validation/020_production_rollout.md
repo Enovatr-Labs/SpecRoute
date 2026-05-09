@@ -1,6 +1,6 @@
 # Task 020: Production Rollout 10% → 50% → 100%
 
-> Production task prompt. Phase 3 — the actual go-live.
+> Production task prompt. Phase 3 - the actual go-live.
 
 ---
 
@@ -24,7 +24,7 @@ After this task: 100% production traffic with stable error rates and latency for
 **Primary Agent**: `deployment-validator`
 **Supporting Agents**:
 
-- `backend-engineer` — on call for triage if metrics regress.
+- `backend-engineer` - on call for triage if metrics regress.
 
 ## 4. Prerequisites
 
@@ -83,9 +83,9 @@ After this task: 100% production traffic with stable error rates and latency for
 
 ## 7. Out of Scope
 
-- Marketing announcements — handled separately by product / marketing.
-- Customer support training — handled by the support handover before this task.
-- Post-launch enhancements — out of v1; queue as new PRDs.
+- Marketing announcements - handled separately by product / marketing.
+- Customer support training - handled by the support handover before this task.
+- Post-launch enhancements - out of v1; queue as new PRDs.
 
 ## 8. Validation
 

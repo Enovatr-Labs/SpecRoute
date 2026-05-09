@@ -12,8 +12,8 @@ After this task: rate limiting is enforced; an integration test confirms the lim
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements — enumeration mitigation)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — NFR-2.4
+**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements - enumeration mitigation)
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - NFR-2.4
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 8 (Security Considerations)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,7 +25,7 @@ After this task: rate limiting is enforced; an integration test confirms the lim
 **Primary Agent**: `backend-engineer`
 **Supporting Agents**:
 
-- `integration-test-generator` — drafts the rate-limit integration test.
+- `integration-test-generator` - drafts the rate-limit integration test.
 
 ## 4. Prerequisites
 
@@ -57,7 +57,7 @@ A "fixed window" or "token bucket" algorithm is fine. The test asserts the limit
 | File | Change |
 |---|---|
 | API gateway config (project-specific) | Add the rate limit rule for `/api/users/search` |
-| `tests/integration/users_search_rate_limit_test.py` | Create — 101st request returns 429 |
+| `tests/integration/users_search_rate_limit_test.py` | Create - 101st request returns 429 |
 
 ## 6. Acceptance Criteria
 
@@ -70,8 +70,8 @@ A "fixed window" or "token bucket" algorithm is fine. The test asserts the limit
 
 ## 7. Out of Scope
 
-- Cross-endpoint rate limiting (e.g. "1000 requests across all endpoints per minute") — separate concern.
-- Adaptive rate limiting based on user role — could be a v2 enhancement.
+- Cross-endpoint rate limiting (e.g. "1000 requests across all endpoints per minute") - separate concern.
+- Adaptive rate limiting based on user role - could be a v2 enhancement.
 
 ## 8. Validation
 

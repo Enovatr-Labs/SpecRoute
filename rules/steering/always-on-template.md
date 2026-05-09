@@ -4,7 +4,7 @@ inclusion: always
 
 # Always-On Rule: <Rule Title>
 
-> **Steering rule template — always-on inclusion.** This rule loads into every Kiro conversation. Use sparingly — always-on rules consume context budget.
+> **Steering rule template - always-on inclusion.** This rule loads into every Kiro conversation. Use sparingly - always-on rules consume context budget.
 >
 > Cursor analog: frontmatter `alwaysApply: true` (no `globs`).
 > Windsurf analog: frontmatter `trigger: always`.
@@ -14,13 +14,13 @@ inclusion: always
 
 - Cross-cutting rules that apply to every interaction (engineering standards, security baseline).
 - Project-wide invariants (vendor matrix, branch strategy, environment naming).
-- Sanitization rules — content that must never appear in tracked files.
+- Sanitization rules - content that must never appear in tracked files.
 
 Don't use always-on for:
 
-- Per-language conventions — those are file-pattern matched.
-- Per-domain rules (frontend vs backend) — those are file-pattern matched.
-- Rules that only apply to a subset of work — those are file-pattern matched.
+- Per-language conventions - those are file-pattern matched.
+- Per-domain rules (frontend vs backend) - those are file-pattern matched.
+- Rules that only apply to a subset of work - those are file-pattern matched.
 
 ## Body
 
@@ -42,5 +42,5 @@ TODO: concrete examples of the rule applied
 
 1. Set `inclusion: always` in frontmatter.
 2. Replace the title.
-3. Write the body — concise, specific, project-specific.
+3. Write the body - concise, specific, project-specific.
 4. Drop into `.kiro/steering/<name>.md` or mirror into the equivalent for your vendor.

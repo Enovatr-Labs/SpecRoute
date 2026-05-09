@@ -6,14 +6,14 @@
 
 ## 1. Objective
 
-Implement `search.execute_query(filters)` — converts a validated, RBAC-scoped filter set into parameterized SQL against the `users` table and returns rows + a "has next page" flag. No string concatenation of SQL; no untrusted input in queries.
+Implement `search.execute_query(filters)` - converts a validated, RBAC-scoped filter set into parameterized SQL against the `users` table and returns rows + a "has next page" flag. No string concatenation of SQL; no untrusted input in queries.
 
 After this task: query builder produces correct SQL for every filter combination; `EXPLAIN ANALYZE` against staging confirms index usage matches the plan from task 4.
 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 7 (Data Strategy)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R1.1, R1.2, R1.3, R2.1, R3.1
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1, R1.2, R1.3, R2.1, R3.1
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 3 (Data Model), Section 4 (API Contract)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,7 +25,7 @@ After this task: query builder produces correct SQL for every filter combination
 **Primary Agent**: `backend-engineer`
 **Supporting Agents**:
 
-- `unit-test-writer` — embedded; one test per filter combination.
+- `unit-test-writer` - embedded; one test per filter combination.
 
 ## 4. Prerequisites
 
@@ -50,8 +50,8 @@ Returns `(rows, has_next)` where `rows` are the up-to-`page_size` matching users
 - For exact filters (`role`, `status`): `<column> = ?`.
 - For range filters (`created_after`, `created_before`): `created_at >= ?` / `created_at <= ?`.
 - For RBAC scope: `organization_id = ?` (set by task 6).
-- `ORDER BY <sort_key>, id` — always include `id` as the tiebreaker for stable cursor pagination.
-- `LIMIT <page_size> + 1` — fetch one extra to detect "has next page". Slice off the extra row before returning.
+- `ORDER BY <sort_key>, id` - always include `id` as the tiebreaker for stable cursor pagination.
+- `LIMIT <page_size> + 1` - fetch one extra to detect "has next page". Slice off the extra row before returning.
 
 ### 5.3 Cursor handling
 
@@ -67,23 +67,23 @@ For `direction=prev`, flip to `>` and reverse the result list. Task 8 owns curso
 
 | File | Change |
 |---|---|
-| `src/services/users/search/query.py` | Create — `execute_query` |
+| `src/services/users/search/query.py` | Create - `execute_query` |
 | `src/services/users/search/__init__.py` | Export |
-| `tests/services/users/search/test_query.py` | Create — every filter combination |
+| `tests/services/users/search/test_query.py` | Create - every filter combination |
 
 ## 6. Acceptance Criteria
 
 - [ ] `execute_query` exists with the signature above.
 - [ ] Unit tests cover: each single filter; combined filters (`name + role`, `email + status`, etc.); each sort order; cursor predicates in both directions.
 - [ ] `EXPLAIN ANALYZE` outputs (in PR description) show index usage for representative queries.
-- [ ] No SQL string concatenation anywhere — `ruff` / `bandit` / equivalent SAST clean.
+- [ ] No SQL string concatenation anywhere - `ruff` / `bandit` / equivalent SAST clean.
 - [ ] `/audit` returns clean.
 
 ## 7. Out of Scope
 
-- Cursor encoding/decoding — task 8.
-- Cache layer — task 9.
-- RBAC scoping — task 6 (already injected).
+- Cursor encoding/decoding - task 8.
+- Cache layer - task 9.
+- RBAC scoping - task 6 (already injected).
 
 ## 8. Validation
 

@@ -17,7 +17,7 @@ If none feel right, you may not have automated the right unit. Look at it again.
 
 ### Skill (interactive workflows)
 
-A skill is a parameterized, guided multi-step workflow. The user invokes it by name; the skill walks them through decisions, validates inputs at checkpoints, and produces an artifact or completes a task. Skills are **interactive by design** — that's the differentiator.
+A skill is a parameterized, guided multi-step workflow. The user invokes it by name; the skill walks them through decisions, validates inputs at checkpoints, and produces an artifact or completes a task. Skills are **interactive by design** - that's the differentiator.
 
 **When to use:**
 
@@ -37,10 +37,10 @@ A skill is a parameterized, guided multi-step workflow. The user invokes it by n
 
 **Examples in this repo:**
 
-- `scaffold-artifact` — interactive scaffolding for any artifact type with target-path resolution.
-- `add-vendor` — walks a contributor through adding a new agent CLI to the matrix.
-- `example-walkthrough` — guided end-to-end build of `examples/sample-feature/`.
-- `frontmatter-lint` — interactive frontmatter validation with offered fixes.
+- `scaffold-artifact` - interactive scaffolding for any artifact type with target-path resolution.
+- `add-vendor` - walks a contributor through adding a new agent CLI to the matrix.
+- `example-walkthrough` - guided end-to-end build of `examples/sample-feature/`.
+- `frontmatter-lint` - interactive frontmatter validation with offered fixes.
 
 **Usage pattern:**
 
@@ -55,7 +55,7 @@ Skill: <copies template, prefills frontmatter, asks about next steps>
 
 ### Agent (autonomous execution)
 
-An agent is a defined role with a specific brief that runs autonomously to completion. The user delegates a task; the agent produces an output. Agents are **autonomous by design** — that's the differentiator.
+An agent is a defined role with a specific brief that runs autonomously to completion. The user delegates a task; the agent produces an output. Agents are **autonomous by design** - that's the differentiator.
 
 **When to use:**
 
@@ -75,10 +75,10 @@ An agent is a defined role with a specific brief that runs autonomously to compl
 
 **Examples in this repo (the implementation team):**
 
-- `prd-author` — drafts PRD content from a brief.
-- `spec-author` — produces the spec triplet for a given PRD.
-- `sanitization-auditor` — scans tracked files for forbidden strings, blocks commits.
-- `template-quality-reviewer` — reviews templates against the production-grade bar.
+- `prd-author` - drafts PRD content from a brief.
+- `spec-author` - produces the spec triplet for a given PRD.
+- `sanitization-auditor` - scans tracked files for forbidden strings, blocks commits.
+- `template-quality-reviewer` - reviews templates against the production-grade bar.
 
 **Usage pattern:**
 
@@ -89,7 +89,7 @@ Agent: <reads the PRD, drafts requirements.md with stable IDs, returns artifact>
 
 ### Command (simple operations)
 
-A command is a slash-invoked operation that does one thing. No parameters (or one well-defined argument). Always behaves the same way. Commands are **deterministic by design** — that's the differentiator.
+A command is a slash-invoked operation that does one thing. No parameters (or one well-defined argument). Always behaves the same way. Commands are **deterministic by design** - that's the differentiator.
 
 **When to use:**
 
@@ -110,10 +110,10 @@ A command is a slash-invoked operation that does one thing. No parameters (or on
 
 **Examples in this repo:**
 
-- `/sanitize` — string-level scan for forbidden terms.
-- `/status` — skeleton state report.
-- `/audit` — comprehensive pre-commit check.
-- `/parity` — cross-vendor runtime parity check.
+- `/sanitize` - string-level scan for forbidden terms.
+- `/status` - skeleton state report.
+- `/audit` - comprehensive pre-commit check.
+- `/parity` - cross-vendor runtime parity check.
 
 **Usage pattern:**
 
@@ -127,7 +127,7 @@ Output: <punch list of findings or PASS>
 
 ### Hook (event-triggered automation)
 
-A hook is automation that runs on an event the user didn't explicitly invoke. Pre-commit checks, file-edit validators, session-start banners. Hooks are **invisible by design** — that's the differentiator.
+A hook is automation that runs on an event the user didn't explicitly invoke. Pre-commit checks, file-edit validators, session-start banners. Hooks are **invisible by design** - that's the differentiator.
 
 **When to use:**
 
@@ -144,13 +144,13 @@ A hook is automation that runs on an event the user didn't explicitly invoke. Pr
 - ✓ Fails closed (exit non-zero blocks the action).
 - ✗ Not appropriate for slow operations.
 - ✗ Not appropriate for actions that need user judgment.
-- ✗ Not appropriate for things the user does once and forgets — those are commands.
+- ✗ Not appropriate for things the user does once and forgets - those are commands.
 
 **Examples in this repo:**
 
-- `SessionStart` — prints a SpecForge skeleton status banner so Claude orients without re-grepping.
-- `PreToolUse` (Bash) — blocks `git commit`/`git push` if sanitization wordlist matches in tracked files.
-- `PostToolUse` (Write|Edit) — validates frontmatter on agent/skill/command file writes; warns on stderr.
+- `SessionStart` - prints a SpecForge skeleton status banner so Claude orients without re-grepping.
+- `PreToolUse` (Bash) - blocks `git commit`/`git push` if sanitization wordlist matches in tracked files.
+- `PostToolUse` (Write|Edit) - validates frontmatter on agent/skill/command file writes; warns on stderr.
 
 **Usage pattern:**
 
@@ -160,7 +160,7 @@ Hook (PreToolUse): <reads .claude/.forbidden-strings.txt, runs git grep, exits 0
 Bash: <only runs if hook exited 0>
 ```
 
-**Vendor support:** Claude Code and Kiro have first-class hook support. Codex, Gemini, Cursor, and Windsurf don't.
+**Vendor support:** All six supported vendors ship a hooks system. Per-vendor depth varies (Claude Code is most comprehensive at ~27 events with 5 hook types; Codex covers 6 events; Gemini 11 events; Kiro 10 events; Cursor ~19 events; Windsurf 12 events). See [`hooks/README.md`](../hooks/README.md) for the full per-vendor event matrix and per-vendor templates under `hooks/<vendor>/`.
 
 ## Decision-tree shortcut
 
@@ -184,7 +184,7 @@ If two answers are "yes," the primitive split is wrong. Split the work into two 
 
 ## Composition
 
-The four primitives compose. A typical SpecForge feature implementation uses all four — see [`agentic-coding-model.md`](agentic-coding-model.md) for the composition pattern.
+The four primitives compose. A typical SpecForge feature implementation uses all four - see [`agentic-coding-model.md`](agentic-coding-model.md) for the composition pattern.
 
 ## Worked examples in this repo
 

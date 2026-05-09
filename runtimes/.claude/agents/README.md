@@ -1,4 +1,4 @@
-# `.claude/agents/` — Claude Code agent registry
+# `.claude/agents/` - Claude Code agent registry
 
 Drop your project's agent definitions here. Each agent is a flat `<name>.md` file with YAML frontmatter that Claude Code reads automatically.
 
@@ -31,11 +31,11 @@ model: opus
 color: blue
 ---
 
-You are the <Role> for <Project> — <one-sentence scope>.
+You are the <Role> for <Project> - <one-sentence scope>.
 
 ## Owns
 
-- `<file/dir>` — <why>
+- `<file/dir>` - <why>
 
 ## Operating principles
 
@@ -43,7 +43,7 @@ You are the <Role> for <Project> — <one-sentence scope>.
 
 ## Don't use for
 
-- <Adjacent concern> — <other agent>.
+- <Adjacent concern> - <other agent>.
 ```
 
 Body length: ~30–50 lines is the sweet spot.

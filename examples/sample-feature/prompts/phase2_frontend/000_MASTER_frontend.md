@@ -1,4 +1,4 @@
-# 000_MASTER_frontend — Phase 2: Frontend Implementation
+# 000_MASTER_frontend - Phase 2: Frontend Implementation
 
 > Phase entry-point. Read this before any task in Phase 2.
 
@@ -8,7 +8,7 @@
 
 Phase 2 builds the `/users/search` page that consumes the Phase 1 endpoint. Four reusable components (`SearchInput`, `FilterChips`, `ResultTable`, `CursorPagination`) are built independently in parallel, then composed into the page (task 17). E2E tests cover the user stories from `requirements.md`.
 
-The endpoint deployed in Phase 1 is the API contract for this phase. If a frontend task discovers the API doesn't match what the design specified, fix the API (re-open Phase 1) — don't paper over with frontend workarounds.
+The endpoint deployed in Phase 1 is the API contract for this phase. If a frontend task discovers the API doesn't match what the design specified, fix the API (re-open Phase 1) - don't paper over with frontend workarounds.
 
 ## Goals
 
@@ -42,7 +42,7 @@ By the end of Phase 2:
 ### Execution order
 
 ```
-    013, 014, 015, 016    (parallel — independent components)
+    013, 014, 015, 016    (parallel - independent components)
             │
             ▼
            017             (compose into the page)
@@ -50,9 +50,9 @@ By the end of Phase 2:
 
 ## Agent Assignments
 
-- **`frontend-engineer`** — owns all five tasks.
-- **`unit-test-writer`** — embedded; one test file per component.
-- **`integration-test-generator`** — handles the E2E for task 017.
+- **`frontend-engineer`** - owns all five tasks.
+- **`unit-test-writer`** - embedded; one test file per component.
+- **`integration-test-generator`** - handles the E2E for task 017.
 
 ## Acceptance Criteria
 
@@ -72,7 +72,7 @@ Phase 2 is complete when **all** of the following are true:
 | Risk | Mitigation |
 |---|---|
 | Bundle size regression (NFR for initial JS bundle) | Code-split the search page; lazy-load FilterChips drawer |
-| Debounce timing too aggressive — feels laggy | 300ms standard; revisit only if user testing flags |
+| Debounce timing too aggressive - feels laggy | 300ms standard; revisit only if user testing flags |
 | API contract drift discovered late | E2E tests run against develop; mismatches surface before merge |
 | Cursor URL state gets unwieldy | Cursors are opaque; store only the current cursor in the URL, not the full filter state if it's bulky |
 

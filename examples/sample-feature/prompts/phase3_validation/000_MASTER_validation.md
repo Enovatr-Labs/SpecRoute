@@ -1,4 +1,4 @@
-# 000_MASTER_validation — Phase 3: Validation and Rollout
+# 000_MASTER_validation - Phase 3: Validation and Rollout
 
 > Phase entry-point. Read this before any task in Phase 3.
 
@@ -6,7 +6,7 @@
 
 ## Phase Summary
 
-Phase 3 validates the feature against its spec and rolls it to production. This is procedural work — the implementation is done; this phase is about gates, monitoring, and the deliberate ramp from 0 → 100% production traffic.
+Phase 3 validates the feature against its spec and rolls it to production. This is procedural work - the implementation is done; this phase is about gates, monitoring, and the deliberate ramp from 0 → 100% production traffic.
 
 The phase opens with a load test (task 18) and closes with the rollback drill (task 22) executed in staging. Production rollout (task 20) runs over the 7-day soak window described in `release-readiness.md`.
 
@@ -59,10 +59,10 @@ By the end of Phase 3:
 
 ## Agent Assignments
 
-- **`deployment-validator`** — load test, rollback drill, production rollout.
-- **`backend-engineer`** — feature flag wiring; supports rollout monitoring.
-- **`frontend-engineer`** — feature flag on the frontend side (fallback to existing `/users` page).
-- **`prd-author`** — documentation updates (API reference, admin user guide, changelog).
+- **`deployment-validator`** - load test, rollback drill, production rollout.
+- **`backend-engineer`** - feature flag wiring; supports rollout monitoring.
+- **`frontend-engineer`** - feature flag on the frontend side (fallback to existing `/users` page).
+- **`prd-author`** - documentation updates (API reference, admin user guide, changelog).
 
 ## Acceptance Criteria
 

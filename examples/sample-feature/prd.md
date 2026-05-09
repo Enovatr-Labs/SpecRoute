@@ -41,7 +41,7 @@
 
 ## 1. Executive Summary
 
-The platform supports tens of thousands of registered users. Today, finding a specific user requires either knowing their exact email or scrolling a paginated list. This PRD adds a search capability — paginated, filterable, indexed — that returns matches in p95 < 200ms across the full corpus.
+The platform supports tens of thousands of registered users. Today, finding a specific user requires either knowing their exact email or scrolling a paginated list. This PRD adds a search capability - paginated, filterable, indexed - that returns matches in p95 < 200ms across the full corpus.
 
 The change is scoped to one new API endpoint (`GET /api/users/search`), one new UI surface (the user-directory search page), and the matching observability. No data migration is required; an index addition at deploy time is sufficient.
 
@@ -82,16 +82,16 @@ Unblocks the RBAC PRD; reduces support ticket volume; improves admin onboarding.
 
 In priority order:
 
-1. **Cut admin time-to-find a user from ~30s to <2s** — measured via session telemetry.
-2. **Enable filter-by-role and filter-by-status** — required by the RBAC redesign.
-3. **Stay within the platform's p95 latency budget** — search adds load, must not regress neighbors.
+1. **Cut admin time-to-find a user from ~30s to <2s** - measured via session telemetry.
+2. **Enable filter-by-role and filter-by-status** - required by the RBAC redesign.
+3. **Stay within the platform's p95 latency budget** - search adds load, must not regress neighbors.
 
 ### 3.2 Non-Goals
 
-- **Bulk export** — separate PRD owns CSV/JSON export of search results.
-- **Cross-tenant federation** — search is single-tenant scoped.
-- **Free-text search beyond name + email** — no full-document search; columns only.
-- **Saved searches / shared searches** — out of scope for v1.
+- **Bulk export** - separate PRD owns CSV/JSON export of search results.
+- **Cross-tenant federation** - search is single-tenant scoped.
+- **Free-text search beyond name + email** - no full-document search; columns only.
+- **Saved searches / shared searches** - out of scope for v1.
 
 ### 3.3 Success Metrics
 
@@ -118,19 +118,19 @@ In priority order:
 
 ### 4.2 Out of Scope
 
-- Bulk export of search results — separate PRD.
-- Cross-tenant search — explicitly disallowed by tenant isolation.
-- Full-text search of user-generated content — different scope, different infrastructure.
-- Saved / shared searches — v2.
-- Search personalization (boosted recent contacts) — v2.
+- Bulk export of search results - separate PRD.
+- Cross-tenant search - explicitly disallowed by tenant isolation.
+- Full-text search of user-generated content - different scope, different infrastructure.
+- Saved / shared searches - v2.
+- Search personalization (boosted recent contacts) - v2.
 
 ### 4.3 Open Questions
 
 | Question | Owner | Resolution target |
 |---|---|---|
 | Should the search log query strings for analytics? Privacy review needed. | Privacy lead | Before Phase 1 starts |
-| Cache TTL — 60s or 300s? Performance vs freshness trade-off. | Performance lead | Phase 0 spike |
-| Cursor encoding — opaque base64 vs structured ID? | Tech lead | Phase 0 spike |
+| Cache TTL - 60s or 300s? Performance vs freshness trade-off. | Performance lead | Phase 0 spike |
+| Cursor encoding - opaque base64 vs structured ID? | Tech lead | Phase 0 spike |
 
 ---
 
@@ -188,7 +188,7 @@ See [`design.md`](design.md) for the full design including sequence diagrams.
 
 | Store | Purpose | Schema owner | Migration plan |
 |---|---|---|---|
-| Postgres `users` table (existing) | User record source of truth | Platform team | Forward-compatible — only adds indexes |
+| Postgres `users` table (existing) | User record source of truth | Platform team | Forward-compatible - only adds indexes |
 | Redis (existing) | 60s TTL cache for search results | Platform team | No schema change; uses existing instance |
 
 ### 7.2 Schema Changes
@@ -208,7 +208,7 @@ CREATE INDEX CONCURRENTLY idx_users_role          ON users (role);
 
 - Query strings are not logged in plaintext if they contain email patterns (privacy lead approval pending; see Section 4.3).
 - Cache entries expire at 60s; no long-term storage of query patterns.
-- Result rows include only public-profile fields (name, email, role, last-activity-date) — no PII beyond what's already in the user record.
+- Result rows include only public-profile fields (name, email, role, last-activity-date) - no PII beyond what's already in the user record.
 
 ---
 
@@ -236,11 +236,11 @@ No new secrets. Uses existing DB credentials and Redis credentials provisioned v
 
 ### 9.1 New UI Surfaces
 
-- `/users/search` — new page; the user-directory search UI.
+- `/users/search` - new page; the user-directory search UI.
 
 ### 9.2 Modified Surfaces
 
-- `/users` — existing user-table page; add a "Search users" button that links to the new page.
+- `/users` - existing user-table page; add a "Search users" button that links to the new page.
 
 ### 9.3 UX Considerations
 
@@ -267,7 +267,7 @@ None.
 
 ### 10.3 Event Contracts
 
-None — search is read-only.
+None - search is read-only.
 
 ---
 
@@ -346,18 +346,18 @@ None — search is read-only.
 | Environment | Branch | Cloud / Region | Notes |
 |---|---|---|---|
 | local-dev | `develop` | Local | Index migration runs on docker-compose Postgres |
-| develop | `develop` | TODO project's dev region | Migrate first; validate before staging promotion |
-| staging | `staging` | TODO project's staging region | Full E2E + load test gate |
-| production | `main` | TODO project's production region | 10% → 50% → 100% rollout via feature flag |
+| develop | `develop` | Example dev region (`us-east-1`) | Migrate first; validate before staging promotion |
+| staging | `staging` | Example staging region (`us-east-2`) | Full E2E + load test gate |
+| production | `main` | Example production region (`us-west-2`) | 10% → 50% → 100% rollout via feature flag |
 
 ---
 
 ## 17. Security Requirements
 
 - **Authentication**: Required; existing session auth. Anonymous requests rejected.
-- **Authorization**: RBAC-scoped — admin role sees all users; regular roles see users within their organization only.
+- **Authorization**: RBAC-scoped - admin role sees all users; regular roles see users within their organization only.
 - **Audit logging**: Every search logged with actor, filter hash, result count.
-- **Compliance**: GDPR — search-result rows include only fields the actor is authorized to see; query logging excludes PII patterns (privacy review pending).
+- **Compliance**: GDPR - search-result rows include only fields the actor is authorized to see; query logging excludes PII patterns (privacy review pending).
 - **Threat model**: Enumeration attack is the primary concern; rate limiting (100/min/user) and audit logging mitigate.
 
 ---
@@ -466,6 +466,6 @@ The PRD is satisfied when **all** of the following are true:
 
 ### B. References
 
-- [`design.md`](design.md) — full technical design.
-- [`requirements.md`](requirements.md) — formal requirements with stable IDs.
-- [`tasks.md`](tasks.md) — work plan with task numbers and back-references.
+- [`design.md`](design.md) - full technical design.
+- [`requirements.md`](requirements.md) - formal requirements with stable IDs.
+- [`tasks.md`](tasks.md) - work plan with task numbers and back-references.

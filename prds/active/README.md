@@ -1,6 +1,6 @@
 # Active PRDs
 
-In-flight Product Requirements Documents — drafts, under-review, and in-implementation.
+In-flight Product Requirements Documents - drafts, under-review, and in-implementation.
 
 Filename convention: `<slug>.md` where `<slug>` is lowercase-hyphenated and matches the feature name across `specs/examples/<slug>/` and `examples/sample-feature/` (when applicable).
 

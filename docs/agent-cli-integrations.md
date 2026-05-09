@@ -1,19 +1,34 @@
 # Agent CLI Integrations
 
-Concrete wiring for SpecForge into each supported agent CLI. The matrix below is the contract — adding a new tool means a new column, not a fork.
+Concrete wiring for SpecForge into each supported agent CLI. The matrix below is the contract - adding a new tool means a new column, not a fork.
 
 ## Supported vendor matrix
 
 | Vendor | Runtime dir | Root context file | Skills | Agents | Commands | Hooks | MCP config |
 |---|---|---|---|---|---|---|---|
-| Claude Code | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` + frontmatter | flat `<name>.md` + frontmatter (`name`, `description`, `model`, `color`) | `commands/<name>.md` + frontmatter | `hooks/hooks.json` + scripts (SessionStart, PreToolUse, PostToolUse) | `claude_desktop_config.json` |
-| Codex | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` (mirrors Claude) | flat `<name>.md` | (via skills with `user-invocable: true`) | — | `config.toml [mcp_servers]` |
-| Gemini CLI | `.gemini/` | `GEMINI.md` (delegation shim) | — | — | `gemini_cli_config.json` JSON command map | — | `settings.json [mcpServers]` |
-| Kiro | `.kiro/` | `steering/` files | — | — | — | `*.kiro.hook` JSON, file-pattern triggers | — |
-| Cursor | `.cursor/rules/` | `.cursorrules` | — | — | — | — | — |
-| Windsurf | `.windsurf/rules/` | — | — | — | — | — | — |
+| Claude Code | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` + frontmatter | flat `<name>.md` + frontmatter (`name`, `description`, `model`, `color`) | `commands/<name>.md` + frontmatter | `settings.json hooks` - ~27 events; 5 hook types (`command`, `http`, `mcp_tool`, `prompt`, `agent`); see [`hooks/claude/hooks.template.json`](../hooks/claude/hooks.template.json) | `claude_desktop_config.json` |
+| Codex | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` (mirrors Claude) | flat `<name>.md` | (via skills with `user-invocable: true`) | `hooks.json` or inline `[hooks]` in `config.toml`; 6 events; Claude-compatible JSON; requires `[features] codex_hooks = true` | `config.toml [mcp_servers]` |
+| Gemini CLI | `.gemini/` | `GEMINI.md` (delegation shim) | - | - | `gemini_cli_config.json` JSON command map | `settings.json hooks` - 11 events (Before/AfterTool, Before/AfterAgent, Before/AfterModel, BeforeToolSelection, SessionStart/End, Notification, PreCompress); v0.26.0+ | `settings.json [mcpServers]` |
+| Kiro | `.kiro/` | `steering/` files | - | - | - | `*.kiro.hook` JSON - 10 events (file create/save/delete, prompt submit, agent stop, pre/post tool, pre/post task, manual) | - |
+| Cursor | `.cursor/rules/` | `.cursorrules` | - | - | - | `hooks.json` v1 - ~19 events with `permission` / `decision` schema; `command` and `prompt` hook types; project + user + enterprise paths | - |
+| Windsurf | `.windsurf/rules/` | - | - | - | - | `hooks.json` - 12 events (`pre_*`/`post_*` for read_code, write_code, run_command, mcp_tool_use, plus user_prompt, cascade_response, setup_worktree); only pre-hooks block | - |
 
 This matrix appears in three places (`README.md`, `AGENTS.md`, this file) and must stay in lock-step. If you change one, update all three.
+
+### Hook system depth
+
+All six vendors ship hook systems; the per-vendor depth differs significantly:
+
+| Vendor | Event count | Blocking semantics | Hook types beyond shell |
+|---|---|---|---|
+| Claude Code | ~27 | rich (per-event) | `http`, `mcp_tool`, `prompt`, `agent` |
+| Codex | 6 | per-event JSON | `command` only |
+| Gemini CLI | 11 | per-event | `command` only |
+| Kiro | 10 | pre-hooks block | `askAgent` (built-in) |
+| Cursor | ~19 | `permission` schema | `command`, `prompt` |
+| Windsurf | 12 | pre-hooks only | `command`, `powershell` |
+
+For the full per-vendor event list, see [`hooks/README.md`](../hooks/README.md). Per-vendor templates: [`hooks/<vendor>/`](../hooks/).
 
 ## How to wire each vendor
 
@@ -87,9 +102,9 @@ cp -R runtimes/.kiro/ /path/to/your/repo/.kiro/
 
 Kiro consumes:
 
-- `.kiro/steering/<name>.md` — rule files with `inclusion: always` or `inclusion: fileMatch` frontmatter.
-- `.kiro/specs/<feature>/{requirements,design,tasks}.md` — the spec triplet (same shape as the framework-wide `specs/` triplet).
-- `.kiro/hooks/<name>.kiro.hook` — JSON hook configurations.
+- `.kiro/steering/<name>.md` - rule files with `inclusion: always` or `inclusion: fileMatch` frontmatter.
+- `.kiro/specs/<feature>/{requirements,design,tasks}.md` - the spec triplet (same shape as the framework-wide `specs/` triplet).
+- `.kiro/hooks/<name>.kiro.hook` - JSON hook configurations.
 
 Mirror your project's spec triplet content from `specs/examples/<feature>/` into `.kiro/specs/<feature>/` (or symlink, where supported).
 
@@ -101,7 +116,7 @@ cp -R runtimes/.cursor/ /path/to/your/repo/.cursor/
 
 Cursor consumes:
 
-- `.cursor/rules/*.mdc` — Markdown with frontmatter (`description`, `globs`, `alwaysApply`).
+- `.cursor/rules/*.mdc` - Markdown with frontmatter (`description`, `globs`, `alwaysApply`).
 - (legacy) `.cursorrules` at the repo root.
 
 For each rule file in `rules/`, create a corresponding `.mdc` in `.cursor/rules/`:
@@ -113,7 +128,7 @@ alwaysApply: true       # or
 globs: ["src/**/*.tsx"]  # for context-aware loading
 ---
 
-(rule body — copy from rules/<topic>.md)
+(rule body - copy from rules/<topic>.md)
 ```
 
 ### Windsurf
@@ -175,7 +190,7 @@ See [`.claude/skills/add-vendor/SKILL.md`](../.claude/skills/add-vendor/SKILL.md
 
 ## See also
 
-- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) — `AGENTS.md` + delegation-shim pattern.
-- [`cross-vendor-sync.md`](cross-vendor-sync.md) — how `tools/sync-skills.py` and the MCP renderers maintain parity.
-- [`runtimes/README.md`](../runtimes/README.md) — runtime layout overview.
-- The per-runtime READMEs under [`runtimes/.<vendor>/README.md`](../runtimes/) — the most concrete setup steps.
+- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) - `AGENTS.md` + delegation-shim pattern.
+- [`cross-vendor-sync.md`](cross-vendor-sync.md) - how `tools/sync-skills.py` and the MCP renderers maintain parity.
+- [`runtimes/README.md`](../runtimes/README.md) - runtime layout overview.
+- The per-runtime READMEs under [`runtimes/.<vendor>/README.md`](../runtimes/) - the most concrete setup steps.

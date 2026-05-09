@@ -76,11 +76,11 @@ Report what was created and the next steps:
 
 If the artifact is vendor-specific (skill, agent, command), remind the user:
 
-- Skills and agents typically need a mirror in `runtimes/.<other-vendor>/` — invoke `runtime-architect` or run the `/parity` command afterward.
-- Commands have different shapes per vendor — see `commands/README.md`.
+- Skills and agents typically need a mirror in `runtimes/.<other-vendor>/` - invoke `runtime-architect` or run the `/parity` command afterward.
+- Commands have different shapes per vendor - see `commands/README.md`.
 
 ## Don't use for
 
 - Editing existing artifacts (use `Edit` directly).
-- Bulk operations (use the dedicated agent — `prd-author`, `spec-author`, etc.).
+- Bulk operations (use the dedicated agent - `prd-author`, `spec-author`, etc.).
 - Filling in TODO content (that's the artifact author's job, not the scaffolder's).

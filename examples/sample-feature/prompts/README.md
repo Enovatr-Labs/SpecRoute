@@ -47,10 +47,10 @@ prompts/
 
 | Phase | Duration | Tasks | Goal |
 |---|---|---|---|
-| 0 — Foundation | 1 week | 1, 2, 3 | Resolve PRD open questions Q1–Q3 |
-| 1 — Backend | 1 week | 4–12 | API endpoint live in develop |
-| 2 — Frontend | 1 week | 13–17 | Search page wired and E2E tested |
-| 3 — Validation | 1 week + 7d soak | 18–22 | Production at 100% with stable metrics |
+| 0 - Foundation | 1 week | 1, 2, 3 | Resolve PRD open questions Q1–Q3 |
+| 1 - Backend | 1 week | 4–12 | API endpoint live in develop |
+| 2 - Frontend | 1 week | 13–17 | Search page wired and E2E tested |
+| 3 - Validation | 1 week + 7d soak | 18–22 | Production at 100% with stable metrics |
 
 Total: ~4 weeks elapsed (with parallel work; longer if serialized).
 
@@ -66,16 +66,16 @@ Task prompts use the global task number from [`../tasks.md`](../tasks.md) (so `0
 
 This is the canonical example of the framework's phased master-prompt pattern. Read these alongside the templates in [`../../../prompts/shared/`](../../../prompts/shared/):
 
-- [`global-master-prompt-template.md`](../../../prompts/shared/global-master-prompt-template.md) — the entry-point template that `000_GLOBAL_MASTER.md` instantiates.
-- [`phase-master-prompt-template.md`](../../../prompts/shared/phase-master-prompt-template.md) — the phase-master template that each `000_MASTER_<phase>.md` instantiates.
-- [`task-prompt-template.md`](../../../prompts/shared/task-prompt-template.md) — the production task-prompt shape that every numbered task prompt instantiates.
+- [`global-master-prompt-template.md`](../../../prompts/shared/global-master-prompt-template.md) - the entry-point template that `000_GLOBAL_MASTER.md` instantiates.
+- [`phase-master-prompt-template.md`](../../../prompts/shared/phase-master-prompt-template.md) - the phase-master template that each `000_MASTER_<phase>.md` instantiates.
+- [`task-prompt-template.md`](../../../prompts/shared/task-prompt-template.md) - the production task-prompt shape that every numbered task prompt instantiates.
 
 The detail level varies appropriately:
 
-- **Phase 0** prompts are scoped to spikes / reviews — output is a decision, not code. Shorter.
-- **Phase 1** prompts are full production task prompts — exhaustive Files-to-Modify, Step-by-step, Acceptance Criteria. Most detailed.
-- **Phase 2** prompts are component-scoped — clean component contracts, accessibility checklists, state matrices.
-- **Phase 3** prompts are procedural — load-test profiles, rollout stages, communication plans.
+- **Phase 0** prompts are scoped to spikes / reviews - output is a decision, not code. Shorter.
+- **Phase 1** prompts are full production task prompts - exhaustive Files-to-Modify, Step-by-step, Acceptance Criteria. Most detailed.
+- **Phase 2** prompts are component-scoped - clean component contracts, accessibility checklists, state matrices.
+- **Phase 3** prompts are procedural - load-test profiles, rollout stages, communication plans.
 
 ## Cross-references that resolve
 
@@ -97,6 +97,6 @@ For your own initiative:
 2. Pick a phase structure that fits your work (4 phases is a common shape; could be 2 or 8).
 3. For each phase, use [`phase-master-prompt-template.md`](../../../prompts/shared/phase-master-prompt-template.md).
 4. For each numbered task, use [`task-prompt-template.md`](../../../prompts/shared/task-prompt-template.md). Adjust the detail level to match the task's complexity.
-5. Number tasks globally (matching `tasks.md` numbering) — makes cross-references trivial.
+5. Number tasks globally (matching `tasks.md` numbering) - makes cross-references trivial.
 
 The discipline is in the cross-references. Without them, the prompt set drifts; with them, the implementation team has a single coherent execution document.

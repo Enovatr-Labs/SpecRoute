@@ -11,7 +11,7 @@ Wire `GET /api/users/search` end-to-end: accept the request, validate, RBAC-scop
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 5 (Target Architecture), Section 10 (Backend / Integration Contracts)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — Requirements: R1.1, R1.2, R1.3, R2.1, R3.1, R4.1, R4.2, R5.1, R5.2, R5.3, NFR-1.1, NFR-2.1, NFR-2.2, NFR-2.3, NFR-3.1, NFR-3.3, NFR-3.4
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - Requirements: R1.1, R1.2, R1.3, R2.1, R3.1, R4.1, R4.2, R5.1, R5.2, R5.3, NFR-1.1, NFR-2.1, NFR-2.2, NFR-2.3, NFR-3.1, NFR-3.3, NFR-3.4
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 2 (Architecture), Section 4 (API Contracts), Section 7 (Performance), Section 8 (Security), Section 9 (Observability)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,8 +25,8 @@ By the time this task runs, the components built in tasks 5–9 and 11 exist as 
 **Primary Agent**: `backend-engineer` (see [`../../agent-roster.md`](../../agent-roster.md))
 **Supporting Agents**:
 
-- `integration-test-generator` — drafts the integration tests covering the full request lifecycle.
-- `security-auditor` — reviews the auth → RBAC → query path for boundary correctness.
+- `integration-test-generator` - drafts the integration tests covering the full request lifecycle.
+- `security-auditor` - reviews the auth → RBAC → query path for boundary correctness.
 
 ## 4. Prerequisites
 
@@ -147,18 +147,18 @@ None.
 - [ ] All error cases (400 invalid input, 401 unauthenticated, 429 rate-limited) return structured bodies.
 - [ ] Feature flag `users.search.enabled` controls the endpoint (404 when off).
 - [ ] Observability instrumentation emits the four metrics, the structured log, and the trace span (NFR-3.1, NFR-3.2, NFR-3.3, NFR-3.4).
-- [ ] Integration tests cover every requirement (R1.1–R5.3) — coverage table updated in [`../../tasks.md`](../../tasks.md).
+- [ ] Integration tests cover every requirement (R1.1–R5.3) - coverage table updated in [`../../tasks.md`](../../tasks.md).
 - [ ] Local synthetic 100 RPS load: p95 < 200ms.
 - [ ] `/audit` returns clean.
 - [ ] `security-auditor` signed off on the auth → RBAC → query path.
 
 ## 7. Out of Scope
 
-- Rate limiting at the gateway — task 12.
-- Frontend integration — Phase 2 (tasks 13–17).
-- Production load testing — task 18.
-- Production rollout — task 20.
-- Documentation updates — task 21.
+- Rate limiting at the gateway - task 12.
+- Frontend integration - Phase 2 (tasks 13–17).
+- Production load testing - task 18.
+- Production rollout - task 20.
+- Documentation updates - task 21.
 
 ## 8. Validation
 

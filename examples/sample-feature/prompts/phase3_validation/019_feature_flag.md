@@ -1,6 +1,6 @@
 # Task 019: Wire Feature Flag
 
-> Production task prompt. Phase 3 — defense-in-depth feature flagging.
+> Production task prompt. Phase 3 - defense-in-depth feature flagging.
 
 ---
 
@@ -13,7 +13,7 @@ After this task: flag works on/off in staging and develop; integration tests con
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 19 (Rollback Strategy)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — none directly; this is rollout infrastructure
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - none directly; this is rollout infrastructure
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 11 (Rollout Considerations)
 **Phase Master**: [`000_MASTER_validation.md`](000_MASTER_validation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -24,7 +24,7 @@ After this task: flag works on/off in staging and develop; integration tests con
 **Primary Agent**: `backend-engineer`
 **Supporting Agents**:
 
-- `frontend-engineer` — wires the flag check on the frontend side.
+- `frontend-engineer` - wires the flag check on the frontend side.
 
 ## 4. Prerequisites
 
@@ -63,7 +63,7 @@ Per-actor or per-organization scoping (per the project's flag service capabiliti
 |---|---|
 | Backend handler (from task 010) | Verify or add the flag check |
 | Frontend page (from task 017) | Verify or add the flag check |
-| `tests/integration/users_search_flag_test.py` | Create — flag off → 404; flag on → 200 |
+| `tests/integration/users_search_flag_test.py` | Create - flag off → 404; flag on → 200 |
 | Feature flag service config | Register `users.search.enabled` as a new flag (default off) |
 
 ## 6. Acceptance Criteria
@@ -77,8 +77,8 @@ Per-actor or per-organization scoping (per the project's flag service capabiliti
 
 ## 7. Out of Scope
 
-- Per-actor / percentage-based targeting — handled by the flag service itself.
-- Flag value change UI — handled by the flag service's UI.
+- Per-actor / percentage-based targeting - handled by the flag service itself.
+- Flag value change UI - handled by the flag service's UI.
 
 ## 8. Validation
 

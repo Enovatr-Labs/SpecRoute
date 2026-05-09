@@ -13,7 +13,7 @@ After this task: round-trip property tests pass; tampered cursors are rejected w
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R4.1, R4.2, NFR-2.3
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R4.1, R4.2, NFR-2.3
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 6 (State Management)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,8 +25,8 @@ After this task: round-trip property tests pass; tampered cursors are rejected w
 **Primary Agent**: `backend-engineer`
 **Supporting Agents**:
 
-- `security-auditor` — reviews signature implementation, key handling, replay protection.
-- `unit-test-writer` — embedded.
+- `security-auditor` - reviews signature implementation, key handling, replay protection.
+- `unit-test-writer` - embedded.
 
 ## 4. Prerequisites
 
@@ -71,9 +71,9 @@ The verify path tries the current key first, then the previous key (if any). Enc
 
 | File | Change |
 |---|---|
-| `src/services/users/search/cursor.py` | Create — encode/decode + `CursorPayload` + `InvalidCursor` |
+| `src/services/users/search/cursor.py` | Create - encode/decode + `CursorPayload` + `InvalidCursor` |
 | `src/services/users/search/__init__.py` | Export |
-| `tests/services/users/search/test_cursor.py` | Create — test matrix above + property test for round-trip |
+| `tests/services/users/search/test_cursor.py` | Create - test matrix above + property test for round-trip |
 
 ## 6. Acceptance Criteria
 
@@ -82,15 +82,15 @@ The verify path tries the current key first, then the previous key (if any). Enc
 - [ ] Tampered cursors are rejected.
 - [ ] Expired cursors (>24h) are rejected.
 - [ ] Encode + decode latency < 100µs each (microbenchmark).
-- [ ] Signing key read from secrets manager — never hardcoded.
+- [ ] Signing key read from secrets manager - never hardcoded.
 - [ ] `security-auditor` signs off.
 - [ ] `/audit` returns clean.
 
 ## 7. Out of Scope
 
-- Cursor migration between versions — out of v1.
+- Cursor migration between versions - out of v1.
 - UI display of cursor (frontend handles opaquely).
-- Key rotation automation — operational concern; document the procedure.
+- Key rotation automation - operational concern; document the procedure.
 
 ## 8. Validation
 

@@ -8,7 +8,7 @@ allowed-tools: Read Glob Grep Bash
 
 # Frontmatter Lint
 
-Validates the YAML frontmatter contract on every agent / skill / command file. Frontmatter is load-bearing — Claude Code, Codex, and Gemini won't register artifacts that fail the contract.
+Validates the YAML frontmatter contract on every agent / skill / command file. Frontmatter is load-bearing - Claude Code, Codex, and Gemini won't register artifacts that fail the contract.
 
 ## When to use
 
@@ -32,35 +32,35 @@ If the argument is a path, lint that path. Otherwise lint all of:
 ### Agent contract (`.claude/agents/`, `agents/examples/`, `runtimes/.<vendor>/agents/`)
 
 Required:
-- `name` — slug, lowercase-hyphenated, matches filename (without `.md`)
-- `description` — non-empty string, must include trigger phrases
-- `model` — one of `opus`, `sonnet`, `haiku`
-- `color` — recognized color name
+- `name` - slug, lowercase-hyphenated, matches filename (without `.md`)
+- `description` - non-empty string, must include trigger phrases
+- `model` - one of `opus`, `sonnet`, `haiku`
+- `color` - recognized color name
 
 Optional (warn if missing on consumer-facing examples):
-- `memory` — `project` | `user` | absent
-- `internet` — `Yes` | `No` | absent
+- `memory` - `project` | `user` | absent
+- `internet` - `Yes` | `No` | absent
 
 ### Skill contract (`skills/examples/<name>/SKILL.md`, `runtimes/.<vendor>/skills/<name>/SKILL.md`)
 
 Required:
-- `name` — slug, must match enclosing directory name
-- `description` — non-empty
-- `argument-hint` — non-empty (use `""` if no argument expected)
-- `user-invocable` — boolean
-- `allowed-tools` — non-empty space-separated string
+- `name` - slug, must match enclosing directory name
+- `description` - non-empty
+- `argument-hint` - non-empty (use `""` if no argument expected)
+- `user-invocable` - boolean
+- `allowed-tools` - non-empty space-separated string
 
 ### Command contract (Claude `commands/examples/*.claude.md`, `runtimes/.claude/commands/*.md`)
 
 Required:
-- `description` — non-empty
+- `description` - non-empty
 
 ### Command contract (Gemini `commands/examples/*.gemini.json`, `runtimes/.gemini/gemini_cli_config.json` entries)
 
 Each command map entry requires:
-- `command` — non-empty shell string
-- `description` — non-empty
-- `directory` — optional path
+- `command` - non-empty shell string
+- `description` - non-empty
+- `directory` - optional path
 
 ## Step 3: Run the checks
 

@@ -1,4 +1,4 @@
-# Framework Docs Author — Docs Status
+# Framework Docs Author - Docs Status
 
 Tracks which documentation files exist, which are TODO, and which need refresh after structural changes.
 
@@ -21,16 +21,16 @@ Tracks which documentation files exist, which are TODO, and which need refresh a
 
 | File | Status | Priority |
 |---|---|---|
-| `philosophy.md` | TODO | medium — explains why spec-driven |
-| `spec-driven-development.md` | TODO | medium — PRD → triplet → tasks flow |
-| `agentic-coding-model.md` | TODO | medium — how artifacts compose |
-| `automation-decision-framework.md` | TODO | **highest leverage** — Skill vs Agent vs Command vs Hook 4-row matrix |
-| `documentation-structure.md` | TODO | low — where new docs go |
-| `two-tier-docs-pattern.md` | TODO | low — short root + namespaced reference |
-| `multi-vendor-context-files.md` | TODO | high — AGENTS.md + delegation shims |
-| `agent-cli-integrations.md` | TODO | high — how to wire SpecForge into each tool |
-| `cross-vendor-sync.md` | TODO | medium — owned jointly with `runtime-architect` |
-| `agent-memory.md` | TODO | low — per-agent persistent context |
+| `philosophy.md` | TODO | medium - explains why spec-driven |
+| `spec-driven-development.md` | TODO | medium - PRD → triplet → tasks flow |
+| `agentic-coding-model.md` | TODO | medium - how artifacts compose |
+| `automation-decision-framework.md` | TODO | **highest leverage** - Skill vs Agent vs Command vs Hook 4-row matrix |
+| `documentation-structure.md` | TODO | low - where new docs go |
+| `two-tier-docs-pattern.md` | TODO | low - short root + namespaced reference |
+| `multi-vendor-context-files.md` | TODO | high - AGENTS.md + delegation shims |
+| `agent-cli-integrations.md` | TODO | high - how to wire SpecForge into each tool |
+| `cross-vendor-sync.md` | TODO | medium - owned jointly with `runtime-architect` |
+| `agent-memory.md` | TODO | low - per-agent persistent context |
 
 ### `workflows/`
 
@@ -44,11 +44,11 @@ Tracks which documentation files exist, which are TODO, and which need refresh a
 
 ## Recommended drafting order
 
-1. `automation-decision-framework.md` — most cross-referenced, others depend on it
+1. `automation-decision-framework.md` - most cross-referenced, others depend on it
 2. `AGENTS.md` + `multi-vendor-context-files.md` together (mutually reinforcing)
 3. `philosophy.md` + `spec-driven-development.md` + `agentic-coding-model.md` (concept trio)
-4. `agent-cli-integrations.md` — concrete wiring per vendor
-5. `workflows/prd-to-production.md` — exercises the full flow
+4. `agent-cli-integrations.md` - concrete wiring per vendor
+5. `workflows/prd-to-production.md` - exercises the full flow
 6. Remaining workflows
 7. Remaining `docs/` references
 

@@ -6,29 +6,29 @@
 
 ## 1. Objective
 
-Implement `search.apply_rbac(filters, actor)` — derives the actor's `(organization_id, role)` and injects an `organization_id` filter for non-admin actors. After RBAC scoping, the query builder (task 7) cannot return users outside the actor's authorized scope.
+Implement `search.apply_rbac(filters, actor)` - derives the actor's `(organization_id, role)` and injects an `organization_id` filter for non-admin actors. After RBAC scoping, the query builder (task 7) cannot return users outside the actor's authorized scope.
 
 After this task: admin actors see the full corpus; non-admin actors see only users in their own organization. A cross-tenant probe (manual integration test) is rejected.
 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R5.1, R5.2, R5.3, NFR-2.1, NFR-2.2
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R5.1, R5.2, R5.3, NFR-2.1, NFR-2.2
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 8 (Security Considerations)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 6 in [`../../tasks.md`](../../tasks.md). Depends on task 5 (validator). Consumed by task 10 (compose endpoint).
 **Current File(s)**: `src/services/users/search/rbac.py` (new).
 
-This is the security gate. Forgetting RBAC scoping at this layer turns the endpoint into an enumeration attack. The validator runs first; this runs second; the query builder runs third — defense in depth.
+This is the security gate. Forgetting RBAC scoping at this layer turns the endpoint into an enumeration attack. The validator runs first; this runs second; the query builder runs third - defense in depth.
 
 ## 3. Agent Assignment
 
 **Primary Agent**: `backend-engineer`
 **Supporting Agents**:
 
-- `security-auditor` — reviews the boundary between authenticated and validated; reviews the test that confirms a forged cursor or filter can't bypass.
-- `unit-test-writer` — embedded.
+- `security-auditor` - reviews the boundary between authenticated and validated; reviews the test that confirms a forged cursor or filter can't bypass.
+- `unit-test-writer` - embedded.
 
 ## 4. Prerequisites
 
@@ -68,10 +68,10 @@ Do not derive `organization_id` from any filter parameter the user controls. The
 
 | File | Change |
 |---|---|
-| `src/services/users/search/rbac.py` | Create — `apply_rbac` |
+| `src/services/users/search/rbac.py` | Create - `apply_rbac` |
 | `src/services/users/search/__init__.py` | Export |
-| `tests/services/users/search/test_rbac.py` | Create — full validation matrix |
-| `tests/integration/users_search_rbac_test.py` | Create — cross-tenant probe (manual or scripted) |
+| `tests/services/users/search/test_rbac.py` | Create - full validation matrix |
+| `tests/integration/users_search_rbac_test.py` | Create - cross-tenant probe (manual or scripted) |
 
 ## 6. Acceptance Criteria
 
@@ -84,8 +84,8 @@ Do not derive `organization_id` from any filter parameter the user controls. The
 ## 7. Out of Scope
 
 - Authentication itself (existing middleware).
-- Per-row authorization beyond organization scoping (e.g. row-level masking) — out of v1.
-- Audit logging — task 11.
+- Per-row authorization beyond organization scoping (e.g. row-level masking) - out of v1.
+- Audit logging - task 11.
 
 ## 8. Validation
 

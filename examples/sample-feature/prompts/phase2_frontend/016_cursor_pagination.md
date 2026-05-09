@@ -6,15 +6,15 @@
 
 ## 1. Objective
 
-Build the `CursorPagination` component — prev/next buttons that consume the cursor metadata from the API response and emit cursor-change events. Reflects the current cursor in the URL for shareability.
+Build the `CursorPagination` component - prev/next buttons that consume the cursor metadata from the API response and emit cursor-change events. Reflects the current cursor in the URL for shareability.
 
 After this task: prev/next buttons work, are correctly disabled when no cursor is available, and the current cursor lives in the URL so users can share or refresh without losing pagination state.
 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R4.1, R4.2
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract — cursor fields)
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R4.1, R4.2
+**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract - cursor fields)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 16. Independent of tasks 13, 14, 15. Composed by task 17.
@@ -25,7 +25,7 @@ After this task: prev/next buttons work, are correctly disabled when no cursor i
 **Primary Agent**: `frontend-engineer`
 **Supporting Agents**:
 
-- `unit-test-writer` — embedded.
+- `unit-test-writer` - embedded.
 
 ## 4. Prerequisites
 
@@ -73,7 +73,7 @@ The page (task 17) reads the cursor from the URL on mount and writes the cursor 
 | File | Change |
 |---|---|
 | `frontend/components/users/search/CursorPagination.tsx` | Create |
-| `frontend/components/users/search/CursorPagination.test.tsx` | Create — state transitions |
+| `frontend/components/users/search/CursorPagination.test.tsx` | Create - state transitions |
 | `frontend/components/users/search/index.ts` | Export |
 
 ## 6. Acceptance Criteria
@@ -86,9 +86,9 @@ The page (task 17) reads the cursor from the URL on mount and writes the cursor 
 
 ## 7. Out of Scope
 
-- URL state management — owned by the page (task 17).
-- Page-size selector — out of v1.
-- "Jump to page N" — cursor pagination doesn't support this; out of scope.
+- URL state management - owned by the page (task 17).
+- Page-size selector - out of v1.
+- "Jump to page N" - cursor pagination doesn't support this; out of scope.
 
 ## 8. Validation
 

@@ -13,7 +13,7 @@ After this task: load test report attached to the PRD; p95 < 200ms and p99 < 500
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 18 (Performance Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — NFR-1.1, NFR-1.2, NFR-1.3
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - NFR-1.1, NFR-1.2, NFR-1.3
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 7 (Performance Considerations)
 **Phase Master**: [`000_MASTER_validation.md`](000_MASTER_validation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -24,7 +24,7 @@ After this task: load test report attached to the PRD; p95 < 200ms and p99 < 500
 **Primary Agent**: `deployment-validator`
 **Supporting Agents**:
 
-- `backend-engineer` — interprets latency profile; identifies optimization opportunities if budgets are exceeded.
+- `backend-engineer` - interprets latency profile; identifies optimization opportunities if budgets are exceeded.
 
 ## 4. Prerequisites
 
@@ -46,20 +46,20 @@ After this task: load test report attached to the PRD; p95 < 200ms and p99 < 500
 
 ### 5.2 Metrics to capture
 
-| Metric | Target | Captured? |
+| Metric | Target | Capture source |
 |---|---|---|
-| Endpoint p50 | < 50ms | TODO |
-| Endpoint p95 | < 200ms | TODO (NFR-1.1) |
-| Endpoint p99 | < 500ms | TODO (NFR-1.2) |
-| Cache hit rate (steady state) | > 40% | TODO |
-| Error rate | < 0.1% | TODO |
-| Neighbor endpoint p95 (e.g. `/api/users` legacy) | within 10% of pre-test baseline | TODO |
-| Database CPU | < 70% sustained | TODO |
-| Redis CPU | < 50% sustained | TODO |
+| Endpoint p50 | < 50ms | `search.duration_ms{quantile="0.50"}` |
+| Endpoint p95 | < 200ms | `search.duration_ms{quantile="0.95"}` (NFR-1.1) |
+| Endpoint p99 | < 500ms | `search.duration_ms{quantile="0.99"}` (NFR-1.2) |
+| Cache hit rate (steady state) | > 40% | `search.cache_hit_rate` |
+| Error rate | < 0.1% | `search.errors_total / search.requests_total` |
+| Neighbor endpoint p95 (e.g. `/api/users` legacy) | within 10% of pre-test baseline | `users.list.duration_ms{quantile="0.95"}` |
+| Database CPU | < 70% sustained | database host CPU dashboard |
+| Redis CPU | < 50% sustained | Redis host CPU dashboard |
 
 ### 5.3 Pass / fail decision
 
-PASS if all targets met. FAIL otherwise — investigate and fix before advancing. Possible fix paths:
+PASS if all targets met. FAIL otherwise - investigate and fix before advancing. Possible fix paths:
 
 - p95 high → investigate query plan; possibly add an index missed in task 4.
 - Cache hit rate low → revisit the TTL choice from Phase 0 task 001.
@@ -69,7 +69,7 @@ PASS if all targets met. FAIL otherwise — investigate and fix before advancing
 
 | File | Change |
 |---|---|
-| `tests/load/users-search.<extension>` (or equivalent) | Create — load test script |
+| `tests/load/users-search.<extension>` (or equivalent) | Create - load test script |
 | Validation report | Append the load test results |
 | [`../../prd.md`](../../prd.md) | Update Section 18 with measured numbers |
 
@@ -83,8 +83,8 @@ PASS if all targets met. FAIL otherwise — investigate and fix before advancing
 
 ## 7. Out of Scope
 
-- Production load testing — out of v1; production validation comes from the gradual rollout.
-- Stress testing beyond 100 RPS — out of scope unless budgets fail.
+- Production load testing - out of v1; production validation comes from the gradual rollout.
+- Stress testing beyond 100 RPS - out of scope unless budgets fail.
 
 ## 8. Validation
 

@@ -1,4 +1,4 @@
-# `.claude/commands/` — Claude Code slash commands
+# `.claude/commands/` - Claude Code slash commands
 
 Drop your project's slash commands here. Each command is a flat `<name>.md` file with YAML frontmatter and a body. Users invoke as `/<name>`.
 

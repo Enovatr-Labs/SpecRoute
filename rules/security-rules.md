@@ -60,7 +60,7 @@ For any non-trivial feature:
 - What boundary do they cross?
 - What's the blast radius if a control fails?
 
-Document in the PRD's security section or a linked threat-model doc. Don't skip — design without a threat model is an attack surface.
+Document in the PRD's security section or a linked threat-model doc. Don't skip - design without a threat model is an attack surface.
 
 ## 8. Least privilege
 
@@ -74,7 +74,7 @@ Document in the PRD's security section or a linked threat-model doc. Don't skip 
 
 - Pin dependency versions in lockfiles.
 - Scan for known CVEs in CI (Dependabot, Snyk, equivalent).
-- Review new dependencies before merging — what license, what supply-chain posture, what blast radius.
+- Review new dependencies before merging - what license, what supply-chain posture, what blast radius.
 - Avoid `@latest` in production configs.
 
 ## 10. Sanitization before commit
@@ -106,7 +106,7 @@ See [`SECURITY.md`](../SECURITY.md) Hardening practices.
 
 ## 13. MCP servers are dependencies too
 
-- Pin MCP server package versions in `runtimes/mcp/servers.yaml` examples — `@latest` invites supply-chain surprises.
+- Pin MCP server package versions in `runtimes/mcp/servers.yaml` examples - `@latest` invites supply-chain surprises.
 - Scope filesystem MCP servers to the project root, not `/`.
 - Document `requires_env` for any server that needs credentials; never inline.
 
@@ -123,6 +123,6 @@ Don't treat compliance as a separate workstream that catches up at audit time.
 
 ## See also
 
-- [`SECURITY.md`](../SECURITY.md) — framework-level security policy.
-- [`engineering-rules.md`](engineering-rules.md) — broader engineering standards.
-- [`code-review-rules.md`](code-review-rules.md) — review checklist that includes security.
+- [`SECURITY.md`](../SECURITY.md) - framework-level security policy.
+- [`engineering-rules.md`](engineering-rules.md) - broader engineering standards.
+- [`code-review-rules.md`](code-review-rules.md) - review checklist that includes security.

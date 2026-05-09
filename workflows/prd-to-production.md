@@ -172,14 +172,14 @@ But: don't skip Stages 9 (review), 10 (validation), and 11 (rollout). Those are 
 
 | Stage | Primary role | Agent (if delegating) |
 |---|---|---|
-| 1 — PRD draft | Product owner | `prd-author` |
-| 2 — PRD review | Stakeholders | (review prompt) |
-| 4 — Spec triplet | Tech lead | `spec-author` |
-| 7 — Tasks + prompts | Tech lead | `prompt-engineer` |
-| 8 — Implementation | Each task's owner | (per task assignment) |
-| 9 — PR review | Reviewer | `code-reviewer` (with prompts/shared/code-review-prompt.md) |
-| 10 — Validation | QA | `template-quality-reviewer` (for cross-cutting) |
-| 11 — Rollout | SRE | `deployment-validator` |
+| 1 - PRD draft | Product owner | `prd-author` |
+| 2 - PRD review | Stakeholders | (review prompt) |
+| 4 - Spec triplet | Tech lead | `spec-author` |
+| 7 - Tasks + prompts | Tech lead | `prompt-engineer` |
+| 8 - Implementation | Each task's owner | (per task assignment) |
+| 9 - PR review | Reviewer | `code-reviewer` (with prompts/shared/code-review-prompt.md) |
+| 10 - Validation | QA | `template-quality-reviewer` (for cross-cutting) |
+| 11 - Rollout | SRE | `deployment-validator` |
 
 ## Worked example
 
@@ -187,8 +187,8 @@ But: don't skip Stages 9 (review), 10 (validation), and 11 (rollout). Those are 
 
 ## See also
 
-- [`spec-to-implementation.md`](spec-to-implementation.md) — Stage 7–9 in detail.
-- [`agent-review-loop.md`](agent-review-loop.md) — Stage 9.
-- [`testing-and-validation.md`](testing-and-validation.md) — Stage 10.
-- [`release-readiness.md`](release-readiness.md) — Stage 11.
-- [`docs/spec-driven-development.md`](../docs/spec-driven-development.md) — the underlying philosophy.
+- [`spec-to-implementation.md`](spec-to-implementation.md) - Stage 7–9 in detail.
+- [`agent-review-loop.md`](agent-review-loop.md) - Stage 9.
+- [`testing-and-validation.md`](testing-and-validation.md) - Stage 10.
+- [`release-readiness.md`](release-readiness.md) - Stage 11.
+- [`docs/spec-driven-development.md`](../docs/spec-driven-development.md) - the underlying philosophy.

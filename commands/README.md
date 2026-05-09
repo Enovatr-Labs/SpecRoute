@@ -5,7 +5,7 @@ Slash-invoked operations. Simple, deterministic, no configuration. The user type
 ```
 commands/
 ├── command-template.claude.md           Claude Code: markdown body + description frontmatter
-├── command-template.gemini.json         Gemini CLI: JSON entry in commands map
+├── command-template.gemini.json         Gemini CLI: full command config template
 └── examples/                            worked examples
 ```
 
@@ -35,14 +35,16 @@ Body is the prompt that the slash command expands to. Body can include shell sni
 .gemini/gemini_cli_config.json
 ```
 
-JSON file with a top-level `commands` object. Each entry:
+JSON file with a top-level `commands` object:
 
 ```json
 {
-  "<slug>": {
-    "command": "<shell command to run>",
-    "description": "<one-line description>",
-    "directory": "<optional working directory>"
+  "commands": {
+    "<slug>": {
+      "command": "<shell command to run>",
+      "description": "<one-line description>",
+      "directory": "<optional working directory>"
+    }
   }
 }
 ```
@@ -78,10 +80,10 @@ See [`docs/automation-decision-framework.md`](../docs/automation-decision-framew
 
 The four commands under [`.claude/commands/`](../.claude/commands/) at the repository root are real, tracked examples:
 
-- `/audit` — comprehensive pre-commit check
-- `/parity` — cross-vendor runtime parity check
-- `/sanitize` — sanitization wordlist scan
-- `/status` — skeleton state report
+- `/audit` - comprehensive pre-commit check
+- `/parity` - cross-vendor runtime parity check
+- `/sanitize` - sanitization wordlist scan
+- `/status` - skeleton state report
 
 Read `audit.md` and `sanitize.md` for the most substantive examples of the markdown shape.
 

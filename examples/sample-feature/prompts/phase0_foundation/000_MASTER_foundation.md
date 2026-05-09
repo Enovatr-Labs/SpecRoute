@@ -1,4 +1,4 @@
-# 000_MASTER_foundation — Phase 0: Foundation and Spikes
+# 000_MASTER_foundation - Phase 0: Foundation and Spikes
 
 > Phase entry-point. Read this before any task in Phase 0.
 
@@ -6,7 +6,7 @@
 
 ## Phase Summary
 
-Phase 0 resolves the open questions from the PRD and design that block Phase 1 implementation. There are three open questions (Q1, Q2, Q3 from `requirements.md` Section 7) plus an index-plan validation that needs staging access. None of these are coding work in the strict sense — they're spikes, reviews, and validations.
+Phase 0 resolves the open questions from the PRD and design that block Phase 1 implementation. There are three open questions (Q1, Q2, Q3 from `requirements.md` Section 7) plus an index-plan validation that needs staging access. None of these are coding work in the strict sense - they're spikes, reviews, and validations.
 
 The output of Phase 0 is decisions, not code. Phase 1 starts only when the decisions are recorded in the design doc and the privacy review is signed off.
 
@@ -33,13 +33,13 @@ By the end of Phase 0:
 | 002 | [`002_cursor_encoding_spike.md`](002_cursor_encoding_spike.md) | `backend-engineer` | `security-auditor` |
 | 003 | [`003_privacy_review.md`](003_privacy_review.md) | `security-auditor` | (privacy lead, human) |
 
-Tasks 001 and 002 can run in parallel. Task 003 runs in parallel with both — it's blocking on a human reviewer, not on engineering work.
+Tasks 001 and 002 can run in parallel. Task 003 runs in parallel with both - it's blocking on a human reviewer, not on engineering work.
 
 ## Agent Assignments
 
-- **`backend-engineer`** — runs the cache TTL and cursor encoding spikes.
-- **`security-auditor`** — leads the privacy review; advises the cursor encoding spike on signature/replay-protection trade-offs.
-- **`deployment-validator`** — runs staging measurements during the cache TTL spike.
+- **`backend-engineer`** - runs the cache TTL and cursor encoding spikes.
+- **`security-auditor`** - leads the privacy review; advises the cursor encoding spike on signature/replay-protection trade-offs.
+- **`deployment-validator`** - runs staging measurements during the cache TTL spike.
 
 Read each agent's `.md` file under `.claude/agents/` (or the project's equivalent) for operating principles.
 

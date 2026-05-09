@@ -10,15 +10,15 @@ A specification is cheaper to change than code. When humans and agents agree on 
 
 ### 2. Agents are senior collaborators, not autocomplete
 
-Modern agent CLIs are capable of architecture decisions, multi-file refactors, and end-to-end feature implementation. Treating them as autocomplete wastes that capacity. SpecForge's templates and prompts assume agents are participating in design — given a real spec, they produce real software, with the same review surface as a human contributor.
+Modern agent CLIs are capable of architecture decisions, multi-file refactors, and end-to-end feature implementation. Treating them as autocomplete wastes that capacity. SpecForge's templates and prompts assume agents are participating in design - given a real spec, they produce real software, with the same review surface as a human contributor.
 
 ### 3. Vendor neutrality is a contract, not a wish
 
-Tooling churns. Claude Code, Codex, Gemini CLI, Kiro, Cursor, Windsurf — and whatever ships next — each have their own runtime conventions. SpecForge's value is the **content** (PRDs, specs, prompts, agent definitions, rules, skills, commands, hooks). The runtime layout is a thin shell that adapts the same content to each vendor's expectations. A SpecForge consumer can switch vendors without rewriting their PRDs and specs; only the runtime shell changes.
+Tooling churns. Claude Code, Codex, Gemini CLI, Kiro, Cursor, Windsurf - and whatever ships next - each have their own runtime conventions. SpecForge's value is the **content** (PRDs, specs, prompts, agent definitions, rules, skills, commands, hooks). The runtime layout is a thin shell that adapts the same content to each vendor's expectations. A SpecForge consumer can switch vendors without rewriting their PRDs and specs; only the runtime shell changes.
 
 ### 4. Templates that don't produce valid artifacts are theory
 
-Every template in SpecForge must, when filled in by a competent contributor, produce a working artifact. Frontmatter contracts must be concrete. Cross-references must resolve. Worked examples must exist alongside templates. We reject "abstract" templates — checklists masquerading as deliverables.
+Every template in SpecForge must, when filled in by a competent contributor, produce a working artifact. Frontmatter contracts must be concrete. Cross-references must resolve. Worked examples must exist alongside templates. We reject "abstract" templates - checklists masquerading as deliverables.
 
 ### 5. Sanitization is non-negotiable for shared frameworks
 
@@ -26,11 +26,11 @@ SpecForge is open-source, derived from internal codebases. Patterns generalize f
 
 ### 6. Maintainability over cleverness
 
-Three obvious lines beat one clever abstraction. Repeated patterns beat premature reuse. SpecForge prefers contributors reading existing files and copying the shape over teaching them a meta-language. The folder-per-skill convention, the flat-file agent layout, the explicit per-vendor runtime dirs — these are deliberate choices to favor readability over elegance.
+Three obvious lines beat one clever abstraction. Repeated patterns beat premature reuse. SpecForge prefers contributors reading existing files and copying the shape over teaching them a meta-language. The folder-per-skill convention, the flat-file agent layout, the explicit per-vendor runtime dirs - these are deliberate choices to favor readability over elegance.
 
 ### 7. Two-tier docs
 
-Root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short — they're loaded into every agent conversation. Deep references live in `docs/`. Long context files crowd out the user's actual question; short ones force discipline about what's actually load-bearing.
+Root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short - they're loaded into every agent conversation. Deep references live in `docs/`. Long context files crowd out the user's actual question; short ones force discipline about what's actually load-bearing.
 
 ## What we reject
 
@@ -44,7 +44,7 @@ Root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short — they'r
 - The PRD template is long because real PRDs are long. The lightweight PRD exists for genuinely small features, not as a way to skip the work.
 - The spec triplet (requirements + design + tasks) has stable IDs because tasks must back-reference requirements without ambiguity.
 - The phased master-prompt pattern (`000_GLOBAL_MASTER` + `phase{N}/000_MASTER_<phase>` + numbered task prompts) exists because multi-week migrations need an execution structure, not a wall of text.
-- The "Don't use for" section in every agent definition is load-bearing — it's how we keep agent boundaries crisp.
+- The "Don't use for" section in every agent definition is load-bearing - it's how we keep agent boundaries crisp.
 - The PreToolUse sanitization gate is on by default because the cost of a one-time leak vastly exceeds the cost of a few false-positive blocks.
 
 ## What this is not

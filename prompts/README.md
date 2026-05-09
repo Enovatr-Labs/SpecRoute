@@ -1,6 +1,6 @@
 # Prompts
 
-Reusable prompts — global masters, phase masters, task prompts, and per-vendor prompt sets.
+Reusable prompts - global masters, phase masters, task prompts, and per-vendor prompt sets.
 
 ```
 prompts/
@@ -48,7 +48,7 @@ Templates for the three layers:
 | Phase master | [`shared/phase-master-prompt-template.md`](shared/phase-master-prompt-template.md) |
 | Task prompt | [`shared/task-prompt-template.md`](shared/task-prompt-template.md) |
 
-The task-prompt template is the load-bearing one. Its shape — Objective / Context (with PRD/spec/architecture cross-refs) / Agent Assignment / Prerequisites / Task Details (with current→target diff blocks) / Acceptance Criteria — is far richer than a generic implementation prompt and is what makes phased work auditable.
+The task-prompt template is the load-bearing one. Its shape - Objective / Context (with PRD/spec/architecture cross-refs) / Agent Assignment / Prerequisites / Task Details (with current→target diff blocks) / Acceptance Criteria - is far richer than a generic implementation prompt and is what makes phased work auditable.
 
 ## Cross-vendor prompts
 
@@ -58,10 +58,10 @@ The task-prompt template is the load-bearing one. Its shape — Objective / Cont
 
 Each of `codex/` and `claude/` ships the same four prompts:
 
-- `implementation-prompt.md` — short ad-hoc implementation prompt (use the `task-prompt-template` for production work)
-- `refactor-prompt.md` — behavior-preserving refactor
-- `test-generation-prompt.md` — generate tests against requirement IDs
-- `repo-bootstrap-prompt.md` — populate a new repo with SpecForge structure
+- `implementation-prompt.md` - short ad-hoc implementation prompt (use the `task-prompt-template` for production work)
+- `refactor-prompt.md` - behavior-preserving refactor
+- `test-generation-prompt.md` - generate tests against requirement IDs
+- `repo-bootstrap-prompt.md` - populate a new repo with SpecForge structure
 
 Gemini, Kiro, Cursor, and Windsurf don't have dedicated prompt directories yet. The `shared/` prompts work in any agent CLI that can read a markdown prompt; the per-vendor directories grow as we identify vendor-specific tooling worth capturing.
 

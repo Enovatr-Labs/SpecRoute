@@ -13,7 +13,7 @@ After this task: `search.duration_ms` (histogram), `search.filter_usage_total` (
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 8.2 (Observability)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — NFR-3.1, NFR-3.2, NFR-3.3, NFR-3.4
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - NFR-3.1, NFR-3.2, NFR-3.3, NFR-3.4
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 9
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,7 +25,7 @@ After this task: `search.duration_ms` (histogram), `search.filter_usage_total` (
 **Primary Agent**: `backend-engineer`
 **Supporting Agents**:
 
-- `deployment-validator` — confirms metrics, logs, traces appear in develop's monitoring stack.
+- `deployment-validator` - confirms metrics, logs, traces appear in develop's monitoring stack.
 
 ## 4. Prerequisites
 
@@ -72,8 +72,8 @@ A trace span `users.search.handle_request` wraps the request handler. Sub-spans:
 - `validate` (task 5)
 - `apply_rbac` (task 6)
 - `cache.get` (task 9)
-- `query.execute` (task 7) — if cache miss
-- `cache.populate` (task 9) — if cache miss
+- `query.execute` (task 7) - if cache miss
+- `cache.populate` (task 9) - if cache miss
 - `encode_cursor` (task 8)
 
 Spans link to the parent span from the API gateway.
@@ -82,9 +82,9 @@ Spans link to the parent span from the API gateway.
 
 | File | Change |
 |---|---|
-| `src/services/users/search/observability.py` | Create — metric registrations, log helper, span helper |
+| `src/services/users/search/observability.py` | Create - metric registrations, log helper, span helper |
 | `src/services/users/search/handler.py` (from task 10) | Decorate composition with metrics, logs, spans |
-| `tests/services/users/search/test_observability.py` | Create — metrics emitted, log shape, span linkage |
+| `tests/services/users/search/test_observability.py` | Create - metrics emitted, log shape, span linkage |
 | Monitoring dashboards | Update or create dashboards for the new metrics |
 
 ## 6. Acceptance Criteria
@@ -98,8 +98,8 @@ Spans link to the parent span from the API gateway.
 
 ## 7. Out of Scope
 
-- Alerts on the new metrics — see task 18 (load test) and the project's standard alerting workflow.
-- Long-term log retention policy — separate workstream.
+- Alerts on the new metrics - see task 18 (load test) and the project's standard alerting workflow.
+- Long-term log retention policy - separate workstream.
 
 ## 8. Validation
 

@@ -24,14 +24,14 @@ These files are tracked and ship as part of the project. Treat them with the sam
 - No secrets or credentials.
 - No proprietary domain logic.
 - No customer or account data.
-- Nothing that belongs in a real artifact (PRD, spec, doc) — write the artifact instead.
+- Nothing that belongs in a real artifact (PRD, spec, doc) - write the artifact instead.
 
 ## Reference implementations
 
 See the SpecForge framework's own agent-memory at [`.claude/agent-memory/`](../../../.claude/agent-memory/) (relative to repo root):
 
-- `sanitization-auditor/checklist.md` — pointer to the canonical sanitization wordlist + audit protocol.
-- `runtime-architect/vendor-matrix-progress.md` — vendor matrix build-out state.
-- `framework-docs-author/docs-status.md` — drafting progress and refresh triggers.
+- `sanitization-auditor/checklist.md` - pointer to the canonical sanitization wordlist + audit protocol.
+- `runtime-architect/vendor-matrix-progress.md` - vendor matrix build-out state.
+- `framework-docs-author/docs-status.md` - drafting progress and refresh triggers.
 
 Use these as worked examples of the appropriate level of detail.

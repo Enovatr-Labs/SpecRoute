@@ -2,7 +2,7 @@
 # SessionStart hook: prints a SpecForge skeleton status banner so Claude
 # knows what's built vs. missing without re-grepping every session.
 #
-# Exit 0 always — informational only.
+# Exit 0 always - informational only.
 
 set -u
 
@@ -38,7 +38,7 @@ if [ -f "$WORDLIST" ]; then
     s="$(printf '%s' "$line" | tr -d '[:space:]')"
     [ -z "$s" ] && continue
     if git grep -l -i -- "$s" >/dev/null 2>&1; then
-      echo "⚠  Sanitization: forbidden term in tracked file(s) — run /sanitize"
+      echo "⚠  Sanitization: forbidden term in tracked file(s) - run /sanitize"
       break
     fi
   done < "$WORDLIST"

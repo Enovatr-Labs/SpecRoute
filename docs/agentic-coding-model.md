@@ -42,17 +42,20 @@ A typical SpecForge-driven feature implementation uses all four:
 └──────────────────────────────────────────────────────────────────────┘
 ```
 
-The user types `/scaffold-artifact prd notification-preferences`. The skill asks a few questions, copies the template. The user then says "draft section 5 with `prd-author`" — the agent produces the content. Before commit, the user runs `/audit`, which surfaces issues. On commit, the hook validates sanitization. Each primitive does what it's best at.
+The user types `/scaffold-artifact prd notification-preferences`. The skill asks a few questions, copies the template. The user then says "draft section 5 with `prd-author`" - the agent produces the content. Before commit, the user runs `/audit`, which surfaces issues. On commit, the hook validates sanitization. Each primitive does what it's best at.
 
 ## Vendor differences
 
 Not every vendor supports every primitive. The matrix in [`AGENTS.md`](../AGENTS.md) documents this:
 
-- **Claude Code** supports all four primitives (skills, agents, commands, hooks).
-- **Codex** supports skills and agents; commands are subsumed into skills via `user-invocable: true`; no hooks.
-- **Gemini CLI** supports commands (JSON map) and MCP; no skills, agents, or hooks.
-- **Kiro** supports hooks (`*.kiro.hook` files) and steering rules; no skills, agents, or commands as standalone concepts.
-- **Cursor** and **Windsurf** support rules only.
+- **Claude Code** supports all four primitives plus the richest hook system (~27 events, 5 hook types).
+- **Codex** supports skills and agents; commands are subsumed into skills via `user-invocable: true`; hooks via `.codex/hooks.json` (6 events, Claude-compatible JSON).
+- **Gemini CLI** supports commands (JSON map), MCP, and hooks via `.gemini/settings.json` (11 events; v0.26.0+).
+- **Kiro** supports hooks (`*.kiro.hook` files, 10 events including file create/save/delete) and steering rules; no skills, agents, or commands as standalone concepts.
+- **Cursor** supports rules and hooks via `.cursor/hooks.json` (~19 events with `permission` decision schema).
+- **Windsurf** supports rules and hooks via `.windsurf/hooks.json` (12 events; pre-hooks block, post-hooks observe).
+
+**Every supported vendor ships a hooks system.** The event taxonomies and config shapes differ; the underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible. See [`hooks/README.md`](../hooks/README.md) for the full per-vendor event matrix.
 
 A SpecForge consumer chooses primitives based on which vendors they target. A team on Claude Code uses all four. A team on Cursor uses rules and shared prompts. A team on multiple vendors uses the shared `prompts/` and `rules/` plus per-vendor implementations of each primitive where supported.
 
@@ -80,13 +83,13 @@ A team that uses only one primitive is missing the others' value. SpecForge's te
 ## Pitfalls
 
 - **Skill sprawl.** Every contributor wants a skill for their workflow. Most workflows are commands or agents in disguise. Apply the decision matrix before adding.
-- **Hook overuse.** Every reasonable validation can be a hook, but a repository with 30 hooks is unusable — the agent CLI grinds. Reserve hooks for things that *must* be enforced, not things that should be reminded.
+- **Hook overuse.** Every reasonable validation can be a hook, but a repository with 30 hooks is unusable - the agent CLI grinds. Reserve hooks for things that *must* be enforced, not things that should be reminded.
 - **Agent overlap.** Two agents owning the same files is a coordination tax. Make boundaries explicit in the "Owns" and "Don't use for" sections.
 - **Command stuffing.** `/build` that takes 12 flags is a skill. `/run-tests` is a command.
 
 ## Where to read next
 
-- [`automation-decision-framework.md`](automation-decision-framework.md) — the 4-row decision matrix and when to reach for each primitive.
-- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) — how the canonical `AGENTS.md` and per-vendor delegation shims work.
-- [`agent-cli-integrations.md`](agent-cli-integrations.md) — concrete wiring per vendor.
-- The `.claude/agents/` directory of this repo — 11 worked examples of agent definitions.
+- [`automation-decision-framework.md`](automation-decision-framework.md) - the 4-row decision matrix and when to reach for each primitive.
+- [`multi-vendor-context-files.md`](multi-vendor-context-files.md) - how the canonical `AGENTS.md` and per-vendor delegation shims work.
+- [`agent-cli-integrations.md`](agent-cli-integrations.md) - concrete wiring per vendor.
+- The `.claude/agents/` directory of this repo - 11 worked examples of agent definitions.

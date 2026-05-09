@@ -15,7 +15,7 @@ repo-root/
 
 **`AGENTS.md`** carries the substance: project identity, artifact taxonomy, vendor matrix, hard constraints, conventions.
 
-**`CLAUDE.md`**, **`GEMINI.md`**, and any other vendor-specific root files are slim **delegation shims** — they say "for the project context, read `AGENTS.md`" and add only per-vendor overrides.
+**`CLAUDE.md`**, **`GEMINI.md`**, and any other vendor-specific root files are slim **delegation shims** - they say "for the project context, read `AGENTS.md`" and add only per-vendor overrides.
 
 ## Why this pattern
 
@@ -27,11 +27,11 @@ Each agent CLI vendor has historically used its own root context file:
 - Aider: `.aider.conf.yml` and others
 - (and more vendors will appear)
 
-Without a convention, projects targeting multiple vendors end up with N copies of the same content, drifting independently. When a convention changes (a new artifact type, a new vendor), every copy needs an update — and someone misses one, and the docs disagree, and the agent CLIs surface inconsistent guidance to the developer.
+Without a convention, projects targeting multiple vendors end up with N copies of the same content, drifting independently. When a convention changes (a new artifact type, a new vendor), every copy needs an update - and someone misses one, and the docs disagree, and the agent CLIs surface inconsistent guidance to the developer.
 
 The delegation-shim convention solves this:
 
-- One canonical file (`AGENTS.md`) — the substance lives here.
+- One canonical file (`AGENTS.md`) - the substance lives here.
 - Each vendor's root file points at the canonical file plus per-vendor specifics.
 - Updating the substance is one edit; per-vendor specifics are local to their shim.
 
@@ -62,9 +62,9 @@ vendor-neutral context file. This file holds only Claude-Code-specific overrides
 
 Three things distinguish the shim from a substantive context file:
 
-1. **First non-trivial section is "Source of truth"** — pointing at the canonical file.
-2. **Body holds vendor-specific behaviors only** — sanitization gates, frontmatter contracts unique to that vendor, MCP config locations, hook conventions.
-3. **Length: 30–50 lines** — enough for vendor specifics; not enough to hold project substance.
+1. **First non-trivial section is "Source of truth"** - pointing at the canonical file.
+2. **Body holds vendor-specific behaviors only** - sanitization gates, frontmatter contracts unique to that vendor, MCP config locations, hook conventions.
+3. **Length: 30–50 lines** - enough for vendor specifics; not enough to hold project substance.
 
 ## What lives in the canonical `AGENTS.md`
 
@@ -103,7 +103,7 @@ For Cursor / Kiro / Windsurf, the "delegation shim" pattern translates different
 When you edit `AGENTS.md`:
 
 1. Read each vendor shim. Confirm none of them duplicate the section you just edited (or, if they do, propagate the change).
-2. Run `/audit` (or equivalent) — vendor matrix consistency is one of the audit's checks.
+2. Run `/audit` (or equivalent) - vendor matrix consistency is one of the audit's checks.
 3. Verify cross-references in `docs/` still resolve.
 
 Most edits to `AGENTS.md` don't require shim changes. The shims are for vendor-specific overrides, not duplicates.
@@ -114,7 +114,7 @@ A few cases where a vendor shim might carry substantive content rather than dele
 
 - The vendor doesn't auto-load any root file by default (then the shim is the only context surface). Currently no major vendor has this constraint.
 - The project is single-vendor and only ever will be. Then `CLAUDE.md` (or whichever) can carry the substance directly. But this prevents future multi-vendor support.
-- Bootstrapping — early-stage projects often have only one root file. Migrate to the delegation pattern when adding a second vendor.
+- Bootstrapping - early-stage projects often have only one root file. Migrate to the delegation pattern when adding a second vendor.
 
 ## Anti-patterns
 
@@ -129,7 +129,7 @@ Multi-vendor context-file structure is owned by the `framework-docs-author` agen
 
 ## See also
 
-- [`two-tier-docs-pattern.md`](two-tier-docs-pattern.md) — short root context vs. deep references.
-- [`agent-cli-integrations.md`](agent-cli-integrations.md) — concrete wiring per vendor.
-- [`AGENTS.md`](../AGENTS.md) — the canonical context file in this repo.
-- [`CLAUDE.md`](../CLAUDE.md), [`GEMINI.md`](../GEMINI.md) — worked examples of delegation shims.
+- [`two-tier-docs-pattern.md`](two-tier-docs-pattern.md) - short root context vs. deep references.
+- [`agent-cli-integrations.md`](agent-cli-integrations.md) - concrete wiring per vendor.
+- [`AGENTS.md`](../AGENTS.md) - the canonical context file in this repo.
+- [`CLAUDE.md`](../CLAUDE.md), [`GEMINI.md`](../GEMINI.md) - worked examples of delegation shims.

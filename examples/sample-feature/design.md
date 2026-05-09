@@ -7,7 +7,7 @@
 **Source PRD**: [`prd.md`](prd.md)
 **Source Requirements**: [`requirements.md`](requirements.md)
 
-> **Spec triplet — part 2 of 3.** References requirement IDs from `requirements.md`. Companion: [`tasks.md`](tasks.md).
+> **Spec triplet - part 2 of 3.** References requirement IDs from `requirements.md`. Companion: [`tasks.md`](tasks.md).
 
 ---
 
@@ -17,7 +17,7 @@ The design adds a single REST endpoint (`GET /api/users/search`) backed by index
 
 The frontend adds one new page (`/users/search`) that wires the existing search-input component to the new endpoint. RBAC enforcement happens at request validation; the SQL query receives a pre-scoped `organization_id` filter that the validator injects based on the actor's role.
 
-The technical insight is that all filter combinations resolve to indexed scans — there are no full-table scans even with combined filters, because the four indexes cover the discriminating columns and Postgres's bitmap-AND combines them.
+The technical insight is that all filter combinations resolve to indexed scans - there are no full-table scans even with combined filters, because the four indexes cover the discriminating columns and Postgres's bitmap-AND combines them.
 
 ## 2. Architecture
 
@@ -40,7 +40,7 @@ The technical insight is that all filter combinations resolve to indexed scans �
 ┌──────────────────────────▼──────────────────────────────────────────┐
 │   Backend: search module                                            │
 │                                                                     │
-│   1. Auth middleware (existing) — validates session, attaches actor │
+│   1. Auth middleware (existing) - validates session, attaches actor │
 │   2. RBAC: derive (organization_id, role)                           │
 │   3. Validator: parse + sanitize filter set; reject HTTP 400 on bad │
 │   4. Cache key: hash(filter_set_with_actor_scope)                   │
@@ -148,7 +148,7 @@ No column changes required.
 |---|---|---|
 | `idx_users_name_lc` | `LOWER(name) text_pattern_ops` | Substring search on name (R1.1) |
 | `idx_users_email_lc` | `LOWER(email) text_pattern_ops` | Substring search on email (R1.2) |
-| `idx_users_status` | `status WHERE status = 'active'` | Partial index, status filter (R3.1) — most queries scope to active |
+| `idx_users_status` | `status WHERE status = 'active'` | Partial index, status filter (R3.1) - most queries scope to active |
 | `idx_users_role` | `role` | Role filter (R2.1) |
 
 Postgres's bitmap-AND combines indexes for queries with multiple filters. No full-table scans expected.
@@ -327,8 +327,8 @@ Cursors are opaque, signed (HMAC-SHA256), and contain `(last_id, last_sort_key)`
 | ID | Question | Resolution required by |
 |---|---|---|
 | Q1 | Privacy review for query-string logging | Phase 1 start |
-| Q2 | Cache TTL — 60s or 300s | Phase 0 spike |
-| Q3 | Cursor encoding — opaque base64 vs structured ID | Phase 0 spike |
+| Q2 | Cache TTL - 60s or 300s | Phase 0 spike |
+| Q3 | Cursor encoding - opaque base64 vs structured ID | Phase 0 spike |
 
 ---
 

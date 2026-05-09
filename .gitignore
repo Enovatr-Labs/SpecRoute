@@ -73,10 +73,10 @@ web_modules/
 # Claude Code per-user settings
 .claude/settings.local.json
 
-# SpecForge sanitization wordlist — per-installation, contains private terms
+# SpecForge sanitization wordlist - per-installation, contains private terms
 .claude/.forbidden-strings.txt
 
-# Internal bootstrap spec — not for public release
+# Internal bootstrap spec - not for public release
 initial.md
 
 # Python

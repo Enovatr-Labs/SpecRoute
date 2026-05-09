@@ -1,0 +1,106 @@
+{
+  "_comment": "Codex hooks template covering all 6 lifecycle events. Drop into .codex/hooks.json (preferred) or merge as inline [hooks] table into .codex/config.toml. Reference: https://developers.openai.com/codex/hooks",
+
+  "_required_feature_flag": "Add to .codex/config.toml: [features]\\ncodex_hooks = true",
+
+  "_schema_summary": {
+    "matcher": "regex string applied to the event-specific field (tool name for *ToolUse / PermissionRequest; source for SessionStart). Use '*', '', or omit for universal match.",
+    "concurrency": "Multiple matching hooks for the same event run in PARALLEL — one cannot prevent another from starting.",
+    "exit_code_protocol": {
+      "0": "success; stdout parsed as optional JSON output (or used as plain-text context)",
+      "2": "blocking signal; stderr is the rejection reason",
+      "other": "failure (effect depends on event)"
+    },
+    "json_output_compatibility": "Codex's JSON output schema is intentionally Claude-compatible: hookSpecificOutput, permissionDecision, decision='block', additionalContext, continue: false."
+  },
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/session-start-status.sh",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/prompt-policy-check.sh"
+          }
+        ]
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "matcher": "Bash|^apply_patch$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/pre-tool-sanitize.sh"
+          }
+        ]
+      },
+      {
+        "_example_mcp_match": {
+          "matcher": "mcp__filesystem__write.*",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "bash .codex/hooks/scripts/pre-mcp-fs-write.sh"
+            }
+          ]
+        }
+      }
+    ],
+
+    "PermissionRequest": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/permission-request-shell.sh"
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "apply_patch|Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/post-edit-frontmatter.sh"
+          }
+        ]
+      }
+    ],
+
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/stop-quality-gate.sh"
+          }
+        ]
+      }
+    ]
+  },
+
+  "_inline_toml_equivalent": "If you prefer .codex/config.toml inline:\n\n[features]\ncodex_hooks = true\n\n[[hooks.SessionStart]]\nmatcher = \"startup|resume\"\n\n[[hooks.SessionStart.hooks]]\ntype = \"command\"\ncommand = \"bash .codex/hooks/scripts/session-start-status.sh\"\ntimeout = 60\n\n[[hooks.PreToolUse]]\nmatcher = \"Bash|^apply_patch$\"\n\n[[hooks.PreToolUse.hooks]]\ntype = \"command\"\ncommand = \"bash .codex/hooks/scripts/pre-tool-sanitize.sh\"\n",
+
+  "_managed_hooks_enterprise": "For enterprise distribution, use Requirements.toml managed_dir to centralize hook scripts. Codex pulls scripts from the managed directory; the JSON config above only references commands, not script content."
+}

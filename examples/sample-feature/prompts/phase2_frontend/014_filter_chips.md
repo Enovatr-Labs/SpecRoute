@@ -6,14 +6,14 @@
 
 ## 1. Objective
 
-Build the `FilterChips` component — chips for role, status, and created-at range filters. On desktop the chips render inline; on mobile they collapse into a drawer.
+Build the `FilterChips` component - chips for role, status, and created-at range filters. On desktop the chips render inline; on mobile they collapse into a drawer.
 
 After this task: component renders all three filter types, manages selection state, dispatches updates, and adapts to mobile layout.
 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R2.1, R3.1
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R2.1, R3.1
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 2.2 (Components)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,7 +25,7 @@ After this task: component renders all three filter types, manages selection sta
 **Primary Agent**: `frontend-engineer`
 **Supporting Agents**:
 
-- `unit-test-writer` — embedded.
+- `unit-test-writer` - embedded.
 
 ## 4. Prerequisites
 
@@ -73,8 +73,8 @@ export function FilterChips(props: FilterChipsProps): JSX.Element;
 
 | File | Change |
 |---|---|
-| `frontend/components/users/search/FilterChips.tsx` | Create — the component |
-| `frontend/components/users/search/FilterChips.test.tsx` | Create — unit tests |
+| `frontend/components/users/search/FilterChips.tsx` | Create - the component |
+| `frontend/components/users/search/FilterChips.test.tsx` | Create - unit tests |
 | `frontend/components/users/search/index.ts` | Export |
 
 ## 6. Acceptance Criteria
@@ -89,9 +89,9 @@ export function FilterChips(props: FilterChipsProps): JSX.Element;
 
 ## 7. Out of Scope
 
-- Composing into the page — task 17.
-- Persisting filter state in URL — task 17 owns URL state.
-- Sort selector — that lives in the page (task 17), not in this component.
+- Composing into the page - task 17.
+- Persisting filter state in URL - task 17 owns URL state.
+- Sort selector - that lives in the page (task 17), not in this component.
 
 ## 8. Validation
 

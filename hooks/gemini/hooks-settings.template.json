@@ -1,0 +1,187 @@
+{
+  "_comment": "Gemini CLI hooks template covering all 11 lifecycle events. The 'hooks' block below merges into .gemini/settings.json (project) or ~/.gemini/settings.json (user). Reference: https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/reference.md",
+
+  "_schema_summary": {
+    "matcher": "regex string for tool events; exact source string for SessionStart-style events. Use '*' or omit for all.",
+    "sequential": "Per top-level hook entry. Default false (parallel). Set true for ordered execution.",
+    "hook_types": "Currently only 'command' supported.",
+    "exit_code_protocol": {
+      "0": "success; stdout MUST be the final JSON only (no plain text).",
+      "2": "system block; stderr is the rejection reason.",
+      "other": "warning; CLI continues."
+    },
+    "stdout_strictness": "Critical: scripts must not print plain text to stdout other than the final JSON. Mix-in stderr for diagnostics."
+  },
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/session-start-status.sh",
+            "name": "specforge-session-status",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/session-end-summary.sh",
+            "name": "specforge-session-summary",
+            "timeout": 5000
+          }
+        ]
+      }
+    ],
+
+    "BeforeAgent": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/before-agent-context.sh",
+            "name": "specforge-prompt-context"
+          }
+        ]
+      }
+    ],
+
+    "AfterAgent": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/after-agent-validate.sh",
+            "name": "specforge-response-validate"
+          }
+        ]
+      }
+    ],
+
+    "BeforeModel": [
+      {
+        "matcher": "",
+        "sequential": true,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/before-model-policy.sh",
+            "name": "specforge-policy-check"
+          }
+        ]
+      }
+    ],
+
+    "BeforeToolSelection": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/restrict-tools.sh",
+            "name": "specforge-tool-restriction"
+          }
+        ]
+      }
+    ],
+
+    "AfterModel": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/after-model-redact.sh",
+            "name": "specforge-redact"
+          }
+        ]
+      }
+    ],
+
+    "BeforeTool": [
+      {
+        "matcher": "run_shell_command",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/pre-shell-sanitize.sh",
+            "name": "specforge-shell-sanitize"
+          }
+        ]
+      },
+      {
+        "_example_mcp_match": {
+          "matcher": "mcp_filesystem_.*",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "bash .gemini/hooks/scripts/pre-mcp-fs.sh",
+              "name": "specforge-mcp-fs-gate"
+            }
+          ]
+        }
+      }
+    ],
+
+    "AfterTool": [
+      {
+        "matcher": "write_file|edit_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/post-edit-frontmatter.sh",
+            "name": "specforge-frontmatter-check"
+          }
+        ]
+      }
+    ],
+
+    "Notification": [
+      {
+        "matcher": "ToolPermission",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/notification-relay.sh",
+            "name": "specforge-notification-log"
+          }
+        ]
+      }
+    ],
+
+    "PreCompress": [
+      {
+        "matcher": "auto|manual",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/pre-compress-snapshot.sh",
+            "name": "specforge-compress-snapshot"
+          }
+        ]
+      }
+    ]
+  },
+
+  "_top_level_settings_note": "This 'hooks' block is one section of .gemini/settings.json. Other sections (mcpServers, theme, etc.) live alongside it.",
+
+  "_field_reference": {
+    "matcher": "Optional. Regex (tool events) or exact string (lifecycle events). Built-in tool examples: read_file, write_file, edit_file, run_shell_command, search_file_content. MCP tools: mcp_<server>_<tool>.",
+    "sequential": "Optional boolean. Default false (parallel within the top-level entry).",
+    "hooks[].type": "Required. Currently only 'command'.",
+    "hooks[].command": "Required for type=command. Shell command string.",
+    "hooks[].name": "Optional friendly identifier for logs.",
+    "hooks[].timeout": "Optional milliseconds. Default 60000.",
+    "hooks[].description": "Optional purpose statement."
+  }
+}

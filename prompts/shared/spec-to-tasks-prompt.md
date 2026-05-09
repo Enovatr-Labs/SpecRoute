@@ -26,10 +26,10 @@ If either source file is not `Approved`, stop and report.
 
 Read PRD Section 15 (Migration Phases) if available. Otherwise group requirements by:
 
-- **Phase 1: Foundation** — schema, migrations, scaffolding.
-- **Phase 2: Core** — the primary user-facing functionality.
-- **Phase 3: Edge cases** — error paths, validation, resilience.
-- **Phase 4: Operationalization** — observability, runbooks, rollback testing.
+- **Phase 1: Foundation** - schema, migrations, scaffolding.
+- **Phase 2: Core** - the primary user-facing functionality.
+- **Phase 3: Edge cases** - error paths, validation, resilience.
+- **Phase 4: Operationalization** - observability, runbooks, rollback testing.
 
 Adjust phase boundaries to match the architecture's natural seams.
 
@@ -49,7 +49,7 @@ For each NFR:
 
 ### 3. Sequence tasks
 
-Number tasks globally (1, 2, 3, …, not restarting per phase). Numbering is sticky — tasks merged into `tasks.md` keep their numbers forever.
+Number tasks globally (1, 2, 3, …, not restarting per phase). Numbering is sticky - tasks merged into `tasks.md` keep their numbers forever.
 
 Order:
 
@@ -68,7 +68,7 @@ The coverage table is the gate. Every `R<N.M>` and every `NFR-<N.M>` must map to
 | NFR-1.1 | 5 |
 | ... | ... |
 
-A row showing `TODO` is a coverage gap — fix it before submitting.
+A row showing `TODO` is a coverage gap - fix it before submitting.
 
 ### 5. Done checklist
 
@@ -86,7 +86,7 @@ The done checklist at the bottom of `tasks.md` defines completion. Confirm:
 
 - Every requirement (R*) and NFR (NFR-*) is in the coverage table with at least one task.
 - Every task back-references at least one requirement.
-- Tasks are sequenced — no task depends on a later-numbered task.
+- Tasks are sequenced - no task depends on a later-numbered task.
 - Each task is small enough that "merge in one PR" is realistic.
 
 ## Anti-patterns to avoid
@@ -94,7 +94,7 @@ The done checklist at the bottom of `tasks.md` defines completion. Confirm:
 - **Tasks without back-refs.** Looks like progress until someone asks "what does this satisfy?" and nobody can answer.
 - **Tasks that bundle multiple requirements.** Hard to review. Split.
 - **Tasks that reference future requirements not yet in `requirements.md`.** That's spec drift; update `requirements.md` first.
-- **Coverage gaps.** A requirement without a task is unimplemented — surface it.
+- **Coverage gaps.** A requirement without a task is unimplemented - surface it.
 
 ## Final step
 

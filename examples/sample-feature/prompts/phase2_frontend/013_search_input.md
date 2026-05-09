@@ -6,14 +6,14 @@
 
 ## 1. Objective
 
-Build the `SearchInput` component — a debounced text input that emits a search query when the user pauses typing. The component is reused for both the name and email substring filters.
+Build the `SearchInput` component - a debounced text input that emits a search query when the user pauses typing. The component is reused for both the name and email substring filters.
 
 After this task: component renders, debounces 300ms, emits the right events, has full keyboard navigation, passes accessibility checks, and has unit tests for each behavior.
 
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — R1.1, R1.2, NFR-1.4
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1, R1.2, NFR-1.4
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 2.2 (Components)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,7 +25,7 @@ After this task: component renders, debounces 300ms, emits the right events, has
 **Primary Agent**: `frontend-engineer`
 **Supporting Agents**:
 
-- `unit-test-writer` — embedded.
+- `unit-test-writer` - embedded.
 
 ## 4. Prerequisites
 
@@ -69,8 +69,8 @@ export function SearchInput(props: SearchInputProps): JSX.Element;
 
 | File | Change |
 |---|---|
-| `frontend/components/users/search/SearchInput.tsx` | Create — the component |
-| `frontend/components/users/search/SearchInput.test.tsx` | Create — unit tests |
+| `frontend/components/users/search/SearchInput.tsx` | Create - the component |
+| `frontend/components/users/search/SearchInput.test.tsx` | Create - unit tests |
 | `frontend/components/users/search/index.ts` (if used) | Export |
 
 ## 6. Acceptance Criteria
@@ -85,9 +85,9 @@ export function SearchInput(props: SearchInputProps): JSX.Element;
 
 ## 7. Out of Scope
 
-- Composing the input into the page — task 17.
-- Network calls — the component just emits; the page (task 17) wires the API call.
-- Server-side validation — task 5.
+- Composing the input into the page - task 17.
+- Network calls - the component just emits; the page (task 17) wires the API call.
+- Server-side validation - task 5.
 
 ## 8. Validation
 

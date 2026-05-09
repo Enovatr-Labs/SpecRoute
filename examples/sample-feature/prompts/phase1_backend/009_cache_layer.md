@@ -13,7 +13,7 @@ After this task: identical queries from the same actor scope return from cache (
 ## 2. Context
 
 **PRD Reference**: [`../../prd.md`](../../prd.md) Section 18 (Performance Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) — NFR-1.1
+**Spec Reference**: [`../../requirements.md`](../../requirements.md) - NFR-1.1
 **Architecture Reference**: [`../../design.md`](../../design.md) Section 7 (Performance Considerations)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
@@ -25,7 +25,7 @@ After this task: identical queries from the same actor scope return from cache (
 **Primary Agent**: `backend-engineer`
 **Supporting Agents**:
 
-- `unit-test-writer` — embedded.
+- `unit-test-writer` - embedded.
 
 ## 4. Prerequisites
 
@@ -82,24 +82,24 @@ The full response body (results + page metadata + `cache_hit: false`). When retu
 
 | File | Change |
 |---|---|
-| `src/services/users/search/cache.py` | Create — cache key + single-flight wrapper |
+| `src/services/users/search/cache.py` | Create - cache key + single-flight wrapper |
 | `src/services/users/search/__init__.py` | Export |
-| `tests/services/users/search/test_cache.py` | Create — hit, miss, stampede simulation |
+| `tests/services/users/search/test_cache.py` | Create - hit, miss, stampede simulation |
 
 ## 6. Acceptance Criteria
 
 - [ ] `derive_cache_key` is deterministic across runs.
 - [ ] `get_or_compute` returns from cache on a second identical call.
 - [ ] Stampede test: 100 concurrent first-call clients result in exactly one `compute()` invocation (or close to it within stampede-bound tolerance).
-- [ ] Cache key includes `organization_id` and `role` — different scopes don't share cache entries.
+- [ ] Cache key includes `organization_id` and `role` - different scopes don't share cache entries.
 - [ ] TTL value reads from config (per Phase 0 decision).
 - [ ] `/audit` returns clean.
 
 ## 7. Out of Scope
 
-- Cache invalidation beyond TTL expiry — out of v1.
-- Multi-tier cache (local + Redis) — out of v1.
-- Cache warming — out of v1.
+- Cache invalidation beyond TTL expiry - out of v1.
+- Multi-tier cache (local + Redis) - out of v1.
+- Cache warming - out of v1.
 
 ## 8. Validation
 

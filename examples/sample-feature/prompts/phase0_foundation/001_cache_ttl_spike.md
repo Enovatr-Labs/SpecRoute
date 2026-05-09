@@ -1,4 +1,4 @@
-# Task 001: Spike — Cache TTL Choice
+# Task 001: Spike - Cache TTL Choice
 
 > Phase 0 spike. Output is a decision, not code.
 
@@ -29,7 +29,7 @@ The freshness cost is bounded: a user added 60s ago doesn't appear in search unt
 **Primary Agent**: `backend-engineer` (see [`../../agent-roster.md`](../../agent-roster.md))
 **Supporting Agents**:
 
-- `deployment-validator` — runs the staging measurement.
+- `deployment-validator` - runs the staging measurement.
 
 ## 4. Prerequisites
 
@@ -52,11 +52,11 @@ Run a one-week shadow trial in staging with two cache TTLs (60s, 300s) for the s
 
 ### 5.3 Variables to capture
 
-| Metric | TTL=60s | TTL=300s |
+| Metric | TTL=60s capture | TTL=300s capture |
 |---|---|---|
-| Cache hit rate (%) | TODO | TODO |
-| p95 miss latency (ms) | TODO | TODO |
-| Freshness gap p99 (s) | TODO | TODO |
+| Cache hit rate (%) | `search.cache_hit_rate{ttl="60"}` | `search.cache_hit_rate{ttl="300"}` |
+| p95 miss latency (ms) | `search.miss_latency_ms{ttl="60",quantile="0.95"}` | `search.miss_latency_ms{ttl="300",quantile="0.95"}` |
+| Freshness gap p99 (s) | `search.freshness_gap_seconds{ttl="60",quantile="0.99"}` | `search.freshness_gap_seconds{ttl="300",quantile="0.99"}` |
 
 ### 5.4 Decision criteria
 
@@ -81,9 +81,9 @@ Run a one-week shadow trial in staging with two cache TTLs (60s, 300s) for the s
 
 ## 7. Out of Scope
 
-- Implementing the production cache layer — that's task 9.
-- Multi-tier caching (e.g. local + Redis) — out of scope for v1.
-- Cache invalidation beyond TTL expiry — also out of scope.
+- Implementing the production cache layer - that's task 9.
+- Multi-tier caching (e.g. local + Redis) - out of scope for v1.
+- Cache invalidation beyond TTL expiry - also out of scope.
 
 ## 8. Validation
 

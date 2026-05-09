@@ -88,6 +88,6 @@ When a feature's design changes, the design doc updates first; code follows. Whe
 
 ## See also
 
-- [`docs/documentation-structure.md`](../docs/documentation-structure.md) — where new docs go.
-- [`docs/two-tier-docs-pattern.md`](../docs/two-tier-docs-pattern.md) — root context vs deep references.
-- [`engineering-rules.md`](engineering-rules.md) Rule 11 — doc currency.
+- [`docs/documentation-structure.md`](../docs/documentation-structure.md) - where new docs go.
+- [`docs/two-tier-docs-pattern.md`](../docs/two-tier-docs-pattern.md) - root context vs deep references.
+- [`engineering-rules.md`](engineering-rules.md) Rule 11 - doc currency.

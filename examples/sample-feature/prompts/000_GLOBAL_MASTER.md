@@ -1,4 +1,4 @@
-# 000_GLOBAL_MASTER — User Search
+# 000_GLOBAL_MASTER - User Search
 
 > Single entry-point. Read this before opening any phase or task prompt.
 
@@ -82,7 +82,7 @@ Execute the 4-phase implementation plan to:
 4. Read [`../tasks.md`](../tasks.md) end to end.
 5. Open the phase master for the current phase: start with [`phase0_foundation/000_MASTER_foundation.md`](phase0_foundation/000_MASTER_foundation.md).
 6. Work tasks in number order within the phase. Run the phase's exit gate before advancing.
-7. Don't skip Phase 0 — the spikes' decisions feed Phase 1.
+7. Don't skip Phase 0 - the spikes' decisions feed Phase 1.
 
 ---
 

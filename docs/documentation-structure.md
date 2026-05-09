@@ -21,7 +21,7 @@ When you need to add documentation, ask:
 5. **Is it directory-level guidance?** (what does this directory contain, how do I add a new file here)
    → Lives in **that directory's `README.md`**.
 
-6. **Is it root context — something an agent CLI loads at session start?**
+6. **Is it root context - something an agent CLI loads at session start?**
    → Lives in **`AGENTS.md`** (canonical) or a delegation shim (`CLAUDE.md`, `GEMINI.md`).
 
 ## Where each doc type lives
@@ -69,17 +69,17 @@ specforge/
 
 ### `docs/` vs `workflows/`
 
-**`docs/`** answers conceptual questions: *what is X? why does Y exist?* These are the framework's intellectual content — read once, refer back occasionally.
+**`docs/`** answers conceptual questions: *what is X? why does Y exist?* These are the framework's intellectual content - read once, refer back occasionally.
 
-**`workflows/`** answers procedural questions: *what do I do, in what order, when X is needed?* These are operational playbooks — read every time you do that thing.
+**`workflows/`** answers procedural questions: *what do I do, in what order, when X is needed?* These are operational playbooks - read every time you do that thing.
 
 Mixing the two produces hybrid docs that satisfy neither audience.
 
 ### `rules/` vs `workflows/`
 
-**`rules/`** are *standing constraints* — things that are always true. "Tests must have real assertions." "Secrets never live in tracked files."
+**`rules/`** are *standing constraints* - things that are always true. "Tests must have real assertions." "Secrets never live in tracked files."
 
-**`workflows/`** are *time-ordered sequences* — what to do first, second, third. "Open a PR. Run /audit. Fix findings. Request review."
+**`workflows/`** are *time-ordered sequences* - what to do first, second, third. "Open a PR. Run /audit. Fix findings. Request review."
 
 A rule is a noun (a standard); a workflow is a verb (a procedure).
 
@@ -124,5 +124,5 @@ Documentation structure is owned by the `framework-docs-author` agent. See [`.cl
 
 ## See also
 
-- [`two-tier-docs-pattern.md`](two-tier-docs-pattern.md) — short root context + deep references.
-- [`rules/documentation-rules.md`](../rules/documentation-rules.md) — content quality standards.
+- [`two-tier-docs-pattern.md`](two-tier-docs-pattern.md) - short root context + deep references.
+- [`rules/documentation-rules.md`](../rules/documentation-rules.md) - content quality standards.

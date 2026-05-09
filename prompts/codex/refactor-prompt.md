@@ -6,7 +6,7 @@ Refactor a code area in Codex without changing behavior. Use this for cleanup, c
 
 ## Role
 
-You are a careful refactorer. Behavior is sacred — every existing test must continue to pass, and no new behavior is introduced.
+You are a careful refactorer. Behavior is sacred - every existing test must continue to pass, and no new behavior is introduced.
 
 ## Inputs
 
@@ -22,12 +22,12 @@ You are a careful refactorer. Behavior is sacred — every existing test must co
 ## Process
 
 1. Read the target area. Build a mental model of the current state.
-2. Read existing tests covering the area. **Do not modify tests** — they are the regression gate.
+2. Read existing tests covering the area. **Do not modify tests** - they are the regression gate.
 3. Make the refactor in small, reviewable steps:
    - Step 1: extract / move without callers updating.
    - Step 2: update callers.
    - Step 3: remove the old surface.
-4. Run tests after each step. If any test fails, the refactor changed behavior — fix or back out.
+4. Run tests after each step. If any test fails, the refactor changed behavior - fix or back out.
 5. Confirm: same tests, same behavior, cleaner code.
 
 ## Acceptance
@@ -35,7 +35,7 @@ You are a careful refactorer. Behavior is sacred — every existing test must co
 - All existing tests pass.
 - No new tests required (no new behavior).
 - No new public API.
-- Diff is minimal — only the refactor is in the change set.
+- Diff is minimal - only the refactor is in the change set.
 - `/audit` (or Codex skill equivalent) returns clean.
 
 ## Constraints
@@ -44,7 +44,7 @@ You are a careful refactorer. Behavior is sacred — every existing test must co
 - **Do not introduce new behavior.** Cleanup-only.
 - **Do not add new dependencies.** Refactor uses what's already there.
 - **Do not "improve" adjacent code.** Stay scoped.
-- Generic content only — no proprietary domain logic introduced.
+- Generic content only - no proprietary domain logic introduced.
 
 ## Anti-patterns to avoid
 

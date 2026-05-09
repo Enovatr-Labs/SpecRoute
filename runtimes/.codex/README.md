@@ -1,4 +1,4 @@
-# `.codex/` — Codex runtime layout
+# `.codex/` - Codex runtime layout
 
 Drop this directory into the root of your project. Codex reads from these paths automatically.
 
@@ -16,13 +16,13 @@ Drop this directory into the root of your project. Codex reads from these paths 
 
 1. Copy `config.template.toml` → `.codex/config.toml`. Adjust `approval_policy` and `sandbox_mode` for your team's risk posture.
 
-2. **MCP servers** — `config.toml` carries the MCP server inventory under `[mcp_servers.<name>]` blocks. Maintain `runtimes/mcp/servers.yaml` as the canonical source and run `runtimes/mcp/render/render_codex.py` to regenerate.
+2. **MCP servers** - `config.toml` carries the MCP server inventory under `[mcp_servers.<name>]` blocks. Maintain `runtimes/mcp/servers.yaml` as the canonical source and run `runtimes/mcp/render/render_codex.py` to regenerate.
 
-3. **Agents** — copy from `runtimes/.codex/agents/` (or mirror from `.claude/agents/`). Same frontmatter contract.
+3. **Agents** - copy from `runtimes/.codex/agents/` (or mirror from `.claude/agents/`). Same frontmatter contract.
 
-4. **Skills** — copy from `runtimes/.codex/skills/` (or mirror from `.claude/skills/`). Folder-per-skill with `SKILL.md`.
+4. **Skills** - copy from `runtimes/.codex/skills/` (or mirror from `.claude/skills/`). Folder-per-skill with `SKILL.md`.
 
-5. **Cross-vendor sync** — run `tools/sync-skills.py --dry-run` to verify Claude / Codex parity.
+5. **Cross-vendor sync** - run `tools/sync-skills.py --dry-run` to verify Claude / Codex parity.
 
 ## What's tracked vs gitignored
 

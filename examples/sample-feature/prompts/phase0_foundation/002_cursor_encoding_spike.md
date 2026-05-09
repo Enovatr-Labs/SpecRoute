@@ -1,4 +1,4 @@
-# Task 002: Spike — Cursor Encoding Choice
+# Task 002: Spike - Cursor Encoding Choice
 
 > Phase 0 spike. Output is a decision, not production code.
 
@@ -30,7 +30,7 @@ The signing variant prevents forge-and-bypass attacks (e.g. crafting a cursor th
 **Primary Agent**: `backend-engineer` (see [`../../agent-roster.md`](../../agent-roster.md))
 **Supporting Agents**:
 
-- `security-auditor` — advises on signature requirements and replay protection.
+- `security-auditor` - advises on signature requirements and replay protection.
 
 ## 4. Prerequisites
 
@@ -54,17 +54,17 @@ Prototype both cursor encodings. Compare:
 2. Round-trip test 100k random positions.
 3. Measure encode + decode latency: target < 100µs each.
 4. Measure cursor sizes; log p50, p95, p99.
-5. Run a tampering test against the structured variant: craft a cursor for a different organization and confirm it deserializes (it should — that's the security gap).
+5. Run a tampering test against the structured variant: craft a cursor for a different organization and confirm it deserializes (it should - that's the security gap).
 6. Run the same test against the HMAC variant: confirm tampering produces a signature failure.
 
 ### 5.3 Decision criteria
 
 The HMAC variant wins unless:
 
-- Encode/decode adds > 5ms p95 latency on the request path (unlikely with HMAC-SHA256 — it's fast).
+- Encode/decode adds > 5ms p95 latency on the request path (unlikely with HMAC-SHA256 - it's fast).
 - Cursor size becomes a problem for URL length (HMAC adds ~32 bytes signature; opaque base64 adds 33% overhead).
 
-If those conditions hold, structured wins **only if RBAC scoping is enforced server-side every request** (which it is — see task 6). In that case the cursor doesn't carry security; it carries position. But replay protection (timestamp) is still useful.
+If those conditions hold, structured wins **only if RBAC scoping is enforced server-side every request** (which it is - see task 6). In that case the cursor doesn't carry security; it carries position. But replay protection (timestamp) is still useful.
 
 The default expectation is HMAC + replay timestamp.
 
@@ -85,8 +85,8 @@ The default expectation is HMAC + replay timestamp.
 
 ## 7. Out of Scope
 
-- Implementing the chosen variant in production code — that's task 8.
-- Migrating from one cursor format to another — out of scope for v1.
+- Implementing the chosen variant in production code - that's task 8.
+- Migrating from one cursor format to another - out of scope for v1.
 
 ## 8. Validation
 

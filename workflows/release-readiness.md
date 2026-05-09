@@ -93,7 +93,7 @@ Per the PRD's Section 19.1:
 - Error rate > <threshold> sustained for 5 minutes.
 - Customer-reported correctness regression with reproduction.
 
-Triggers are mechanical. The on-call engineer doesn't deliberate — if a trigger fires, rollback is the response.
+Triggers are mechanical. The on-call engineer doesn't deliberate - if a trigger fires, rollback is the response.
 
 ## Rollback procedure
 
@@ -143,5 +143,5 @@ Release readiness is owned by the deployment / SRE role (see [`agents/archetypes
 
 ## See also
 
-- [`prd-to-production.md`](prd-to-production.md) — Stage 11 in context.
-- [`testing-and-validation.md`](testing-and-validation.md) — Stage 10 (the gate before this stage).
+- [`prd-to-production.md`](prd-to-production.md) - Stage 11 in context.
+- [`testing-and-validation.md`](testing-and-validation.md) - Stage 10 (the gate before this stage).

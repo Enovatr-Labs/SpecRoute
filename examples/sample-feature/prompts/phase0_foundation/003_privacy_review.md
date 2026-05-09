@@ -77,8 +77,8 @@ Note what's *absent*: no `name=` value, no `email=` value, no organization name.
 | Option | Logged | Privacy posture | Analytics value |
 |---|---|---|---|
 | A: nothing | only access (gateway level) | Strongest | None |
-| B: hash only (proposed) | hash + counts + timing | Strong; no PII recovery | Medium — group by pattern |
-| C: full strings | every filter value | Weak; PII recoverable | High — exact analytics |
+| B: hash only (proposed) | hash + counts + timing | Strong; no PII recovery | Medium - group by pattern |
+| C: full strings | every filter value | Weak; PII recoverable | High - exact analytics |
 
 Default proposal: **B**.
 
@@ -99,9 +99,9 @@ Default proposal: **B**.
 
 ## 7. Out of Scope
 
-- Implementing the logger — that's task 11.
-- Log retention policy changes — that's a separate workstream.
-- Log access audit — handled by the existing logging infrastructure.
+- Implementing the logger - that's task 11.
+- Log retention policy changes - that's a separate workstream.
+- Log access audit - handled by the existing logging infrastructure.
 
 ## 8. Validation
 

@@ -1,46 +1,36 @@
 # CLAUDE.md
 
-This file provides Claude Code-specific guidance for working in this repository.
+Claude Code shim for this repository. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical vendor-neutral source of truth for SpecForge.
 
-## Source of truth
+## Claude-Specific Context
 
-For repository overview, artifact taxonomy, vendor matrix, hard constraints, and the spec-driven flow: read [`AGENTS.md`](AGENTS.md). It is the canonical, vendor-neutral context file. This file holds only Claude-Code-specific overrides.
+- `.claude/` is this repo's implementation-team runtime, not the consumer template. Consumer-facing files live in [`runtimes/.claude/`](runtimes/.claude/).
+- Agents live in `.claude/agents/`; see [`.claude/agents/README.md`](.claude/agents/README.md) for the roster of 11 specialists.
+- Skills live in `.claude/skills/`: `scaffold-artifact`, `add-vendor`, `example-walkthrough`, `frontmatter-lint`.
+- Commands live in `.claude/commands/`: `/sanitize`, `/status`, `/audit`, `/parity`.
+- Hooks live in `.claude/hooks/`: SessionStart status banner, PreToolUse sanitization gate, PostToolUse frontmatter check.
+- Per-agent persistent context lives in `.claude/agent-memory/<agent-name>/`.
 
-## Claude-Code-specific notes
+## Frontmatter Contracts
 
-### `.claude/` runtime is the SpecForge implementation team
+| Artifact | Required fields |
+|---|---|
+| Agent (`.claude/agents/<name>.md`) | `name`, `description` (with trigger phrases), `model` (`opus` \| `sonnet` \| `haiku`), `color` |
+| Skill (`.claude/skills/<slug>/SKILL.md`) | `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools` |
+| Command (`.claude/commands/<name>.md`) | `description` |
 
-The `.claude/` directory in this repo is wired up to build SpecForge itself. It is **not** the consumer-facing template (those live under `runtimes/.claude/`). Roster:
+Missing required fields = the runtime won't register the artifact. The PostToolUse hook surfaces violations on stderr at write time.
 
-- **Agents** (`.claude/agents/`) — 11 specialists; see `.claude/agents/README.md`. Invoke them by name when adding artifacts (`prd-author`, `spec-author`, `agent-roster-architect`, `skill-author`, `prompt-engineer`, `command-author`, `hooks-author`, `runtime-architect`, `framework-docs-author`, `sanitization-auditor`, `template-quality-reviewer`).
-- **Skills** (`.claude/skills/`) — `scaffold-artifact`, `add-vendor`, `example-walkthrough`, `frontmatter-lint`.
-- **Commands** (`.claude/commands/`) — `/sanitize`, `/status`, `/audit`, `/parity`.
-- **Hooks** (`.claude/hooks/`) — SessionStart status banner, PreToolUse sanitization gate on `git commit`/`git push`, PostToolUse frontmatter validation on agent/skill/command writes.
+## Sanitization Gate
 
-### Sanitization gate is active
+`.claude/hooks/pre-bash-sanitize.sh` blocks `git commit`, `git push`, `gh pr create`, and `gh release create` if `git grep` finds any term from `.claude/.forbidden-strings.txt` in tracked files. Treat a hook block as a hard stop - generalize the source content; do not bypass.
 
-`.claude/hooks/pre-bash-sanitize.sh` blocks `git commit`, `git push`, `gh pr create`, and `gh release create` if `git grep` finds any term from `.claude/.forbidden-strings.txt` (gitignored, per-installation) in tracked files. Treat a hook block as a hard stop — fix the source, don't bypass.
+## Per-User vs Tracked Settings
 
-### Frontmatter contracts (Claude-Code-specific)
+- `.claude/settings.json` - tracked, project-wide.
+- `.claude/settings.local.json` - **gitignored**, per-user overrides (permissions, MCP enables).
+- `.claude/.forbidden-strings.txt` - **gitignored**, per-installation sanitization wordlist.
 
-Claude Code reads:
+## Before Publishing
 
-- **Agents**: `name`, `description`, `model` (`opus` | `sonnet` | `haiku`), `color`. The `description` must include trigger phrases or the agent won't be auto-selected.
-- **Skills** (folder-per-skill, file is `SKILL.md`): `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`.
-- **Commands** (`.claude/commands/<name>.md`): `description`. Body is the prompt the slash command expands to.
-
-The PostToolUse hook validates these on every Write/Edit and surfaces missing fields on stderr.
-
-### Per-user vs tracked settings
-
-- `.claude/settings.json` — tracked, project-wide settings.
-- `.claude/settings.local.json` — gitignored, per-user overrides.
-- `.claude/.forbidden-strings.txt` — gitignored, per-installation sanitization wordlist.
-
-## Before any commit or PR
-
-Run `/sanitize` (string-level scan) or `/audit` (comprehensive). The PreToolUse hook will block publish-style git operations if forbidden strings are found, but catch issues earlier — don't rely on the gate.
-
-## Working in this repo
-
-Read [`AGENTS.md`](AGENTS.md). Then read this file for the Claude-specific bits. That's it.
+Run `/audit` for the comprehensive sweep (sanitization + frontmatter + vendor matrix consistency + broken-link check) or `/sanitize` for a quick string-level scan. For a deeper logic-level review, invoke the `sanitization-auditor` agent.
