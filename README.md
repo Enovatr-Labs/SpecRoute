@@ -27,6 +27,33 @@ flowchart LR
     VAL --> REV
 ```
 
+<details>
+<summary>Text version (if the diagram doesn't render)</summary>
+
+```
+PRD (business intent + acceptance criteria)
+ ├──> requirements.md (stable IDs: R1.1, NFR-1.1, …)
+ │                                                  ──┐
+ ├──> design.md (architecture, references R*)         │
+ │                                                  ──┤
+ │                                                    ▼
+ │                                                  tasks.md
+ │                                                  (numbered, back-refs to R*)
+ │                                                    │
+ │                                                    ▼
+ │                                                  Implementation
+ │                                                  (code + tests; one test per R*)
+ │                                                    │
+ │                                                    ▼
+ │                                                  Validation
+ │                                                  (coverage table + NFR measurements)
+ │                                                    │
+ │                                                    ▼
+ │                                                  Review + Merge
+```
+
+</details>
+
 Each stage has a template, an agent assignment, and an acceptance criterion. The cross-references that survive across stages - stable requirement IDs, design `Satisfies:` annotations, task back-refs, test back-refs - are what make the agent's output reviewable.
 
 ## Core artifact taxonomy
