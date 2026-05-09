@@ -93,6 +93,14 @@ See [`CONTRIBUTING.md`](CONTRIBUTING.md) for contribution guidelines and [`CODE_
 
 See [`ROADMAP.md`](ROADMAP.md).
 
+## Maintainers
+
+SpecForge is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)**.
+
+- Lead maintainer: **Chika Ihejimba** ([@cihejimba](https://github.com/cihejimba)) — `chika@enovatr.com`
+- Security reports: `security@enovatr.com` (see [`SECURITY.md`](SECURITY.md))
+- Full maintainer list and governance: [`MAINTAINERS.md`](MAINTAINERS.md)
+
 ## License
 
-[Apache 2.0](LICENSE).
+[Apache 2.0](LICENSE) — Copyright (c) Enovatr Labs.
