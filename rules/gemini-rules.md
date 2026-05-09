@@ -55,4 +55,4 @@ For features SpecForge ships that Gemini can't natively run, the equivalent is t
 
 - [`engineering-rules.md`](engineering-rules.md) - vendor-neutral engineering rules.
 - [`runtimes/.gemini/README.md`](../runtimes/.gemini/README.md) - Gemini runtime layout.
-- [`docs/multi-vendor-context-files.md`](../docs/multi-vendor-context-files.md) - the delegation-shim pattern.
+- [`agentic-docs/multi-vendor-context-files.md`](../agentic-docs/multi-vendor-context-files.md) - the delegation-shim pattern.

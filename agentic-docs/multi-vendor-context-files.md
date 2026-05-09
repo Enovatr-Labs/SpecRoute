@@ -73,7 +73,7 @@ Three things distinguish the shim from a substantive context file:
 - Vendor matrix.
 - Hard constraints (rules that aren't obvious from the code).
 - Spec-driven flow summary.
-- Pointers to deep references (`docs/`, `workflows/`, `rules/`).
+- Pointers to deep references (`agentic-docs/`, `workflows/`, `rules/`).
 
 ## What lives in per-vendor shims
 
@@ -104,7 +104,7 @@ When you edit `AGENTS.md`:
 
 1. Read each vendor shim. Confirm none of them duplicate the section you just edited (or, if they do, propagate the change).
 2. Run `/audit` (or equivalent) - vendor matrix consistency is one of the audit's checks.
-3. Verify cross-references in `docs/` still resolve.
+3. Verify cross-references in `agentic-docs/` still resolve.
 
 Most edits to `AGENTS.md` don't require shim changes. The shims are for vendor-specific overrides, not duplicates.
 

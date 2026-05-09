@@ -43,8 +43,8 @@ Create `runtimes/.<vendor>/` with:
 Edit the matrix table in three places (keep them lock-step):
 
 - `README.md`
-- `docs/agent-cli-integrations.md`
-- `docs/multi-vendor-context-files.md`
+- `agentic-docs/agent-cli-integrations.md`
+- `agentic-docs/multi-vendor-context-files.md`
 
 Add the new vendor row. Use `-` for cells the vendor doesn't support.
 
@@ -68,7 +68,7 @@ If the vendor has an MCP config:
 If the vendor has skills or agents:
 
 - Update `tools/sync-skills.py` to include the new vendor's skills directory in the diff/copy logic
-- Update `docs/cross-vendor-sync.md` to describe the new sync target
+- Update `agentic-docs/cross-vendor-sync.md` to describe the new sync target
 
 ## Step 7: Update the worked example
 

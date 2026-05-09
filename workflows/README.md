@@ -1,6 +1,6 @@
 # Workflows
 
-End-to-end engineering execution models. These are operational playbooks - what to do, in what order, when a recurring task comes up. Distinct from `docs/` (which answers conceptual questions) and `rules/` (which captures standing constraints).
+End-to-end engineering execution models. These are operational playbooks - what to do, in what order, when a recurring task comes up. Distinct from `agentic-docs/` (which answers conceptual questions) and `rules/` (which captures standing constraints).
 
 ```
 workflows/
@@ -62,7 +62,7 @@ Workflows describe **how to execute recurring engineering work**:
 
 | Question | Goes in |
 |---|---|
-| What is X? Why does Y exist? | `docs/` |
+| What is X? Why does Y exist? | `agentic-docs/` |
 | What standard must always hold? | `rules/` |
 | How is the runtime layout for Claude Code structured? | `runtimes/.claude/README.md` |
 | How do I write a PRD? | `prds/templates/prd-template.md` + `prds/README.md` |
@@ -78,6 +78,6 @@ Workflows are owned by `framework-docs-author`. Updates to a workflow that affec
 
 ## See also
 
-- [`docs/spec-driven-development.md`](../docs/spec-driven-development.md) - the underlying philosophy.
-- [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) - when to reach for skills vs agents vs commands vs hooks during a workflow.
+- [`agentic-docs/spec-driven-development.md`](../agentic-docs/spec-driven-development.md) - the underlying philosophy.
+- [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) - when to reach for skills vs agents vs commands vs hooks during a workflow.
 - [`examples/sample-feature/implementation-plan.md`](../examples/sample-feature/implementation-plan.md) - a worked example of these workflows in operation.

@@ -16,7 +16,7 @@ Consumer-facing agent templates live separately in `agents/` (the SpecForge arti
 | `command-author` | Implementation | sonnet | orange | `commands/` - Claude markdown + Gemini JSON command templates |
 | `hooks-author` | Implementation | sonnet | red | `hooks/` - Claude hooks.json + Kiro `.kiro.hook` examples |
 | `runtime-architect` | Integration | opus | pink | `runtimes/`, `tools/sync-skills.py` - per-vendor runtime layouts + MCP single-source + cross-vendor sync |
-| `framework-docs-author` | Documentation | opus | blue | `docs/`, `workflows/`, root context files (README, CLAUDE.md, GEMINI.md, AGENTS.md) |
+| `framework-docs-author` | Documentation | opus | blue | `agentic-docs/`, `workflows/`, root context files (README, CLAUDE.md, GEMINI.md, AGENTS.md) |
 | `sanitization-auditor` | Quality | opus | red | Pre-commit / pre-PR audits - blocks any private-project leak |
 | `template-quality-reviewer` | Quality | sonnet | yellow | Template quality bar - production-grade, immediately usable, has worked examples |
 
@@ -33,7 +33,7 @@ Consumer-facing agent templates live separately in `agents/` (the SpecForge arti
 |---|---|---|
 | Build the worked example in `examples/sample-feature/` | `prd-author` (PRD) → `spec-author` (triplet) → `agent-roster-architect` (roster) → `prompt-engineer` (prompts) | `template-quality-reviewer` (final) |
 | Add a new vendor to the matrix | `runtime-architect` | `framework-docs-author`, `command-author`, `hooks-author`, `skill-author` (vendor-specific shapes) |
-| Set up the MCP single-source-of-truth | `runtime-architect` | `framework-docs-author` (`docs/cross-vendor-sync.md`) |
+| Set up the MCP single-source-of-truth | `runtime-architect` | `framework-docs-author` (`agentic-docs/cross-vendor-sync.md`) |
 | Pre-publish review | `sanitization-auditor` | `template-quality-reviewer` |
 
 ## Notes

@@ -1,13 +1,13 @@
 # Documentation Rules
 
-Standards for documentation across the project. See also [`docs/documentation-structure.md`](../docs/documentation-structure.md) for where new docs go.
+Standards for documentation across the project. See also [`agentic-docs/documentation-structure.md`](../agentic-docs/documentation-structure.md) for where new docs go.
 
 ## 1. Two-tier docs
 
 - **Root context files** (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short. They're loaded into every agent conversation; long files crowd out the user's actual question.
-- **Deep references** live in `docs/`. The root files link out; the deep docs hold the substance.
+- **Deep references** live in `agentic-docs/`. The root files link out; the deep docs hold the substance.
 
-See [`docs/two-tier-docs-pattern.md`](../docs/two-tier-docs-pattern.md).
+See [`agentic-docs/two-tier-docs-pattern.md`](../agentic-docs/two-tier-docs-pattern.md).
 
 ## 2. Docs are first-class artifacts
 
@@ -46,7 +46,7 @@ Missing required frontmatter = the runtime won't load the file. The PostToolUse 
 | Audience | Where they read |
 |---|---|
 | Agents (Claude, Codex, Gemini) | Root context files (`AGENTS.md`, etc.) |
-| Contributors (humans starting fresh) | `README.md`, `CONTRIBUTING.md`, `docs/philosophy.md`, `docs/spec-driven-development.md` |
+| Contributors (humans starting fresh) | `README.md`, `CONTRIBUTING.md`, `agentic-docs/philosophy.md`, `agentic-docs/spec-driven-development.md` |
 | Implementers (working on a feature) | The feature's PRD + spec triplet |
 | Reviewers | `rules/`, `code-review-rules.md`, the PR template |
 | Operators | Runbooks (project-specific) and `workflows/` |
@@ -88,6 +88,6 @@ When a feature's design changes, the design doc updates first; code follows. Whe
 
 ## See also
 
-- [`docs/documentation-structure.md`](../docs/documentation-structure.md) - where new docs go.
-- [`docs/two-tier-docs-pattern.md`](../docs/two-tier-docs-pattern.md) - root context vs deep references.
+- [`agentic-docs/documentation-structure.md`](../agentic-docs/documentation-structure.md) - where new docs go.
+- [`agentic-docs/two-tier-docs-pattern.md`](../agentic-docs/two-tier-docs-pattern.md) - root context vs deep references.
 - [`engineering-rules.md`](engineering-rules.md) Rule 11 - doc currency.

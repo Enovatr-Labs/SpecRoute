@@ -38,7 +38,7 @@ See [`commands/command-template.claude.md`](../../../commands/command-template.c
 - Agent: autonomous, runs to completion.
 - Hook: triggered by an event, not user-invoked.
 
-See [`docs/automation-decision-framework.md`](../../../docs/automation-decision-framework.md) for the full matrix.
+See [`agentic-docs/automation-decision-framework.md`](../../../agentic-docs/automation-decision-framework.md) for the full matrix.
 
 ## Vendor support
 

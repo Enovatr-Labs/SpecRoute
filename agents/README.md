@@ -71,5 +71,5 @@ Designing and reviewing the agent roster is owned by the `agent-roster-architect
 
 ## Related documents
 
-- [`docs/agentic-coding-model.md`](../docs/agentic-coding-model.md) - when to choose agent vs skill vs command vs hook
-- [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) - the 4-row decision matrix
+- [`agentic-docs/agentic-coding-model.md`](../agentic-docs/agentic-coding-model.md) - when to choose agent vs skill vs command vs hook
+- [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) - the 4-row decision matrix

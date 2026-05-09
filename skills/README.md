@@ -62,7 +62,7 @@ If you need to categorize for discovery:
 
 ## Skills vs agents vs commands vs hooks
 
-Picking the wrong primitive produces friction. See [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) for the 4-row matrix.
+Picking the wrong primitive produces friction. See [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) for the 4-row matrix.
 
 Quick distinctions:
 
@@ -92,4 +92,4 @@ Designing and reviewing skills is owned by the `skill-author` agent. See `.claud
 
 - [`skills/skill-template/SKILL.md`](skill-template/SKILL.md) - fill-in-the-blanks template
 - [`skills/examples/README.md`](examples/README.md) - adding an example skill
-- [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) - when to build a skill vs agent vs command vs hook
+- [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) - when to build a skill vs agent vs command vs hook

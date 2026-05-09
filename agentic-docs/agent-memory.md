@@ -60,7 +60,7 @@ This repo's `.claude/agent-memory/` directory has working examples for the most 
 
 - [`sanitization-auditor/checklist.md`](../.claude/agent-memory/sanitization-auditor/checklist.md) - pointer to the canonical sanitization wordlist + audit protocol; explicit "intentional placeholders" list to avoid false positives.
 - [`runtime-architect/vendor-matrix-progress.md`](../.claude/agent-memory/runtime-architect/vendor-matrix-progress.md) - vendor-by-vendor build-out state: which runtime layouts are wired, which features are TODO, suggested build order.
-- [`framework-docs-author/docs-status.md`](../.claude/agent-memory/framework-docs-author/docs-status.md) - drafting progress for `docs/`, refresh triggers when the matrix changes.
+- [`framework-docs-author/docs-status.md`](../.claude/agent-memory/framework-docs-author/docs-status.md) - drafting progress for `agentic-docs/`, refresh triggers when the matrix changes.
 
 Read these as worked examples of the appropriate level of detail.
 

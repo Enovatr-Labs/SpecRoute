@@ -17,7 +17,7 @@ Tracks which documentation files exist, which are TODO, and which need refresh a
 | `SECURITY.md` | TODO | Reporting channel + threat model (mostly: malicious shell in hook templates, supply-chain via tools/). |
 | `ROADMAP.md` | TODO | 3-phase roadmap: skeleton → worked example + runtimes → community contributions. |
 
-### `docs/` deep references
+### `agentic-docs/` deep references
 
 | File | Status | Priority |
 |---|---|---|
@@ -50,7 +50,7 @@ Tracks which documentation files exist, which are TODO, and which need refresh a
 4. `agent-cli-integrations.md` - concrete wiring per vendor
 5. `workflows/prd-to-production.md` - exercises the full flow
 6. Remaining workflows
-7. Remaining `docs/` references
+7. Remaining `agentic-docs/` references
 
 ## Refresh triggers
 

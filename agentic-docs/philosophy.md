@@ -30,13 +30,13 @@ Three obvious lines beat one clever abstraction. Repeated patterns beat prematur
 
 ### 7. Two-tier docs
 
-Root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short - they're loaded into every agent conversation. Deep references live in `docs/`. Long context files crowd out the user's actual question; short ones force discipline about what's actually load-bearing.
+Root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short - they're loaded into every agent conversation. Deep references live in `agentic-docs/`. Long context files crowd out the user's actual question; short ones force discipline about what's actually load-bearing.
 
 ## What we reject
 
 - **Implementation without specs.** "I'll figure it out as I go" is not a workflow; it's a bug report waiting to happen.
 - **Vendor-specific defaults that masquerade as universal.** If a pattern is Claude-specific, it goes under `prompts/claude/` or `runtimes/.claude/`. If it's universal, it goes under `prompts/shared/`.
-- **Theory in template files.** A template is not a place to explain why spec-driven coding matters. That's what `docs/` is for.
+- **Theory in template files.** A template is not a place to explain why spec-driven coding matters. That's what `agentic-docs/` is for.
 - **Build tooling, test runners, app frameworks.** SpecForge is markdown content. We add scripts only when they're load-bearing for the framework's correctness (sanitization, cross-vendor sync, MCP rendering).
 
 ## What follows from these beliefs

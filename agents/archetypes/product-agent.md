@@ -36,4 +36,4 @@ The product agent translates user needs into PRDs, prioritizes scope, and owns t
 ## Cross-references
 
 - [`prds/templates/`](../../prds/templates/)
-- [`docs/spec-driven-development.md`](../../docs/spec-driven-development.md)
+- [`agentic-docs/spec-driven-development.md`](../../agentic-docs/spec-driven-development.md)

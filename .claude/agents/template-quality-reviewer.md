@@ -21,7 +21,7 @@ A template passes review only if **all** of these hold:
 2. **Frontmatter is concrete and valid.** Required fields are listed; optional fields are marked optional. For agents: `name`, `description`, `model`, `color`. For skills: `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`. For commands (Claude): `description`. Missing field = invalid template.
 3. **Worked example exists.** Every template under `templates/` has at least one corresponding example under the same artifact's `examples/` directory or in `examples/sample-feature/`. Templates without examples are abstract.
 4. **TODO markers are intentional.** TODOs mark places where the user must add real content (e.g. "TODO: insert your data model here"). They are NOT placeholders for missing thinking ("TODO: figure out what goes here"). Reject the latter.
-5. **Cross-references are real.** If a template says "see `docs/automation-decision-framework.md`," that file must exist (or be a tracked TODO).
+5. **Cross-references are real.** If a template says "see `agentic-docs/automation-decision-framework.md`," that file must exist (or be a tracked TODO).
 6. **Generic, not domain-specific.** A template referencing financial / portfolio / trading / medical / legal logic fails - generalize before merging.
 7. **Markdown is well-formed.** Heading levels are consistent; code blocks are fenced with language tags; tables render correctly; no broken links.
 8. **Length is appropriate.** A 23-section enterprise PRD template is meant to be long. A `command-template.claude.md` is meant to be ~10 lines. A 200-line skill template is suspicious.

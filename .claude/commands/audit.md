@@ -46,7 +46,7 @@ The matrix table appears in three places. Confirm they are in sync:
 
 ```bash
 echo "── vendor matrix references ──"
-for f in README.md docs/agent-cli-integrations.md docs/multi-vendor-context-files.md; do
+for f in README.md agentic-docs/agent-cli-integrations.md agentic-docs/multi-vendor-context-files.md; do
   if [ -f "$f" ]; then
     echo "$f: $(grep -c '^| ' "$f") matrix-row lines"
   else

@@ -45,4 +45,4 @@ The PreToolUse hook (`pre-bash-sanitize.sh`) is recommended for any project usin
 
 - [`engineering-rules.md`](engineering-rules.md) - vendor-neutral engineering rules.
 - [`runtimes/.claude/README.md`](../runtimes/.claude/README.md) - Claude Code runtime layout.
-- [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) - when to build a skill vs agent vs command vs hook.
+- [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) - when to build a skill vs agent vs command vs hook.

@@ -43,7 +43,7 @@ Each stage has a template, an agent assignment, and an acceptance criterion. The
 | **Workflow** | End-to-end execution model | `workflows/` |
 | **Rule** | Engineering standard, vendor-specific or shared | `rules/` |
 
-When to reach for which: see [`docs/automation-decision-framework.md`](docs/automation-decision-framework.md).
+When to reach for which: see [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md).
 
 ## Supported vendor matrix
 
@@ -60,7 +60,7 @@ Vendor neutrality is the contract: adding a new tool means a new column, not a f
 
 ## Getting started
 
-1. **Read the philosophy** - [`docs/philosophy.md`](docs/philosophy.md), [`docs/spec-driven-development.md`](docs/spec-driven-development.md), [`docs/agentic-coding-model.md`](docs/agentic-coding-model.md).
+1. **Read the philosophy** - [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md), [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md), [`agentic-docs/agentic-coding-model.md`](agentic-docs/agentic-coding-model.md).
 2. **Pick your vendors** - copy the relevant `runtimes/.<vendor>/` directories into your own repo.
 3. **Pick a starting artifact** - PRD template for a new feature, spec triplet for an existing one, agent roster template for a new team.
 4. **Walk the worked example** - [`examples/sample-feature/`](examples/sample-feature/) shows every artifact shape end-to-end (PRD, requirements, design, tasks, agent roster, phased prompts, implementation plan).
@@ -69,19 +69,19 @@ Vendor neutrality is the contract: adding a new tool means a new column, not a f
 
 ```
 specforge/
-├── docs/         framework documentation (philosophy, decision frameworks, integrations)
-├── prds/         product requirements + lifecycle (active / deprecated / archive)
-├── specs/        spec triplet templates (requirements, design, tasks)
-├── agents/       agent template, archetypes, examples, cross-vendor roster
-├── skills/       skill-template/SKILL.md and folder-per-skill examples
-├── commands/     vendor-specific slash command templates
-├── hooks/        event-triggered automation (Claude hooks.json, Kiro .kiro.hook)
-├── prompts/      codex/, claude/, shared/ prompt patterns and master-prompt templates
-├── workflows/    end-to-end engineering execution models
-├── rules/        per-vendor and shared engineering rules
-├── runtimes/     copy-pasteable .claude/, .codex/, .gemini/, .kiro/, .cursor/, .windsurf/ layouts
-├── examples/     sample-feature/ - canonical worked example
-├── tools/        cross-vendor sync utilities
+├── agentic-docs/    framework documentation (philosophy, decision frameworks, integrations)
+├── prds/            product requirements + lifecycle (active / deprecated / archive)
+├── specs/           spec triplet templates (requirements, design, tasks)
+├── agents/          agent template, archetypes, examples, cross-vendor roster
+├── skills/          skill-template/SKILL.md and folder-per-skill examples
+├── commands/        vendor-specific slash command templates
+├── hooks/           event-triggered automation (per-vendor hook config templates)
+├── prompts/         codex/, claude/, shared/ prompt patterns and master-prompt templates
+├── workflows/       end-to-end engineering execution models
+├── rules/           per-vendor and shared engineering rules
+├── runtimes/        copy-pasteable .claude/, .codex/, .gemini/, .kiro/, .cursor/, .windsurf/ layouts
+├── examples/        sample-feature/ - canonical worked example
+├── tools/           cross-vendor sync utilities
 └── assets/
 ```
 

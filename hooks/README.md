@@ -208,7 +208,7 @@ Don't use a hook when:
 - The work needs user input - that's a skill.
 - The work is occasional, not always-on - that's a command.
 
-See [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) for the full matrix.
+See [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) for the full matrix.
 
 ## Hardening
 

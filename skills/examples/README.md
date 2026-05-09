@@ -31,7 +31,7 @@ The four skills under [`.claude/skills/`](../../.claude/skills/) at the reposito
 
 ## Skills vs agents vs commands vs hooks
 
-If you're not sure whether your idea is a skill, see [`docs/automation-decision-framework.md`](../../docs/automation-decision-framework.md). Quick test:
+If you're not sure whether your idea is a skill, see [`agentic-docs/automation-decision-framework.md`](../../agentic-docs/automation-decision-framework.md). Quick test:
 
 - **Will the user invoke it by name AND will it ask them questions?** → Skill.
 - **Will the user delegate to it and walk away?** → Agent.

@@ -33,7 +33,7 @@ Each stage has a template, an agent assignment, and an acceptance criterion. The
 | **Rule** | Engineering standard, vendor-specific or shared | `rules/` |
 | **Runtime** | Copy-pasteable per-vendor layout consumers drop into their own repos | `runtimes/` |
 
-When to reach for which: see [`docs/automation-decision-framework.md`](docs/automation-decision-framework.md) - the 4-row decision matrix for Skill / Agent / Command / Hook.
+When to reach for which: see [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) - the 4-row decision matrix for Skill / Agent / Command / Hook.
 
 ## Supported vendor matrix
 
@@ -46,7 +46,7 @@ When to reach for which: see [`docs/automation-decision-framework.md`](docs/auto
 | Cursor | `.cursor/rules/` | `.cursorrules` | - | - | - | `hooks.json` v1 (~19 events; permission/decision schema) | - |
 | Windsurf | `.windsurf/rules/` | - | - | - | - | `hooks.json` (12 events; pre-hooks block, post-hooks observe) | - |
 
-Vendor neutrality is the contract. Adding a new tool = a new column, not a fork. The matrix is mirrored in [`README.md`](README.md), [`docs/agent-cli-integrations.md`](docs/agent-cli-integrations.md), and [`docs/multi-vendor-context-files.md`](docs/multi-vendor-context-files.md); when one changes, all three change in lock-step.
+Vendor neutrality is the contract. Adding a new tool = a new column, not a fork. The matrix is mirrored in [`README.md`](README.md), [`agentic-docs/agent-cli-integrations.md`](agentic-docs/agent-cli-integrations.md), and [`agentic-docs/multi-vendor-context-files.md`](agentic-docs/multi-vendor-context-files.md); when one changes, all three change in lock-step.
 
 ## Hard constraints
 
@@ -60,7 +60,7 @@ These are the rules that aren't obvious from the code and must be respected.
 
 4. **Folder-per-skill, flat-file-agent.** Skills are directories containing `SKILL.md` (with frontmatter `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools`). Agents are flat `<name>.md` files (with frontmatter `name`, `description`, `model`, `color`). These contracts are load-bearing - artifacts that violate them won't register in the runtime.
 
-5. **Two-tier docs.** Root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short. Deep references live in `docs/`. See [`docs/two-tier-docs-pattern.md`](docs/two-tier-docs-pattern.md).
+5. **Two-tier docs.** Root context files (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short. Deep references live in `agentic-docs/`. See [`agentic-docs/two-tier-docs-pattern.md`](agentic-docs/two-tier-docs-pattern.md).
 
 6. **TODO markers are intentional.** They mark places where a real example or value should later be added. Don't fill them with invented content; flag clearly when an example is illustrative.
 
@@ -90,7 +90,7 @@ When adding a new top-level artifact, prefer invoking the corresponding agent (`
 ## Getting oriented
 
 1. Read [`README.md`](README.md) for the public framing.
-2. Read [`docs/philosophy.md`](docs/philosophy.md) and [`docs/spec-driven-development.md`](docs/spec-driven-development.md) for the why.
-3. Read [`docs/automation-decision-framework.md`](docs/automation-decision-framework.md) for when to reach for which artifact.
+2. Read [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md) and [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md) for the why.
+3. Read [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) for when to reach for which artifact.
 4. Walk the worked example in [`examples/sample-feature/`](examples/sample-feature/) - it exercises every artifact shape end-to-end.
 5. Pick a vendor and copy `runtimes/.<vendor>/` into your own repo to start using SpecForge.

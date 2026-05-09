@@ -70,4 +70,4 @@ Drafting and reviewing specs is owned by the `spec-author` agent. See `.claude/a
 - [`prds/README.md`](../prds/README.md) - what comes before
 - [`prompts/shared/prd-to-spec-prompt.md`](../prompts/shared/prd-to-spec-prompt.md) - reusable prompt to bootstrap the triplet from an approved PRD
 - [`prompts/shared/spec-to-tasks-prompt.md`](../prompts/shared/spec-to-tasks-prompt.md) - reusable prompt to derive `tasks.md` from `requirements.md` + `design.md`
-- [`docs/spec-driven-development.md`](../docs/spec-driven-development.md) - the end-to-end flow
+- [`agentic-docs/spec-driven-development.md`](../agentic-docs/spec-driven-development.md) - the end-to-end flow

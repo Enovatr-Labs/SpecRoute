@@ -79,4 +79,4 @@ A new vendor that consumes MCP configs in a new shape gets a new renderer:
 
 ## Reference
 
-- [`docs/cross-vendor-sync.md`](../../docs/cross-vendor-sync.md) - the broader cross-vendor sync pattern (skills, agents, MCP).
+- [`agentic-docs/cross-vendor-sync.md`](../../agentic-docs/cross-vendor-sync.md) - the broader cross-vendor sync pattern (skills, agents, MCP).

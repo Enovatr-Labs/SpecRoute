@@ -59,5 +59,5 @@ Drafting and reviewing PRDs is owned by the `prd-author` agent. See `.claude/age
 ## Related documents
 
 - [`specs/README.md`](../specs/README.md) - what comes after the PRD is approved
-- [`docs/spec-driven-development.md`](../docs/spec-driven-development.md) - the end-to-end flow
+- [`agentic-docs/spec-driven-development.md`](../agentic-docs/spec-driven-development.md) - the end-to-end flow
 - [`prompts/shared/prd-to-spec-prompt.md`](../prompts/shared/prd-to-spec-prompt.md) - a reusable prompt for converting a PRD into the spec triplet

@@ -49,7 +49,7 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 - ☐ `runtimes/mcp/servers.yaml` - single source of truth + per-vendor renderers
 - ☐ `tools/sync-skills.py` - cross-runtime skill diff/copy
 - ☐ Workflow docs (`workflows/prd-to-production.md`, etc.)
-- ☐ Decision-framework docs (`docs/automation-decision-framework.md` - highest leverage)
+- ☐ Decision-framework docs (`agentic-docs/automation-decision-framework.md` - highest leverage)
 - ☐ Per-vendor rule files (`rules/<vendor>-rules.md`)
 
 ## Phase 4 - Maturity

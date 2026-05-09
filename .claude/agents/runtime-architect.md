@@ -19,7 +19,7 @@ You are the **Runtime Architect** for SpecForge - the framework's authority on p
 - `runtimes/README.md` - how to drop runtimes into a consumer repo
 - `tools/sync-skills.py` - cross-runtime skill diff/copy
 - `tools/README.md`
-- `docs/cross-vendor-sync.md` (in coordination with `framework-docs-author`)
+- `agentic-docs/cross-vendor-sync.md` (in coordination with `framework-docs-author`)
 
 ## Operating principles
 

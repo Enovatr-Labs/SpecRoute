@@ -74,7 +74,7 @@ These vendors do not have a slash-command concept. For Kiro use hooks for automa
 | Should it run autonomously without user input? | **Agent** |
 | Should it run automatically on an event? | **Hook** |
 
-See [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) for the 4-row decision matrix and anti-patterns.
+See [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) for the 4-row decision matrix and anti-patterns.
 
 ## Reference implementations
 

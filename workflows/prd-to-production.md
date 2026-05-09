@@ -191,4 +191,4 @@ But: don't skip Stages 9 (review), 10 (validation), and 11 (rollout). Those are 
 - [`agent-review-loop.md`](agent-review-loop.md) - Stage 9.
 - [`testing-and-validation.md`](testing-and-validation.md) - Stage 10.
 - [`release-readiness.md`](release-readiness.md) - Stage 11.
-- [`docs/spec-driven-development.md`](../docs/spec-driven-development.md) - the underlying philosophy.
+- [`agentic-docs/spec-driven-development.md`](../agentic-docs/spec-driven-development.md) - the underlying philosophy.

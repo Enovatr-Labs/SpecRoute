@@ -7,10 +7,10 @@ Where new documentation goes. A decision tree for contributors so the framework'
 When you need to add documentation, ask:
 
 1. **Is it about a single artifact you're producing right now?** (a specific PRD, a specific spec, a specific agent definition)
-   → Lives **with that artifact**, not in `docs/`. PRDs go in `prds/active/`; specs go in `specs/examples/<feature>/`; agents in `agents/examples/`.
+   → Lives **with that artifact**, not in `agentic-docs/`. PRDs go in `prds/active/`; specs go in `specs/examples/<feature>/`; agents in `agents/examples/`.
 
 2. **Is it conceptual or framework-level?** (philosophy, decision frameworks, integration patterns)
-   → Lives in **`docs/`**.
+   → Lives in **`agentic-docs/`**.
 
 3. **Is it about how to do a recurring engineering task?** (PRD-to-production, spec-to-implementation, release readiness)
    → Lives in **`workflows/`**.
@@ -34,7 +34,7 @@ specforge/
 ├── CONTRIBUTING.md / SECURITY.md / etc. governance
 ├── ROADMAP.md                           project trajectory
 │
-├── docs/                                conceptual, framework-level
+├── agentic-docs/                        conceptual, framework-level
 │   ├── philosophy.md
 │   ├── spec-driven-development.md
 │   ├── agentic-coding-model.md
@@ -67,9 +67,9 @@ specforge/
 
 ## Why these distinctions
 
-### `docs/` vs `workflows/`
+### `agentic-docs/` vs `workflows/`
 
-**`docs/`** answers conceptual questions: *what is X? why does Y exist?* These are the framework's intellectual content - read once, refer back occasionally.
+**`agentic-docs/`** answers conceptual questions: *what is X? why does Y exist?* These are the framework's intellectual content - read once, refer back occasionally.
 
 **`workflows/`** answers procedural questions: *what do I do, in what order, when X is needed?* These are operational playbooks - read every time you do that thing.
 
@@ -83,13 +83,13 @@ Mixing the two produces hybrid docs that satisfy neither audience.
 
 A rule is a noun (a standard); a workflow is a verb (a procedure).
 
-### Per-directory `README.md` vs `docs/`
+### Per-directory `README.md` vs `agentic-docs/`
 
 A directory's `README.md` answers questions specific to **that directory**: what files belong here, what frontmatter is required, how to add a new entry. It's terse and operational.
 
-`docs/` covers concepts that span directories or are framework-level. The PRD template's body lives in `prds/templates/`; the *philosophy* of "specs first, code second" lives in `docs/philosophy.md`.
+`agentic-docs/` covers concepts that span directories or are framework-level. The PRD template's body lives in `prds/templates/`; the *philosophy* of "specs first, code second" lives in `agentic-docs/philosophy.md`.
 
-## What does NOT belong in `docs/`
+## What does NOT belong in `agentic-docs/`
 
 - **Specific PRDs or specs.** Those live with the artifact.
 - **Operational runbooks** for a specific service or environment. Those go alongside the service or in `workflows/`.
@@ -113,10 +113,10 @@ A doc that grows past these targets is usually trying to be two things; consider
 
 ## Anti-patterns
 
-- **Conceptual content in directory READMEs.** "Why does this matter?" belongs in `docs/`. The README answers "what's here and how do I add to it?"
+- **Conceptual content in directory READMEs.** "Why does this matter?" belongs in `agentic-docs/`. The README answers "what's here and how do I add to it?"
 - **Duplicating a rule in multiple places.** Rules live in `rules/`; other docs reference them.
 - **`docs/some-guide.md` that's actually a workflow.** If it has numbered steps to follow, it's a workflow.
-- **Workflows that re-explain concepts.** If the reader needs to understand the *why*, link to `docs/`.
+- **Workflows that re-explain concepts.** If the reader needs to understand the *why*, link to `agentic-docs/`.
 
 ## Authoring agent
 
