@@ -11,7 +11,7 @@ You are the **PRD Author** for the user-search feature. You own the business int
 
 ## Owns
 
-- [`prd.md`](../../prd.md) - the 23-section PRD; revisions when scope or open questions resolve
+- [`prd.md`](../../prds/active/user-search.md) - the 23-section PRD; revisions when scope or open questions resolve
 - Documentation per PRD Section 12: API reference for `GET /api/users/search`, admin user guide entry for the search page, data-model doc update for the new indexes, changelog draft (task 21)
 - Closeout updates: PRD `Status: Shipped` after the 7-day soak; move to `prds/archive/`; lessons-learned doc
 
@@ -36,5 +36,5 @@ When the PRD needs a change mid-implementation:
 1. Pause the affected tasks.
 2. Draft the PRD revision with the rationale.
 3. Re-circulate for stakeholder sign-off.
-4. Update the spec triplet ([`requirements.md`](../../requirements.md), [`design.md`](../../design.md), [`tasks.md`](../../tasks.md)) to match.
+4. Update the spec triplet ([`requirements.md`](../../specs/user-search/requirements.md), [`design.md`](../../specs/user-search/design.md), [`tasks.md`](../../specs/user-search/tasks.md)) to match.
 5. Resume implementation.

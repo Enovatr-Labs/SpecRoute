@@ -8,13 +8,13 @@
 
 Decide the Redis cache TTL for `/api/users/search` results. The PRD's open question Q2 (`requirements.md` Section 7) frames the trade-off: 60s gives strong freshness; 300s gives a higher cache hit rate. We need real numbers to choose.
 
-After this spike: a number is recorded in [`../../design.md`](../../design.md) Section 7 (Performance Considerations) and Section 12 (Alternatives Considered).
+After this spike: a number is recorded in [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 7 (Performance Considerations) and Section 12 (Alternatives Considered).
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 18 (Performance Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) Q2; NFR-1.1
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 7
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 18 (Performance Requirements)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) Q2; NFR-1.1
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 7
 **Phase Master**: [`000_MASTER_foundation.md`](000_MASTER_foundation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 
@@ -67,9 +67,9 @@ Run a one-week shadow trial in staging with two cache TTLs (60s, 300s) for the s
 
 | File | Change |
 |---|---|
-| [`../../design.md`](../../design.md) | Section 7: record decision and rationale |
-| [`../../design.md`](../../design.md) | Section 12.3: update "Alternatives Considered" with the spike outcome |
-| [`../../requirements.md`](../../requirements.md) | Section 7: mark Q2 resolved |
+| [`../../specs/user-search/design.md`](../../specs/user-search/design.md) | Section 7: record decision and rationale |
+| [`../../specs/user-search/design.md`](../../specs/user-search/design.md) | Section 12.3: update "Alternatives Considered" with the spike outcome |
+| [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) | Section 7: mark Q2 resolved |
 
 ## 6. Acceptance Criteria
 

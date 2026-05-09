@@ -12,9 +12,9 @@ After this task: round-trip property tests pass; tampered cursors are rejected w
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R4.1, R4.2, NFR-2.3
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 6 (State Management)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 17 (Security Requirements)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R4.1, R4.2, NFR-2.3
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 6 (State Management)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 8. Depends on Phase 0 task 002 (cursor encoding decision). Consumed by task 7 (query builder uses decoded cursor) and task 10 (compose endpoint emits encoded cursor).

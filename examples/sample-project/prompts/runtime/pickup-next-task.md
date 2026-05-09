@@ -10,7 +10,7 @@ You are the **task router** for the user-search implementation. Your job is to f
 
 ## Inputs
 
-- [`../../tasks.md`](../../tasks.md) - the full task list with checkboxes
+- [`../../specs/user-search/tasks.md`](../../specs/user-search/tasks.md) - the full task list with checkboxes
 - [`../../agent-roster.md`](../../agent-roster.md) - per-task agent assignments
 - [`../../implementation-plan.md`](../../implementation-plan.md) - phase order and dependencies
 - The current state of the codebase (which files exist; which tests pass)

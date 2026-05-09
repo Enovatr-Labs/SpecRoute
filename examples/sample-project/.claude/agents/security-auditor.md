@@ -11,7 +11,7 @@ You are the **Security Auditor** for the user-search feature. Your authority cov
 
 ## Owns
 
-- Privacy sign-off (Phase 0 task 3) - decision recorded in [`prd.md`](../../prd.md) Section 17
+- Privacy sign-off (Phase 0 task 3) - decision recorded in [`prd.md`](../../prds/active/user-search.md) Section 17
 - RBAC boundary review (task 6) - confirms non-admin actors cannot enumerate cross-organization users
 - Cursor signing review (task 8) - HMAC implementation, replay window, key rotation strategy
 - Audit log content review (task 11) - confirms no plaintext query strings; only `filter_set_hash`, actor_id, result_count, duration

@@ -4,10 +4,10 @@
 **Date**: 2026-05-08
 **Author**: SpecForge worked example
 **Status**: Approved
-**Architecture Reference**: [`design.md`](design.md)
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md)
 **Scope**: Add a paginated, filterable, indexed user-directory search to the platform's admin and self-service surfaces. In scope: API + frontend + observability. Out of scope: bulk export (separate PRD), cross-tenant federation.
 
-> This is the canonical worked example for SpecForge. It exercises every artifact shape end-to-end: a 23-section PRD; a spec triplet (`requirements.md`, `design.md`, `tasks.md`); an agent roster; the full phased prompt set (1 global master, 4 phase masters, 22 numbered task prompts under `prompts/`); and an implementation plan. Generic feature, no proprietary domain.
+> This is the canonical worked example for SpecForge. It exercises every artifact shape end-to-end: a 23-section PRD; a spec triplet (`../../specs/user-search/requirements.md`, `../../specs/user-search/design.md`, `../../specs/user-search/tasks.md`); an agent roster; the full phased prompt set (1 global master, 4 phase masters, 22 numbered task prompts under `prompts/`); and an implementation plan. Generic feature, no proprietary domain.
 
 ---
 
@@ -160,7 +160,7 @@ In priority order:
 
 The architecture is a single new endpoint backed by indexed Postgres queries with a short-TTL cache layer. No new services. No new infrastructure components.
 
-See [`design.md`](design.md) for the full design including sequence diagrams.
+See [`../../specs/user-search/design.md`](../../specs/user-search/design.md) for the full design including sequence diagrams.
 
 ---
 
@@ -259,7 +259,7 @@ No new secrets. Uses existing DB credentials and Redis credentials provisioned v
 |---|---|---|---|
 | `/api/users/search` | GET | Paginated, filterable user search | Required; RBAC-scoped |
 
-See [`design.md`](design.md) Section 4.1 for the full request/response schema.
+See [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 4.1 for the full request/response schema.
 
 ### 10.2 Modified APIs
 
@@ -466,6 +466,6 @@ The PRD is satisfied when **all** of the following are true:
 
 ### B. References
 
-- [`design.md`](design.md) - full technical design.
-- [`requirements.md`](requirements.md) - formal requirements with stable IDs.
-- [`tasks.md`](tasks.md) - work plan with task numbers and back-references.
+- [`../../specs/user-search/design.md`](../../specs/user-search/design.md) - full technical design.
+- [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - formal requirements with stable IDs.
+- [`../../specs/user-search/tasks.md`](../../specs/user-search/tasks.md) - work plan with task numbers and back-references.

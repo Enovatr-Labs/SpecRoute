@@ -35,4 +35,4 @@ You are the **Unit Test Writer** for the user-search feature. You convert requir
 - E2E tests (full UI flows) - that's `integration-test-generator` or a dedicated e2e role.
 - Performance tests (load, soak) - that's `deployment-validator` (task 18).
 - Test infrastructure (fixtures, factories, fakes) - coordinate with the project's test architect.
-- Testing strategy decisions - those go in [`prd.md`](../../prd.md) Section 14 and [`design.md`](../../design.md).
+- Testing strategy decisions - those go in [`prd.md`](../../prds/active/user-search.md) Section 14 and [`design.md`](../../specs/user-search/design.md).

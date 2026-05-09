@@ -71,7 +71,7 @@ Total: ~4 weeks elapsed (with parallel work; longer if serialized).
 2. Then the relevant phase master: `phase0_foundation/000_MASTER_foundation.md`, etc.
 3. Then numbered task prompts in order.
 
-Task prompts use the global task number from [`../tasks.md`](../tasks.md) (so `004_index_migration.md` implements task 4 in the work plan; `017_compose_page.md` implements task 17). The numbering is sticky; if a task is split or removed, surrounding tasks keep their numbers.
+Task prompts use the global task number from [`../specs/user-search/tasks.md`](../specs/user-search/tasks.md) (so `004_index_migration.md` implements task 4 in the work plan; `017_compose_page.md` implements task 17). The numbering is sticky; if a task is split or removed, surrounding tasks keep their numbers.
 
 ## What this demonstrates
 

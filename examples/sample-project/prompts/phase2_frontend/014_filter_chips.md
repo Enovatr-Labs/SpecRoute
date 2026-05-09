@@ -12,9 +12,9 @@ After this task: component renders all three filter types, manages selection sta
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R2.1, R3.1
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 2.2 (Components)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 9 (Frontend Impact)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R2.1, R3.1
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 2.2 (Components)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 14. Independent of tasks 13, 15, 16. Composed by task 17.

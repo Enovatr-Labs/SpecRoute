@@ -12,9 +12,9 @@ After this task: prev/next buttons work, are correctly disabled when no cursor i
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R4.1, R4.2
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract - cursor fields)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 9 (Frontend Impact)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R4.1, R4.2
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 4.1 (API Contract - cursor fields)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 16. Independent of tasks 13, 14, 15. Composed by task 17.

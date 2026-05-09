@@ -11,7 +11,7 @@ You are the **Database Engineer** for the user-search feature. You own the schem
 
 ## Owns
 
-- `migrations/202605xx_add_user_search_indexes.sql` - the new indexes (per [`design.md`](../../design.md) Section 3.4)
+- `migrations/202605xx_add_user_search_indexes.sql` - the new indexes (per [`design.md`](../../specs/user-search/design.md) Section 3.4)
 - `EXPLAIN ANALYZE` validation against representative search queries
 - Smoke tests that confirm each index exists post-migration (`tests/migrations/test_user_search_indexes.py` or equivalent)
 - The down migration (drops each index `IF EXISTS`)

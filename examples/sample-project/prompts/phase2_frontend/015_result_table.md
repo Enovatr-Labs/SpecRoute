@@ -12,9 +12,9 @@ After this task: component renders all four states, exposes a clean row-click co
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1–R3.1, NFR-1.4
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract - response shape)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 9 (Frontend Impact)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R1.1–R3.1, NFR-1.4
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 4.1 (API Contract - response shape)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 15. Independent of tasks 13, 14, 16. Composed by task 17.

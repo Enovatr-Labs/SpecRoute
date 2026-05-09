@@ -77,7 +77,7 @@ Phase 1 is complete when **all** of the following are true:
 - [ ] Endpoint serves in develop behind feature flag `users.search.enabled`.
 - [ ] Integration tests cover every backend requirement (R1.1, R1.2, R1.3, R2.1, R3.1, R4.1, R4.2, R5.1, R5.2, R5.3) and the backend NFRs (NFR-1.1, NFR-2.1, NFR-2.2, NFR-2.3, NFR-2.4, NFR-3.1, NFR-3.2, NFR-3.3, NFR-3.4).
 - [ ] Synthetic load (100 RPS, 60s) shows p95 < 200ms.
-- [ ] Coverage table in [`../../tasks.md`](../../tasks.md) updated; backend rows fully populated.
+- [ ] Coverage table in [`../../specs/user-search/tasks.md`](../../specs/user-search/tasks.md) updated; backend rows fully populated.
 - [ ] `/audit` returns clean.
 - [ ] `security-auditor` signed off on tasks 6, 8, 11, 12.
 

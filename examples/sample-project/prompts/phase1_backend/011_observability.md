@@ -12,9 +12,9 @@ After this task: `search.duration_ms` (histogram), `search.filter_usage_total` (
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 8.2 (Observability)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - NFR-3.1, NFR-3.2, NFR-3.3, NFR-3.4
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 9
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 8.2 (Observability)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - NFR-3.1, NFR-3.2, NFR-3.3, NFR-3.4
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 9
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 11. Depends on Phase 0 task 003 (privacy approval for log shape). Decorates components from tasks 5–9. Wired through task 10.

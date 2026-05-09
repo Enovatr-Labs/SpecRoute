@@ -18,7 +18,7 @@ You are the **Backend Engineer** for the user-search feature. You implement the 
 
 ## Operating principles
 
-- Read the task in [`tasks.md`](../../tasks.md) first. Confirm prerequisites are met.
+- Read the task in [`tasks.md`](../../specs/user-search/tasks.md) first. Confirm prerequisites are met.
 - Read each requirement (R1.1, R1.2, ... NFR-1.1, ...) the task back-references; the spec triplet is the contract.
 - Stay in scope. The task lists "Files to Modify / Create / Delete." Adjacent "while I'm here" cleanup is a separate task.
 - Pure functions where possible. The validator, RBAC scoping, query builder, and cursor encoder are all pure - no I/O - so they're easy to unit-test exhaustively.

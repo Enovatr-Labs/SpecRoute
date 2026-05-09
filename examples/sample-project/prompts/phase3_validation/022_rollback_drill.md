@@ -12,9 +12,9 @@ After this task: rollback drill outcome recorded in PRD Section 19; staging reco
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 19 (Rollback Strategy)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 19 (Rollback Strategy)
 **Spec Reference**: (rollout, not requirement-specific)
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 11 (Rollout Considerations)
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 11 (Rollout Considerations)
 **Phase Master**: [`000_MASTER_validation.md`](000_MASTER_validation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 22. Depends on task 019 (feature flag wired) and task 18 (load test passed). Gates task 020 (production rollout).
@@ -53,7 +53,7 @@ Simulate a triggered rollback scenario: the search endpoint exhibits sustained l
 
 | File | Change |
 |---|---|
-| [`../../prd.md`](../../prd.md) | Update Section 19 with the drill date and outcome |
+| [`../../prds/active/user-search.md`](../../prds/active/user-search.md) | Update Section 19 with the drill date and outcome |
 | Validation report | Record the drill |
 | (Synthetic regression code) | Remove after the drill - never ship to production |
 

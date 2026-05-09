@@ -12,9 +12,9 @@ After this task: 100% production traffic with stable error rates and latency for
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 19 (Rollback Strategy), Section 23 (Acceptance Criteria)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 19 (Rollback Strategy), Section 23 (Acceptance Criteria)
 **Spec Reference**: (rollout, not requirement-specific)
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 11 (Rollout Considerations)
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 11 (Rollout Considerations)
 **Phase Master**: [`000_MASTER_validation.md`](000_MASTER_validation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 20. Depends on tasks 18 (load test passed), 019 (feature flag wired), 021 (docs ready), 022 (rollback drill). All must be complete.

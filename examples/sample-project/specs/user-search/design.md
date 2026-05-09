@@ -4,7 +4,7 @@
 **Date**: 2026-05-08
 **Author**: SpecForge worked example
 **Status**: Approved
-**Source PRD**: [`prd.md`](prd.md)
+**Source PRD**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md)
 **Source Requirements**: [`requirements.md`](requirements.md)
 
 > **Spec triplet - part 2 of 3.** References requirement IDs from `requirements.md`. Companion: [`tasks.md`](tasks.md).

@@ -4,7 +4,7 @@
 **Date**: 2026-05-08
 **Author**: SpecForge worked example
 **Status**: Approved
-**Source PRD**: [`prd.md`](prd.md)
+**Source PRD**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md)
 
 > **Spec triplet - part 1 of 3.** Companion documents: [`design.md`](design.md), [`tasks.md`](tasks.md).
 

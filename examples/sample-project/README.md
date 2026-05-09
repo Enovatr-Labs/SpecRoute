@@ -9,11 +9,35 @@ This folder is **drop-in runnable**. Copy it into a new repo, do a small amount 
 ```
 sample-project/
 ├── README.md                   this file (drop-in instructions)
-├── CLAUDE.md                   project context for Claude Code
-├── prd.md                      full 23-section PRD
-├── requirements.md             spec triplet pt 1 (R1.1 ... NFR-4.1)
-├── design.md                   spec triplet pt 2 (architecture, API, data model)
-├── tasks.md                    spec triplet pt 3 (22 numbered tasks + coverage table)
+├── AGENTS.md                   canonical context (all agent CLIs read this first)
+├── CLAUDE.md                   Claude-specific delegation shim
+├── prds/                       Product Requirements Documents
+│   ├── README.md
+│   ├── active/
+│   │   └── user-search.md      full 23-section PRD (Status: Approved)
+│   ├── deprecated/
+│   └── archive/
+├── specs/                      spec triplets per feature
+│   ├── README.md
+│   └── user-search/
+│       ├── requirements.md     spec triplet pt 1 (R1.1 ... NFR-4.1)
+│       ├── design.md           spec triplet pt 2 (architecture, API, data model)
+│       └── tasks.md            spec triplet pt 3 (22 numbered tasks + coverage table)
+├── adrs/                       Architecture Decision Records
+│   ├── README.md
+│   ├── adr-001-postgres-indexed-scans.md
+│   ├── adr-002-cursor-based-pagination.md
+│   ├── adr-003-redis-cache-60s-ttl.md
+│   ├── adr-004-hmac-signed-cursors.md
+│   └── adr-005-filter-set-hash-logging.md
+├── agentic-docs/               project-level deep references
+│   ├── philosophy.md
+│   ├── spec-driven-development.md
+│   ├── agentic-coding-model.md
+│   ├── automation-decision-framework.md
+│   ├── documentation-structure.md
+│   ├── two-tier-docs-pattern.md
+│   └── agent-memory.md
 ├── agent-roster.md             cross-vendor agent inventory + task assignments
 ├── implementation-plan.md      schedule, critical path, risks, definition of done
 ├── prompts/                    full phased prompt set
@@ -71,8 +95,8 @@ Once setup is done, open the repo with Claude Code and:
 ```
 1. Read CLAUDE.md.
 2. Read prompts/000_GLOBAL_MASTER.md end to end.
-3. Read prd.md (sections 1-4) and design.md (sections 1-3).
-4. Read tasks.md.
+3. Read prds/active/user-search.md (sections 1-4) and specs/user-search/design.md (sections 1-3).
+4. Read specs/user-search/tasks.md.
 5. Open phase0_foundation/000_MASTER_foundation.md.
 6. Execute tasks in order.
 ```
@@ -83,13 +107,13 @@ Or, for the fast path, use the runtime prompt:
 Run prompts/runtime/pickup-next-task.md.
 ```
 
-The agent will read `tasks.md`, find the lowest-numbered unchecked task whose prerequisites are met, name the primary agent (per `agent-roster.md`), and hand off.
+The agent will read `specs/user-search/tasks.md`, find the lowest-numbered unchecked task whose prerequisites are met, name the primary agent (per `agent-roster.md`), and hand off.
 
 ## What the implementation team will do
 
 The 8 agents under `.claude/agents/` will, between them:
 
-1. **Phase 0** — `backend-engineer` runs cache-TTL + cursor-encoding spikes; `security-auditor` runs the privacy review. Output: decisions recorded in `design.md`.
+1. **Phase 0** — `backend-engineer` runs cache-TTL + cursor-encoding spikes; `security-auditor` runs the privacy review. Output: decisions recorded in `specs/user-search/design.md`.
 
 2. **Phase 1** — `database-engineer` ships the index migration; `backend-engineer` builds the validator, RBAC scoping, query builder, cursor encoder, cache layer, observability instrumentation, rate limiting, and composes the endpoint. `unit-test-writer` and `integration-test-generator` author tests against requirement IDs. `security-auditor` reviews the boundary-critical PRs.
 
@@ -99,22 +123,22 @@ The 8 agents under `.claude/agents/` will, between them:
 
 ## Per-task work flow
 
-For each task in `tasks.md`:
+For each task in `specs/user-search/tasks.md`:
 
 1. Open the task prompt at `prompts/phase{N}_<phase>/<NNN>_<task>.md`.
 2. The prompt names a primary agent in Section 3 (Agent Assignment).
 3. Invoke the agent with the task prompt as input.
 4. The agent reads the back-referenced requirements, the relevant design sections, and the prerequisite checklist before starting.
 5. The agent implements, writes tests for back-referenced requirement IDs, runs `/audit`, and opens a PR.
-6. Check the task's box in `tasks.md`. Move on.
+6. Check the task's box in `specs/user-search/tasks.md`. Move on.
 
 ## Adapting to your stack
 
 This sample is generic — Postgres / Redis / REST / web. Adapt for your specifics:
 
-- **Different DB**: rewrite `database-engineer.md`'s operating principles + the index migration in `tasks.md` task 4.
-- **Different API style** (GraphQL, RPC): rewrite `design.md` Section 4 + `backend-engineer.md`.
-- **Different frontend framework**: rewrite the four component contracts in `design.md` + `frontend-engineer.md`.
+- **Different DB**: rewrite `database-engineer.md`'s operating principles + the index migration in `specs/user-search/tasks.md` task 4.
+- **Different API style** (GraphQL, RPC): rewrite `specs/user-search/design.md` Section 4 + `backend-engineer.md`.
+- **Different frontend framework**: rewrite the four component contracts in `specs/user-search/design.md` + `frontend-engineer.md`.
 - **No frontend** (API-only product): drop Phase 2 entirely; `frontend-engineer.md`; tasks 13-17.
 - **Different domain**: rename `users/search` to your domain (e.g. `articles/search`, `events/search`); update the seven-or-so places it appears in the PRD and design.
 

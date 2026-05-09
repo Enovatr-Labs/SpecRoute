@@ -12,12 +12,12 @@ After this task: admin actors see the full corpus; non-admin actors see only use
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R5.1, R5.2, R5.3, NFR-2.1, NFR-2.2
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 8 (Security Considerations)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 17 (Security Requirements)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R5.1, R5.2, R5.3, NFR-2.1, NFR-2.2
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 8 (Security Considerations)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
-**Related Tasks**: task 6 in [`../../tasks.md`](../../tasks.md). Depends on task 5 (validator). Consumed by task 10 (compose endpoint).
+**Related Tasks**: task 6 in [`../../specs/user-search/tasks.md`](../../specs/user-search/tasks.md). Depends on task 5 (validator). Consumed by task 10 (compose endpoint).
 **Current File(s)**: `src/services/users/search/rbac.py` (new).
 
 This is the security gate. Forgetting RBAC scoping at this layer turns the endpoint into an enumeration attack. The validator runs first; this runs second; the query builder runs third - defense in depth.

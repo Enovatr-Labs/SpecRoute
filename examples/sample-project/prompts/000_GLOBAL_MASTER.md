@@ -21,10 +21,10 @@ Execute the 4-phase implementation plan to:
 
 | Document | Path | Purpose |
 |---|---|---|
-| **PRD** | [`../prd.md`](../prd.md) | 23-section requirements document |
-| **Architecture** | [`../design.md`](../design.md) | Design, data model, API contracts |
-| **Requirements** | [`../requirements.md`](../requirements.md) | Stable IDs (R*, NFR-*) |
-| **Tasks** | [`../tasks.md`](../tasks.md) | Numbered work plan with back-references |
+| **PRD** | [`../prds/active/user-search.md`](../prds/active/user-search.md) | 23-section requirements document |
+| **Architecture** | [`../specs/user-search/design.md`](../specs/user-search/design.md) | Design, data model, API contracts |
+| **Requirements** | [`../specs/user-search/requirements.md`](../specs/user-search/requirements.md) | Stable IDs (R*, NFR-*) |
+| **Tasks** | [`../specs/user-search/tasks.md`](../specs/user-search/tasks.md) | Numbered work plan with back-references |
 | **Agent Roster** | [`../agent-roster.md`](../agent-roster.md) | Agent assignments per task |
 | **AGENTS.md** | [`../../../AGENTS.md`](../../../AGENTS.md) | Project context, conventions, vendor matrix |
 
@@ -77,9 +77,9 @@ Execute the 4-phase implementation plan to:
 ## How to start
 
 1. Read this file end to end.
-2. Read [`../prd.md`](../prd.md) Sections 1–4 (executive summary through scope).
-3. Read [`../design.md`](../design.md) Sections 1–3 (overview through data model).
-4. Read [`../tasks.md`](../tasks.md) end to end.
+2. Read [`../prds/active/user-search.md`](../prds/active/user-search.md) Sections 1–4 (executive summary through scope).
+3. Read [`../specs/user-search/design.md`](../specs/user-search/design.md) Sections 1–3 (overview through data model).
+4. Read [`../specs/user-search/tasks.md`](../specs/user-search/tasks.md) end to end.
 5. Open the phase master for the current phase: start with [`phase0_foundation/000_MASTER_foundation.md`](phase0_foundation/000_MASTER_foundation.md).
 6. Work tasks in number order within the phase. Run the phase's exit gate before advancing.
 7. Don't skip Phase 0 - the spikes' decisions feed Phase 1.
@@ -124,6 +124,6 @@ prompts/
     └── 022_rollback_drill.md        task 22
 ```
 
-**Filename convention:** Task prompts use the global task number from [`../tasks.md`](../tasks.md) (`004_*` implements task 4). Phase masters always start with `000_MASTER_<phase>` so they sort first within their phase directory. The global master is `000_GLOBAL_MASTER` so it sorts first overall.
+**Filename convention:** Task prompts use the global task number from [`../specs/user-search/tasks.md`](../specs/user-search/tasks.md) (`004_*` implements task 4). Phase masters always start with `000_MASTER_<phase>` so they sort first within their phase directory. The global master is `000_GLOBAL_MASTER` so it sorts first overall.
 
 This worked example exercises the production task-prompt template ([`../../../prompts/shared/task-prompt-template.md`](../../../prompts/shared/task-prompt-template.md)) across all 22 tasks. The detail level varies appropriately: spike prompts (Phase 0) are scoped to exploration; backend implementation prompts (Phase 1) are most detailed; frontend prompts (Phase 2) are component-scoped; validation prompts (Phase 3) are procedural.

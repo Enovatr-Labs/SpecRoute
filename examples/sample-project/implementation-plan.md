@@ -4,8 +4,8 @@
 **Date**: 2026-05-08
 **Author**: SpecForge worked example
 **Status**: Approved
-**Source PRD**: [`prd.md`](prd.md)
-**Source Spec Triplet**: [`requirements.md`](requirements.md), [`design.md`](design.md), [`tasks.md`](tasks.md)
+**Source PRD**: [`prds/active/user-search.md`](prds/active/user-search.md)
+**Source Spec Triplet**: [`specs/user-search/requirements.md`](specs/user-search/requirements.md), [`specs/user-search/design.md`](specs/user-search/design.md), [`specs/user-search/tasks.md`](specs/user-search/tasks.md)
 **Source Agent Roster**: [`agent-roster.md`](agent-roster.md)
 **Source Master Prompt**: [`prompts/000_GLOBAL_MASTER.md`](prompts/000_GLOBAL_MASTER.md)
 
@@ -122,8 +122,8 @@ Pulled forward from PRD Section 21:
 
 The implementation is complete when **every** item in PRD Section 23 is checked **and**:
 
-- [ ] All 22 tasks marked complete in `tasks.md`.
-- [ ] Coverage table in `tasks.md` fully populated.
+- [ ] All 22 tasks marked complete in `specs/user-search/tasks.md`.
+- [ ] Coverage table in `specs/user-search/tasks.md` fully populated.
 - [ ] Open questions Q1, Q2, Q3 resolved.
 - [ ] Production traffic at 100% with stable metrics for 7 days.
 - [ ] No active P0 / P1 incidents related to user search.
@@ -155,9 +155,9 @@ This document is the operational view. The authoritative content lives elsewhere
 
 | Question | Read |
 |---|---|
-| What are we building and why? | [`prd.md`](prd.md) |
-| What must be true? | [`requirements.md`](requirements.md) |
-| How do we build it? | [`design.md`](design.md) |
-| What's the work plan? | [`tasks.md`](tasks.md) |
+| What are we building and why? | [`prds/active/user-search.md`](prds/active/user-search.md) |
+| What must be true? | [`specs/user-search/requirements.md`](specs/user-search/requirements.md) |
+| How do we build it? | [`specs/user-search/design.md`](specs/user-search/design.md) |
+| What's the work plan? | [`specs/user-search/tasks.md`](specs/user-search/tasks.md) |
 | Who runs each task? | [`agent-roster.md`](agent-roster.md) |
 | How do agents pick up the work? | [`prompts/000_GLOBAL_MASTER.md`](prompts/000_GLOBAL_MASTER.md) and the numbered task prompts |

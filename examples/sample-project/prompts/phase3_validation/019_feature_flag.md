@@ -12,9 +12,9 @@ After this task: flag works on/off in staging and develop; integration tests con
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 19 (Rollback Strategy)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - none directly; this is rollout infrastructure
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 11 (Rollout Considerations)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 19 (Rollback Strategy)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - none directly; this is rollout infrastructure
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 11 (Rollout Considerations)
 **Phase Master**: [`000_MASTER_validation.md`](000_MASTER_validation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 19. Depends on Phase 2 acceptance. Gates task 020 (production rollout) and task 022 (rollback drill).

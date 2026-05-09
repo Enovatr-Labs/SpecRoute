@@ -8,13 +8,13 @@
 
 Decide between opaque base64-HMAC cursors and structured-ID cursors for `/api/users/search` pagination. The PRD's open question Q3 (`requirements.md` Section 7) frames the choice. We need a side-by-side prototype to evaluate.
 
-After this spike: a decision is recorded in [`../../design.md`](../../design.md) Section 6 (State Management).
+After this spike: a decision is recorded in [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 6 (State Management).
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) Q3; R4.1, R4.2; NFR-2.3
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 6
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 17 (Security Requirements)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) Q3; R4.1, R4.2; NFR-2.3
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 6
 **Phase Master**: [`000_MASTER_foundation.md`](000_MASTER_foundation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 
@@ -72,8 +72,8 @@ The default expectation is HMAC + replay timestamp.
 
 | File | Change |
 |---|---|
-| [`../../design.md`](../../design.md) | Section 6: cursor encoding decision and signing key strategy |
-| [`../../requirements.md`](../../requirements.md) | Section 7: Q3 marked resolved |
+| [`../../specs/user-search/design.md`](../../specs/user-search/design.md) | Section 6: cursor encoding decision and signing key strategy |
+| [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) | Section 7: Q3 marked resolved |
 
 ## 6. Acceptance Criteria
 

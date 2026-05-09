@@ -12,12 +12,12 @@ After this task: validator function exists, unit tests cover every validation ru
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1, R1.2, R2.1, R3.1, R4.1, NFR-2.3
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 4.1 (API Contract - error table)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 17 (Security)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R1.1, R1.2, R2.1, R3.1, R4.1, NFR-2.3
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 4.1 (API Contract - error table)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
-**Related Tasks**: this is task 5 in [`../../tasks.md`](../../tasks.md). Independent of tasks 4, 6, 7, 8, 9. Consumed by task 10 (compose endpoint).
+**Related Tasks**: this is task 5 in [`../../specs/user-search/tasks.md`](../../specs/user-search/tasks.md). Independent of tasks 4, 6, 7, 8, 9. Consumed by task 10 (compose endpoint).
 **Current File(s)**: `src/services/users/search/validator.py` (new).
 
 The validator runs before the cache lookup. Invalid requests fail fast without touching DB or cache. The function is pure - no I/O - which makes it easy to unit-test exhaustively.

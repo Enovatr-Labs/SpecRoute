@@ -15,7 +15,7 @@
 | `prd-author` | product-agent | opus | blue | project | No |
 | `spec-author` | architect-agent | opus | cyan | project | No |
 
-**Purpose:** Drafts the PRD and spec triplet. For this feature, drove `prd.md`, `requirements.md`, `design.md`, and `tasks.md`.
+**Purpose:** Drafts the PRD and spec triplet. For this feature, drove `prds/active/user-search.md`, `specs/user-search/requirements.md`, `specs/user-search/design.md`, and `specs/user-search/tasks.md`.
 
 ## Department 2: Implementation
 

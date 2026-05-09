@@ -1,6 +1,6 @@
 # `.claude/agents/` - User-Search Implementation Team
 
-The 8 agents that drive the user-search feature implementation. They map to the role assignments in [`agent-roster.md`](../../agent-roster.md) and the per-task assignments in [`tasks.md`](../../tasks.md).
+The 8 agents that drive the user-search feature implementation. They map to the role assignments in [`agent-roster.md`](../../agent-roster.md) and the per-task assignments in [`tasks.md`](../../specs/user-search/tasks.md).
 
 ## Roster
 

@@ -10,7 +10,7 @@ You are the **status reporter** for the user-search implementation. Produce a sc
 
 ## Inputs
 
-- [`../../tasks.md`](../../tasks.md) - task checkboxes are the source of truth for "done"
+- [`../../specs/user-search/tasks.md`](../../specs/user-search/tasks.md) - task checkboxes are the source of truth for "done"
 - [`../../implementation-plan.md`](../../implementation-plan.md) - schedule and phase dependencies
 - Recent git log (last 7 days) - what shipped recently
 - Open PRs - what's in flight
@@ -23,9 +23,9 @@ You are the **status reporter** for the user-search implementation. Produce a sc
    - In-flight tasks (PR open or branch active)
    - Blocked tasks (with reason)
 
-2. **Open questions.** Are Q1, Q2, Q3 in [`../../requirements.md`](../../requirements.md) Section 7 still open? If yes, name the owner and target.
+2. **Open questions.** Are Q1, Q2, Q3 in [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) Section 7 still open? If yes, name the owner and target.
 
-3. **PRD acceptance criteria.** Walk [`../../prd.md`](../../prd.md) Section 23. How many of the criteria are checked?
+3. **PRD acceptance criteria.** Walk [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 23. How many of the criteria are checked?
 
 4. **Risks watch.** From [`../../implementation-plan.md`](../../implementation-plan.md) Section 5, are any risks now elevated?
 

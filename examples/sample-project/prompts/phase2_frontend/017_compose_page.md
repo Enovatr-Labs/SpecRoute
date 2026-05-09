@@ -12,9 +12,9 @@ After this task: the page is reachable in develop, exercises the full user flow,
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 9 (Frontend Impact)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1–R5.3, NFR-1.4
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 2 (Architecture)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 9 (Frontend Impact)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R1.1–R5.3, NFR-1.4
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 2 (Architecture)
 **Phase Master**: [`000_MASTER_frontend.md`](000_MASTER_frontend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 17. Depends on tasks 13, 14, 15, 16. Phase 2 final.

@@ -4,7 +4,7 @@
 **Date**: 2026-05-08
 **Author**: SpecForge worked example
 **Status**: Approved
-**Source PRD**: [`prd.md`](prd.md)
+**Source PRD**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md)
 **Source Requirements**: [`requirements.md`](requirements.md)
 **Source Design**: [`design.md`](design.md)
 

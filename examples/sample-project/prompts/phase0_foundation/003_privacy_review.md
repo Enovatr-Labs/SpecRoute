@@ -12,9 +12,9 @@ After this task: privacy sign-off recorded; PRD Section 17 updated; Q1 marked re
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) Q1; NFR-3.3
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 9 (Observability)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 17 (Security Requirements)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) Q1; NFR-3.3
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 9 (Observability)
 **Phase Master**: [`000_MASTER_foundation.md`](000_MASTER_foundation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 
@@ -86,9 +86,9 @@ Default proposal: **B**.
 
 | File | Change |
 |---|---|
-| [`../../prd.md`](../../prd.md) | Section 17: record logging decision and retention window |
-| [`../../requirements.md`](../../requirements.md) | Section 7: Q1 marked resolved |
-| [`../../design.md`](../../design.md) | Section 9: confirm log shape matches the privacy decision |
+| [`../../prds/active/user-search.md`](../../prds/active/user-search.md) | Section 17: record logging decision and retention window |
+| [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) | Section 7: Q1 marked resolved |
+| [`../../specs/user-search/design.md`](../../specs/user-search/design.md) | Section 9: confirm log shape matches the privacy decision |
 
 ## 6. Acceptance Criteria
 

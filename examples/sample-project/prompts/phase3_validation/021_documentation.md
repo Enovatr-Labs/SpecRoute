@@ -12,9 +12,9 @@ After this task: API reference describes `/api/users/search`; admin user guide i
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 12 (Documentation Plan)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 12 (Documentation Plan)
 **Spec Reference**: (none directly; this is documentation work)
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 4 (API Contract)
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 4 (API Contract)
 **Phase Master**: [`000_MASTER_validation.md`](000_MASTER_validation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 21. Independent of tasks 18, 019, 020, 022. Gates task 020 (production rollout) per the release-readiness checklist.
@@ -42,7 +42,7 @@ Add an entry for `GET /api/users/search`:
 - Error responses (400, 401, 429, 500).
 - Examples for each response.
 
-Reference [`design.md`](../../design.md) Section 4 as the source.
+Reference [`design.md`](../../specs/user-search/design.md) Section 4 as the source.
 
 ### 5.2 Admin user guide
 

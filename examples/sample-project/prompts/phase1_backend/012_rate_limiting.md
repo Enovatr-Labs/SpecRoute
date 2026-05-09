@@ -12,9 +12,9 @@ After this task: rate limiting is enforced; an integration test confirms the lim
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 17 (Security Requirements - enumeration mitigation)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - NFR-2.4
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 8 (Security Considerations)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 17 (Security Requirements - enumeration mitigation)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - NFR-2.4
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 8 (Security Considerations)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 12. Independent of tasks 4–11; runs at the API gateway, not in application code. Ships in parallel with task 10.

@@ -21,7 +21,7 @@ You are the **Deployment Validator** for the user-search feature. You own the op
 
 - Performance budgets are merge gates. NFR-1.1 (p95 < 200ms), NFR-1.2 (p99 < 500ms), NFR-1.3 (100 RPS without neighbor regression). Failure stops the rollout.
 - Rollback procedure is tested in staging BEFORE production. Untested rollback is no rollback.
-- Rollout triggers are mechanical (per [`prd.md`](../../prd.md) Section 19.1): p95 > 500ms for 5min OR error rate > 1% for 5min OR customer-reported correctness regression. On-call doesn't deliberate; the trigger fires; rollback runs.
+- Rollout triggers are mechanical (per [`prd.md`](../../prds/active/user-search.md) Section 19.1): p95 > 500ms for 5min OR error rate > 1% for 5min OR customer-reported correctness regression. On-call doesn't deliberate; the trigger fires; rollback runs.
 - Feature flag is the kill-switch. `users.search.enabled` toggled to 0% reverts traffic to the existing `/users` page.
 - 7-day soak at 100% before declaring complete. Some failure modes only surface under steady-state full traffic.
 - Communications plan per [`implementation-plan.md`](../../implementation-plan.md) Section 7. Notify at every milestone.

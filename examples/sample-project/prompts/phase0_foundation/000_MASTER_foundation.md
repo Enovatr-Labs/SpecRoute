@@ -47,10 +47,10 @@ Read each agent's `.md` file under `.claude/agents/` (or the project's equivalen
 
 Phase 0 is complete when **all** of the following are true:
 
-- [ ] Cache TTL decided; recorded in [`../../design.md`](../../design.md) Section 7 and Section 12 (Alternatives Considered).
-- [ ] Cursor encoding decided; recorded in [`../../design.md`](../../design.md) Section 6 (State Management).
-- [ ] Privacy review signed off; recorded in [`../../prd.md`](../../prd.md) Section 17.
-- [ ] Q1, Q2, Q3 in [`../../requirements.md`](../../requirements.md) Section 7 marked resolved.
+- [ ] Cache TTL decided; recorded in [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 7 and Section 12 (Alternatives Considered).
+- [ ] Cursor encoding decided; recorded in [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 6 (State Management).
+- [ ] Privacy review signed off; recorded in [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 17.
+- [ ] Q1, Q2, Q3 in [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) Section 7 marked resolved.
 - [ ] No new requirements added without a follow-up `requirements.md` revision.
 
 ## Risks Specific to Phase 0

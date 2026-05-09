@@ -12,9 +12,9 @@ After this task: load test report attached to the PRD; p95 < 200ms and p99 < 500
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 18 (Performance Requirements)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - NFR-1.1, NFR-1.2, NFR-1.3
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 7 (Performance Considerations)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 18 (Performance Requirements)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - NFR-1.1, NFR-1.2, NFR-1.3
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 7 (Performance Considerations)
 **Phase Master**: [`000_MASTER_validation.md`](000_MASTER_validation.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 18. Depends on Phase 1 + Phase 2 acceptance. Gates task 020 (production rollout).
@@ -71,7 +71,7 @@ PASS if all targets met. FAIL otherwise - investigate and fix before advancing. 
 |---|---|
 | `tests/load/users-search.<extension>` (or equivalent) | Create - load test script |
 | Validation report | Append the load test results |
-| [`../../prd.md`](../../prd.md) | Update Section 18 with measured numbers |
+| [`../../prds/active/user-search.md`](../../prds/active/user-search.md) | Update Section 18 with measured numbers |
 
 ## 6. Acceptance Criteria
 

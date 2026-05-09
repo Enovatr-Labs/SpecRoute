@@ -12,9 +12,9 @@ After this task: query builder produces correct SQL for every filter combination
 
 ## 2. Context
 
-**PRD Reference**: [`../../prd.md`](../../prd.md) Section 7 (Data Strategy)
-**Spec Reference**: [`../../requirements.md`](../../requirements.md) - R1.1, R1.2, R1.3, R2.1, R3.1
-**Architecture Reference**: [`../../design.md`](../../design.md) Section 3 (Data Model), Section 4 (API Contract)
+**PRD Reference**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md) Section 7 (Data Strategy)
+**Spec Reference**: [`../../specs/user-search/requirements.md`](../../specs/user-search/requirements.md) - R1.1, R1.2, R1.3, R2.1, R3.1
+**Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md) Section 3 (Data Model), Section 4 (API Contract)
 **Phase Master**: [`000_MASTER_backend.md`](000_MASTER_backend.md)
 **Global Master**: [`../000_GLOBAL_MASTER.md`](../000_GLOBAL_MASTER.md)
 **Related Tasks**: task 7. Depends on task 4 (indexes), task 5 (validator), task 6 (RBAC scoping). Consumed by task 10.
