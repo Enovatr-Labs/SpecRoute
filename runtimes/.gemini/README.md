@@ -1,4 +1,4 @@
-# `.gemini/` — Gemini CLI runtime layout
+# `.gemini/` - Gemini CLI runtime layout
 
 Drop this directory into the root of your project. Gemini reads from these paths.
 
@@ -19,15 +19,15 @@ Drop this directory into the root of your project. Gemini reads from these paths
    cp runtimes/.gemini/gemini_cli_config.template.json .gemini/gemini_cli_config.json
    ```
 
-2. **MCP servers** — `settings.json`'s `mcpServers` map mirrors the canonical `runtimes/mcp/servers.yaml`. Run `runtimes/mcp/render/render_gemini.py` to regenerate.
+2. **MCP servers** - `settings.json`'s `mcpServers` map mirrors the canonical `runtimes/mcp/servers.yaml`. Run `runtimes/mcp/render/render_gemini.py` to regenerate.
 
-3. **Commands** — `gemini_cli_config.json`'s `commands` map is Gemini's slash-command equivalent. Each entry runs a shell command (not a prompt). Customize for your project.
+3. **Commands** - `gemini_cli_config.json`'s `commands` map is Gemini's slash-command equivalent. Each entry runs a shell command (not a prompt). Customize for your project.
 
 ## What Gemini does NOT support
 
-- Skills (folder-per-skill `SKILL.md`) — N/A
-- Agents (flat-file frontmatter) — N/A
-- Hooks — N/A
+- Skills (folder-per-skill `SKILL.md`) - N/A
+- Agents (flat-file frontmatter) - N/A
+- Hooks - N/A
 
 The shared concepts SpecForge ships are:
 
@@ -35,8 +35,8 @@ The shared concepts SpecForge ships are:
 |---|---|
 | Slash commands | Yes (JSON map) |
 | MCP servers | Yes |
-| Engineering rules | Indirect — via root `GEMINI.md` and rules referenced from there |
-| Prompts | Yes — the `prompts/` directory works in any agent CLI that reads markdown |
+| Engineering rules | Indirect - via root `GEMINI.md` and rules referenced from there |
+| Prompts | Yes - the `prompts/` directory works in any agent CLI that reads markdown |
 
 ## Root context file
 

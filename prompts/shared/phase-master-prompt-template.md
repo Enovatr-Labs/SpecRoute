@@ -1,4 +1,4 @@
-# 000_MASTER_<Phase Name> — Phase <N>: <Phase Title>
+# 000_MASTER_<Phase Name> - Phase <N>: <Phase Title>
 
 > Per-phase entry-point. Read this before any task in the phase.
 
@@ -42,9 +42,9 @@ Tasks run in numbered order. Each task has its own prompt file with full context
 
 Agents involved in this phase:
 
-- **`<agent-1>`** — <responsibility in this phase>
-- **`<agent-2>`** — <responsibility>
-- **`<agent-3>`** — <responsibility>
+- **`<agent-1>`** - <responsibility in this phase>
+- **`<agent-2>`** - <responsibility>
+- **`<agent-3>`** - <responsibility>
 
 Read each agent's `.md` file (under `.claude/agents/` or `agents/examples/`) for its operating principles before invoking it.
 
@@ -83,7 +83,7 @@ Phase <N> is complete when **all** of the following are true:
 
 1. **Phase numbering.** Phases are zero-indexed (Phase 0 is the foundation; Phase N is the last).
 2. **Filename pattern.** This file is always `000_MASTER_<phase>.md` inside the phase directory `phase{N}_<name>/`. The `000_` prefix sorts it first.
-3. **Task numbering.** Task prompts are `001_<name>.md`, `002_<name>.md`, … with leading zeros for sortable lexicographic order. Numbering is sticky — don't renumber to insert.
+3. **Task numbering.** Task prompts are `001_<name>.md`, `002_<name>.md`, … with leading zeros for sortable lexicographic order. Numbering is sticky - don't renumber to insert.
 4. **Agent assignments are first-class.** Every task names a primary agent and (optionally) supporting agents. Without this, agent CLI selection is guesswork.
-5. **Acceptance criteria are the gate.** Phase N+1 is blocked on Phase N's acceptance. Be specific — vague criteria don't gate.
+5. **Acceptance criteria are the gate.** Phase N+1 is blocked on Phase N's acceptance. Be specific - vague criteria don't gate.
 6. **Risks specific to the phase.** General initiative risks live in the PRD; this section is for risks unique to this phase.

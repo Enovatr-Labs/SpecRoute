@@ -9,15 +9,15 @@ Supporting shell scripts referenced by `hooks.json`. Each script must:
 - Run sub-second.
 - Be idempotent.
 
-## Reference implementations
+## Included starter scripts
 
-See the SpecForge framework's own hooks at [`.claude/hooks/`](../../../../.claude/hooks/) (relative to repo root):
+This runtime includes starter scripts that match `../hooks.template.json`:
 
-- `session-start-status.sh` — SpecForge skeleton status banner.
-- `pre-bash-sanitize.sh` — sanitization gate on `git commit` / `git push`.
-- `post-edit-frontmatter.sh` — frontmatter validation on agent/skill/command writes.
+- `session-start-status.sh` - SpecForge skeleton status banner.
+- `pre-bash-sanitize.sh` - sanitization gate on `git commit` / `git push`.
+- `post-edit-frontmatter.sh` - frontmatter validation on agent/skill/command writes.
 
-These are the canonical worked examples — copy and adapt them for your project rather than starting from scratch.
+The SpecForge framework's own active hook installation lives at [`.claude/hooks/`](../../../../.claude/hooks/) and uses the same behavior.
 
 ## Canonical script structure
 

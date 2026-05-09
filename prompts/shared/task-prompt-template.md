@@ -6,13 +6,13 @@
 
 ## 1. Objective
 
-<One paragraph stating what this task accomplishes. Be specific — what does the system look like after this task lands? What problem does it solve?>
+<One paragraph stating what this task accomplishes. Be specific - what does the system look like after this task lands? What problem does it solve?>
 
 ## 2. Context
 
-**PRD Reference**: `<path/to/prd.md>` — Section <N> (<section title>)
-**Spec Reference**: `<path/to/specs/...>` — Requirements: R<N.M>, R<N.M>, NFR-<N.M>
-**Architecture Reference**: `<path/to/architecture.md>` — Section <N> (<section title>)
+**PRD Reference**: `<path/to/prd.md>` - Section <N> (<section title>)
+**Spec Reference**: `<path/to/specs/...>` - Requirements: R<N.M>, R<N.M>, NFR-<N.M>
+**Architecture Reference**: `<path/to/architecture.md>` - Section <N> (<section title>)
 **Phase Master**: `phase{N}_<name>/000_MASTER_<name>.md`
 **Related Tasks**: <task IDs that produced state this depends on, or that consume this task's output>
 **Current File(s)**: `<path/to/files/being/changed>`
@@ -24,8 +24,8 @@
 **Primary Agent**: `<agent-slug>` (see `.claude/agents/<agent>.md` for operating principles)
 **Supporting Agents**:
 
-- `<agent-slug>` — <what they help with in this task>
-- `<agent-slug>` — <what they help with>
+- `<agent-slug>` - <what they help with in this task>
+- `<agent-slug>` - <what they help with>
 
 The primary agent owns the deliverable. Supporting agents are consulted for cross-cutting concerns.
 
@@ -38,7 +38,7 @@ Before starting this task:
 - [ ] <Specific prerequisite>.
 - [ ] <Specific prerequisite>.
 
-If any prerequisite is missing, surface it and pause — do not proceed with partial state.
+If any prerequisite is missing, surface it and pause - do not proceed with partial state.
 
 ## 5. Task Details
 
@@ -49,13 +49,13 @@ If any prerequisite is missing, surface it and pause — do not proceed with par
 ### 5.2 Current State
 
 ```<lang>
-<paste the current state of the relevant code, config, or doc — make it concrete>
+<paste the current state of the relevant code, config, or doc - make it concrete>
 ```
 
 ### 5.3 Target State
 
 ```<lang>
-<paste the target state — what we want after this task>
+<paste the target state - what we want after this task>
 ```
 
 ### 5.4 Step-by-step
@@ -122,14 +122,14 @@ If this task ships and we need to revert:
 1. <Step 1>
 2. <Step 2>
 
-(Most tasks have a trivial rollback — `git revert`. Tasks with data migrations or external system changes need an explicit rollback procedure.)
+(Most tasks have a trivial rollback - `git revert`. Tasks with data migrations or external system changes need an explicit rollback procedure.)
 
 ---
 
 ## How to fill this template
 
-1. **Task number.** Three-digit, sortable. Filename `<NNN>_<task-slug>.md`. Number is sticky — don't renumber.
-2. **Objective is one paragraph.** If it takes multiple paragraphs, the task is too big — split.
+1. **Task number.** Three-digit, sortable. Filename `<NNN>_<task-slug>.md`. Number is sticky - don't renumber.
+2. **Objective is one paragraph.** If it takes multiple paragraphs, the task is too big - split.
 3. **Context cross-references are mandatory.** PRD, spec, architecture, phase master, related tasks. Without these, the agent works blind.
 4. **Agent assignment is mandatory.** Primary + supporting. Without it, the runtime can't auto-select.
 5. **Prerequisites checklist is non-negotiable.** Skipping prerequisites is the most common cause of failed task execution.

@@ -1,30 +1,43 @@
 # GEMINI.md
 
-This file provides Gemini-specific guidance for working in this repository.
+Gemini CLI shim for this repository. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical vendor-neutral source of truth for SpecForge.
 
-## Source of truth
+## Gemini-Specific Context
 
-For repository overview, artifact taxonomy, vendor matrix, hard constraints, and the spec-driven flow: read [`AGENTS.md`](AGENTS.md). It is the canonical, vendor-neutral context file. This file is a delegation shim and holds only Gemini-specific notes.
+- Gemini reads `.gemini/settings.json` for MCP servers (same JSON shape as Claude Desktop's `claude_desktop_config.json`).
+- Gemini reads `.gemini/gemini_cli_config.json` for command shortcuts (JSON command map; commands run shell strings, not prompts).
+- Templates for both live in [`runtimes/.gemini/`](runtimes/.gemini/).
 
-## Gemini-specific notes
+## Command Shape
 
-### Runtime layout
+Gemini commands are JSON entries, not markdown prompts:
 
-Gemini reads:
+```json
+{
+  "commands": {
+    "<slug>": {
+      "command": "<shell command to run>",
+      "description": "<one-line description>",
+      "directory": "<optional working dir>"
+    }
+  }
+}
+```
 
-- `.gemini/settings.json` — MCP server map (`mcpServers`).
-- `.gemini/gemini_cli_config.json` — JSON command map (`commands` → `{command, description, directory?}`).
+See [`commands/command-template.gemini.json`](commands/command-template.gemini.json) for the full template and [`commands/examples/`](commands/examples/) for worked entries.
 
-Templates for both live in `runtimes/.gemini/`. Drop them into your repo and edit.
+## Matrix Notes
 
-### What Gemini supports in the SpecForge matrix
+Gemini supports **commands and MCP** in the SpecForge matrix. It does not consume `SKILL.md` folders, flat-file agents, or hook configurations directly. The SpecForge concepts that don't map natively to Gemini still apply through:
 
-Gemini's first-class concepts are commands and MCP. It does **not** consume `SKILL.md` folders, flat agent files, or hook configurations as Claude Code and Codex do. When SpecForge discusses skills or agents, those are not directly invokable in Gemini — but the underlying prompts under `prompts/` and the rules under `rules/gemini-rules.md` are.
+- [`prompts/`](prompts/) - reusable prompts (paste into a Gemini conversation).
+- [`prompts/shared/`](prompts/shared/) - the master/phase/task prompt trio works in any agent CLI.
+- [`rules/gemini-rules.md`](rules/gemini-rules.md) - Gemini-specific rule guidance and how shared rules surface here.
 
-### Commands are JSON, not markdown
+## MCP Single Source of Truth
 
-Unlike Claude Code's `commands/<name>.md` shape, Gemini's commands are entries in `.gemini/gemini_cli_config.json`. Each entry runs a shell command, not a prompt. See `commands/command-template.gemini.json` for the template.
+`.gemini/settings.json`'s `mcpServers` map is regenerated from [`runtimes/mcp/servers.yaml`](runtimes/mcp/servers.yaml) via `python3 runtimes/mcp/render/render_gemini.py`. Do not hand-edit the generated file - edit `servers.yaml` and re-render.
 
-## Working in this repo
+## Before Publishing
 
-Read [`AGENTS.md`](AGENTS.md). Then read this file. That's it.
+This repo's sanitization tooling is in `.claude/` (Claude-Code-specific) but the wordlist at `.claude/.forbidden-strings.txt` applies to all tracked content regardless of which vendor authored it. Confirm new Gemini config or content passes the same check before committing.

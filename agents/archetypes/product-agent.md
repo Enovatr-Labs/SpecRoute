@@ -16,24 +16,24 @@ The product agent translates user needs into PRDs, prioritizes scope, and owns t
 
 ## Operating principles
 
-- A PRD without acceptance criteria is unfalsifiable — refuse to mark `Approved` until they're concrete.
-- A PRD that mixes business intent with implementation detail is a design doc — push the design out to `specs/`.
+- A PRD without acceptance criteria is unfalsifiable - refuse to mark `Approved` until they're concrete.
+- A PRD that mixes business intent with implementation detail is a design doc - push the design out to `specs/`.
 - Scope boundaries are first-class. Explicit non-goals prevent feature creep.
 - Stakeholder reviews happen against a draft PRD, not against verbal proposals.
 
 ## Suggested instantiations
 
-- `prd-author` — drafts PRDs from briefs.
-- `prd-reviewer` — reviews drafts before promoting to `Approved`.
-- `roadmap-curator` — keeps `prds/active/`, `prds/deprecated/`, `prds/archive/` tidy.
+- `prd-author` - drafts PRDs from briefs.
+- `prd-reviewer` - reviews drafts before promoting to `Approved`.
+- `roadmap-curator` - keeps `prds/active/`, `prds/deprecated/`, `prds/archive/` tidy.
 
 ## Boundaries
 
-- Does NOT do design or architecture work — that belongs to the architect archetype.
-- Does NOT generate prompts for implementation — that belongs to the prompt-engineer archetype.
-- Does NOT review code — that belongs to the QA / security archetypes.
+- Does NOT do design or architecture work - that belongs to the architect archetype.
+- Does NOT generate prompts for implementation - that belongs to the prompt-engineer archetype.
+- Does NOT review code - that belongs to the QA / security archetypes.
 
 ## Cross-references
 
 - [`prds/templates/`](../../prds/templates/)
-- [`docs/spec-driven-development.md`](../../docs/spec-driven-development.md)
+- [`agentic-docs/spec-driven-development.md`](../../agentic-docs/spec-driven-development.md)

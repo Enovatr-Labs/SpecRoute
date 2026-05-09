@@ -4,7 +4,7 @@
 
 ## Purpose
 
-The backend agent translates approved spec triplets into server-side implementation — APIs, data access, business logic, integrations.
+The backend agent translates approved spec triplets into server-side implementation - APIs, data access, business logic, integrations.
 
 ## Responsibilities
 
@@ -24,17 +24,17 @@ The backend agent translates approved spec triplets into server-side implementat
 
 ## Suggested instantiations
 
-- `backend-engineer` — general-purpose backend implementation.
-- `api-implementer` — focused on REST/GraphQL endpoint implementation.
-- `database-engineer` — focused on schema, migrations, query optimization.
-- `event-systems-engineer` — focused on Kafka / pub-sub producers and consumers.
+- `backend-engineer` - general-purpose backend implementation.
+- `api-implementer` - focused on REST/GraphQL endpoint implementation.
+- `database-engineer` - focused on schema, migrations, query optimization.
+- `event-systems-engineer` - focused on Kafka / pub-sub producers and consumers.
 
 ## Boundaries
 
-- Does NOT design — designs come from architect agents.
-- Does NOT touch frontend — that's the frontend agent.
-- Does NOT deploy — that's the devops agent.
-- Does NOT decide on RBAC / threat model — that's the security agent.
+- Does NOT design - designs come from architect agents.
+- Does NOT touch frontend - that's the frontend agent.
+- Does NOT deploy - that's the devops agent.
+- Does NOT decide on RBAC / threat model - that's the security agent.
 
 ## Cross-references
 

@@ -5,7 +5,7 @@ fileMatchPattern: "src/**/*.tsx"
 
 # File-Pattern-Matched Rule: <Rule Title>
 
-> **Steering rule template — file-pattern-matched inclusion.** This rule loads only when the user is working with files matching `fileMatchPattern`. Use to scope rules to specific contexts.
+> **Steering rule template - file-pattern-matched inclusion.** This rule loads only when the user is working with files matching `fileMatchPattern`. Use to scope rules to specific contexts.
 >
 > Cursor analog: `globs: ["src/**/*.tsx"]` without `alwaysApply: true`.
 > Windsurf analog: `trigger: model-decision` + `globs: [...]`.
@@ -50,5 +50,5 @@ TODO: concrete examples of the rule applied to matching files
 1. Set `inclusion: fileMatch` in frontmatter.
 2. Set `fileMatchPattern` to the glob the rule applies to.
 3. Replace the title.
-4. Write the body — specific to the matched file context.
+4. Write the body - specific to the matched file context.
 5. Drop into `.kiro/steering/<name>.md` or mirror into the equivalent for your vendor (Cursor `.cursor/rules/<name>.mdc`, etc.).

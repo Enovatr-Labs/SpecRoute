@@ -51,7 +51,7 @@ For each performance NFR (`NFR-1.x`):
 - Capture p50, p95, p99 latencies.
 - Compare against the budget in the PRD's Section 18.
 
-If any budget is exceeded, that's a blocker. Performance regressions are not "fix it next sprint" — they block release.
+If any budget is exceeded, that's a blocker. Performance regressions are not "fix it next sprint" - they block release.
 
 ### Step 5: Security validation
 
@@ -156,7 +156,7 @@ Output of validation is a report attached to the PRD's spec triplet:
 
 ### "Tests pass locally but fail in CI"
 
-CI environment differs from local — usually a missing fixture, a real-time-dependent test, or an order-dependency. Fix the test, not the CI.
+CI environment differs from local - usually a missing fixture, a real-time-dependent test, or an order-dependency. Fix the test, not the CI.
 
 ### "Performance regresses unexpectedly"
 
@@ -164,7 +164,7 @@ The load test reveals a contention point that single-user testing missed. Profil
 
 ### "Coverage gap at validation time"
 
-A requirement was missed during implementation. Add the test (and the implementation if needed), re-run validation. This is the failure mode the coverage table in `tasks.md` is designed to prevent — keep it populated.
+A requirement was missed during implementation. Add the test (and the implementation if needed), re-run validation. This is the failure mode the coverage table in `tasks.md` is designed to prevent - keep it populated.
 
 ### "Rollback drill fails"
 
@@ -176,6 +176,6 @@ Validation is owned by the QA / test engineer role (see [`agents/archetypes/qa-a
 
 ## See also
 
-- [`prd-to-production.md`](prd-to-production.md) — Stage 10 in context.
-- [`release-readiness.md`](release-readiness.md) — what happens after PASS.
-- [`rules/security-rules.md`](../rules/security-rules.md), [`rules/engineering-rules.md`](../rules/engineering-rules.md) — the standards the validation enforces.
+- [`prd-to-production.md`](prd-to-production.md) - Stage 10 in context.
+- [`release-readiness.md`](release-readiness.md) - what happens after PASS.
+- [`rules/security-rules.md`](../rules/security-rules.md), [`rules/engineering-rules.md`](../rules/engineering-rules.md) - the standards the validation enforces.

@@ -1,4 +1,4 @@
-# Sanitization Auditor — Working Notes
+# Sanitization Auditor - Working Notes
 
 ## Authoritative source
 
@@ -8,7 +8,7 @@ The canonical list of forbidden strings (private upstream project names, interna
 ~/.claude/projects/-Users-chika-LocalDev-SpecForge/memory/specforge_public_release.md
 ```
 
-That file is **not** tracked in this repo (it lives in the user's local Claude config). Read it at the start of every audit. If the user-level memory file is missing or unreadable, ask the user before proceeding — do not guess at the forbidden list.
+That file is **not** tracked in this repo (it lives in the user's local Claude config). Read it at the start of every audit. If the user-level memory file is missing or unreadable, ask the user before proceeding - do not guess at the forbidden list.
 
 ## Standard audit sequence
 
@@ -18,15 +18,15 @@ That file is **not** tracked in this repo (it lives in the user's local Claude c
    - Walk `git ls-files` and grep each tracked file against the user-level forbidden list.
    - Scan for absolute filesystem paths with `git grep -nE "/Users/[^/]+/LocalDev/"` (excluding intentional `<user>/<private>` placeholders in this auditor's own files).
    - Scan for likely secrets with the regex in `.claude/commands/sanitize.md`.
-4. For PR review: also walk the diff (`git diff --cached`) — new content is more likely to leak than existing.
+4. For PR review: also walk the diff (`git diff --cached`) - new content is more likely to leak than existing.
 
 ## Known intentional placeholders
 
 These are NOT leaks even though they pattern-match the absolute-path regex:
 
-- `.claude/agents/sanitization-auditor.md` — contains `/Users/<user>/LocalDev/<private>/` as illustrative regex examples, with `<user>` and `<private>` as placeholders, not real values.
-- `.claude/commands/sanitize.md` and `.claude/commands/audit.md` — same pattern.
-- This file — same pattern.
+- `.claude/agents/sanitization-auditor.md` - contains `/Users/<user>/LocalDev/<private>/` as illustrative regex examples, with `<user>` and `<private>` as placeholders, not real values.
+- `.claude/commands/sanitize.md` and `.claude/commands/audit.md` - same pattern.
+- This file - same pattern.
 
 ## Block / warn distinction
 

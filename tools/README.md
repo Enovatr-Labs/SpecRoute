@@ -1,6 +1,6 @@
 # Tools
 
-Cross-runtime utility scripts for SpecForge consumers. These are templates — fork them as your project grows.
+Cross-runtime utility scripts for SpecForge consumers. These are templates - fork them as your project grows.
 
 ```
 tools/
@@ -29,9 +29,9 @@ python3 tools/sync-skills.py --source codex --apply
 
 The script reports:
 
-- **MISSING** — file or folder exists in the source but not the target.
-- **EXTRA** — file or folder exists in the target but not the source. The script never auto-removes; you decide whether the extra is intentional (Claude-only or Codex-only) or stale.
-- **DRIFT** — file exists in both but contents differ.
+- **MISSING** - file or folder exists in the source but not the target.
+- **EXTRA** - file or folder exists in the target but not the source. The script never auto-removes; you decide whether the extra is intentional (Claude-only or Codex-only) or stale.
+- **DRIFT** - file exists in both but contents differ.
 
 ### When drift is intentional
 
@@ -46,10 +46,10 @@ If most skills should be in lock-step but a handful are intentional asymmetries,
 
 The script is intentionally simple (~150 lines). Common extensions:
 
-- **Hooks sync** — copy hooks across vendors that support them (Claude Code, Kiro). The shapes differ; you'd render rather than copy. See `runtimes/mcp/render/` for the rendering pattern.
-- **Selective sync** — only copy skills matching a name pattern.
-- **Pre-flight validation** — run frontmatter linting before copying.
-- **Git-aware sync** — only sync skills that have changed in the last commit.
+- **Hooks sync** - copy hooks across vendors that support them (Claude Code, Kiro). The shapes differ; you'd render rather than copy. See `runtimes/mcp/render/` for the rendering pattern.
+- **Selective sync** - only copy skills matching a name pattern.
+- **Pre-flight validation** - run frontmatter linting before copying.
+- **Git-aware sync** - only sync skills that have changed in the last commit.
 
 Treat this script as a starting point, not a final tool.
 
@@ -57,7 +57,7 @@ Treat this script as a starting point, not a final tool.
 
 When you need a new utility:
 
-1. Make it self-contained — no external dependencies beyond the Python standard library when possible.
+1. Make it self-contained - no external dependencies beyond the Python standard library when possible.
 2. Default to dry-run; gate destructive operations behind explicit flags.
 3. Print findings as a punch list so reviewers can scan results.
 4. Document in this README.

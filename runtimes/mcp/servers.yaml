@@ -1,4 +1,4 @@
-# MCP Servers — Canonical Single Source of Truth
+# MCP Servers - Canonical Single Source of Truth
 #
 # This is the authoritative inventory of MCP servers for the project. Renderers
 # under render/ emit per-vendor configs from this file:

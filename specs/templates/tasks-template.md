@@ -10,7 +10,7 @@
 
 ---
 
-> **Spec triplet — part 3 of 3.** This document is the implementation work plan. Tasks are numbered for execution order and back-reference requirement IDs from `requirements.md`. Each task is small enough to land in one PR.
+> **Spec triplet - part 3 of 3.** This document is the implementation work plan. Tasks are numbered for execution order and back-reference requirement IDs from `requirements.md`. Each task is small enough to land in one PR.
 
 ---
 
@@ -81,7 +81,7 @@ This map confirms every requirement has at least one task and every NFR is addre
 | NFR-3.1 | TODO |
 | NFR-3.2 | TODO |
 
-Any requirement without a task is unimplemented. Any task without a requirement back-reference is unscoped — clarify before starting.
+Any requirement without a task is unimplemented. Any task without a requirement back-reference is unscoped - clarify before starting.
 
 ## Done checklist
 
@@ -100,6 +100,6 @@ The feature is complete when **all** of the following are true:
 ## How to use this file
 
 1. **Working a task**: change `### N. Title` to `### [x] N. Title` and check the sub-step boxes as you go. Reference the task number in your commit messages and PR titles (e.g. `feat: implement task #3 - <…>`).
-2. **Adding a task**: append to the end of the relevant phase. Numbering is sticky — don't renumber to insert.
+2. **Adding a task**: append to the end of the relevant phase. Numbering is sticky - don't renumber to insert.
 3. **Splitting a task**: keep the parent number and use sub-numbers (e.g. `2.1`, `2.2`). Sub-tasks inherit requirement back-refs unless otherwise stated.
 4. **Removing a task**: mark it `~~strikethrough~~` with a note explaining why; don't delete (numbering is referenced in commits and PR descriptions).

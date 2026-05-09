@@ -14,7 +14,7 @@ The default behavior is read-only: report what would change. Pass --apply to
 actually copy files. Drift between two existing files is reported but never
 auto-resolved without --apply (the `source` runtime's version wins on --apply).
 
-This tool is a starting point — fork it for project-specific needs (e.g.
+This tool is a starting point - fork it for project-specific needs (e.g.
 ignoring certain skills, applying transformations during copy).
 """
 

@@ -1,12 +1,12 @@
 # Agents
 
-Agent definitions — defined roles with model, tools, and operating principles, invokable by an agent CLI runtime.
+Agent definitions - defined roles with model, tools, and operating principles, invokable by an agent CLI runtime.
 
 ```
 agents/
 ├── agent-template.md         canonical template with frontmatter contract
 ├── roster.md                 cross-vendor agent inventory template
-├── archetypes/               role concepts (NOT file layout — these describe responsibilities)
+├── archetypes/               role concepts (NOT file layout - these describe responsibilities)
 │   ├── product-agent.md
 │   ├── architect-agent.md
 │   ├── backend-agent.md
@@ -21,7 +21,7 @@ agents/
 
 ### Archetypes (role concepts)
 
-`archetypes/` describes *responsibilities* — "what does a security agent do?" These are conceptual references, not files the runtime loads. Use them when:
+`archetypes/` describes *responsibilities* - "what does a security agent do?" These are conceptual references, not files the runtime loads. Use them when:
 
 - Designing your project's roster.
 - Onboarding a new contributor to the agent model.
@@ -29,13 +29,13 @@ agents/
 
 ### Examples (file shape)
 
-`examples/` shows *how the file is laid out* — flat `<name>.md` files with YAML frontmatter that the runtime actually loads. Use them when:
+`examples/` shows *how the file is laid out* - flat `<name>.md` files with YAML frontmatter that the runtime actually loads. Use them when:
 
 - Creating a new concrete agent.
 - Validating frontmatter on an existing one.
 - Mirroring agents into `runtimes/.claude/agents/` and `runtimes/.codex/agents/`.
 
-These are not redundant — they answer different questions. An archetype is "what is a backend agent?"; an example is "what does a backend-agent file look like?"
+These are not redundant - they answer different questions. An archetype is "what is a backend agent?"; an example is "what does a backend-agent file look like?"
 
 ## Frontmatter contract
 
@@ -58,10 +58,10 @@ See [`agent-template.md`](agent-template.md) for field-by-field guidance and [`r
 
 Concrete agent files are mirrored into:
 
-- `runtimes/.claude/agents/<name>.md` — Claude Code reads from here
-- `runtimes/.codex/agents/<name>.md` — Codex reads from here
+- `runtimes/.claude/agents/<name>.md` - Claude Code reads from here
+- `runtimes/.codex/agents/<name>.md` - Codex reads from here
 
-Gemini CLI, Kiro, Cursor, and Windsurf do not consume agent files in this shape — they have other concepts (commands, steering, rules). See the vendor matrix in [`../README.md`](../README.md).
+Gemini CLI, Kiro, Cursor, and Windsurf do not consume agent files in this shape - they have other concepts (commands, steering, rules). See the vendor matrix in [`../README.md`](../README.md).
 
 To keep the two runtime mirrors aligned: invoke `runtime-architect` or run `tools/sync-skills.py` (which also handles agents).
 
@@ -71,5 +71,5 @@ Designing and reviewing the agent roster is owned by the `agent-roster-architect
 
 ## Related documents
 
-- [`docs/agentic-coding-model.md`](../docs/agentic-coding-model.md) — when to choose agent vs skill vs command vs hook
-- [`docs/automation-decision-framework.md`](../docs/automation-decision-framework.md) — the 4-row decision matrix
+- [`agentic-docs/agentic-coding-model.md`](../agentic-docs/agentic-coding-model.md) - when to choose agent vs skill vs command vs hook
+- [`agentic-docs/automation-decision-framework.md`](../agentic-docs/automation-decision-framework.md) - the 4-row decision matrix

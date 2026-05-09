@@ -5,7 +5,7 @@
 **Deciders**: <names / roles>
 **Context links**: <PRD, spec, prior ADR>
 
-> Architecture Decision Record. Captures a single architectural decision and the rationale behind it. ADRs are immutable once accepted — corrections happen through new ADRs that supersede prior ones.
+> Architecture Decision Record. Captures a single architectural decision and the rationale behind it. ADRs are immutable once accepted - corrections happen through new ADRs that supersede prior ones.
 
 ---
 
@@ -49,7 +49,7 @@ TODO
 
 ### Neutral
 
-- <Side effect 1 — neither good nor bad, but worth noting>
+- <Side effect 1 - neither good nor bad, but worth noting>
 
 ## Implementation Implications
 

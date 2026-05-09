@@ -15,10 +15,10 @@ skills/examples/
 
 The four skills under [`.claude/skills/`](../../.claude/skills/) at the repository root are real, tracked implementations of the contract. Read them as worked examples:
 
-- `scaffold-artifact/SKILL.md` — interactive scaffolding for any SpecForge artifact type
-- `add-vendor/SKILL.md` — walks a contributor through adding a new agent CLI to the matrix
-- `example-walkthrough/SKILL.md` — guided end-to-end build of `examples/sample-feature/`
-- `frontmatter-lint/SKILL.md` — interactive frontmatter validation across artifacts
+- `scaffold-artifact/SKILL.md` - interactive scaffolding for any SpecForge artifact type
+- `add-vendor/SKILL.md` - walks a contributor through adding a new agent CLI to the matrix
+- `example-walkthrough/SKILL.md` - guided end-to-end build of `examples/sample-project/`
+- `frontmatter-lint/SKILL.md` - interactive frontmatter validation across artifacts
 
 ## Adding an example skill
 
@@ -31,7 +31,7 @@ The four skills under [`.claude/skills/`](../../.claude/skills/) at the reposito
 
 ## Skills vs agents vs commands vs hooks
 
-If you're not sure whether your idea is a skill, see [`docs/automation-decision-framework.md`](../../docs/automation-decision-framework.md). Quick test:
+If you're not sure whether your idea is a skill, see [`agentic-docs/automation-decision-framework.md`](../../agentic-docs/automation-decision-framework.md). Quick test:
 
 - **Will the user invoke it by name AND will it ask them questions?** → Skill.
 - **Will the user delegate to it and walk away?** → Agent.

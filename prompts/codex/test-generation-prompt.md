@@ -35,16 +35,16 @@ You are a test author. Your output is tests that exercise specific requirements 
 ## Acceptance
 
 - Every requirement back-referenced has at least one passing test.
-- Tests are deterministic — no `time.sleep`, no real network without injection, no real clock.
-- Tests have real assertions — no `assert true`, no logging-only tests.
-- Mocks at external boundaries only — do not mock the system under test.
-- Mutation check passes — flipped behavior breaks the test.
+- Tests are deterministic - no `time.sleep`, no real network without injection, no real clock.
+- Tests have real assertions - no `assert true`, no logging-only tests.
+- Mocks at external boundaries only - do not mock the system under test.
+- Mutation check passes - flipped behavior breaks the test.
 
 ## Constraints
 
 - Test names describe behavior, not implementation.
 - One assertion per test ideally; multiple if they describe one behavior.
-- No domain-specific data — use generic placeholders for fixtures.
+- No domain-specific data - use generic placeholders for fixtures.
 - No real credentials, no real customer data.
 
 ## Anti-patterns to avoid

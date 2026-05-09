@@ -1,6 +1,6 @@
 # Engineering Rules
 
-Vendor-neutral engineering standards. These apply to all code in any project that adopts SpecForge — language- and framework-agnostic by design.
+Vendor-neutral engineering standards. These apply to all code in any project that adopts SpecForge - language- and framework-agnostic by design.
 
 ## 1. Specs first, code second
 
@@ -24,14 +24,14 @@ When in doubt, ship the smaller change.
 
 - Don't add error handling for scenarios that can't happen.
 - Don't add fallbacks for inputs that are validated upstream.
-- Don't keep deprecated paths "just in case" — delete them and rely on git history.
+- Don't keep deprecated paths "just in case" - delete them and rely on git history.
 - Don't write comments that restate the code.
 
 ## 4. Comments explain *why*, not *what*
 
 Default to writing no comments. Only add one when the WHY is non-obvious: a hidden constraint, a subtle invariant, a workaround for a specific bug. If removing the comment wouldn't confuse a future reader, don't write it.
 
-Don't reference the current task or PR in code comments — those belong in commit messages and PR descriptions and rot as the codebase evolves.
+Don't reference the current task or PR in code comments - those belong in commit messages and PR descriptions and rot as the codebase evolves.
 
 ## 5. Readability over cleverness
 
@@ -54,12 +54,12 @@ If a function has more than 3 parameters, consider whether it should be split. I
 
 - Every error path is documented.
 - Every error returned to a user has a structured shape.
-- Don't swallow exceptions silently — log, propagate, or fail loudly.
+- Don't swallow exceptions silently - log, propagate, or fail loudly.
 - Don't use exceptions for control flow.
 
 ## 9. Performance budgets are non-negotiable
 
-If your spec defines an NFR like "p95 latency < 200ms" or "initial JS bundle < 200KB," those are gates, not aspirations. Performance regressions block merge — they don't get logged as follow-ups.
+If your spec defines an NFR like "p95 latency < 200ms" or "initial JS bundle < 200KB," those are gates, not aspirations. Performance regressions block merge - they don't get logged as follow-ups.
 
 ## 10. Observability ships with the feature
 
@@ -75,7 +75,7 @@ Don't add backwards-compat shims, deprecated aliases, or `// kept for compatibil
 
 ## 13. The diff is the deliverable
 
-Every PR is reviewable on its own. If a reviewer needs to read three other PRs to understand this one, the change is too coupled — break it up.
+Every PR is reviewable on its own. If a reviewer needs to read three other PRs to understand this one, the change is too coupled - break it up.
 
 PR description includes:
 
@@ -85,13 +85,13 @@ PR description includes:
 
 ## 14. Tests over implementation
 
-When a test catches the bug a unit was supposed to prevent, the test wins. When a test breaks during refactor without behavior change, the test is wrong (or the refactor changed behavior — investigate).
+When a test catches the bug a unit was supposed to prevent, the test wins. When a test breaks during refactor without behavior change, the test is wrong (or the refactor changed behavior - investigate).
 
 Mocks at external boundaries only. Don't mock the system under test.
 
 ## See also
 
-- [`code-review-rules.md`](code-review-rules.md) — review-specific standards
-- [`security-rules.md`](security-rules.md) — security-specific standards
-- [`documentation-rules.md`](documentation-rules.md) — doc-specific standards
+- [`code-review-rules.md`](code-review-rules.md) - review-specific standards
+- [`security-rules.md`](security-rules.md) - security-specific standards
+- [`documentation-rules.md`](documentation-rules.md) - doc-specific standards
 - The per-vendor rule files (`{codex,claude,gemini,cursor,windsurf}-rules.md`) for vendor-specific format conventions

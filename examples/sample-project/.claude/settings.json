@@ -1,0 +1,24 @@
+{
+  "_comment": "Project-wide Claude Code settings for the user-search worked example. Tracked. Per-user overrides go in .claude/settings.local.json (gitignored).",
+
+  "permissions": {
+    "_comment": "Conservative defaults. Allow read-only inspection and basic git introspection without prompting.",
+    "allow": [
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git grep:*)",
+      "Read(./**)"
+    ],
+    "deny": []
+  },
+
+  "model": "opus",
+
+  "_env_comment": "Environment variables passed to tools. No secrets here - those go in .env (gitignored) or shell profile.",
+  "env": {},
+
+  "_hooks_comment": "Hooks are configured in .claude/hooks/hooks.json.",
+  "_mcp_comment": "MCP servers live in .claude/claude_desktop_config.json (after renaming the template). For the canonical inventory, regenerate from runtimes/mcp/servers.yaml in the SpecForge repo."
+}

@@ -9,7 +9,7 @@
 
 ---
 
-> **Spec triplet — part 2 of 3.** This document captures *how* the system meets the requirements. It references requirement IDs from `requirements.md`; it does not restate them. Companion: [`tasks.md`](tasks.md) for concrete work items.
+> **Spec triplet - part 2 of 3.** This document captures *how* the system meets the requirements. It references requirement IDs from `requirements.md`; it does not restate them. Companion: [`tasks.md`](tasks.md) for concrete work items.
 
 ---
 
@@ -188,7 +188,7 @@ Reference NFR IDs from `requirements.md`. The design must explicitly meet each N
 
 ## 12. Alternatives Considered
 
-For each significant choice, briefly note alternatives that were rejected and why. This isn't a place for theory — it's the record future readers need to understand the decision.
+For each significant choice, briefly note alternatives that were rejected and why. This isn't a place for theory - it's the record future readers need to understand the decision.
 
 ### 12.1 <Choice 1>
 
