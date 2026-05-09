@@ -1,0 +1,39 @@
+# SpecForge code owners.
+#
+# Format: <pattern>  <owner-1> [<owner-2> ...]
+# Owners are notified on PRs touching matching files and (with branch
+# protection's "Require review from Code Owners") gate merge.
+#
+# See https://docs.github.com/en/repositories/managing-your-repositories-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owner for everything in the repo.
+*                                @cihejimba
+
+# Framework reference content.
+/agentic-docs/                   @cihejimba
+/AGENTS.md                       @cihejimba
+/CLAUDE.md                       @cihejimba
+/GEMINI.md                       @cihejimba
+
+# Hooks (security-sensitive - shipped scripts run on every consumer's machine).
+/hooks/                          @cihejimba
+/.claude/hooks/                  @cihejimba
+
+# Sanitization infrastructure.
+/.claude/.forbidden-strings.txt  @cihejimba
+/.claude/agents/sanitization-auditor.md  @cihejimba
+
+# Vendor-matrix sources of truth (must stay in lock-step with AGENTS.md above).
+/README.md                                   @cihejimba
+/agentic-docs/agent-cli-integrations.md      @cihejimba
+/agentic-docs/multi-vendor-context-files.md  @cihejimba
+
+# Release infrastructure.
+/CHANGELOG.md                    @cihejimba
+/CITATION.cff                    @cihejimba
+/ROADMAP.md                      @cihejimba
+/MAINTAINERS.md                  @cihejimba
+/.github/                        @cihejimba
+
+# Worked example.
+/examples/                       @cihejimba

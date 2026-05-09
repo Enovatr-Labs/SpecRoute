@@ -1,0 +1,19 @@
+# Ignore patterns for the lychee link checker.
+# Format: one regex per line. Lines starting with `#` are comments.
+
+# Localhost and intranet hosts that lychee would otherwise try to resolve.
+^https?://localhost(:\d+)?(/.*)?$
+^https?://127\.0\.0\.1(:\d+)?(/.*)?$
+^https?://0\.0\.0\.0(:\d+)?(/.*)?$
+^https?://[^/]+\.local(:\d+)?(/.*)?$
+^https?://[^/]+\.internal(:\d+)?(/.*)?$
+
+# Example placeholder hosts that appear in templates.
+^https?://example\.(com|org|net)(/.*)?$
+^https?://your-(domain|org|company)\.(com|io|dev)(/.*)?$
+
+# Anchor-only links (lychee already handles these, but be explicit).
+^#
+
+# Mail links - covered by --exclude-mail in the workflow but left here as defense in depth.
+^mailto:

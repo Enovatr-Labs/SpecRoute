@@ -1,0 +1,85 @@
+name: Feature request
+description: Propose a new artifact type, vendor support, template, workflow, or framework convention
+title: "[Feature]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing a feature. For SpecForge, "features" are typically:
+
+        - A new vendor to add to the supported matrix (Aider, Continue, etc.)
+        - A new artifact type (e.g. SLO template, runbook template)
+        - A new skill / command / hook category
+        - A new worked example beyond `sample-project/`
+        - A new conceptual doc under `agentic-docs/`
+
+        Before opening, please skim the [`ROADMAP.md`](../ROADMAP.md) — your idea may already be tracked.
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature category
+      description: Which area of the framework does this proposal touch?
+      options:
+        - New vendor support (Aider / Continue / other)
+        - New artifact type (template, workflow, rule, etc.)
+        - New worked example
+        - New skill / command / hook / agent
+        - New `agentic-docs/` reference doc
+        - New tooling (`tools/<script>`)
+        - Convention or contract change
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: What problem does this solve? Who benefits and how?
+      placeholder: "Teams using <vendor> currently can't drop SpecForge in because <reason>. Adding <runtime layout> would..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-approach
+    attributes:
+      label: Proposed approach
+      description: A worked sketch is more useful than a vague pitch. What files would this add or modify?
+      placeholder: |
+        - Add `runtimes/.<vendor>/` with `settings.template.json`, `agents/`, `skills/`...
+        - Add `rules/<vendor>-rules.md`...
+        - Update vendor matrix in `README.md`, `AGENTS.md`, `agentic-docs/agent-cli-integrations.md`...
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What other approaches did you consider, and why did you reject them?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: vendor-neutrality
+    attributes:
+      label: Vendor neutrality check
+      description: Does this proposal preserve the framework's vendor neutrality?
+      options:
+        - Yes — adds support for one or more vendors as a new column in the matrix
+        - Yes — vendor-neutral conceptual content (no specific CLI assumed)
+        - Partial — touches existing vendor support; needs review
+        - Unsure
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow the project's Code of Conduct.
+      options:
+        - label: I have read the [Code of Conduct](../CODE_OF_CONDUCT.md).
+          required: true

@@ -1,0 +1,64 @@
+name: Bug report
+description: Report a problem with the framework content (broken link, stale reference, frontmatter contract violation, doc inconsistency, etc.)
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. SpecForge is markdown content - no runtime to crash - so bugs are typically content issues: broken links, stale references, contract violations, drift between vendor-matrix mirrors, etc.
+
+        For security vulnerabilities, please use the private security advisory at https://github.com/Enovatr-Labs/SpecForge/security/advisories/new instead.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What's the bug
+      description: One or two sentences. What's wrong?
+      placeholder: "The link in `examples/sample-project/README.md` to `prd.md` is broken — file moved to `prds/active/user-search.md`."
+    validations:
+      required: true
+
+  - type: input
+    id: file-path
+    attributes:
+      label: File path
+      description: Path to the affected file (relative to repo root).
+      placeholder: "examples/sample-project/README.md"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should the file say or do instead?
+    validations:
+      required: false
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How to reproduce or confirm
+      description: How did you find this? Did you run `/audit`? A specific link checker?
+      placeholder: "Ran `/audit` from a fresh clone; broken-link check flagged this path."
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: SpecForge version (`CITATION.cff`) or commit SHA you observed this on.
+      placeholder: "v0.1.0 / commit f82a375"
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow the project's Code of Conduct.
+      options:
+        - label: I have read the [Code of Conduct](../CODE_OF_CONDUCT.md).
+          required: true
