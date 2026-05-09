@@ -1,12 +1,14 @@
 # SpecForge Roadmap
 
-This roadmap is intentionally honest about the current state. SpecForge is a young project - the skeleton is being built in public.
+This roadmap is intentionally honest about the current state. Updated alongside major releases.
 
 Status legend: ✓ done · ◐ in progress · ☐ not started
 
+**Current version:** v0.1.0 (released 2026-05-09). See [`CHANGELOG.md`](CHANGELOG.md) for the release log.
+
 ---
 
-## Phase 1 - Skeleton & implementation team
+## Phase 1 - Skeleton & implementation team ✓ Complete
 
 **Goal:** Establish the repository structure, the implementation agent roster, and the sanitization infrastructure that lets us build SpecForge in public without leaking private upstream material.
 
@@ -17,48 +19,50 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 - ✓ Slash commands (`/sanitize`, `/status`, `/audit`, `/parity`)
 - ✓ Hooks (SessionStart status, PreToolUse sanitization gate, PostToolUse frontmatter check)
 - ✓ Agent memory for stateful agents (sanitization, runtime, docs)
-- ✓ `CONTRIBUTING.md`, `SECURITY.md`, `ROADMAP.md`
-- ☐ `CODE_OF_CONDUCT.md`
-- ☐ `AGENTS.md` (canonical vendor-neutral root context)
-- ☐ `GEMINI.md` (delegation shim)
+- ✓ `CONTRIBUTING.md`, `SECURITY.md`, `ROADMAP.md`, `CODE_OF_CONDUCT.md`
+- ✓ `AGENTS.md` (canonical vendor-neutral root context)
+- ✓ `GEMINI.md` (delegation shim)
+- ✓ `MAINTAINERS.md`, `CITATION.cff`, `CHANGELOG.md`
 
-## Phase 2 - Core templates & worked example
+## Phase 2 - Core templates & worked example ✓ Complete
 
 **Goal:** Make the framework immediately useful - production-grade templates and one canonical worked example that exercises every artifact shape.
 
-- ☐ PRD templates: `prd-template.md` (full 23-section), `lightweight-prd-template.md`, `platform-srs-template.md`
-- ☐ Spec triplet templates: `requirements-template.md`, `design-template.md`, `tasks-template.md`
-- ☐ Lightweight spec + ADR templates
-- ☐ Agent template + archetypes (product, architect, backend, frontend, security, qa, devops)
-- ☐ Skill template (`SKILL.md` with full frontmatter contract)
-- ☐ Command templates (`command-template.claude.md`, `command-template.gemini.json`)
-- ☐ Hook templates (`hooks.template.json`, sample `.kiro.hook` files)
-- ☐ Prompt templates: global-master, phase-master, task (production-grade)
-- ☐ Worked example end-to-end in `examples/sample-project/` - generic feature (e.g. notification preferences), all artifact shapes present, cross-referenced
+- ✓ PRD templates: `prd-template.md` (full 23-section), `lightweight-prd-template.md`, `platform-srs-template.md`
+- ✓ Spec triplet templates: `requirements-template.md`, `design-template.md`, `tasks-template.md`
+- ✓ Lightweight feature-spec template + ADR template
+- ✓ Agent template + 7 archetypes (product, architect, backend, frontend, security, qa, devops)
+- ✓ Skill template (`SKILL.md` with full frontmatter contract)
+- ✓ Command templates (`command-template.claude.md`, `command-template.gemini.json`)
+- ✓ Hook templates (Claude `hooks.template.json` covering ~27 events; Kiro `.kiro.hook` examples)
+- ✓ Prompt templates: global-master, phase-master, task (production-grade with current/target diff blocks)
+- ✓ Worked example `examples/sample-project/` - drop-in runnable; full PRD + spec triplet + 5 ADRs + 28 prompts + 8 implementation-team agents in `.claude/`
 
-## Phase 3 - Runtime layouts & cross-vendor tooling
+## Phase 3 - Runtime layouts & cross-vendor tooling ✓ Complete
 
 **Goal:** Ship copy-pasteable per-vendor runtime layouts and the tooling that keeps them in parity.
 
-- ☐ `runtimes/.claude/` - full layout (settings template, agents, skills, commands, hooks, agent-memory, MCP config)
-- ☐ `runtimes/.codex/` - config.toml template, agents, skills, scripts
-- ☐ `runtimes/.gemini/` - settings.json template, gemini_cli_config.json template
-- ☐ `runtimes/.kiro/` - steering, specs, hooks
-- ☐ `runtimes/.cursor/rules/` - `.mdc` templates with `alwaysApply` semantics
-- ☐ `runtimes/.windsurf/rules/`
-- ☐ `runtimes/mcp/servers.yaml` - single source of truth + per-vendor renderers
-- ☐ `tools/sync-skills.py` - cross-runtime skill diff/copy
-- ☐ Workflow docs (`workflows/prd-to-production.md`, etc.)
-- ☐ Decision-framework docs (`agentic-docs/automation-decision-framework.md` - highest leverage)
-- ☐ Per-vendor rule files (`rules/<vendor>-rules.md`)
+- ✓ `runtimes/.claude/` - full layout (settings template, agents, skills, commands, hooks, agent-memory, MCP config)
+- ✓ `runtimes/.codex/` - config.toml template, agents, skills, scripts
+- ✓ `runtimes/.gemini/` - settings.json template, gemini_cli_config.json template
+- ✓ `runtimes/.kiro/` - steering, specs, hooks
+- ✓ `runtimes/.cursor/rules/` - `.mdc` templates with `alwaysApply` semantics
+- ✓ `runtimes/.windsurf/rules/`
+- ✓ `runtimes/mcp/servers.yaml` - single source of truth + per-vendor renderers (claude, codex, gemini)
+- ✓ `tools/sync-skills.py` - cross-runtime skill diff/copy
+- ✓ Workflow docs (`workflows/prd-to-production.md`, `spec-to-implementation.md`, `agent-review-loop.md`, `testing-and-validation.md`, `release-readiness.md`)
+- ✓ Decision-framework doc (`agentic-docs/automation-decision-framework.md`)
+- ✓ Per-vendor rule files (`rules/<vendor>-rules.md` for codex/claude/gemini/cursor/windsurf)
+- ✓ Comprehensive hook coverage across all six vendors (~27 Claude / 6 Codex / 11 Gemini / 10 Kiro / ~19 Cursor / 12 Windsurf events)
 
-## Phase 4 - Maturity
+## Phase 4 - Maturity ◐ In progress
 
 **Goal:** Real-world adoption signals, additional vendors, and community-contributed examples that prove the framework's reusability.
 
-- ☐ Additional worked examples beyond `sample-project/`
+- ◐ Versioned releases - v0.1.0 cut 2026-05-09; v1.0 target after vendor-doc currency cycle and DOI registration
+- ☐ Additional worked examples beyond `sample-project/` (suggested: lightweight feature, refactor, ADR-only project, Codex variant of sample-project)
 - ☐ Additional vendor support based on community demand
-- ☐ Versioned releases (`v0.1.0`, etc.) with release notes
+- ☐ Persistent DOI via Zenodo (at v1.0)
 - ☐ Adoption case studies (anonymous welcome) under `examples/`
 - ☐ A `specforge` CLI or extension (TBD - not committed; depends on whether a tool would meaningfully exceed `tools/sync-skills.py`)
 
@@ -72,6 +76,18 @@ To stay focused, SpecForge intentionally does **not** plan to:
 - Become an opinionated framework on top of any single vendor. The supported vendor matrix is the contract.
 - Provide hosted services, paid features, or infrastructure. Apache 2.0 content, full stop.
 - Embed domain-specific business logic (financial, medical, legal). Examples stay generic so the framework remains broadly applicable.
+
+---
+
+## Versioning
+
+We follow Semantic Versioning. For a content-only framework, versions are interpreted as:
+
+- **MAJOR** - breaking change to artifact contracts (frontmatter, spec triplet shape, vendor matrix structure, the spec-driven flow itself).
+- **MINOR** - new vendor support, new artifact type, new skill/command/hook category, substantive new templates.
+- **PATCH** - doc fixes, sanitization, link corrections, typography, content refinements.
+
+The current version lives in [`CITATION.cff`](CITATION.cff). Tagged releases are published as GitHub releases; see [`CHANGELOG.md`](CHANGELOG.md) for the per-release log.
 
 ---
 

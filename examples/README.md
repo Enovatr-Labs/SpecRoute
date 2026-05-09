@@ -39,10 +39,10 @@ examples/
 
 Walk the artifacts in spec-driven order to see how SpecForge fits together:
 
-1. [`sample-project/prd.md`](sample-project/prd.md) - start here, read as a product reviewer.
-2. [`sample-project/requirements.md`](sample-project/requirements.md) - see how PRD goals translate into stable-ID requirements.
-3. [`sample-project/design.md`](sample-project/design.md) - see how requirements drive the architecture.
-4. [`sample-project/tasks.md`](sample-project/tasks.md) - see how design decomposes into numbered work items with full back-references.
+1. [`sample-project/prds/active/user-search.md`](sample-project/prds/active/user-search.md) - start here, read as a product reviewer.
+2. [`sample-project/specs/user-search/requirements.md`](sample-project/specs/user-search/requirements.md) - see how PRD goals translate into stable-ID requirements.
+3. [`sample-project/specs/user-search/design.md`](sample-project/specs/user-search/design.md) - see how requirements drive the architecture.
+4. [`sample-project/specs/user-search/tasks.md`](sample-project/specs/user-search/tasks.md) - see how design decomposes into numbered work items with full back-references.
 5. [`sample-project/agent-roster.md`](sample-project/agent-roster.md) - see how tasks map to agents.
 6. [`sample-project/prompts/000_GLOBAL_MASTER.md`](sample-project/prompts/000_GLOBAL_MASTER.md) - the agent CLI entry-point.
 7. [`sample-project/prompts/README.md`](sample-project/prompts/README.md) - phase index for all 22 task prompts plus the runtime/ operational prompts.

@@ -14,7 +14,7 @@ You are the **PRD Author** for SpecForge - the framework's authority on Product 
 - `prds/templates/platform-srs-template.md` - system-wide SRS distinct from feature PRDs
 - `prds/active/`, `prds/deprecated/`, `prds/archive/` - lifecycle directories
 - `prds/README.md`, `prds/examples/`
-- The PRD artifact in `examples/sample-project/prd.md`
+- The PRD artifact in `examples/sample-project/prds/active/user-search.md`
 
 ## Operating principles
 
