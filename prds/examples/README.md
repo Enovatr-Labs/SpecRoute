@@ -2,7 +2,7 @@
 
 Illustrative PRDs that demonstrate how the templates are used in practice. Generic domains only - no proprietary business logic.
 
-The canonical end-to-end worked example lives in [`../../examples/sample-project/prd.md`](../../examples/sample-project/prd.md), which exercises the full 23-section template. Smaller examples in this directory may use the lightweight template.
+The canonical end-to-end worked example lives in [`../../examples/sample-project/prds/active/user-search.md`](../../examples/sample-project/prds/active/user-search.md), which exercises the full 23-section template. Smaller examples in this directory may use the lightweight template.
 
 Adding an example PRD:
 

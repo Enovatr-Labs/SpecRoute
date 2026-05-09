@@ -33,10 +33,10 @@ For each step, verify the artifact exists and is complete; if not, invoke the na
 
 | Step | Artifact | Path | Agent |
 |---|---|---|---|
-| 1 | PRD (full 23-section) | `examples/sample-project/prd.md` | `prd-author` |
-| 2 | Requirements | `examples/sample-project/requirements.md` | `spec-author` |
-| 3 | Design | `examples/sample-project/design.md` | `spec-author` |
-| 4 | Tasks | `examples/sample-project/tasks.md` | `spec-author` |
+| 1 | PRD (full 23-section) | `examples/sample-project/prds/active/user-search.md` | `prd-author` |
+| 2 | Requirements | `examples/sample-project/specs/user-search/requirements.md` | `spec-author` |
+| 3 | Design | `examples/sample-project/specs/user-search/design.md` | `spec-author` |
+| 4 | Tasks | `examples/sample-project/specs/user-search/tasks.md` | `spec-author` |
 | 5 | Agent roster | `examples/sample-project/agent-roster.md` | `agent-roster-architect` |
 | 6 | Global master prompt | `examples/sample-project/prompts/000_GLOBAL_MASTER.md` | `prompt-engineer` |
 | 7 | Phase masters | `examples/sample-project/prompts/phase{N}_<name>/000_MASTER_<phase>.md` | `prompt-engineer` |
