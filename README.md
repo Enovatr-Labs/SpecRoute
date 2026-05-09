@@ -101,6 +101,30 @@ SpecForge is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)**.
 - Security reports: `security@enovatr.com` (see [`SECURITY.md`](SECURITY.md))
 - Full maintainer list and governance: [`MAINTAINERS.md`](MAINTAINERS.md)
 
+## Citation
+
+If you use SpecForge in academic work, blog posts, talks, or other published material, please cite it. GitHub renders a "Cite this repository" button from [`CITATION.cff`](CITATION.cff); both BibTeX and APA-style outputs are auto-generated.
+
+**BibTeX:**
+
+```bibtex
+@software{Ihejimba_SpecForge_2026,
+  author       = {Ihejimba, Chika},
+  title        = {{SpecForge: An open-source framework for spec-driven agentic software engineering}},
+  organization = {Enovatr Labs},
+  year         = {2026},
+  version      = {0.1.0},
+  url          = {https://github.com/Enovatr-Labs/SpecForge},
+  license      = {Apache-2.0}
+}
+```
+
+**Plain text:**
+
+> Ihejimba, C. (2026). *SpecForge: An open-source framework for spec-driven agentic software engineering* (Version 0.1.0) [Computer software]. Enovatr Labs. https://github.com/Enovatr-Labs/SpecForge
+
+For tagged releases, prefer the version-specific commit or tag URL. A persistent DOI (via Zenodo) will be added once the framework reaches v1.0.
+
 ## License
 
 [Apache 2.0](LICENSE) — Copyright (c) Enovatr Labs.
