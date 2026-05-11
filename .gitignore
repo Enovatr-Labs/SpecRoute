@@ -79,6 +79,9 @@ web_modules/
 # Internal bootstrap spec - not for public release
 initial.md
 
+# Internal operations runbook for GitHub setup - per-installation, not tracked
+GITHUB-SETUP.md
+
 # Python
 __pycache__/
 *.pyc

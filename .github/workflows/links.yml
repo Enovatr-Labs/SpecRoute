@@ -2,11 +2,6 @@ name: Markdown link check
 
 on:
   pull_request:
-    paths:
-      - "**/*.md"
-      - "**/*.mdc"
-      - ".github/workflows/links.yml"
-      - ".lycheeignore"
   push:
     branches:
       - main
