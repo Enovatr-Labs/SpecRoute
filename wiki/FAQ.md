@@ -96,7 +96,7 @@ The `add-vendor` skill walks through it interactively. See [[Adding a Vendor]] f
 
 ## Is there a roadmap?
 
-Yes — [[Roadmap]]. Current version is v0.1.0. Phases 1–3 are complete; Phase 4 (maturity) is in progress.
+Yes — [[Roadmap]]. Current version is v0.2.0. Phases 1–3 are complete; Phase 4 (maturity) is in progress.
 
 ## What's a "phased master-prompt pattern"?
 

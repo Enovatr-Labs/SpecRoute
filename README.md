@@ -140,7 +140,7 @@ If you use SpecForge in academic work, blog posts, talks, or other published mat
   title        = {{SpecForge: An open-source framework for spec-driven agentic software engineering}},
   organization = {Enovatr Labs},
   year         = {2026},
-  version      = {0.1.0},
+  version      = {0.2.0},
   url          = {https://github.com/Enovatr-Labs/SpecForge},
   license      = {Apache-2.0}
 }
@@ -148,7 +148,7 @@ If you use SpecForge in academic work, blog posts, talks, or other published mat
 
 **Plain text:**
 
-> Ihejimba, C. (2026). *SpecForge: An open-source framework for spec-driven agentic software engineering* (Version 0.1.0) [Computer software]. Enovatr Labs. https://github.com/Enovatr-Labs/SpecForge
+> Ihejimba, C. (2026). *SpecForge: An open-source framework for spec-driven agentic software engineering* (Version 0.2.0) [Computer software]. Enovatr Labs. https://github.com/Enovatr-Labs/SpecForge
 
 For tagged releases, prefer the version-specific commit or tag URL. A persistent DOI (via Zenodo) will be added once the framework reaches v1.0.
 

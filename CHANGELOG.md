@@ -12,7 +12,63 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
-(Changes accumulating since v0.1.0 will be listed here.)
+(Changes accumulating since v0.2.0 will be listed here.)
+
+---
+
+## [0.2.0] - 2026-05-11
+
+First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.0 is what appears on the public landing page on day one of public visibility, with the wiki and GitHub-side hygiene infrastructure in place.
+
+### Added
+
+#### Documentation surface
+
+- `wiki/` directory: 42 GitHub Wiki pages (Home, Quickstart, Vendor-Matrix, Repository-Structure, all artifact types - PRDs/Specs/Agents/Skills/Commands/Hooks/Prompts/Rules - all five workflows, all conceptual docs - Philosophy/Spec-Driven-Development/Agentic-Coding-Model/Automation-Decision-Framework/Documentation-Structure/Two-Tier-Docs-Pattern/Multi-Vendor-Context-Files/Agent-CLI-Integrations/Cross-Vendor-Sync/Agent-Memory - plus FAQ, Glossary, Maintainers, Security, Code-of-Conduct, Roadmap, Worked-Example, Contributing, Frontmatter-Contracts, Implementation-Team, MCP-Integration, Sanitization, Adding-a-Vendor) plus `_Sidebar.md` and `_Footer.md` navigation.
+- `scripts/sync-wiki.sh` - local-run wrapper for manual wiki publishing.
+- `tools/wiki-parity.py` - PR-time check for missing source files referenced by `<!-- sources: ... -->` manifests, broken gollum `[[wiki-links]]`, and staleness (wiki page summary older than its declared source).
+
+#### GitHub-side repository hygiene
+
+- `CODEOWNERS` - default owner plus explicit ownership for sanitization infrastructure, hooks, vendor-matrix sources, release infrastructure, `agentic-docs/`, `examples/`, `.github/`.
+- `.github/PULL_REQUEST_TEMPLATE.md` - enforces SemVer change-type declaration, spec/ADR/issue link, validation checklist, vendor-neutrality gate.
+- `.github/ISSUE_TEMPLATE/bug_report.yml` - content-bug-shaped form (file path, expected behavior, version/commit).
+- `.github/ISSUE_TEMPLATE/feature_request.yml` - categorized form (new vendor / artifact / skill / etc.) with vendor-neutrality dropdown.
+- `.github/ISSUE_TEMPLATE/config.yml` - routes security issues to private advisories, questions to Discussions; disables blank issues.
+- `.github/dependabot.yml` - weekly GitHub Actions update PRs targeting develop.
+- `.github/workflows/links.yml` - lychee link-check on every PR, scheduled weekly cron, auto-issue on scheduled failures.
+- `.github/workflows/sync-wiki.yml` - mirrors `wiki/` → `<repo>.wiki.git` on push to main touching `wiki/**`.
+- `.github/workflows/wiki-parity.yml` - read-only PR check via `tools/wiki-parity.py`.
+- `.lycheeignore` - link-check exclusion patterns (placeholder hosts, local-only hosts, anchor links).
+
+### Changed
+
+- Branch model: dropped `staging` tier. develop → main is now the only flow; nothing deploys from SpecForge, so the previous develop → staging → main chain added friction without signal.
+- Action versions (Node24 runtime bumps for GitHub-org maintained actions): `actions/cache@v4` → `v5`, `actions/checkout@v4` → `v6`, `peter-evans/create-issue-from-file@v5` → `v6`. No API/behavior changes affect our workflows.
+- `.github/workflows/links.yml` - lychee runs on every PR regardless of which files changed (was filtered to markdown only). Prevents non-markdown PRs from deadlocking against the required-status-check gate.
+
+### Fixed
+
+- 10 pre-existing broken markdown links surfaced by the first lychee CI run on a PR:
+  - `agentic-docs/two-tier-docs-pattern.md` - `docs/<topic>.md` placeholder converted from a markdown link to inline code (was being resolved as a real path).
+  - `examples/sample-project/prompts/phase3_validation/019_feature_flag.md` - `/users` placeholder converted to inline code.
+  - `CONTRIBUTING.md` - `../../issues` and `../../pulls` (only resolve on github.com, not in lychee's local-file scan) replaced with full URLs.
+  - `specs/templates/{design,requirements,tasks}-template.md` - triplet self-references that referenced `requirements.md` / `design.md` / `tasks.md` (the post-rename target names users adopt after copying the templates) converted from markdown links to inline code.
+- `agentic-docs/multi-vendor-context-files.md` - one occurrence of `[AGENTS.md](AGENTS.md)` on line 48 used a sibling-relative path from inside `agentic-docs/`; corrected to `[AGENTS.md](../AGENTS.md)` (line 88 already had this right).
+- `.github/ISSUE_TEMPLATE/bug_report.yml` - version/commit placeholder updated from a stale SHA reference to a generic version string after the history rewrite (see Security).
+- `CHANGELOG.md` v0.1.0 entry - prompt-file count corrected from "28" to "29" (the math: 1 global master + 4 phase masters + 22 numbered task prompts + 2 runtime operational prompts).
+
+### Security
+
+- Three repository rulesets configured (`main-ruleset`, `develop-ruleset`, `release-tags-ruleset`):
+  - `main-ruleset` - require PR + 1 Code Owner approval + linear history + squash-only merges + lychee status check; force-push and deletion blocked; `bypass_actors` carries the maintainer with `bypass_mode: pull_request` to resolve the solo-maintainer self-approval deadlock.
+  - `develop-ruleset` - same shape with 0 approvals required and no Code Owner requirement.
+  - `release-tags-ruleset` - locks `v*` tags from update and deletion once created.
+- Repository history sanitized: one commit message body containing a reference to the upstream private codebase from which SpecForge was extracted was rewritten before public flip. The rewrite preserves all file content and authorship; only the message paragraph in that one commit changed. The `v0.1.0` tag and release object were retargeted to the rewritten commit chain.
+- Sanitization infrastructure validated end-to-end on real-world push attempts: PreToolUse `pre-bash-sanitize.sh` hook + gitignored `.claude/.forbidden-strings.txt` wordlist + `/sanitize` command + `sanitization-auditor` agent.
+
+[Unreleased]: https://github.com/Enovatr-Labs/SpecForge/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Enovatr-Labs/SpecForge/releases/tag/v0.2.0
 
 ---
 
@@ -60,7 +116,7 @@ Initial public release. Phases 1-3 of the roadmap complete; Phase 4 (maturity) i
   - Spec triplet (`specs/user-search/{requirements,design,tasks}.md`) with 11 stable-ID requirements + 11 NFRs + full coverage table.
   - 5 ADRs (`adrs/`): Postgres indexed scans, cursor pagination, Redis cache TTL, HMAC-signed cursors, filter-set hash logging.
   - 7 project-specific deep references (`agentic-docs/`).
-  - 28 prompt files: 1 global master + 4 phase masters + 22 numbered task prompts + 2 runtime operational prompts.
+  - 29 prompt files: 1 global master + 4 phase masters + 22 numbered task prompts + 2 runtime operational prompts.
   - 8 implementation-team agents in `.claude/agents/`.
   - 4 slash commands, 3 hooks, agent-memory directory.
   - Self-contained: copy folder, rename `.template` files, open Claude Code, run `prompts/runtime/pickup-next-task.md`.
@@ -80,5 +136,4 @@ Initial public release. Phases 1-3 of the roadmap complete; Phase 4 (maturity) i
 - Frontmatter contracts as load-bearing: agents, skills, commands all have required-field contracts; the PostToolUse hook validates on save.
 - Spec-driven flow: PRD → spec triplet (with stable IDs) → numbered tasks (with back-refs) → phased prompts (with current/target diff blocks) → implementation → validation → review.
 
-[Unreleased]: https://github.com/Enovatr-Labs/SpecForge/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/Enovatr-Labs/SpecForge/releases/tag/v0.1.0

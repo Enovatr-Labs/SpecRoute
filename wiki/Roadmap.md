@@ -6,7 +6,7 @@ Where SpecForge is, what's next, and what's deliberately out of scope.
 
 Canonical source: [ROADMAP.md](https://github.com/Enovatr-Labs/SpecForge/blob/main/ROADMAP.md). Release log: [CHANGELOG.md](https://github.com/Enovatr-Labs/SpecForge/blob/main/CHANGELOG.md).
 
-**Current version**: v0.1.0 (released 2026-05-09).
+**Current version**: v0.2.0 (released 2026-05-11).
 
 Status legend: ✓ done · ◐ in progress · ☐ not started
 
@@ -60,7 +60,7 @@ Ship copy-pasteable per-vendor runtime layouts and the tooling that keeps them i
 
 Real-world adoption signals, additional vendors, and community-contributed examples.
 
-- ◐ Versioned releases — v0.1.0 cut 2026-05-09; v1.0 target after vendor-doc currency cycle and DOI registration
+- ◐ Versioned releases — v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 cut 2026-05-11 (first public release with wiki + GitHub-side hygiene); v1.0 target after vendor-doc currency cycle and DOI registration
 - ☐ Additional worked examples beyond `sample-project/`:
   - Lightweight feature (single-team, `lightweight-prd-template.md` + `feature-spec-template.md`)
   - Refactor (`technical-spec-template.md`)

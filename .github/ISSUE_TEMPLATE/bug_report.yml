@@ -50,7 +50,7 @@ body:
     attributes:
       label: Version / commit
       description: SpecForge version (`CITATION.cff`) or commit SHA you observed this on.
-      placeholder: "v0.1.0 / commit f82a375"
+      placeholder: "v0.2.0"
     validations:
       required: false
 

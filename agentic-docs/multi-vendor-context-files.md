@@ -45,7 +45,7 @@ This file provides Claude Code-specific guidance for working in this repository.
 ## Source of truth
 
 For repository overview, artifact taxonomy, vendor matrix, hard constraints,
-and the spec-driven flow: read [`AGENTS.md`](AGENTS.md). It is the canonical,
+and the spec-driven flow: read [`AGENTS.md`](../AGENTS.md). It is the canonical,
 vendor-neutral context file. This file holds only Claude-Code-specific overrides.
 
 ## Claude-Code-specific notes
