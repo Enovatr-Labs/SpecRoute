@@ -10,7 +10,6 @@ on:
   push:
     branches:
       - main
-      - staging
       - develop
     paths:
       - "**/*.md"
@@ -54,7 +53,6 @@ jobs:
             --verbose
             --format markdown
             --accept 200,206,429
-            --exclude-mail
             './**/*.md'
             './**/*.mdc'
           fail: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
