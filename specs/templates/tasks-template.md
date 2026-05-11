@@ -5,8 +5,8 @@
 **Author**: <Name>
 **Status**: Draft | Approved | In Implementation | Complete
 **Source PRD**: <link>
-**Source Requirements**: [`requirements.md`](requirements.md)
-**Source Design**: [`design.md`](design.md)
+**Source Requirements**: `requirements.md`
+**Source Design**: `design.md`
 
 ---
 

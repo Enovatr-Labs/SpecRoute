@@ -9,8 +9,8 @@
 ---
 
 > **Spec triplet - part 1 of 3.** This document captures *what* must be true for the feature to be considered complete. Companion documents:
-> - [`design.md`](design.md) - *how* the system meets these requirements
-> - [`tasks.md`](tasks.md) - concrete, ordered work items, each back-referencing requirement IDs
+> - `design.md` - *how* the system meets these requirements
+> - `tasks.md` - concrete, ordered work items, each back-referencing requirement IDs
 
 ---
 

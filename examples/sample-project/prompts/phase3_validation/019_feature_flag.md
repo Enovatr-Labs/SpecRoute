@@ -50,7 +50,7 @@ If the flag check isn't there yet, add it. Default to `false` in the flag servic
 
 The page from task 017 already includes a flag check. Verify it:
 
-- Flag off: render a fallback message ("This feature is not available; use [/users](/users) instead.").
+- Flag off: render a fallback message ("This feature is not available; use `/users` instead.").
 - Flag on: render the search UI.
 
 ### 5.3 Flag scoping

@@ -45,7 +45,7 @@ In `AGENTS.md` (canonical) and per-vendor delegation shims:
 - **What this repository is** - one paragraph.
 - **Core artifact taxonomy** - a table.
 - **Hard constraints** - the rules that aren't obvious from the code (vendor neutrality, sanitization, frontmatter contracts).
-- **Pointers to deep references** - "for X, see [`docs/<topic>.md`](docs/<topic>.md)".
+- **Pointers to deep references** - "for X, see `docs/<topic>.md`".
 - **Vendor-specific overrides** (in the per-vendor shims only).
 
 In `CLAUDE.md` and `GEMINI.md` specifically: ~30–50 lines, mostly pointers. They delegate to `AGENTS.md` and add per-vendor specifics.

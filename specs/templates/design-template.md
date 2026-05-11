@@ -5,11 +5,11 @@
 **Author**: <Name>
 **Status**: Draft | Approved
 **Source PRD**: <link>
-**Source Requirements**: [`requirements.md`](requirements.md)
+**Source Requirements**: `requirements.md`
 
 ---
 
-> **Spec triplet - part 2 of 3.** This document captures *how* the system meets the requirements. It references requirement IDs from `requirements.md`; it does not restate them. Companion: [`tasks.md`](tasks.md) for concrete work items.
+> **Spec triplet - part 2 of 3.** This document captures *how* the system meets the requirements. It references requirement IDs from `requirements.md`; it does not restate them. Companion: `tasks.md` for concrete work items.
 
 ---
 

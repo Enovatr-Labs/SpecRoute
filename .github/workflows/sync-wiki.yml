@@ -1,0 +1,62 @@
+name: Sync wiki
+
+# Publishes the contents of wiki/ to the GitHub wiki repo
+# (https://github.com/<owner>/<repo>.wiki.git) on every push to main
+# that touches wiki/**. The wiki/ directory in this repo is the source of truth;
+# edits made directly in the wiki UI will be overwritten on the next sync.
+#
+# Prerequisite: the wiki must exist (create the Home page once via the wiki UI
+# at https://github.com/<owner>/<repo>/wiki). Until then the .wiki.git endpoint
+# does not exist to clone.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "wiki/**"
+      - ".github/workflows/sync-wiki.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-wiki
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Push wiki/ to the wiki repo
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          WIKI_REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git"
+
+          # Clone the wiki repo (separate from this one).
+          git clone "${WIKI_REMOTE}" wiki-repo
+
+          # Sync wiki/ → wiki-repo/ exactly. --delete removes pages no longer
+          # present in wiki/. We exclude .git and the local-only README.md.
+          rsync -av --delete \
+            --exclude='.git' \
+            --exclude='README.md' \
+            wiki/ wiki-repo/
+
+          cd wiki-repo
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No wiki changes to sync."
+            exit 0
+          fi
+
+          git commit -m "Sync wiki from ${{ github.repository }}@${{ github.sha }}"
+          git push origin HEAD

@@ -1,0 +1,78 @@
+name: Wiki parity
+
+# Runs tools/wiki-parity.py on every PR to catch:
+#   - Missing source files referenced by <!-- sources: ... --> manifests.
+#   - Broken [[Wiki Page]] links (gollum-style, not URLs — lychee won't catch these).
+#   - Stale wiki pages whose declared sources have been modified more recently.
+#
+# URL link-checking for wiki/*.md is handled by the existing links.yml (lychee)
+# workflow — this one focuses on what lychee can't see.
+#
+# Exit codes from the script:
+#   0 = OK
+#   1 = hard breaks (missing source file or unresolved wiki link) — fail the run
+#   2 = staleness warnings only — annotate but don't fail
+
+on:
+  pull_request:
+    paths:
+      - "wiki/**"
+      - "agentic-docs/**"
+      - "workflows/**"
+      - "prds/**"
+      - "specs/**"
+      - "agents/**"
+      - "skills/**"
+      - "commands/**"
+      - "hooks/**"
+      - "prompts/**"
+      - "rules/**"
+      - "runtimes/**"
+      - "examples/**"
+      - "tools/**"
+      - ".claude/**"
+      - "README.md"
+      - "AGENTS.md"
+      - "CLAUDE.md"
+      - "GEMINI.md"
+      - "CONTRIBUTING.md"
+      - "SECURITY.md"
+      - "MAINTAINERS.md"
+      - "ROADMAP.md"
+      - "CHANGELOG.md"
+      - "CODE_OF_CONDUCT.md"
+      - ".github/workflows/wiki-parity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so `git log -1 --format=%ct` returns correct timestamps.
+          fetch-depth: 0
+
+      - name: Run wiki parity check
+        id: parity
+        run: |
+          set +e
+          python3 tools/wiki-parity.py | tee parity-output.txt
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          set -e
+
+      - name: Annotate staleness warnings (non-fatal)
+        if: steps.parity.outputs.exit_code == '2'
+        run: |
+          echo "::warning::Wiki parity: staleness warnings only — see job log."
+          # Stale wiki pages do not block the PR. Reviewers can decide if the
+          # summary still reflects the source.
+
+      - name: Fail on hard breaks
+        if: steps.parity.outputs.exit_code == '1'
+        run: |
+          echo "::error::Wiki parity: hard breaks (missing source file or unresolved [[wiki link]]). See job log."
+          exit 1
