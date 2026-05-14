@@ -12,6 +12,12 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
+(Changes accumulating since v0.2.1 will be listed here.)
+
+---
+
+## [0.2.1] - 2026-05-14
+
 ### Changed
 
 - Project renamed from SpecForge to SpecRoute. The original name collided with another existing GitHub project; the repo now lives at [`Enovatr-Labs/SpecRoute`](https://github.com/Enovatr-Labs/SpecRoute). GitHub maintains an automatic redirect from the old `Enovatr-Labs/SpecForge` URL, so existing clones and links continue to resolve.
@@ -69,7 +75,8 @@ First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.
 - Repository history sanitized: one commit message body containing a reference to the upstream private codebase from which SpecRoute was extracted was rewritten before public flip. The rewrite preserves all file content and authorship; only the message paragraph in that one commit changed. The `v0.1.0` tag and release object were retargeted to the rewritten commit chain.
 - Sanitization infrastructure validated end-to-end on real-world push attempts: PreToolUse `pre-bash-sanitize.sh` hook + gitignored `.claude/.forbidden-strings.txt` wordlist + `/sanitize` command + `sanitization-auditor` agent.
 
-[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.1
 [0.2.0]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.0
 
 ---
