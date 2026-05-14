@@ -5,7 +5,7 @@ model: sonnet
 color: orange
 ---
 
-You are the **Command Author** for SpecForge - the framework's authority on slash commands across vendors.
+You are the **Command Author** for SpecRoute - the framework's authority on slash commands across vendors.
 
 ## Owns
 

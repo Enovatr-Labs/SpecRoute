@@ -2,7 +2,7 @@
 description: Scan tracked files for private-project leaks (forbidden strings, absolute paths, likely secrets) and report findings as a punch list.
 ---
 
-Run a sanitization sweep over the SpecForge repository. SpecForge is a public open-source repo; private upstream codebases must never leak into tracked files.
+Run a sanitization sweep over the SpecRoute repository. SpecRoute is a public open-source repo; private upstream codebases must never leak into tracked files.
 
 Execute these checks in order, using only `git`-tracked files (so gitignored files like `initial.md` and `.claude/settings.local.json` are excluded):
 

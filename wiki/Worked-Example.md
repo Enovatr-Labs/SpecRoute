@@ -4,11 +4,11 @@
 
 The canonical demonstration. **`examples/sample-project/`** is drop-in runnable: copy the folder into a new repository and Claude Code drives the implementation end to end.
 
-For the directory's README, see [`examples/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/README.md). For the example itself, see [`examples/sample-project/`](https://github.com/Enovatr-Labs/SpecForge/tree/main/examples/sample-project).
+For the directory's README, see [`examples/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/README.md). For the example itself, see [`examples/sample-project/`](https://github.com/Enovatr-Labs/SpecRoute/tree/main/examples/sample-project).
 
 ## What it demonstrates
 
-The `user-search` feature exercises every artifact shape in SpecForge:
+The `user-search` feature exercises every artifact shape in SpecRoute:
 
 | Artifact | What's there |
 |---|---|
@@ -27,15 +27,15 @@ The `user-search` feature exercises every artifact shape in SpecForge:
 
 Walk the artifacts in spec-driven order:
 
-1. [`prds/active/user-search.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/prds/active/user-search.md) — read as a product reviewer.
-2. [`specs/user-search/requirements.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/specs/user-search/requirements.md) — PRD goals → stable-ID requirements.
-3. [`specs/user-search/design.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/specs/user-search/design.md) — requirements → architecture.
-4. [`specs/user-search/tasks.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/specs/user-search/tasks.md) — design → numbered work items with back-refs.
-5. [`agent-roster.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/agent-roster.md) — tasks → agents.
-6. [`prompts/000_GLOBAL_MASTER.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/prompts/000_GLOBAL_MASTER.md) — entry-point.
-7. [`prompts/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/prompts/README.md) — phase index.
+1. [`prds/active/user-search.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/prds/active/user-search.md) — read as a product reviewer.
+2. [`specs/user-search/requirements.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/specs/user-search/requirements.md) — PRD goals → stable-ID requirements.
+3. [`specs/user-search/design.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/specs/user-search/design.md) — requirements → architecture.
+4. [`specs/user-search/tasks.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/specs/user-search/tasks.md) — design → numbered work items with back-refs.
+5. [`agent-roster.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/agent-roster.md) — tasks → agents.
+6. [`prompts/000_GLOBAL_MASTER.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/prompts/000_GLOBAL_MASTER.md) — entry-point.
+7. [`prompts/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/prompts/README.md) — phase index.
 8. Any phase master + any numbered task prompt.
-9. [`implementation-plan.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/implementation-plan.md) — the operational view.
+9. [`implementation-plan.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/implementation-plan.md) — the operational view.
 
 If a step seems redundant, **the redundancy is intentional**. The cross-references between artifacts are how the work stays auditable.
 
@@ -61,7 +61,7 @@ cat >> .gitignore <<'EOF'
 .claude/.forbidden-strings.txt
 EOF
 
-# 5. (Optional) git init && git add . && git commit -m "Bootstrap from SpecForge"
+# 5. (Optional) git init && git add . && git commit -m "Bootstrap from SpecRoute"
 
 # 6. Open the repo with Claude Code.
 ```
@@ -131,7 +131,7 @@ Suggested next worked examples:
 - **Theoretical content** — every section must be filled in concretely.
 - **Domain-specific naming** — keep examples generic (no financial, healthcare, legal specifics).
 - **Mismatched cross-references** — PRD NFRs must match requirements NFRs must match design NFRs.
-- **Drifted templates** — when SpecForge templates change, examples that exercise those templates need to be re-checked.
+- **Drifted templates** — when SpecRoute templates change, examples that exercise those templates need to be re-checked.
 
 The `template-quality-reviewer` agent is the gate. See [[Implementation Team]].
 

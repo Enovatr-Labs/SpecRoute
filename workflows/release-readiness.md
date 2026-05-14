@@ -55,7 +55,7 @@ At each stage:
 - Deploy everywhere at once.
 - Only appropriate when the feature has minimal blast radius and a fast rollback.
 
-For most features in SpecForge-driven projects, **gradual rollout is the default**. Big-bang requires explicit ADR.
+For most features in SpecRoute-driven projects, **gradual rollout is the default**. Big-bang requires explicit ADR.
 
 ## Per-stage gates
 
@@ -113,7 +113,7 @@ After 100% rollout is stable for 7 days:
 - **Update spec triplet status** to `Complete`.
 - **Capture lessons learned** in a brief retrospective. The `prd-author` agent can draft a starting outline based on the PRD, the spec triplet's open questions, and the validation report.
 - **Identify follow-ups**. Anything explicitly out of scope (PRD Section 4.2) that's now worth doing → new PRD.
-- **Archive the worked example** if the feature was used as a SpecForge demo.
+- **Archive the worked example** if the feature was used as a SpecRoute demo.
 
 ## Communication
 

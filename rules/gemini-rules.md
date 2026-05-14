@@ -36,7 +36,7 @@ In `AGENTS.md`, link to:
 - Flat-file agents.
 - Slash commands with markdown body (Gemini commands are JSON entries with shell commands).
 
-For features SpecForge ships that Gemini can't natively run, the equivalent is to:
+For features SpecRoute ships that Gemini can't natively run, the equivalent is to:
 
 - Use `prompts/shared/` and `prompts/codex|claude/` as reference prompts that humans copy into a Gemini conversation.
 - Use `gemini_cli_config.json` for shell-shortcut equivalents of one-shot commands.

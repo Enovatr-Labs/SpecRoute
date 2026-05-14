@@ -1,4 +1,4 @@
-# SpecForge sanitization wordlist - per-installation, gitignored after rename.
+# SpecRoute sanitization wordlist - per-installation, gitignored after rename.
 #
 # After copying this example folder, rename to .claude/.forbidden-strings.txt
 # and add '.claude/.forbidden-strings.txt' to your project's .gitignore.

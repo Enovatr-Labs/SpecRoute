@@ -28,7 +28,7 @@ These files are tracked and ship as part of the project. Treat them with the sam
 
 ## Reference implementations
 
-See the SpecForge framework's own agent-memory at [`.claude/agent-memory/`](../../../.claude/agent-memory/) (relative to repo root):
+See the SpecRoute framework's own agent-memory at [`.claude/agent-memory/`](../../../.claude/agent-memory/) (relative to repo root):
 
 - `sanitization-auditor/checklist.md` - pointer to the canonical sanitization wordlist + audit protocol.
 - `runtime-architect/vendor-matrix-progress.md` - vendor matrix build-out state.

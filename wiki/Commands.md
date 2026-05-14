@@ -4,7 +4,7 @@
 
 Slash-invoked operations. Simple, deterministic, no configuration. The user types `/<name>` and gets the same behavior every time.
 
-For the canonical reference, see [`commands/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/commands/README.md).
+For the canonical reference, see [`commands/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/commands/README.md).
 
 ## Per-vendor shape
 
@@ -75,17 +75,17 @@ See [[Automation Decision Framework]] for the full matrix.
 
 The four commands under this repo's own `.claude/commands/` are real, tracked examples:
 
-- [`/audit`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/commands/audit.md) — comprehensive pre-commit check.
-- [`/parity`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/commands/parity.md) — cross-vendor runtime parity check.
-- [`/sanitize`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/commands/sanitize.md) — sanitization wordlist scan.
-- [`/status`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/commands/status.md) — skeleton state report.
+- [`/audit`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/commands/audit.md) — comprehensive pre-commit check.
+- [`/parity`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/commands/parity.md) — cross-vendor runtime parity check.
+- [`/sanitize`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/commands/sanitize.md) — sanitization wordlist scan.
+- [`/status`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/commands/status.md) — skeleton state report.
 
 Read `audit.md` and `sanitize.md` for the most substantive examples of the markdown shape.
 
 ## Templates
 
-- Claude: [`commands/command-template.claude.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/commands/command-template.claude.md)
-- Gemini: [`commands/command-template.gemini.json`](https://github.com/Enovatr-Labs/SpecForge/blob/main/commands/command-template.gemini.json)
+- Claude: [`commands/command-template.claude.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/commands/command-template.claude.md)
+- Gemini: [`commands/command-template.gemini.json`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/commands/command-template.gemini.json)
 
 ## Owner agent
 

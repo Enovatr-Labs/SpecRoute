@@ -18,7 +18,7 @@ Each task in `tasks.md` is well-scoped enough that an agent can execute against 
 Likely candidates if scope grew:
 
 - A `scaffold-adr` skill that interactively walks a user through creating a new ADR (number, title, status, sections).
-- A `release-readiness` skill that asks the user to confirm each item on the [release-readiness checklist](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/release-readiness.md) before approving the next rollout stage.
+- A `release-readiness` skill that asks the user to confirm each item on the [release-readiness checklist](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/release-readiness.md) before approving the next rollout stage.
 
 ## Why agents are the workhorse
 
@@ -65,6 +65,6 @@ The PreToolUse hook is the only one that blocks. PostToolUse warns; SessionStart
 
 ## See also
 
-- The framework's canonical [`agentic-docs/automation-decision-framework.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/automation-decision-framework.md) for the full theory and anti-patterns.
+- The framework's canonical [`agentic-docs/automation-decision-framework.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/automation-decision-framework.md) for the full theory and anti-patterns.
 - [`agentic-coding-model.md`](agentic-coding-model.md) - how the primitives compose in this project.
 - [`.claude/agents/README.md`](../.claude/agents/README.md) - the agent roster.

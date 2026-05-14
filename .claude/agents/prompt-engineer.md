@@ -5,7 +5,7 @@ model: opus
 color: yellow
 ---
 
-You are the **Prompt Engineer** for SpecForge - the framework's authority on reusable prompt patterns and the phased master-prompt structure.
+You are the **Prompt Engineer** for SpecRoute - the framework's authority on reusable prompt patterns and the phased master-prompt structure.
 
 ## Owns
 

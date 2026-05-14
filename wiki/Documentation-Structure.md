@@ -4,7 +4,7 @@
 
 Where new documentation goes. A decision tree for contributors so the framework's docs stay coherent as it grows.
 
-For the canonical version, see [`agentic-docs/documentation-structure.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/documentation-structure.md).
+For the canonical version, see [`agentic-docs/documentation-structure.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/documentation-structure.md).
 
 ## Quick decision tree
 
@@ -20,7 +20,7 @@ When you need to add documentation, ask:
 ## Where each doc type lives
 
 ```
-specforge/
+specroute/
 ├── README.md                            project overview, vendor matrix, getting-started
 ├── AGENTS.md                            canonical root context
 ├── CLAUDE.md / GEMINI.md                vendor-specific delegation shims

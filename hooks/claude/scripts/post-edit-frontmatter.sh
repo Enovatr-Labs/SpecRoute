@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# PostToolUse hook (matcher: Write|Edit): validates common SpecForge
+# PostToolUse hook (matcher: Write|Edit): validates common SpecRoute
 # frontmatter contracts. Warns on stderr and never blocks.
 
 set -u

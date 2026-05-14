@@ -2,7 +2,7 @@
 
 <!-- sources: CLAUDE.md, hooks/README.md -->
 
-SpecForge is open-source and is generalized from internal codebases. **Patterns generalize freely; product names, customer data, and proprietary domain logic do not.** Sanitization is the framework's hard contract.
+SpecRoute is open-source and is generalized from internal codebases. **Patterns generalize freely; product names, customer data, and proprietary domain logic do not.** Sanitization is the framework's hard contract.
 
 ## What sanitization covers
 
@@ -21,7 +21,7 @@ Allowed (generalize first):
 - Generic patterns and architectures (e.g. "a job that reads a queue and writes to Postgres").
 - Generic data models (e.g. `users`, `orders`, `products`).
 - Open-source library names and public infrastructure (Postgres, Redis, AWS, Kubernetes — these are fine).
-- The public name of the project itself (SpecForge, Enovatr Labs).
+- The public name of the project itself (SpecRoute, Enovatr Labs).
 
 ## How sanitization is enforced
 
@@ -52,7 +52,7 @@ For a deeper logic-level review (catches things string-matching misses, like gen
 
 `.claude/.forbidden-strings.txt` is **gitignored**. The framework should never carry a permanent record of what it was extracted from. Each installation maintains its own wordlist locally.
 
-For SpecForge maintainers, the wordlist is repopulated from user-level memory at `~/.claude/projects/-Users-chika-LocalDev-SpecForge/memory/specforge_public_release.md` when needed.
+For SpecRoute maintainers, the wordlist is repopulated from user-level memory at `~/.claude/projects/-Users-chika-LocalDev-SpecRoute/memory/specroute_public_release.md` when needed.
 
 ## When sanitization fires
 

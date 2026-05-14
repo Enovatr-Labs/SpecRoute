@@ -1,6 +1,6 @@
 # Workflow: PRD to Production
 
-End-to-end execution model. Takes a feature from "idea worth doing" to "live in production with stable metrics." Composes every artifact SpecForge produces.
+End-to-end execution model. Takes a feature from "idea worth doing" to "live in production with stable metrics." Composes every artifact SpecRoute produces.
 
 ## Stages
 

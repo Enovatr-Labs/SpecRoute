@@ -63,7 +63,7 @@ Status is the gate. Documents without an explicit status are not actionable.
 
 ## 8. Templates over theory
 
-When SpecForge ships a "template," it must produce a valid artifact when filled in. Theoretical templates fail review.
+When SpecRoute ships a "template," it must produce a valid artifact when filled in. Theoretical templates fail review.
 
 The `template-quality-reviewer` agent enforces this bar; see [`.claude/agents/template-quality-reviewer.md`](../.claude/agents/template-quality-reviewer.md).
 

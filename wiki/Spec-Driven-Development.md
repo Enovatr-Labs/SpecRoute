@@ -2,7 +2,7 @@
 
 <!-- sources: agentic-docs/spec-driven-development.md -->
 
-The core flow SpecForge formalizes:
+The core flow SpecRoute formalizes:
 
 ```
 PRD → Spec (requirements + design + tasks) → Implementation → Validation → Review
@@ -10,7 +10,7 @@ PRD → Spec (requirements + design + tasks) → Implementation → Validation �
 
 Each stage produces a reviewable artifact. Each stage has a template, an agent assignment, and an acceptance criterion. The point is not ceremony — it's making agent-assisted work auditable.
 
-For the canonical version, see [`agentic-docs/spec-driven-development.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/spec-driven-development.md).
+For the canonical version, see [`agentic-docs/spec-driven-development.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/spec-driven-development.md).
 
 ## Why this order
 

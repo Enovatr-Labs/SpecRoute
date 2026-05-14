@@ -73,7 +73,7 @@ Two vendors share most artifact shapes (Claude Code and Codex):
 
 The other vendors have different concepts. The matrix is documented in the root [`README.md`](../README.md). Adding a new vendor means a new column in the matrix and a new runtime directory here.
 
-To check that Claude / Codex stay in sync: run [`tools/sync-skills.py --dry-run`](../tools/sync-skills.py) or the `/parity` command (in the SpecForge runtime itself).
+To check that Claude / Codex stay in sync: run [`tools/sync-skills.py --dry-run`](../tools/sync-skills.py) or the `/parity` command (in the SpecRoute runtime itself).
 
 ## Authoring agent
 

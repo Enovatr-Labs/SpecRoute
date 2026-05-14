@@ -1,6 +1,6 @@
 # Cross-Vendor Sync
 
-How a SpecForge-driven project keeps the artifacts that several vendors consume in lock-step. This is the maintainability story for multi-vendor support.
+How a SpecRoute-driven project keeps the artifacts that several vendors consume in lock-step. This is the maintainability story for multi-vendor support.
 
 ## What needs to stay synced
 

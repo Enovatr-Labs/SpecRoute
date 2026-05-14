@@ -1,6 +1,6 @@
 # Automation Decision Framework
 
-**The single most cross-referenced doc in SpecForge.** When you have a new task you want to automate, this framework tells you whether to build it as a skill, agent, command, or hook.
+**The single most cross-referenced doc in SpecRoute.** When you have a new task you want to automate, this framework tells you whether to build it as a skill, agent, command, or hook.
 
 ## Quick decision matrix
 
@@ -148,7 +148,7 @@ A hook is automation that runs on an event the user didn't explicitly invoke. Pr
 
 **Examples in this repo:**
 
-- `SessionStart` - prints a SpecForge skeleton status banner so Claude orients without re-grepping.
+- `SessionStart` - prints a SpecRoute skeleton status banner so Claude orients without re-grepping.
 - `PreToolUse` (Bash) - blocks `git commit`/`git push` if sanitization wordlist matches in tracked files.
 - `PostToolUse` (Write|Edit) - validates frontmatter on agent/skill/command file writes; warns on stderr.
 
@@ -184,7 +184,7 @@ If two answers are "yes," the primitive split is wrong. Split the work into two 
 
 ## Composition
 
-The four primitives compose. A typical SpecForge feature implementation uses all four - see [`agentic-coding-model.md`](agentic-coding-model.md) for the composition pattern.
+The four primitives compose. A typical SpecRoute feature implementation uses all four - see [`agentic-coding-model.md`](agentic-coding-model.md) for the composition pattern.
 
 ## Worked examples in this repo
 

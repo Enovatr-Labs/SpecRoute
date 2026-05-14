@@ -1,6 +1,6 @@
 ---
 name: scaffold-artifact
-description: Interactive scaffolding for any SpecForge artifact (PRD, spec, agent, skill, command, hook, prompt, runtime layout). Asks for artifact type and vendor (where applicable), copies the canonical template, generates the directory structure, and pre-fills the frontmatter. Use when starting a new artifact under prds/, specs/, agents/, skills/, commands/, hooks/, prompts/, or runtimes/.
+description: Interactive scaffolding for any SpecRoute artifact (PRD, spec, agent, skill, command, hook, prompt, runtime layout). Asks for artifact type and vendor (where applicable), copies the canonical template, generates the directory structure, and pre-fills the frontmatter. Use when starting a new artifact under prds/, specs/, agents/, skills/, commands/, hooks/, prompts/, or runtimes/.
 argument-hint: "[artifact-type] [name] [vendor?]"
 user-invocable: true
 allowed-tools: Read Write Edit Glob Bash
@@ -8,7 +8,7 @@ allowed-tools: Read Write Edit Glob Bash
 
 # Scaffold Artifact
 
-Interactive scaffolding for SpecForge contributors. Reduces "where does this file go and what frontmatter does it need" friction.
+Interactive scaffolding for SpecRoute contributors. Reduces "where does this file go and what frontmatter does it need" friction.
 
 ## When to use
 

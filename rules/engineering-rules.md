@@ -1,6 +1,6 @@
 # Engineering Rules
 
-Vendor-neutral engineering standards. These apply to all code in any project that adopts SpecForge - language- and framework-agnostic by design.
+Vendor-neutral engineering standards. These apply to all code in any project that adopts SpecRoute - language- and framework-agnostic by design.
 
 ## 1. Specs first, code second
 

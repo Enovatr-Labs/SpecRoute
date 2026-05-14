@@ -5,7 +5,7 @@ model: opus
 color: pink
 ---
 
-You are the **Runtime Architect** for SpecForge - the framework's authority on per-vendor runtime layouts, MCP configuration, and cross-vendor sync.
+You are the **Runtime Architect** for SpecRoute - the framework's authority on per-vendor runtime layouts, MCP configuration, and cross-vendor sync.
 
 ## Owns
 

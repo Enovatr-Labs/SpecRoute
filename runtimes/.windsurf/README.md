@@ -16,7 +16,7 @@ Drop this directory into the root of your project. Windsurf reads from these pat
 - **Rule files** under `.windsurf/rules/`.
 - **Cascade hooks** in `.windsurf/hooks.json` (workspace) or `~/.codeium/windsurf/hooks.json` (user). 12 events: `pre_user_prompt`, `pre_read_code` / `post_read_code`, `pre_write_code` / `post_write_code`, `pre_run_command` / `post_run_command`, `pre_mcp_tool_use` / `post_mcp_tool_use`, `post_cascade_response`, `post_cascade_response_with_transcript`, `post_setup_worktree`. Only pre-hooks block. See [`hooks/windsurf/`](../../hooks/windsurf/) for the template.
 
-Windsurf does not have first-class skills, agents, or slash commands within the SpecForge taxonomy. Rules carry ongoing context; Cascade hooks handle event-driven automation.
+Windsurf does not have first-class skills, agents, or slash commands within the SpecRoute taxonomy. Rules carry ongoing context; Cascade hooks handle event-driven automation.
 
 ## Setup
 

@@ -25,7 +25,7 @@ Kiro does NOT consume:
 
 ## Spec triplet alignment
 
-The triplet format SpecForge uses (`requirements.md` + `design.md` + `tasks.md` with stable IDs and back-references) maps directly to Kiro's `.kiro/specs/` layout. The same files work in both places.
+The triplet format SpecRoute uses (`requirements.md` + `design.md` + `tasks.md` with stable IDs and back-references) maps directly to Kiro's `.kiro/specs/` layout. The same files work in both places.
 
 If your project mainly targets Kiro, the canonical spec location can be `.kiro/specs/<feature>/`. If you target multiple vendors, keep specs in the vendor-neutral `specs/examples/<feature>/` and symlink or mirror into `.kiro/specs/<feature>/`.
 

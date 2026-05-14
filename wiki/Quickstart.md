@@ -1,6 +1,6 @@
 # Quickstart
 
-Get a working SpecForge setup in your own repo in 15 minutes.
+Get a working SpecRoute setup in your own repo in 15 minutes.
 
 ## Prerequisites
 
@@ -14,11 +14,11 @@ Get a working SpecForge setup in your own repo in 15 minutes.
 
 Walk the [[Worked Example]] in spec-driven order:
 
-1. [PRD](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/prds/active/user-search.md) — read as a product reviewer.
-2. [`requirements.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/specs/user-search/requirements.md) — see how PRD goals translate to stable-ID requirements.
-3. [`design.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/specs/user-search/design.md) — see how requirements drive the architecture.
-4. [`tasks.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/specs/user-search/tasks.md) — see how design decomposes into numbered work items with back-refs.
-5. [`prompts/000_GLOBAL_MASTER.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/examples/sample-project/prompts/000_GLOBAL_MASTER.md) — the agent CLI entry-point.
+1. [PRD](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/prds/active/user-search.md) — read as a product reviewer.
+2. [`requirements.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/specs/user-search/requirements.md) — see how PRD goals translate to stable-ID requirements.
+3. [`design.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/specs/user-search/design.md) — see how requirements drive the architecture.
+4. [`tasks.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/specs/user-search/tasks.md) — see how design decomposes into numbered work items with back-refs.
+5. [`prompts/000_GLOBAL_MASTER.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/examples/sample-project/prompts/000_GLOBAL_MASTER.md) — the agent CLI entry-point.
 6. Open any phase master and any numbered task prompt.
 
 ### B. "Bootstrap a new feature from the templates" (10 min)
@@ -26,7 +26,7 @@ Walk the [[Worked Example]] in spec-driven order:
 ```bash
 # In your repo:
 # 1. Copy a PRD template
-cp SpecForge/prds/templates/lightweight-prd-template.md prds/active/<your-feature>.md
+cp SpecRoute/prds/templates/lightweight-prd-template.md prds/active/<your-feature>.md
 
 # 2. Fill it in (Status: Draft → Approved per the lifecycle).
 
@@ -45,7 +45,7 @@ Pick the vendors you target (see [[Vendor Matrix]]) and copy the corresponding r
 
 ```bash
 # Claude Code
-cp -R SpecForge/runtimes/.claude/ /path/to/your/repo/.claude/
+cp -R SpecRoute/runtimes/.claude/ /path/to/your/repo/.claude/
 cd /path/to/your/repo/.claude
 mv settings.template.json            settings.json
 mv settings.local.template.json      settings.local.json
@@ -64,7 +64,7 @@ For other vendors (Codex, Gemini, Kiro, Cursor, Windsurf), the per-vendor README
 
 ```bash
 # 1. Copy the worked example into a new repo.
-cp -R SpecForge/examples/sample-project/. /path/to/your-new-repo/
+cp -R SpecRoute/examples/sample-project/. /path/to/your-new-repo/
 cd /path/to/your-new-repo/
 
 # 2. Rename .template files (they become gitignored).

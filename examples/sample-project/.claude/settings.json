@@ -20,5 +20,5 @@
   "env": {},
 
   "_hooks_comment": "Hooks are configured in .claude/hooks/hooks.json.",
-  "_mcp_comment": "MCP servers live in .claude/claude_desktop_config.json (after renaming the template). For the canonical inventory, regenerate from runtimes/mcp/servers.yaml in the SpecForge repo."
+  "_mcp_comment": "MCP servers live in .claude/claude_desktop_config.json (after renaming the template). For the canonical inventory, regenerate from runtimes/mcp/servers.yaml in the SpecRoute repo."
 }

@@ -4,7 +4,7 @@
 
 Pre-release checklist + rollout playbook. Runs as **Stage 11** of [[Workflow PRD to Production]], after validation has passed.
 
-For the canonical version, see [`workflows/release-readiness.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/release-readiness.md).
+For the canonical version, see [`workflows/release-readiness.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/release-readiness.md).
 
 ## Entry conditions
 
@@ -132,7 +132,7 @@ Comms templates are project-specific. Drafting is part of release readiness; ad-
 
 ## Owner
 
-The deployment / SRE role (see [`agents/archetypes/devops-agent.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agents/archetypes/devops-agent.md)).
+The deployment / SRE role (see [`agents/archetypes/devops-agent.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agents/archetypes/devops-agent.md)).
 
 ## See also
 

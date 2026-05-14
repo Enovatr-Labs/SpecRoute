@@ -1,6 +1,6 @@
 # Workflow: Testing and Validation
 
-How a SpecForge-driven feature is validated against its spec. Runs as Stage 10 of [`prd-to-production.md`](prd-to-production.md), after all task PRs have merged.
+How a SpecRoute-driven feature is validated against its spec. Runs as Stage 10 of [`prd-to-production.md`](prd-to-production.md), after all task PRs have merged.
 
 ## Prerequisites
 

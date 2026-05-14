@@ -1,6 +1,6 @@
 # Code Review Rules
 
-How to review a PR (human or agent-authored) against SpecForge standards. Reuses [`prompts/shared/code-review-prompt.md`](../prompts/shared/code-review-prompt.md) as the operational prompt.
+How to review a PR (human or agent-authored) against SpecRoute standards. Reuses [`prompts/shared/code-review-prompt.md`](../prompts/shared/code-review-prompt.md) as the operational prompt.
 
 ## What every review checks
 

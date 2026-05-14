@@ -1,6 +1,6 @@
 # `.kiro/specs/`
 
-Kiro's spec triplet location - `<feature>/{requirements,design,tasks}.md`. Same triplet shape SpecForge uses elsewhere; Kiro reads it from this directory natively.
+Kiro's spec triplet location - `<feature>/{requirements,design,tasks}.md`. Same triplet shape SpecRoute uses elsewhere; Kiro reads it from this directory natively.
 
 ## Layout
 
@@ -16,7 +16,7 @@ Kiro's spec triplet location - `<feature>/{requirements,design,tasks}.md`. Same 
 
 If your project targets only Kiro, the spec triplet can live exclusively here.
 
-If you target multiple vendors, keep the vendor-neutral copy in `specs/examples/<feature>/` (the SpecForge convention) and either:
+If you target multiple vendors, keep the vendor-neutral copy in `specs/examples/<feature>/` (the SpecRoute convention) and either:
 
 - **Mirror** into `.kiro/specs/<feature>/` on each spec change.
 - **Symlink** `.kiro/specs/<feature>` → `../../../specs/examples/<feature>` (works in some Kiro versions; check yours).

@@ -14,7 +14,7 @@ Builds (or audits) the worked example in `examples/sample-project/` artifact-by-
 
 - The worked example is missing or incomplete
 - A reviewer wants to confirm the example exercises every artifact shape
-- Demonstrating SpecForge to a new contributor
+- Demonstrating SpecRoute to a new contributor
 
 ## Step 1: Pick a feature
 
@@ -71,5 +71,5 @@ If consumers should see the vendor-specific shape of the example, ask `runtime-a
 
 ## Don't use for
 
-- Building real features (this skill produces an example for SpecForge contributors, not a real implementation).
+- Building real features (this skill produces an example for SpecRoute contributors, not a real implementation).
 - Single-artifact updates (use the corresponding agent directly).

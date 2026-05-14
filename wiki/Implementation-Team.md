@@ -2,9 +2,9 @@
 
 <!-- sources: CLAUDE.md, .claude/agents/README.md -->
 
-This repo's own `.claude/` directory is **the SpecForge implementation team** — the agents, skills, commands, and hooks that build SpecForge itself. It is **not** the consumer template (those live in `runtimes/.claude/`).
+This repo's own `.claude/` directory is **the SpecRoute implementation team** — the agents, skills, commands, and hooks that build SpecRoute itself. It is **not** the consumer template (those live in `runtimes/.claude/`).
 
-For per-agent definitions, see [`.claude/agents/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agents/README.md).
+For per-agent definitions, see [`.claude/agents/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agents/README.md).
 
 ## What lives in `.claude/`
 
@@ -46,7 +46,7 @@ See [[Agents]] for the frontmatter contract and [[Frontmatter Contracts]] for th
 
 ## The 4 contributor skills
 
-Interactive workflows for SpecForge contributors:
+Interactive workflows for SpecRoute contributors:
 
 - **`scaffold-artifact`** — bootstrap a new artifact (PRD / spec / agent / skill / command / hook / prompt / runtime) with the right frontmatter and target path.
 - **`add-vendor`** — interactive walkthrough for adding a new agent CLI to the matrix.
@@ -62,7 +62,7 @@ Deterministic pre-commit checks:
 - **`/audit`** — comprehensive sweep (sanitization + frontmatter + vendor-matrix consistency + broken links + TODO health).
 - **`/parity`** — cross-vendor runtime parity check (`runtimes/.claude/` vs `runtimes/.codex/` skill / agent drift; MCP source-of-truth alignment).
 - **`/sanitize`** — quick string-level wordlist scan.
-- **`/status`** — SpecForge skeleton state report (which top-level dirs exist, which artifacts have been drafted, what's outstanding).
+- **`/status`** — SpecRoute skeleton state report (which top-level dirs exist, which artifacts have been drafted, what's outstanding).
 
 See [[Commands]] and [[Sanitization]].
 
@@ -70,7 +70,7 @@ See [[Commands]] and [[Sanitization]].
 
 Always-on automation:
 
-- **`session-start-status.sh`** (SessionStart) — prints the SpecForge skeleton status banner so Claude orients without re-grepping.
+- **`session-start-status.sh`** (SessionStart) — prints the SpecRoute skeleton status banner so Claude orients without re-grepping.
 - **`pre-bash-sanitize.sh`** (PreToolUse) — blocks `git commit` / `git push` / `gh pr create` / `gh release create` if `git grep` finds forbidden terms.
 - **`post-edit-frontmatter.sh`** (PostToolUse on Write/Edit) — validates frontmatter on agent / skill / command file writes; warns on stderr.
 
@@ -80,8 +80,8 @@ See [[Hooks]] and [[Sanitization]].
 
 | Path | Who reads it | Contents |
 |---|---|---|
-| `.claude/` | This repo's contributors (Claude Code) | The implementation team that *builds* SpecForge |
-| `runtimes/.claude/` | Consumers who drop it into their own repo | The template that *uses* SpecForge |
+| `.claude/` | This repo's contributors (Claude Code) | The implementation team that *builds* SpecRoute |
+| `runtimes/.claude/` | Consumers who drop it into their own repo | The template that *uses* SpecRoute |
 
 Don't confuse them. The consumer drops `runtimes/.claude/` into their repo; they do **not** copy `.claude/`. The implementation-team agents draft PRDs, specs, and agent definitions for the *consumer* template — they aren't themselves the template.
 
@@ -89,9 +89,9 @@ Don't confuse them. The consumer drops `runtimes/.claude/` into their repo; they
 
 Agents with `memory: project` in their frontmatter read/write `.claude/agent-memory/<agent-name>/<topic>.md`. Reference implementations:
 
-- [`sanitization-auditor/checklist.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agent-memory/sanitization-auditor/checklist.md) — canonical wordlist pointer + audit protocol.
-- [`runtime-architect/vendor-matrix-progress.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agent-memory/runtime-architect/vendor-matrix-progress.md) — vendor-by-vendor build-out state.
-- [`framework-docs-author/docs-status.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agent-memory/framework-docs-author/docs-status.md) — drafting progress for `agentic-docs/`.
+- [`sanitization-auditor/checklist.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agent-memory/sanitization-auditor/checklist.md) — canonical wordlist pointer + audit protocol.
+- [`runtime-architect/vendor-matrix-progress.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agent-memory/runtime-architect/vendor-matrix-progress.md) — vendor-by-vendor build-out state.
+- [`framework-docs-author/docs-status.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agent-memory/framework-docs-author/docs-status.md) — drafting progress for `agentic-docs/`.
 
 See [[Agent Memory]].
 

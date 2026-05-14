@@ -4,7 +4,7 @@
 
 Product Requirements Documents — the **business intent** layer of the spec-driven flow.
 
-For the canonical reference, see [`prds/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prds/README.md).
+For the canonical reference, see [`prds/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prds/README.md).
 
 ## Directory layout
 
@@ -95,7 +95,7 @@ Drafting and reviewing PRDs is owned by the `prd-author` agent (in `.claude/agen
 
 ## From PRD to spec triplet
 
-Once a PRD is `Approved`, the next step is the spec triplet. Use [`prompts/shared/prd-to-spec-prompt.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/prd-to-spec-prompt.md) as the conversion prompt. See [[Specs]] for what comes next.
+Once a PRD is `Approved`, the next step is the spec triplet. Use [`prompts/shared/prd-to-spec-prompt.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/prd-to-spec-prompt.md) as the conversion prompt. See [[Specs]] for what comes next.
 
 ## See also
 

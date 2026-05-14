@@ -2,9 +2,9 @@
 
 <!-- sources: workflows/prd-to-production.md -->
 
-The outer engineering loop. Takes a feature from "idea worth doing" to "live in production with stable metrics." Composes every artifact SpecForge produces.
+The outer engineering loop. Takes a feature from "idea worth doing" to "live in production with stable metrics." Composes every artifact SpecRoute produces.
 
-For the canonical version, see [`workflows/prd-to-production.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/prd-to-production.md).
+For the canonical version, see [`workflows/prd-to-production.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/prd-to-production.md).
 
 ## The 13 stages
 
@@ -38,7 +38,7 @@ Each stage has an entry condition, an output, and an exit gate.
 **Output**: `Status: Approved`. The PRD is now the contract.
 
 ### 4. Spec triplet draft
-**Owner**: tech lead (with `spec-author` agent). Use [`prompts/shared/prd-to-spec-prompt.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/prd-to-spec-prompt.md).
+**Owner**: tech lead (with `spec-author` agent). Use [`prompts/shared/prd-to-spec-prompt.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/prd-to-spec-prompt.md).
 **Output**: `specs/<slug>/{requirements,design,tasks}.md` with stable IDs, back-refs, populated coverage table.
 **Exit**: every PRD acceptance criterion maps to ≥1 requirement; every requirement maps to ≥1 task; coverage table has no `TODO` rows.
 
@@ -63,7 +63,7 @@ See [[Workflow Spec to Implementation]] for the inner loop.
 
 ### 9. PR review
 **Owner**: code reviewer (human or `code-reviewer` agent).
-**Use**: [`prompts/shared/code-review-prompt.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/code-review-prompt.md).
+**Use**: [`prompts/shared/code-review-prompt.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/code-review-prompt.md).
 **Exit**: approval; tests pass; `/audit` clean; sanitization gate doesn't fire.
 
 See [[Workflow Agent Review Loop]].
@@ -94,9 +94,9 @@ See [[Workflow Release Readiness]].
 
 For trivial work, some stages collapse:
 
-- **Lightweight feature** — Stages 4–6 use [`feature-spec-template.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/specs/templates/feature-spec-template.md) instead of the spec triplet.
-- **Refactor with no behavior change** — skip the PRD; use [`technical-spec-template.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/specs/templates/technical-spec-template.md) starting at Stage 4.
-- **One architectural decision** — use the [ADR template](https://github.com/Enovatr-Labs/SpecForge/blob/main/specs/templates/architecture-decision-record.md) only.
+- **Lightweight feature** — Stages 4–6 use [`feature-spec-template.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/specs/templates/feature-spec-template.md) instead of the spec triplet.
+- **Refactor with no behavior change** — skip the PRD; use [`technical-spec-template.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/specs/templates/technical-spec-template.md) starting at Stage 4.
+- **One architectural decision** — use the [ADR template](https://github.com/Enovatr-Labs/SpecRoute/blob/main/specs/templates/architecture-decision-record.md) only.
 
 **Don't skip Stages 9 (review), 10 (validation), or 11 (rollout). Those are the gate.**
 

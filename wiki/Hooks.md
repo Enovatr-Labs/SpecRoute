@@ -6,7 +6,7 @@ Event-triggered automation. Hooks run automatically when something happens (file
 
 **All six supported vendors ship a hooks system.** The event taxonomies and config shapes differ; the underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible.
 
-For the canonical reference (full event matrices), see [`hooks/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/hooks/README.md).
+For the canonical reference (full event matrices), see [`hooks/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/hooks/README.md).
 
 ## Per-vendor depth
 
@@ -82,9 +82,9 @@ See [[Security]] for the full hardening checklist.
 
 This repo's own `.claude/hooks/` ships three real, tracked hook scripts:
 
-- [`session-start-status.sh`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/hooks/session-start-status.sh) — SpecForge skeleton status banner.
-- [`pre-bash-sanitize.sh`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/hooks/pre-bash-sanitize.sh) — sanitization gate on `git commit` / `git push` / `gh pr create` / `gh release create`.
-- [`post-edit-frontmatter.sh`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/hooks/post-edit-frontmatter.sh) — frontmatter validation on agent/skill/command writes.
+- [`session-start-status.sh`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/hooks/session-start-status.sh) — SpecRoute skeleton status banner.
+- [`pre-bash-sanitize.sh`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/hooks/pre-bash-sanitize.sh) — sanitization gate on `git commit` / `git push` / `gh pr create` / `gh release create`.
+- [`post-edit-frontmatter.sh`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/hooks/post-edit-frontmatter.sh) — frontmatter validation on agent/skill/command writes.
 
 Read these as worked examples of the hook protocol (stdin JSON, exit codes, stderr usage). Each per-vendor template under `hooks/<vendor>/` adapts these patterns to that vendor's config shape.
 

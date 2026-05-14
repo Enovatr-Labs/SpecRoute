@@ -2,9 +2,9 @@
 
 <!-- sources: agentic-docs/cross-vendor-sync.md, tools/README.md -->
 
-How a SpecForge-driven project keeps the artifacts that several vendors consume in lock-step. This is the maintainability story for multi-vendor support.
+How a SpecRoute-driven project keeps the artifacts that several vendors consume in lock-step. This is the maintainability story for multi-vendor support.
 
-For the canonical reference, see [`agentic-docs/cross-vendor-sync.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/cross-vendor-sync.md).
+For the canonical reference, see [`agentic-docs/cross-vendor-sync.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/cross-vendor-sync.md).
 
 ## What needs to stay synced
 

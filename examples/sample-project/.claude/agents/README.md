@@ -38,4 +38,4 @@ The frontmatter contract (`name`, `description` with triggers, `model`, `color`)
 
 ## Mirror to Codex
 
-If you also target Codex, mirror these agents into `.codex/agents/<name>.md` (same shape) and run `tools/sync-skills.py` (which also handles agents) from the SpecForge framework to detect drift.
+If you also target Codex, mirror these agents into `.codex/agents/<name>.md` (same shape) and run `tools/sync-skills.py` (which also handles agents) from the SpecRoute framework to detect drift.

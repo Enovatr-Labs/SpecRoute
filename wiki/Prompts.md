@@ -4,7 +4,7 @@
 
 Reusable prompts — global masters, phase masters, task prompts, and per-vendor prompt sets.
 
-For the canonical reference, see [`prompts/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/README.md).
+For the canonical reference, see [`prompts/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/README.md).
 
 ## Directory layout
 
@@ -50,9 +50,9 @@ Templates for the three layers:
 
 | Layer | Template |
 |---|---|
-| Global master | [`shared/global-master-prompt-template.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/global-master-prompt-template.md) |
-| Phase master | [`shared/phase-master-prompt-template.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/phase-master-prompt-template.md) |
-| Task prompt | [`shared/task-prompt-template.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/task-prompt-template.md) |
+| Global master | [`shared/global-master-prompt-template.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/global-master-prompt-template.md) |
+| Phase master | [`shared/phase-master-prompt-template.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/phase-master-prompt-template.md) |
+| Task prompt | [`shared/task-prompt-template.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/task-prompt-template.md) |
 
 ## The task-prompt shape (load-bearing)
 
@@ -78,7 +78,7 @@ Each of `codex/` and `claude/` ships the same four prompts:
 - `implementation-prompt.md` — short ad-hoc implementation prompt (use `task-prompt-template` for production work).
 - `refactor-prompt.md` — behavior-preserving refactor.
 - `test-generation-prompt.md` — generate tests against requirement IDs.
-- `repo-bootstrap-prompt.md` — populate a new repo with SpecForge structure.
+- `repo-bootstrap-prompt.md` — populate a new repo with SpecRoute structure.
 
 Gemini, Kiro, Cursor, and Windsurf don't have dedicated prompt directories yet. The `shared/` prompts work in any agent CLI that reads markdown.
 

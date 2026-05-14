@@ -1,6 +1,6 @@
 # Maintainers
 
-SpecForge is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)** as an open-source contribution to the agentic-engineering ecosystem.
+SpecRoute is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)** as an open-source contribution to the agentic-engineering ecosystem.
 
 ## Current maintainers
 
@@ -15,14 +15,14 @@ SpecForge is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)** a
 | Report a security vulnerability | `security@enovatr.com` (preferred) — see [`SECURITY.md`](SECURITY.md) for the full disclosure protocol |
 | Discuss a contribution before opening a PR | Open a GitHub issue or `chika@enovatr.com` |
 | Ask about commercial use, partnerships, or extended support | `chika@enovatr.com` |
-| Report a bug or propose a feature | [GitHub issues](https://github.com/Enovatr-Labs/SpecForge/issues) |
+| Report a bug or propose a feature | [GitHub issues](https://github.com/Enovatr-Labs/SpecRoute/issues) |
 | Contribute | See [`CONTRIBUTING.md`](CONTRIBUTING.md) |
 
 For non-security inquiries, prefer GitHub issues — they're public, searchable, and let the community participate.
 
 ## Sponsoring organization
 
-[Enovatr Labs](https://github.com/Enovatr-Labs) sponsors SpecForge as part of its work on agentic engineering tooling. The framework is intentionally vendor-neutral and not tied to any Enovatr product; it's a community-curated framework that Enovatr also uses internally.
+[Enovatr Labs](https://github.com/Enovatr-Labs) sponsors SpecRoute as part of its work on agentic engineering tooling. The framework is intentionally vendor-neutral and not tied to any Enovatr product; it's a community-curated framework that Enovatr also uses internally.
 
 ## Becoming a maintainer
 
@@ -45,16 +45,16 @@ For breaking changes to the framework's contracts (vendor matrix, frontmatter, s
 
 ## What this project is *not*
 
-- **A SaaS or hosted service.** SpecForge is markdown content. We don't run anything.
+- **A SaaS or hosted service.** SpecRoute is markdown content. We don't run anything.
 - **A vendor-specific framework.** We treat Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf as parallel execution environments. The matrix is the contract.
 - **A standards body.** We propose patterns we've found useful; consumers fork what they need and ignore the rest.
 
 ## Acknowledgments
 
-SpecForge generalizes patterns from internal Enovatr Labs codebases into a public framework. Specific design choices (the spec triplet, the phased master-prompt pattern, the per-vendor runtime layouts) draw on production usage across multiple projects. Sanitized for public release.
+SpecRoute generalizes patterns from internal Enovatr Labs codebases into a public framework. Specific design choices (the spec triplet, the phased master-prompt pattern, the per-vendor runtime layouts) draw on production usage across multiple projects. Sanitized for public release.
 
-The agentic-engineering ecosystem moves quickly. We watch the upstream conventions of the agent CLIs we support and update SpecForge in lock-step when they evolve (see commit history for examples — the ~27-event Claude Code hook taxonomy and the cross-vendor hook coverage were added when those vendors shipped or expanded their hooks systems).
+The agentic-engineering ecosystem moves quickly. We watch the upstream conventions of the agent CLIs we support and update SpecRoute in lock-step when they evolve (see commit history for examples — the ~27-event Claude Code hook taxonomy and the cross-vendor hook coverage were added when those vendors shipped or expanded their hooks systems).
 
 ## License
 
-SpecForge is released under [Apache 2.0](LICENSE). Copyright (c) Enovatr Labs.
+SpecRoute is released under [Apache 2.0](LICENSE). Copyright (c) Enovatr Labs.

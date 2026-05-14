@@ -4,7 +4,7 @@ Claude Code shim. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical, vend
 
 ## Claude-Specific Context
 
-- This project's `.claude/` is the **consumer runtime** (not the SpecForge framework's implementation team). It carries 8 implementation-team agents specific to user-search.
+- This project's `.claude/` is the **consumer runtime** (not the SpecRoute framework's implementation team). It carries 8 implementation-team agents specific to user-search.
 - Agents: `prd-author`, `backend-engineer`, `frontend-engineer`, `database-engineer`, `security-auditor`, `unit-test-writer`, `integration-test-generator`, `deployment-validator`. See [`.claude/agents/README.md`](.claude/agents/README.md).
 - Commands: `/sanitize`, `/audit`, `/status`, `/parity`.
 - Hooks: SessionStart status, PreToolUse sanitization gate, PostToolUse frontmatter check.
@@ -32,8 +32,8 @@ The PostToolUse hook surfaces missing fields on stderr at write time.
 
 ## Before Publishing
 
-Run `/audit` (comprehensive sweep) or `/sanitize` (string scan). For deeper review, see [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) and the framework's [`workflows/release-readiness.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/release-readiness.md).
+Run `/audit` (comprehensive sweep) or `/sanitize` (string scan). For deeper review, see [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) and the framework's [`workflows/release-readiness.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/release-readiness.md).
 
 ## Deep references
 
-For project-level conceptual content (philosophy, spec-driven flow, doc structure, agent-memory pattern), read [`agentic-docs/`](agentic-docs/). Each file is project-specific; for the broader framework theory, links lead to upstream SpecForge.
+For project-level conceptual content (philosophy, spec-driven flow, doc structure, agent-memory pattern), read [`agentic-docs/`](agentic-docs/). Each file is project-specific; for the broader framework theory, links lead to upstream SpecRoute.

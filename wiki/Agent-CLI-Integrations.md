@@ -2,9 +2,9 @@
 
 <!-- sources: agentic-docs/agent-cli-integrations.md, runtimes/README.md -->
 
-Concrete wiring for SpecForge into each supported agent CLI. Copy commands per vendor.
+Concrete wiring for SpecRoute into each supported agent CLI. Copy commands per vendor.
 
-For the canonical reference, see [`agentic-docs/agent-cli-integrations.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/agent-cli-integrations.md). For the supported matrix, see [[Vendor Matrix]].
+For the canonical reference, see [`agentic-docs/agent-cli-integrations.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/agent-cli-integrations.md). For the supported matrix, see [[Vendor Matrix]].
 
 ## Claude Code
 
@@ -20,7 +20,7 @@ mv claude_desktop_config.template.json claude_desktop_config.json
 mv hooks/hooks.template.json           hooks/hooks.json
 
 # 3. Install hook scripts
-cp /path/to/specforge/.claude/hooks/*.sh /path/to/your/repo/.claude/hooks/scripts/
+cp /path/to/specroute/.claude/hooks/*.sh /path/to/your/repo/.claude/hooks/scripts/
 chmod +x /path/to/your/repo/.claude/hooks/scripts/*.sh
 
 # 4. Create the gitignored sanitization wordlist
@@ -33,7 +33,7 @@ echo ".claude/.forbidden-strings.txt"     >> /path/to/your/repo/.gitignore
 # 6. Populate agents/, skills/, commands/ as your project requires.
 ```
 
-Per-runtime details: [`runtimes/.claude/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/runtimes/.claude/README.md).
+Per-runtime details: [`runtimes/.claude/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.claude/README.md).
 
 ## Codex
 
@@ -43,14 +43,14 @@ cd /path/to/your/repo/.codex
 mv config.template.toml config.toml
 
 # Mirror skills and agents from your Claude runtime
-python3 /path/to/specforge/tools/sync-skills.py --source claude --apply
+python3 /path/to/specroute/tools/sync-skills.py --source claude --apply
 ```
 
 Codex consumes the **same** `<name>.md` agent shape and the **same** folder-per-skill `SKILL.md` shape as Claude Code, so most content cross-mirrors. The `config.toml` carries Codex-specific MCP config and approval policy.
 
 Codex hooks require `[features] codex_hooks = true` in `config.toml`.
 
-Per-runtime details: [`runtimes/.codex/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/runtimes/.codex/README.md).
+Per-runtime details: [`runtimes/.codex/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.codex/README.md).
 
 ## Gemini CLI
 
@@ -72,7 +72,7 @@ It does **not** consume skills, agents, or hooks. Project conventions surface th
 - The shared `prompts/` directory (Gemini reads markdown prompts pasted into the conversation).
 - `rules/gemini-rules.md` documents what's available.
 
-Per-runtime details: [`runtimes/.gemini/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/runtimes/.gemini/README.md).
+Per-runtime details: [`runtimes/.gemini/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.gemini/README.md).
 
 ## Kiro
 
@@ -88,7 +88,7 @@ Kiro consumes:
 
 Mirror your project's spec triplet content from `specs/<feature>/` into `.kiro/specs/<feature>/` (or symlink, where supported).
 
-Per-runtime details: [`runtimes/.kiro/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/runtimes/.kiro/README.md).
+Per-runtime details: [`runtimes/.kiro/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.kiro/README.md).
 
 ## Cursor
 
@@ -113,7 +113,7 @@ globs: ["src/**/*.tsx"]       # for context-aware loading
 (rule body — copy from rules/<topic>.md)
 ```
 
-Per-runtime details: [`runtimes/.cursor/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/runtimes/.cursor/README.md).
+Per-runtime details: [`runtimes/.cursor/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.cursor/README.md).
 
 ## Windsurf
 
@@ -123,7 +123,7 @@ cp -R runtimes/.windsurf/ /path/to/your/repo/.windsurf/
 
 Windsurf consumes `.windsurf/rules/*.md` with frontmatter similar to Cursor's. Use `trigger: always` for cross-cutting rules, `trigger: model-decision` with `globs` for context-aware rules.
 
-Per-runtime details: [`runtimes/.windsurf/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/runtimes/.windsurf/README.md).
+Per-runtime details: [`runtimes/.windsurf/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.windsurf/README.md).
 
 ## MCP single source of truth
 

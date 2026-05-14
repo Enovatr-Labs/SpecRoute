@@ -2,7 +2,7 @@
 
 **Version**: 1.0
 **Date**: 2026-05-08
-**Author**: SpecForge worked example
+**Author**: SpecRoute worked example
 **Status**: Approved
 **Source PRD**: [`../../prds/active/user-search.md`](../../prds/active/user-search.md)
 

@@ -1,6 +1,6 @@
 # Security Policy
 
-SpecForge is markdown content - templates, prompts, agent definitions, runtime layouts - not a runtime application. The threat model is narrow but real, and we take it seriously.
+SpecRoute is markdown content - templates, prompts, agent definitions, runtime layouts - not a runtime application. The threat model is narrow but real, and we take it seriously.
 
 ## What's in scope
 
@@ -17,7 +17,7 @@ We treat the following as security issues:
 The following are not security issues we can address here:
 
 - Vulnerabilities in the agent CLIs themselves (Claude Code, Codex, Gemini CLI, Kiro, Cursor, Windsurf). Report those upstream to the respective vendors.
-- Vulnerabilities in MCP servers SpecForge references but doesn't ship (e.g. `@modelcontextprotocol/server-filesystem`). Report upstream.
+- Vulnerabilities in MCP servers SpecRoute references but doesn't ship (e.g. `@modelcontextprotocol/server-filesystem`). Report upstream.
 - Generic prompt-injection in third-party content a consumer feeds into their agent CLI.
 - Security of consumer-extracted artifacts after they fork/copy templates - the responsibility shifts at extraction time.
 
@@ -27,7 +27,7 @@ Please report suspected vulnerabilities **privately** before opening a public is
 
 - **Email:** `security@enovatr.com` (primary), `chika@enovatr.com` (fallback)
 - **GitHub:** open a private security advisory at <repo>/security/advisories/new
-- **Subject line:** `[SpecForge SECURITY] <short description>`
+- **Subject line:** `[SpecRoute SECURITY] <short description>`
 
 Include:
 
@@ -54,7 +54,7 @@ For critical issues we will coordinate with you on disclosure timing.
 
 ## Recognition
 
-We're happy to credit reporters in the security advisory and release notes unless you prefer to remain anonymous. SpecForge does not currently offer a paid bug bounty.
+We're happy to credit reporters in the security advisory and release notes unless you prefer to remain anonymous. SpecRoute does not currently offer a paid bug bounty.
 
 ## Hardening practices
 

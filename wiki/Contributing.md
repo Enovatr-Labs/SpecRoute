@@ -2,15 +2,15 @@
 
 <!-- sources: CONTRIBUTING.md -->
 
-SpecForge is a community-curated framework. Contributions are **markdown content** — templates, prompts, agent definitions, skills, hooks, workflows, rules — not application code.
+SpecRoute is a community-curated framework. Contributions are **markdown content** — templates, prompts, agent definitions, skills, hooks, workflows, rules — not application code.
 
-Full guide: [CONTRIBUTING.md](https://github.com/Enovatr-Labs/SpecForge/blob/main/CONTRIBUTING.md). Community standards: [CODE_OF_CONDUCT.md](https://github.com/Enovatr-Labs/SpecForge/blob/main/CODE_OF_CONDUCT.md). Security reports: see [[Security]].
+Full guide: [CONTRIBUTING.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CONTRIBUTING.md). Community standards: [CODE_OF_CONDUCT.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CODE_OF_CONDUCT.md). Security reports: see [[Security]].
 
 ## Before you start
 
 1. Read [[Home]] and [[Philosophy]] for project framing.
 2. Skim the [[Worked Example]] for the artifact shapes end-to-end.
-3. Search [issues](https://github.com/Enovatr-Labs/SpecForge/issues) and [pull requests](https://github.com/Enovatr-Labs/SpecForge/pulls) for related work in flight.
+3. Search [issues](https://github.com/Enovatr-Labs/SpecRoute/issues) and [pull requests](https://github.com/Enovatr-Labs/SpecRoute/pulls) for related work in flight.
 
 ## What we accept
 
@@ -27,7 +27,7 @@ Full guide: [CONTRIBUTING.md](https://github.com/Enovatr-Labs/SpecForge/blob/mai
 
 - Domain-specific business logic (finance, healthcare, etc.) — keep examples generic.
 - Vendor-favoring changes that break parity in the supported matrix.
-- Build tooling, package configs, or test runners — SpecForge is content, not an application.
+- Build tooling, package configs, or test runners — SpecRoute is content, not an application.
 - Templates that aren't immediately usable (no abstract checklists, no theory-only docs).
 - Material extracted from a private codebase without [[Sanitization]].
 
@@ -57,7 +57,7 @@ Full guide: [CONTRIBUTING.md](https://github.com/Enovatr-Labs/SpecForge/blob/mai
 
 ## License
 
-By contributing, you agree your contributions are licensed under the [Apache 2.0 License](https://github.com/Enovatr-Labs/SpecForge/blob/main/LICENSE).
+By contributing, you agree your contributions are licensed under the [Apache 2.0 License](https://github.com/Enovatr-Labs/SpecRoute/blob/main/LICENSE).
 
 ## See also
 

@@ -27,7 +27,7 @@ When you need to add documentation, ask:
 ## Where each doc type lives
 
 ```
-specforge/
+specroute/
 ├── README.md                            project overview, vendor matrix, getting-started
 ├── AGENTS.md                            canonical root context (single source of truth)
 ├── CLAUDE.md / GEMINI.md                vendor-specific delegation shims

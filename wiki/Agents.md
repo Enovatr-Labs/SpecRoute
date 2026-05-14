@@ -4,7 +4,7 @@
 
 Agent definitions — defined roles with model, tools, and operating principles, invokable by an agent CLI runtime.
 
-For the canonical reference, see [`agents/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agents/README.md).
+For the canonical reference, see [`agents/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agents/README.md).
 
 ## Directory layout
 
@@ -52,7 +52,7 @@ See [[Frontmatter Contracts]] for field-by-field guidance.
 
 ## The "Don't use for" section is load-bearing
 
-Every agent definition must have a "Don't use for" section that explicitly hands off to neighboring agents. This is how SpecForge keeps agent rosters from becoming spaghetti — boundaries are crisp because they're written down.
+Every agent definition must have a "Don't use for" section that explicitly hands off to neighboring agents. This is how SpecRoute keeps agent rosters from becoming spaghetti — boundaries are crisp because they're written down.
 
 ## Per-vendor mirrors
 
@@ -81,13 +81,13 @@ To keep the two runtime mirrors aligned: invoke `runtime-architect` or run `tool
 
 ## The agent roster
 
-A SpecForge-driven project maintains an `agent-roster.md` (template at `agents/roster.md`) that:
+A SpecRoute-driven project maintains an `agent-roster.md` (template at `agents/roster.md`) that:
 
 - Groups agents by department (Specification, Implementation, Quality, Operations, Documentation, Strategic Advisors).
 - Lists each agent's model, color, memory, internet flags.
 - Documents the per-task assignment when implementing a feature.
 
-See the canonical roster template at [`agents/roster.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agents/roster.md).
+See the canonical roster template at [`agents/roster.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agents/roster.md).
 
 ## Owner agent
 

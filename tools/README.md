@@ -1,6 +1,6 @@
 # Tools
 
-Cross-runtime utility scripts for SpecForge consumers. These are templates - fork them as your project grows.
+Cross-runtime utility scripts for SpecRoute consumers. These are templates - fork them as your project grows.
 
 ```
 tools/

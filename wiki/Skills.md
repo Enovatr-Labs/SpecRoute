@@ -4,7 +4,7 @@
 
 Interactive, parameterized workflows. A skill guides the user through a multi-step task with prompts at decision points and validation checkpoints. Skills are **interactive by design** — that's what distinguishes them from agents (autonomous), commands (one-shot deterministic), and hooks (event-triggered).
 
-For the canonical reference, see [`skills/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/skills/README.md).
+For the canonical reference, see [`skills/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/skills/README.md).
 
 ## Folder-per-skill convention
 
@@ -85,10 +85,10 @@ Codex doesn't have a separate command primitive. Operations that would be Claude
 
 The four contributor skills in this repo's own `.claude/skills/` are real, tracked examples:
 
-- [`scaffold-artifact`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/skills/scaffold-artifact/SKILL.md) — interactive scaffolding for any artifact type.
-- [`add-vendor`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/skills/add-vendor/SKILL.md) — walks through adding a new agent CLI to the matrix.
-- [`example-walkthrough`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/skills/example-walkthrough/SKILL.md) — guided build of `examples/sample-project/`.
-- [`frontmatter-lint`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/skills/frontmatter-lint/SKILL.md) — interactive frontmatter validation with offered fixes.
+- [`scaffold-artifact`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/skills/scaffold-artifact/SKILL.md) — interactive scaffolding for any artifact type.
+- [`add-vendor`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/skills/add-vendor/SKILL.md) — walks through adding a new agent CLI to the matrix.
+- [`example-walkthrough`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/skills/example-walkthrough/SKILL.md) — guided build of `examples/sample-project/`.
+- [`frontmatter-lint`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/skills/frontmatter-lint/SKILL.md) — interactive frontmatter validation with offered fixes.
 
 ## Owner agent
 

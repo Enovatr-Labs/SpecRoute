@@ -4,7 +4,7 @@
 
 Engineering standards and conventions. Vendor-neutral content lives in the top-level files; per-vendor format conventions live in `<vendor>-rules.md`; rule-loading semantics live in `steering/`.
 
-For the canonical reference, see [`rules/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/rules/README.md).
+For the canonical reference, see [`rules/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/rules/README.md).
 
 ## Directory layout
 
@@ -26,7 +26,7 @@ rules/
 
 ## How to use this directory
 
-1. **Pick what to enforce.** Read the four shared rule files (`engineering`, `code-review`, `security`, `documentation`). These are SpecForge's defaults; adapt to your project.
+1. **Pick what to enforce.** Read the four shared rule files (`engineering`, `code-review`, `security`, `documentation`). These are SpecRoute's defaults; adapt to your project.
 2. **Pick how to enforce it per vendor.** Each `<vendor>-rules.md` file explains how that vendor surfaces rules.
 3. **Choose loading semantics.** `steering/` documents the two modes (always-on, file-pattern-matched).
 

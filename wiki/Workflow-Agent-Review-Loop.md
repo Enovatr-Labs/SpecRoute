@@ -2,9 +2,9 @@
 
 <!-- sources: workflows/agent-review-loop.md -->
 
-How agent-assisted code review works in a SpecForge-driven project. Pairs an agent's structured analysis with a human's judgment authority.
+How agent-assisted code review works in a SpecRoute-driven project. Pairs an agent's structured analysis with a human's judgment authority.
 
-For the canonical version, see [`workflows/agent-review-loop.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/agent-review-loop.md).
+For the canonical version, see [`workflows/agent-review-loop.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/agent-review-loop.md).
 
 ## Why agent-assisted review
 
@@ -53,7 +53,7 @@ The agent CLI runs the code-review prompt over the PR. Inputs:
 - The corresponding `tasks.md`, `requirements.md`, `design.md`.
 - Relevant rules under `rules/`.
 
-The prompt is [`prompts/shared/code-review-prompt.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/code-review-prompt.md). Output structure:
+The prompt is [`prompts/shared/code-review-prompt.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/code-review-prompt.md). Output structure:
 
 ```
 ## Summary
@@ -126,7 +126,7 @@ The agent's review is a checklist, not a vote.
 
 If the agent's review is shallow or wrong:
 
-- Update [`prompts/shared/code-review-prompt.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/code-review-prompt.md) to be more specific.
+- Update [`prompts/shared/code-review-prompt.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/code-review-prompt.md) to be more specific.
 - Add the agent's blind spot to its `.md` operating principles.
 - Train the team on what the agent does and doesn't catch.
 

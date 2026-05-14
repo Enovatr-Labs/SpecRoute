@@ -2,7 +2,7 @@
 
 <!-- sources: agents/README.md, skills/README.md, commands/README.md, prds/README.md, specs/README.md -->
 
-The required-field reference for every SpecForge artifact with a frontmatter contract. Missing fields = the artifact won't register in the runtime (for agents/skills/commands) or won't satisfy the lifecycle gates (for PRDs/specs).
+The required-field reference for every SpecRoute artifact with a frontmatter contract. Missing fields = the artifact won't register in the runtime (for agents/skills/commands) or won't satisfy the lifecycle gates (for PRDs/specs).
 
 ## Agent
 

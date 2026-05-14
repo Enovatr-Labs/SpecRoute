@@ -28,7 +28,7 @@ When a feature ships and its PRD moves to `../prds/archive/`, the spec triplet t
 
 ## Templates
 
-This project's specs are based on the SpecForge framework's templates:
+This project's specs are based on the SpecRoute framework's templates:
 
 - [`specs/templates/requirements-template.md`](../../../specs/templates/requirements-template.md)
 - [`specs/templates/design-template.md`](../../../specs/templates/design-template.md)

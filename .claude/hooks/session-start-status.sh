@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# SessionStart hook: prints a SpecForge skeleton status banner so Claude
+# SessionStart hook: prints a SpecRoute skeleton status banner so Claude
 # knows what's built vs. missing without re-grepping every session.
 #
 # Exit 0 always - informational only.
@@ -9,7 +9,7 @@ set -u
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
-echo "── SpecForge skeleton status ──────────────────────────────────────"
+echo "── SpecRoute skeleton status ──────────────────────────────────────"
 
 # Top-level dirs from initial.md target structure
 EXPECTED_DIRS=(docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets)

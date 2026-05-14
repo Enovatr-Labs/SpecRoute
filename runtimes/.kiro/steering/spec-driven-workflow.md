@@ -4,7 +4,7 @@ inclusion: always
 
 # Spec-Driven Workflow
 
-Use this steering file in every Kiro conversation for a SpecForge-enabled repo.
+Use this steering file in every Kiro conversation for a SpecRoute-enabled repo.
 
 Work moves in this order:
 

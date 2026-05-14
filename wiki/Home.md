@@ -1,8 +1,8 @@
-# SpecForge Wiki
+# SpecRoute Wiki
 
 **An open-source framework for spec-driven agentic software engineering — vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf.**
 
-SpecForge captures production-grade patterns for PRDs, specifications, prompts, agents, skills, slash commands, hooks, workflows, and engineering rules. It is **content, not an application**: drop the templates and runtime layouts into your own repo and adapt them to your stack.
+SpecRoute captures production-grade patterns for PRDs, specifications, prompts, agents, skills, slash commands, hooks, workflows, and engineering rules. It is **content, not an application**: drop the templates and runtime layouts into your own repo and adapt them to your stack.
 
 ---
 
@@ -56,7 +56,7 @@ Read [[Spec-Driven Development]] for the full flow, [[Agentic Coding Model]] for
 
 ### Reference & governance
 - [[Worked Example]] — drop-in runnable `user-search` feature
-- [[Implementation Team]] — the `.claude/` runtime that builds SpecForge itself
+- [[Implementation Team]] — the `.claude/` runtime that builds SpecRoute itself
 - [[Contributing]] · [[Security]] · [[Maintainers]] · [[Code of Conduct]]
 - [[Roadmap]] · [[FAQ]] · [[Glossary]]
 
@@ -66,8 +66,8 @@ Read [[Spec-Driven Development]] for the full flow, [[Agentic Coding Model]] for
 - **Phases 1–3 complete** (skeleton, core templates, runtime layouts).
 - **Phase 4 in progress** (real-world adoption, more vendors, DOI registration).
 
-See [[Roadmap]] for the full picture and the project's [CHANGELOG](https://github.com/Enovatr-Labs/SpecForge/blob/main/CHANGELOG.md) for the release log.
+See [[Roadmap]] for the full picture and the project's [CHANGELOG](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CHANGELOG.md) for the release log.
 
 ## License & citation
 
-[Apache 2.0](https://github.com/Enovatr-Labs/SpecForge/blob/main/LICENSE) — Copyright (c) Enovatr Labs. Maintainer: [Chika Ihejimba](https://github.com/cihejimba). For academic citation, see [`CITATION.cff`](https://github.com/Enovatr-Labs/SpecForge/blob/main/CITATION.cff).
+[Apache 2.0](https://github.com/Enovatr-Labs/SpecRoute/blob/main/LICENSE) — Copyright (c) Enovatr Labs. Maintainer: [Chika Ihejimba](https://github.com/cihejimba). For academic citation, see [`CITATION.cff`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CITATION.cff).

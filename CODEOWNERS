@@ -1,4 +1,4 @@
-# SpecForge code owners.
+# SpecRoute code owners.
 #
 # Format: <pattern>  <owner-1> [<owner-2> ...]
 # Owners are notified on PRs touching matching files and (with branch

@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to SpecForge are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+All notable changes to SpecRoute are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 For a content-only framework, versions are interpreted as:
 
@@ -12,7 +12,9 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
-(Changes accumulating since v0.2.0 will be listed here.)
+### Changed
+
+- Project renamed from SpecForge to SpecRoute. The original name collided with another existing GitHub project; the repo now lives at [`Enovatr-Labs/SpecRoute`](https://github.com/Enovatr-Labs/SpecRoute). GitHub maintains an automatic redirect from the old `Enovatr-Labs/SpecForge` URL, so existing clones and links continue to resolve.
 
 ---
 
@@ -43,7 +45,7 @@ First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.
 
 ### Changed
 
-- Branch model: dropped `staging` tier. develop → main is now the only flow; nothing deploys from SpecForge, so the previous develop → staging → main chain added friction without signal.
+- Branch model: dropped `staging` tier. develop → main is now the only flow; nothing deploys from SpecRoute, so the previous develop → staging → main chain added friction without signal.
 - Action versions (Node24 runtime bumps for GitHub-org maintained actions): `actions/cache@v4` → `v5`, `actions/checkout@v4` → `v6`, `peter-evans/create-issue-from-file@v5` → `v6`. No API/behavior changes affect our workflows.
 - `.github/workflows/links.yml` - lychee runs on every PR regardless of which files changed (was filtered to markdown only). Prevents non-markdown PRs from deadlocking against the required-status-check gate.
 
@@ -64,11 +66,11 @@ First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.
   - `main-ruleset` - require PR + 1 Code Owner approval + linear history + squash-only merges + lychee status check; force-push and deletion blocked; `bypass_actors` carries the maintainer with `bypass_mode: pull_request` to resolve the solo-maintainer self-approval deadlock.
   - `develop-ruleset` - same shape with 0 approvals required and no Code Owner requirement.
   - `release-tags-ruleset` - locks `v*` tags from update and deletion once created.
-- Repository history sanitized: one commit message body containing a reference to the upstream private codebase from which SpecForge was extracted was rewritten before public flip. The rewrite preserves all file content and authorship; only the message paragraph in that one commit changed. The `v0.1.0` tag and release object were retargeted to the rewritten commit chain.
+- Repository history sanitized: one commit message body containing a reference to the upstream private codebase from which SpecRoute was extracted was rewritten before public flip. The rewrite preserves all file content and authorship; only the message paragraph in that one commit changed. The `v0.1.0` tag and release object were retargeted to the rewritten commit chain.
 - Sanitization infrastructure validated end-to-end on real-world push attempts: PreToolUse `pre-bash-sanitize.sh` hook + gitignored `.claude/.forbidden-strings.txt` wordlist + `/sanitize` command + `sanitization-auditor` agent.
 
-[Unreleased]: https://github.com/Enovatr-Labs/SpecForge/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/Enovatr-Labs/SpecForge/releases/tag/v0.2.0
+[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.0
 
 ---
 
@@ -136,4 +138,4 @@ Initial public release. Phases 1-3 of the roadmap complete; Phase 4 (maturity) i
 - Frontmatter contracts as load-bearing: agents, skills, commands all have required-field contracts; the PostToolUse hook validates on save.
 - Spec-driven flow: PRD → spec triplet (with stable IDs) → numbered tasks (with back-refs) → phased prompts (with current/target diff blocks) → implementation → validation → review.
 
-[0.1.0]: https://github.com/Enovatr-Labs/SpecForge/releases/tag/v0.1.0
+[0.1.0]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.1.0

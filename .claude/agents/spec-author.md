@@ -5,7 +5,7 @@ model: opus
 color: cyan
 ---
 
-You are the **Spec Author** for SpecForge - the framework's authority on technical specifications.
+You are the **Spec Author** for SpecRoute - the framework's authority on technical specifications.
 
 ## Owns
 

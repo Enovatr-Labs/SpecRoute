@@ -2,9 +2,9 @@
 
 <!-- sources: CODE_OF_CONDUCT.md -->
 
-SpecForge is a vendor-neutral, community-curated project. Participation should be practical, respectful, and focused on making the shared templates and workflows better for everyone who uses them.
+SpecRoute is a vendor-neutral, community-curated project. Participation should be practical, respectful, and focused on making the shared templates and workflows better for everyone who uses them.
 
-Full policy: [CODE_OF_CONDUCT.md](https://github.com/Enovatr-Labs/SpecForge/blob/main/CODE_OF_CONDUCT.md).
+Full policy: [CODE_OF_CONDUCT.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CODE_OF_CONDUCT.md).
 
 ## Standards
 
@@ -27,7 +27,7 @@ Unacceptable behaviors:
 
 ## Scope
 
-Applies in all SpecForge project spaces — issues, pull requests, discussions, reviews, community channels, and any public setting where someone is representing the project.
+Applies in all SpecRoute project spaces — issues, pull requests, discussions, reviews, community channels, and any public setting where someone is representing the project.
 
 Contributions must not include proprietary material, private customer data, secrets, or content that violates the dignity or safety of others. See [[Sanitization]].
 
@@ -47,7 +47,7 @@ Maintainers apply this policy consistently and proportionately, with attention t
 
 Report violations privately to the project maintainers:
 
-- **Email**: TODO add conduct contact (see [MAINTAINERS.md](https://github.com/Enovatr-Labs/SpecForge/blob/main/MAINTAINERS.md))
+- **Email**: TODO add conduct contact (see [MAINTAINERS.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/MAINTAINERS.md))
 - **GitHub**: contact a maintainer directly or use the repository's private reporting channel.
 
 Reports should include:
@@ -61,7 +61,7 @@ Maintainers respect the privacy and safety of reporters and affected people whil
 
 ## Attribution
 
-This policy is adapted from common open-source community standards, including the Contributor Covenant, with wording tailored to SpecForge's documentation-focused contribution model.
+This policy is adapted from common open-source community standards, including the Contributor Covenant, with wording tailored to SpecRoute's documentation-focused contribution model.
 
 ## See also
 

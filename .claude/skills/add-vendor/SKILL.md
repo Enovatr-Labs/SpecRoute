@@ -1,6 +1,6 @@
 ---
 name: add-vendor
-description: Interactive workflow for adding a new agent CLI vendor to the SpecForge supported matrix. Walks through scaffolding the runtime layout, adding the vendor's row to the matrix table, creating the per-vendor rule file, wiring MCP rendering (if applicable), and updating cross-vendor sync. Use when proposing or implementing support for a new agent CLI.
+description: Interactive workflow for adding a new agent CLI vendor to the SpecRoute supported matrix. Walks through scaffolding the runtime layout, adding the vendor's row to the matrix table, creating the per-vendor rule file, wiring MCP rendering (if applicable), and updating cross-vendor sync. Use when proposing or implementing support for a new agent CLI.
 argument-hint: "[vendor-name]"
 user-invocable: true
 allowed-tools: Read Write Edit Glob Grep Bash
@@ -8,12 +8,12 @@ allowed-tools: Read Write Edit Glob Grep Bash
 
 # Add Vendor
 
-Adds a new agent CLI vendor to SpecForge end-to-end. The supported vendor matrix in the README is the contract - adding a vendor means a new column, not a fork.
+Adds a new agent CLI vendor to SpecRoute end-to-end. The supported vendor matrix in the README is the contract - adding a vendor means a new column, not a fork.
 
 ## When to use
 
-- A new agent CLI tool (e.g. Aider, Continue, Open Interpreter, etc.) needs SpecForge support
-- Updating SpecForge to track a vendor's new feature (e.g. a vendor adds slash-command support)
+- A new agent CLI tool (e.g. Aider, Continue, Open Interpreter, etc.) needs SpecRoute support
+- Updating SpecRoute to track a vendor's new feature (e.g. a vendor adds slash-command support)
 
 ## Step 1: Gather vendor information
 

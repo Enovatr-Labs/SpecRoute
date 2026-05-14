@@ -16,7 +16,7 @@ Drop this directory into the root of your project. Cursor reads from these paths
 - **Rule files** (`*.mdc`) under `.cursor/rules/`.
 - **Hooks** in `.cursor/hooks.json` (project) or `~/.cursor/hooks.json` (user). Cursor v1.7+ ships ~19 lifecycle events including `sessionStart`, `preToolUse`, `beforeShellExecution`, `beforeReadFile`, `afterFileEdit`, `beforeSubmitPrompt`, `stop`, and Tab-flow events. See [`hooks/cursor/`](../../hooks/cursor/) for the template.
 
-Cursor does not have first-class skills, agents, or slash commands within the SpecForge taxonomy. Rules carry ongoing context; hooks handle event-driven automation.
+Cursor does not have first-class skills, agents, or slash commands within the SpecRoute taxonomy. Rules carry ongoing context; hooks handle event-driven automation.
 
 ## Setup
 

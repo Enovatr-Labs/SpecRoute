@@ -4,7 +4,7 @@
 Usage:
     python3 runtimes/mcp/render/render_codex.py > runtimes/.codex/config.template.toml
 
-Emits a complete config.toml including the SpecForge-default approval policy
+Emits a complete config.toml including the SpecRoute-default approval policy
 header followed by [mcp_servers.<name>] sections derived from servers.yaml.
 """
 

@@ -1,6 +1,6 @@
 # Agent Roster Template
 
-Cross-vendor inventory of agents for a SpecForge-driven project. The roster is grouped by department; each row captures the runtime metadata that vendors consume (model, color) plus optional fields (`memory`, `internet`).
+Cross-vendor inventory of agents for a SpecRoute-driven project. The roster is grouped by department; each row captures the runtime metadata that vendors consume (model, color) plus optional fields (`memory`, `internet`).
 
 > This is a **template**. Copy it into your repo, then populate with your project's actual agents. Sample content below uses generic placeholders.
 

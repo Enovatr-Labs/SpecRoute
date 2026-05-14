@@ -1,13 +1,13 @@
-# Contributing to SpecForge
+# Contributing to SpecRoute
 
-Thanks for considering a contribution. SpecForge is a community-curated framework for spec-driven agentic software engineering. Contributions are markdown content - templates, prompts, agent definitions, skills, hooks, workflows, rules - not application code.
+Thanks for considering a contribution. SpecRoute is a community-curated framework for spec-driven agentic software engineering. Contributions are markdown content - templates, prompts, agent definitions, skills, hooks, workflows, rules - not application code.
 
 ## Before you start
 
 1. Read the [README](README.md) to understand the artifact taxonomy and the supported vendor matrix.
 2. Read [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md) and [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md).
 3. Skim the worked example in [`examples/sample-project/`](examples/sample-project/) to see the artifact shapes end-to-end.
-4. Search [issues](https://github.com/Enovatr-Labs/SpecForge/issues) and [pull requests](https://github.com/Enovatr-Labs/SpecForge/pulls) for related work in flight.
+4. Search [issues](https://github.com/Enovatr-Labs/SpecRoute/issues) and [pull requests](https://github.com/Enovatr-Labs/SpecRoute/pulls) for related work in flight.
 
 ## What we accept
 
@@ -24,7 +24,7 @@ Thanks for considering a contribution. SpecForge is a community-curated framewor
 
 - Domain-specific business logic (finance, healthcare, etc.) - keep examples generic
 - Vendor-favoring changes that break parity in the supported matrix
-- Build tooling, package configs, or test runners - SpecForge is content, not an application
+- Build tooling, package configs, or test runners - SpecRoute is content, not an application
 - Templates that aren't immediately usable (no abstract checklists, no theory-only docs)
 - Material extracted from a private codebase without sanitization
 

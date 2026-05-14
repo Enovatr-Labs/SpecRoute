@@ -1,5 +1,5 @@
 <!--
-SpecForge PR template. Replace this comment block as you fill in the sections.
+SpecRoute PR template. Replace this comment block as you fill in the sections.
 For substantive changes, please open an issue first to discuss the approach.
 -->
 

@@ -1,10 +1,10 @@
 # AGENTS.md
 
-**Canonical, vendor-neutral context file for SpecForge.** This is the single source of truth that every agent CLI working in this repository should read first. Vendor-specific files (`CLAUDE.md`, `GEMINI.md`) are short delegation shims that point here.
+**Canonical, vendor-neutral context file for SpecRoute.** This is the single source of truth that every agent CLI working in this repository should read first. Vendor-specific files (`CLAUDE.md`, `GEMINI.md`) are short delegation shims that point here.
 
 ## What this repository is
 
-SpecForge is an open-source framework for **spec-driven agentic software engineering**, vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf. It ships markdown content - templates, prompts, agent definitions, runtime layouts, and engineering rules - not application code.
+SpecRoute is an open-source framework for **spec-driven agentic software engineering**, vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf. It ships markdown content - templates, prompts, agent definitions, runtime layouts, and engineering rules - not application code.
 
 There is no package manager, no build step, no test suite, no lint config. Do not look for `package.json` or run tests; treat this as a documentation/templates repository.
 
@@ -66,9 +66,9 @@ These are the rules that aren't obvious from the code and must be respected.
 
 7. **Templates over theory.** Templates must be production-grade and immediately usable, not abstract checklists. The `template-quality-reviewer` agent enforces this bar.
 
-## SpecForge implementation runtime
+## SpecRoute implementation runtime
 
-This repo's own `.claude/` directory is wired up as the SpecForge implementation team. It does **not** contain consumer-facing templates (those live in `agents/`, `skills/`, `commands/`, `hooks/`).
+This repo's own `.claude/` directory is wired up as the SpecRoute implementation team. It does **not** contain consumer-facing templates (those live in `agents/`, `skills/`, `commands/`, `hooks/`).
 
 | Path | What's there |
 |---|---|
@@ -93,4 +93,4 @@ When adding a new top-level artifact, prefer invoking the corresponding agent (`
 2. Read [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md) and [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md) for the why.
 3. Read [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) for when to reach for which artifact.
 4. Walk the worked example in [`examples/sample-project/`](examples/sample-project/) - it exercises every artifact shape end-to-end.
-5. Pick a vendor and copy `runtimes/.<vendor>/` into your own repo to start using SpecForge.
+5. Pick a vendor and copy `runtimes/.<vendor>/` into your own repo to start using SpecRoute.

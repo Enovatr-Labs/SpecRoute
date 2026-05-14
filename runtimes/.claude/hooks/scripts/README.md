@@ -13,11 +13,11 @@ Supporting shell scripts referenced by `hooks.json`. Each script must:
 
 This runtime includes starter scripts that match `../hooks.template.json`:
 
-- `session-start-status.sh` - SpecForge skeleton status banner.
+- `session-start-status.sh` - SpecRoute skeleton status banner.
 - `pre-bash-sanitize.sh` - sanitization gate on `git commit` / `git push`.
 - `post-edit-frontmatter.sh` - frontmatter validation on agent/skill/command writes.
 
-The SpecForge framework's own active hook installation lives at [`.claude/hooks/`](../../../../.claude/hooks/) and uses the same behavior.
+The SpecRoute framework's own active hook installation lives at [`.claude/hooks/`](../../../../.claude/hooks/) and uses the same behavior.
 
 ## Canonical script structure
 

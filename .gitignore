@@ -73,7 +73,7 @@ web_modules/
 # Claude Code per-user settings
 .claude/settings.local.json
 
-# SpecForge sanitization wordlist - per-installation, contains private terms
+# SpecRoute sanitization wordlist - per-installation, contains private terms
 .claude/.forbidden-strings.txt
 
 # Internal bootstrap spec - not for public release
@@ -164,3 +164,4 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vite/
+.DS_Store

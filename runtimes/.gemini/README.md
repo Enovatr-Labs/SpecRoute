@@ -29,7 +29,7 @@ Drop this directory into the root of your project. Gemini reads from these paths
 - Agents (flat-file frontmatter) - N/A
 - Hooks - N/A
 
-The shared concepts SpecForge ships are:
+The shared concepts SpecRoute ships are:
 
 | Concept | Available in Gemini? |
 |---|---|

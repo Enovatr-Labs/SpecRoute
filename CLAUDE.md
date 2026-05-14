@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Claude Code shim for this repository. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical vendor-neutral source of truth for SpecForge.
+Claude Code shim for this repository. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical vendor-neutral source of truth for SpecRoute.
 
 ## Claude-Specific Context
 

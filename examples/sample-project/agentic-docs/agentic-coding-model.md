@@ -73,6 +73,6 @@ Adding a 9th agent for this project would require a new role we don't currently 
 
 ## See also
 
-- The framework's [`agentic-docs/agentic-coding-model.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/agentic-coding-model.md) for the broader composition theory.
+- The framework's [`agentic-docs/agentic-coding-model.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/agentic-coding-model.md) for the broader composition theory.
 - [`automation-decision-framework.md`](automation-decision-framework.md) - when to choose which primitive.
 - [`.claude/agents/README.md`](../.claude/agents/README.md) - this project's agent roster.

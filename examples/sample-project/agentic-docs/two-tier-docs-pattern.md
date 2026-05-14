@@ -98,10 +98,10 @@ If `AGENTS.md` passes the cap, ask: which sections can move to `agentic-docs/`?
 
 Many projects already have a top-level `docs/` for product documentation, runbooks, ADRs (we have `adrs/` separately), API references, etc. Calling our framework reference layer `agentic-docs/` keeps it clearly distinct from the consumer-project's `docs/` and makes it obvious that these are agentic-engineering reference docs rather than product docs.
 
-The framework convention (per its own [`agentic-docs/two-tier-docs-pattern.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/two-tier-docs-pattern.md)) is `agentic-docs/`. We follow it.
+The framework convention (per its own [`agentic-docs/two-tier-docs-pattern.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/two-tier-docs-pattern.md)) is `agentic-docs/`. We follow it.
 
 ## See also
 
-- The framework's canonical [`agentic-docs/two-tier-docs-pattern.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/two-tier-docs-pattern.md) for the broader pattern theory.
+- The framework's canonical [`agentic-docs/two-tier-docs-pattern.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/two-tier-docs-pattern.md) for the broader pattern theory.
 - [`documentation-structure.md`](documentation-structure.md) - where each doc type lives in this project.
 - [`AGENTS.md`](../AGENTS.md), [`CLAUDE.md`](../CLAUDE.md) - this project's Tier 1 files.

@@ -1,6 +1,6 @@
 # Multi-Vendor Context Files
 
-How a SpecForge-driven repository uses one canonical context file (`AGENTS.md`) and small per-vendor delegation shims (`CLAUDE.md`, `GEMINI.md`) to support multiple agent CLIs without N parallel root files drifting apart.
+How a SpecRoute-driven repository uses one canonical context file (`AGENTS.md`) and small per-vendor delegation shims (`CLAUDE.md`, `GEMINI.md`) to support multiple agent CLIs without N parallel root files drifting apart.
 
 ## The pattern
 
@@ -50,7 +50,7 @@ vendor-neutral context file. This file holds only Claude-Code-specific overrides
 
 ## Claude-Code-specific notes
 
-### `.claude/` runtime is the SpecForge implementation team
+### `.claude/` runtime is the SpecRoute implementation team
 ...
 
 ### Sanitization gate is active

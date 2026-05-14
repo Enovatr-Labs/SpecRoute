@@ -32,12 +32,12 @@ if [[ -n "${REMOTE_OVERRIDE:-}" ]]; then
   WIKI_REMOTE="${REMOTE_OVERRIDE}"
 else
   ORIGIN="$(git -C "${REPO_ROOT}" remote get-url origin)"
-  # Convert e.g. git@github.com:Enovatr-Labs/SpecForge.git → ...SpecForge.wiki.git
-  # or       https://github.com/Enovatr-Labs/SpecForge.git → ...SpecForge.wiki.git
+  # Convert e.g. git@github.com:Enovatr-Labs/SpecRoute.git → ...SpecRoute.wiki.git
+  # or       https://github.com/Enovatr-Labs/SpecRoute.git → ...SpecRoute.wiki.git
   WIKI_REMOTE="${ORIGIN%.git}.wiki.git"
 fi
 
-CLONE_DIR="$(mktemp -d -t specforge-wiki.XXXXXX)"
+CLONE_DIR="$(mktemp -d -t specroute-wiki.XXXXXX)"
 trap 'rm -rf "${CLONE_DIR}"' EXIT
 
 echo "→ Cloning ${WIKI_REMOTE}"

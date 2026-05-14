@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for proposing a feature. For SpecForge, "features" are typically:
+        Thanks for proposing a feature. For SpecRoute, "features" are typically:
 
         - A new vendor to add to the supported matrix (Aider, Continue, etc.)
         - A new artifact type (e.g. SLO template, runbook template)
@@ -38,7 +38,7 @@ body:
     attributes:
       label: Use case
       description: What problem does this solve? Who benefits and how?
-      placeholder: "Teams using <vendor> currently can't drop SpecForge in because <reason>. Adding <runtime layout> would..."
+      placeholder: "Teams using <vendor> currently can't drop SpecRoute in because <reason>. Adding <runtime layout> would..."
     validations:
       required: true
 

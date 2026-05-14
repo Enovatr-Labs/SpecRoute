@@ -1,12 +1,12 @@
-# SpecForge
+# SpecRoute
 
 **An open-source framework for spec-driven agentic software engineering - vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf.**
 
-SpecForge captures production-grade patterns for PRDs, specifications, prompts, agents, skills, slash commands, hooks, workflows, and engineering rules. It is content, not an application: drop the templates and runtime layouts into your own repo and adapt them to your stack.
+SpecRoute captures production-grade patterns for PRDs, specifications, prompts, agents, skills, slash commands, hooks, workflows, and engineering rules. It is content, not an application: drop the templates and runtime layouts into your own repo and adapt them to your stack.
 
 ## Why spec-driven agentic coding
 
-Agent-assisted development drifts when there is no contract for *what* is being built. SpecForge formalizes the flow:
+Agent-assisted development drifts when there is no contract for *what* is being built. SpecRoute formalizes the flow:
 
 ```mermaid
 flowchart LR
@@ -95,7 +95,7 @@ Vendor neutrality is the contract: adding a new tool means a new column, not a f
 ## Repository structure
 
 ```
-specforge/
+specroute/
 ├── agentic-docs/    framework documentation (philosophy, decision frameworks, integrations)
 ├── prds/            product requirements + lifecycle (active / deprecated / archive)
 ├── specs/           spec triplet templates (requirements, design, tasks)
@@ -122,7 +122,7 @@ See [`ROADMAP.md`](ROADMAP.md).
 
 ## Maintainers
 
-SpecForge is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)**.
+SpecRoute is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)**.
 
 - Lead maintainer: **Chika Ihejimba** ([@cihejimba](https://github.com/cihejimba)) — `chika@enovatr.com`
 - Security reports: `security@enovatr.com` (see [`SECURITY.md`](SECURITY.md))
@@ -130,25 +130,25 @@ SpecForge is maintained by **[Enovatr Labs](https://github.com/Enovatr-Labs)**.
 
 ## Citation
 
-If you use SpecForge in academic work, blog posts, talks, or other published material, please cite it. GitHub renders a "Cite this repository" button from [`CITATION.cff`](CITATION.cff); both BibTeX and APA-style outputs are auto-generated.
+If you use SpecRoute in academic work, blog posts, talks, or other published material, please cite it. GitHub renders a "Cite this repository" button from [`CITATION.cff`](CITATION.cff); both BibTeX and APA-style outputs are auto-generated.
 
 **BibTeX:**
 
 ```bibtex
-@software{Ihejimba_SpecForge_2026,
+@software{Ihejimba_SpecRoute_2026,
   author       = {Ihejimba, Chika},
-  title        = {{SpecForge: An open-source framework for spec-driven agentic software engineering}},
+  title        = {{SpecRoute: An open-source framework for spec-driven agentic software engineering}},
   organization = {Enovatr Labs},
   year         = {2026},
   version      = {0.2.0},
-  url          = {https://github.com/Enovatr-Labs/SpecForge},
+  url          = {https://github.com/Enovatr-Labs/SpecRoute},
   license      = {Apache-2.0}
 }
 ```
 
 **Plain text:**
 
-> Ihejimba, C. (2026). *SpecForge: An open-source framework for spec-driven agentic software engineering* (Version 0.2.0) [Computer software]. Enovatr Labs. https://github.com/Enovatr-Labs/SpecForge
+> Ihejimba, C. (2026). *SpecRoute: An open-source framework for spec-driven agentic software engineering* (Version 0.2.0) [Computer software]. Enovatr Labs. https://github.com/Enovatr-Labs/SpecRoute
 
 For tagged releases, prefer the version-specific commit or tag URL. A persistent DOI (via Zenodo) will be added once the framework reaches v1.0.
 

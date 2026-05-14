@@ -10,7 +10,7 @@ Quick definitions for terms used throughout the wiki. Linked to the pages that g
 
 **Agentic coding** — Software engineering with AI agents as collaborators that produce reviewable software when given a spec. See [[Agentic Coding Model]].
 
-**`AGENTS.md`** — The canonical, vendor-neutral root context file. The single source of truth that every agent CLI working in a SpecForge-driven repo should read first. See [[Multi-Vendor Context Files]].
+**`AGENTS.md`** — The canonical, vendor-neutral root context file. The single source of truth that every agent CLI working in a SpecRoute-driven repo should read first. See [[Multi-Vendor Context Files]].
 
 **Archetype** — A role concept ("what does a security agent do?"), not a file the runtime loads. Used when designing your project's roster. See [[Agents]].
 
@@ -42,7 +42,7 @@ Quick definitions for terms used throughout the wiki. Linked to the pages that g
 
 ## I
 
-**Implementation team** — The `.claude/` directory at the repo root. Eleven agents, four skills, four commands, three hooks that build SpecForge itself. Not the consumer template. See [[Implementation Team]].
+**Implementation team** — The `.claude/` directory at the repo root. Eleven agents, four skills, four commands, three hooks that build SpecRoute itself. Not the consumer template. See [[Implementation Team]].
 
 ## M
 
@@ -58,7 +58,7 @@ Quick definitions for terms used throughout the wiki. Linked to the pages that g
 
 **PRD (Product Requirements Document)** — The business-intent layer. Full 23-section template or lightweight single-page alternative. See [[PRDs]].
 
-**Primitive (automation primitive)** — One of the four ways SpecForge automates work: skill, agent, command, or hook. See [[Automation Decision Framework]].
+**Primitive (automation primitive)** — One of the four ways SpecRoute automates work: skill, agent, command, or hook. See [[Automation Decision Framework]].
 
 **Prompt** — A reusable instruction. Three layers: global master, phase master, task prompt. See [[Prompts]].
 

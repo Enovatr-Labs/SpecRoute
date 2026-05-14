@@ -6,9 +6,9 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for reporting a bug. SpecForge is markdown content - no runtime to crash - so bugs are typically content issues: broken links, stale references, contract violations, drift between vendor-matrix mirrors, etc.
+        Thanks for reporting a bug. SpecRoute is markdown content - no runtime to crash - so bugs are typically content issues: broken links, stale references, contract violations, drift between vendor-matrix mirrors, etc.
 
-        For security vulnerabilities, please use the private security advisory at https://github.com/Enovatr-Labs/SpecForge/security/advisories/new instead.
+        For security vulnerabilities, please use the private security advisory at https://github.com/Enovatr-Labs/SpecRoute/security/advisories/new instead.
 
   - type: textarea
     id: what-happened
@@ -49,7 +49,7 @@ body:
     id: version
     attributes:
       label: Version / commit
-      description: SpecForge version (`CITATION.cff`) or commit SHA you observed this on.
+      description: SpecRoute version (`CITATION.cff`) or commit SHA you observed this on.
       placeholder: "v0.2.0"
     validations:
       required: false

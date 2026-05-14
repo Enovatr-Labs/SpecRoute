@@ -1,6 +1,6 @@
 # Spec-Driven Development
 
-The core flow SpecForge formalizes:
+The core flow SpecRoute formalizes:
 
 ```
 PRD → Spec (requirements + design + tasks) → Implementation → Validation → Review
@@ -30,7 +30,7 @@ The further left a defect is caught, the cheaper it is. A misaligned PRD costs m
 **Output**: `prds/active/<feature>.md` (full 23-section template) or `prds/active/<feature>-light.md` (lightweight).
 **Acceptance**: status field set to `Approved`, all 23 sections completed (or explicitly marked `N/A`), Architecture Reference linked.
 
-A PRD without business intent is a memo. A PRD without acceptance criteria is unfalsifiable. SpecForge's full template has both, and a Table of Contents because PRDs are long enough to benefit from one.
+A PRD without business intent is a memo. A PRD without acceptance criteria is unfalsifiable. SpecRoute's full template has both, and a Table of Contents because PRDs are long enough to benefit from one.
 
 For features that genuinely fit on one page (single owner, single team, single acceptance criterion), use `lightweight-prd-template.md`. Features that cross two services or two teams use the full template - the structure is what surfaces the cross-team coordination cost.
 
@@ -75,7 +75,7 @@ Numbered files, sorted phases, explicit agent assignments. The `task-prompt-temp
 **Output**: validation report, automated test pass.
 **Acceptance**: every requirement has at least one validating check (test, manual procedure, or attestation).
 
-For framework changes within SpecForge itself, "validation" means running `/audit` (sanitization + frontmatter + matrix consistency + broken links).
+For framework changes within SpecRoute itself, "validation" means running `/audit` (sanitization + frontmatter + matrix consistency + broken links).
 
 ### Review
 

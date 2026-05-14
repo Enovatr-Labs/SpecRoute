@@ -1,6 +1,6 @@
 # wiki/
 
-Source markdown for the SpecForge GitHub wiki at https://github.com/Enovatr-Labs/SpecForge/wiki.
+Source markdown for the SpecRoute GitHub wiki at https://github.com/Enovatr-Labs/SpecRoute/wiki.
 
 **This directory is intended for the wiki repository, not the main repo.** GitHub exposes wikis as a separate git repository at `<repo>.wiki.git`. Pushing here ships content to the wiki tab.
 
@@ -12,26 +12,26 @@ Source markdown for the SpecForge GitHub wiki at https://github.com/Enovatr-Labs
 - **Sidebar**: `_Sidebar.md` renders on every page (right-side nav).
 - **Footer**: `_Footer.md` renders on every page (below content).
 - **Internal links**: `[[Page Name]]` syntax (gollum-flavored markdown). Spaces in titles map to hyphens in URLs.
-- **External / repo file links**: standard markdown `[text](https://github.com/Enovatr-Labs/SpecForge/blob/main/...)`.
+- **External / repo file links**: standard markdown `[text](https://github.com/Enovatr-Labs/SpecRoute/blob/main/...)`.
 
 ## Pushing to the wiki
 
-The wiki must exist before you can clone it: first **create the Home page once via the wiki UI** at https://github.com/Enovatr-Labs/SpecForge/wiki, then:
+The wiki must exist before you can clone it: first **create the Home page once via the wiki UI** at https://github.com/Enovatr-Labs/SpecRoute/wiki, then:
 
 ```bash
 # Clone the wiki repo (separate from the main repo)
-git clone https://github.com/Enovatr-Labs/SpecForge.wiki.git /tmp/specforge-wiki
-cd /tmp/specforge-wiki
+git clone https://github.com/Enovatr-Labs/SpecRoute.wiki.git /tmp/specroute-wiki
+cd /tmp/specroute-wiki
 
 # Copy all the files in here
-cp /Users/chika/LocalDev/SpecForge/wiki/*.md .
+cp /Users/chika/LocalDev/SpecRoute/wiki/*.md .
 
 # Don't copy this README (it's local-only guidance)
 rm -f README.md
 
 # Commit and push
 git add .
-git commit -m "Populate wiki with full SpecForge documentation"
+git commit -m "Populate wiki with full SpecRoute documentation"
 git push origin master   # the wiki default branch is usually `master`, not `main`
 ```
 
@@ -42,9 +42,9 @@ After the push, the wiki is live. Subsequent updates: edit files here, copy/diff
 When the source docs in this main repo change, sync into the wiki:
 
 1. Edit the relevant page under `wiki/`.
-2. `cp wiki/<page>.md /tmp/specforge-wiki/` and `cd /tmp/specforge-wiki && git commit + push`.
+2. `cp wiki/<page>.md /tmp/specroute-wiki/` and `cd /tmp/specroute-wiki && git commit + push`.
 
-For larger refreshes, it's easier to `cp wiki/*.md /tmp/specforge-wiki/ && git add -A && git commit && git push`.
+For larger refreshes, it's easier to `cp wiki/*.md /tmp/specroute-wiki/ && git add -A && git commit && git push`.
 
 ## Page inventory
 

@@ -1,8 +1,8 @@
-# SpecForge Implementation Agents
+# SpecRoute Implementation Agents
 
-This directory contains the **11 Claude Code agents** that implement the SpecForge skeleton. They are project-internal - they build SpecForge itself, not consumer-facing templates that ship as artifacts.
+This directory contains the **11 Claude Code agents** that implement the SpecRoute skeleton. They are project-internal - they build SpecRoute itself, not consumer-facing templates that ship as artifacts.
 
-Consumer-facing agent templates live separately in `agents/` (the SpecForge artifact directory), with reference layouts in `runtimes/.claude/agents/`.
+Consumer-facing agent templates live separately in `agents/` (the SpecRoute artifact directory), with reference layouts in `runtimes/.claude/agents/`.
 
 ## Roster
 

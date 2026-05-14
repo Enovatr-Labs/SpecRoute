@@ -1,6 +1,6 @@
 # GEMINI.md
 
-Gemini CLI shim for this repository. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical vendor-neutral source of truth for SpecForge.
+Gemini CLI shim for this repository. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical vendor-neutral source of truth for SpecRoute.
 
 ## Gemini-Specific Context
 
@@ -28,7 +28,7 @@ See [`commands/command-template.gemini.json`](commands/command-template.gemini.j
 
 ## Matrix Notes
 
-Gemini supports **commands and MCP** in the SpecForge matrix. It does not consume `SKILL.md` folders, flat-file agents, or hook configurations directly. The SpecForge concepts that don't map natively to Gemini still apply through:
+Gemini supports **commands and MCP** in the SpecRoute matrix. It does not consume `SKILL.md` folders, flat-file agents, or hook configurations directly. The SpecRoute concepts that don't map natively to Gemini still apply through:
 
 - [`prompts/`](prompts/) - reusable prompts (paste into a Gemini conversation).
 - [`prompts/shared/`](prompts/shared/) - the master/phase/task prompt trio works in any agent CLI.

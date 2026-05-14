@@ -1,6 +1,6 @@
 # Agent CLI Integrations
 
-Concrete wiring for SpecForge into each supported agent CLI. The matrix below is the contract - adding a new tool means a new column, not a fork.
+Concrete wiring for SpecRoute into each supported agent CLI. The matrix below is the contract - adding a new tool means a new column, not a fork.
 
 ## Supported vendor matrix
 
@@ -46,7 +46,7 @@ mv claude_desktop_config.template.json claude_desktop_config.json
 mv hooks/hooks.template.json         hooks/hooks.json
 
 # 3. Install hook scripts (copy from this repo's .claude/hooks/ or write your own)
-cp /path/to/specforge/.claude/hooks/*.sh /path/to/your/repo/.claude/hooks/scripts/
+cp /path/to/specroute/.claude/hooks/*.sh /path/to/your/repo/.claude/hooks/scripts/
 chmod +x /path/to/your/repo/.claude/hooks/scripts/*.sh
 
 # 4. Create the gitignored sanitization wordlist
@@ -69,7 +69,7 @@ cd /path/to/your/repo/.codex
 mv config.template.toml config.toml
 
 # Mirror skills and agents from your Claude runtime
-python3 /path/to/specforge/tools/sync-skills.py --source claude --apply
+python3 /path/to/specroute/tools/sync-skills.py --source claude --apply
 ```
 
 Codex consumes the same `<name>.md` agent shape and the same folder-per-skill `SKILL.md` shape as Claude Code, so most content cross-mirrors. The `config.toml` carries Codex-specific MCP config and approval policy.

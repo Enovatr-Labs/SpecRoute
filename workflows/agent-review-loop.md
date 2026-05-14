@@ -1,6 +1,6 @@
 # Workflow: Agent Review Loop
 
-How agent-assisted code review works in a SpecForge-driven project. Pairs an agent's structured analysis with a human's judgment authority.
+How agent-assisted code review works in a SpecRoute-driven project. Pairs an agent's structured analysis with a human's judgment authority.
 
 ## Why agent-assisted review
 

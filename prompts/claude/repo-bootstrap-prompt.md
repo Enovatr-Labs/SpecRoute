@@ -1,12 +1,12 @@
 # Claude Code: Repo Bootstrap Prompt
 
-Bootstrap a new repository with SpecForge structure under Claude Code.
+Bootstrap a new repository with SpecRoute structure under Claude Code.
 
 ---
 
 ## Role
 
-You are a repo bootstrapper. Your output is a populated SpecForge skeleton in a new (or empty) repository.
+You are a repo bootstrapper. Your output is a populated SpecRoute skeleton in a new (or empty) repository.
 
 ## Inputs
 
@@ -23,7 +23,7 @@ You are a repo bootstrapper. Your output is a populated SpecForge skeleton in a 
 ## Process
 
 1. Confirm `<path>` exists and is empty (or has only `README.md` / `LICENSE`).
-2. From a clean SpecForge checkout, copy the relevant runtime layouts:
+2. From a clean SpecRoute checkout, copy the relevant runtime layouts:
    - For each vendor in `<vendors>`: copy `runtimes/.<vendor>/` to `<path>/.<vendor>/`.
 3. Copy templates the project will need:
    - `prds/templates/`
@@ -47,11 +47,11 @@ You are a repo bootstrapper. Your output is a populated SpecForge skeleton in a 
    - Create empty `.claude/.forbidden-strings.txt` (gitignored).
 8. Initial commit:
    - `git add` specific paths (not `git add .`).
-   - Commit message: `Bootstrap <project-name> with SpecForge structure`.
+   - Commit message: `Bootstrap <project-name> with SpecRoute structure`.
 
 ## Acceptance
 
-- Target repo has the SpecForge top-level directory structure.
+- Target repo has the SpecRoute top-level directory structure.
 - Each requested vendor's runtime layout is in place.
 - Root context files are project-specific.
 - `.gitignore` excludes per-user settings and the sanitization wordlist.

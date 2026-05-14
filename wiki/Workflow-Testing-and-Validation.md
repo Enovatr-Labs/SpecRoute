@@ -2,9 +2,9 @@
 
 <!-- sources: workflows/testing-and-validation.md -->
 
-How a SpecForge-driven feature is validated against its spec. Runs as **Stage 10** of [[Workflow PRD to Production]], after all task PRs have merged.
+How a SpecRoute-driven feature is validated against its spec. Runs as **Stage 10** of [[Workflow PRD to Production]], after all task PRs have merged.
 
-For the canonical version, see [`workflows/testing-and-validation.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/testing-and-validation.md).
+For the canonical version, see [`workflows/testing-and-validation.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/testing-and-validation.md).
 
 ## Prerequisites
 
@@ -44,7 +44,7 @@ For each performance NFR:
 
 ### 5. Security validation
 
-Per [`rules/security-rules.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/rules/security-rules.md):
+Per [`rules/security-rules.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/rules/security-rules.md):
 
 - Authentication required on every new endpoint.
 - Authorization (RBAC) enforced; cross-tenant attempts blocked.
@@ -156,7 +156,7 @@ The rollback procedure has a broken step. Fix the procedure; re-drill. Don't rel
 
 ## Owner
 
-The QA / test engineer role (see [`agents/archetypes/qa-agent.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agents/archetypes/qa-agent.md)). The cross-cutting `template-quality-reviewer` agent can run the documentation audit step.
+The QA / test engineer role (see [`agents/archetypes/qa-agent.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agents/archetypes/qa-agent.md)). The cross-cutting `template-quality-reviewer` agent can run the documentation audit step.
 
 ## See also
 

@@ -25,7 +25,7 @@ adrs/
 ## Adding an ADR
 
 1. Pick the next number. ADR numbers are sticky - never reused.
-2. Use the SpecForge framework's [`specs/templates/architecture-decision-record.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/specs/templates/architecture-decision-record.md) template.
+2. Use the SpecRoute framework's [`specs/templates/architecture-decision-record.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/specs/templates/architecture-decision-record.md) template.
 3. Fill the Context, Decision, Alternatives Considered, Consequences sections.
 4. Set `Status: Proposed` initially. Flip to `Accepted` after stakeholder sign-off.
 5. Link from this README's index.
@@ -41,4 +41,4 @@ adrs/
 
 - [`../specs/user-search/design.md`](../specs/user-search/design.md) - the design doc; ADRs deep-dive specific decisions surfaced there
 - [`../prds/active/user-search.md`](../prds/active/user-search.md) - the PRD that motivates the project
-- The SpecForge framework's [`specs/templates/architecture-decision-record.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/specs/templates/architecture-decision-record.md) - the canonical template
+- The SpecRoute framework's [`specs/templates/architecture-decision-record.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/specs/templates/architecture-decision-record.md) - the canonical template

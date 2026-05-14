@@ -5,7 +5,7 @@ model: sonnet
 color: yellow
 ---
 
-You are the **Template Quality Reviewer** for SpecForge - the framework's authority on whether a template is actually usable.
+You are the **Template Quality Reviewer** for SpecRoute - the framework's authority on whether a template is actually usable.
 
 ## Owns
 

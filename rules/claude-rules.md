@@ -39,7 +39,7 @@ Claude Code doesn't consume rule-loading frontmatter like Cursor's `alwaysApply`
 
 ## Sanitization gate
 
-The PreToolUse hook (`pre-bash-sanitize.sh`) is recommended for any project using SpecForge. It blocks `git commit` / `git push` if forbidden strings appear in tracked files. See [`security-rules.md`](security-rules.md) Rule 10.
+The PreToolUse hook (`pre-bash-sanitize.sh`) is recommended for any project using SpecRoute. It blocks `git commit` / `git push` if forbidden strings appear in tracked files. See [`security-rules.md`](security-rules.md) Rule 10.
 
 ## See also
 

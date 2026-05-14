@@ -2,7 +2,7 @@
 
 <!-- sources: README.md, AGENTS.md, agentic-docs/agent-cli-integrations.md -->
 
-The supported-CLI contract. **Adding a new tool means a new column, not a fork.** This matrix is the single most important table in SpecForge — it appears in `README.md`, `AGENTS.md`, and `agentic-docs/agent-cli-integrations.md` and must stay in lock-step across all three.
+The supported-CLI contract. **Adding a new tool means a new column, not a fork.** This matrix is the single most important table in SpecRoute — it appears in `README.md`, `AGENTS.md`, and `agentic-docs/agent-cli-integrations.md` and must stay in lock-step across all three.
 
 | Vendor | Runtime dir | Root context file | Skills | Agents | Commands | Hooks | MCP config |
 |---|---|---|---|---|---|---|---|
@@ -65,7 +65,7 @@ Three vendors consume MCP server configurations in **different shapes**:
 | Codex | `[mcp_servers.<name>]` TOML sections | `.codex/config.toml` |
 | Gemini CLI | `mcpServers` JSON object | `.gemini/settings.json` |
 
-Maintaining three by hand is the failure mode. SpecForge ships a **single source of truth** at `runtimes/mcp/servers.yaml` with per-vendor renderers. See [[MCP Integration]].
+Maintaining three by hand is the failure mode. SpecRoute ships a **single source of truth** at `runtimes/mcp/servers.yaml` with per-vendor renderers. See [[MCP Integration]].
 
 ## Vendor neutrality is the contract
 

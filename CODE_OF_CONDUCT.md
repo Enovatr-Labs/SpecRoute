@@ -1,6 +1,6 @@
 # Code of Conduct
 
-SpecForge is a vendor-neutral, community-curated project. Participation in this project should be practical, respectful, and focused on making the shared templates and workflows better for everyone who uses them.
+SpecRoute is a vendor-neutral, community-curated project. Participation in this project should be practical, respectful, and focused on making the shared templates and workflows better for everyone who uses them.
 
 ## Our Standards
 
@@ -23,7 +23,7 @@ Examples of unacceptable behavior include:
 
 ## Scope
 
-This code of conduct applies in all SpecForge project spaces, including issues, pull requests, discussions, reviews, community channels, and any public setting where someone is representing the project.
+This code of conduct applies in all SpecRoute project spaces, including issues, pull requests, discussions, reviews, community channels, and any public setting where someone is representing the project.
 
 It also applies when project artifacts are contributed to this repository. Contributions must not include proprietary material, private customer data, secrets, or content that violates the dignity or safety of others.
 
@@ -60,4 +60,4 @@ Maintainers will respect the privacy and safety of reporters and affected people
 
 ## Attribution
 
-This policy is adapted from common open-source community standards, including the Contributor Covenant, with wording tailored to SpecForge's documentation-focused contribution model.
+This policy is adapted from common open-source community standards, including the Contributor Covenant, with wording tailored to SpecRoute's documentation-focused contribution model.

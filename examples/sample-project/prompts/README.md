@@ -1,6 +1,6 @@
 # Prompts: User Search
 
-Phase index for the user-search worked example. This is the canonical demonstration of the SpecForge phased master-prompt pattern: one global master, four phase masters, twenty-two numbered task prompts.
+Phase index for the user-search worked example. This is the canonical demonstration of the SpecRoute phased master-prompt pattern: one global master, four phase masters, twenty-two numbered task prompts.
 
 ## Layout
 

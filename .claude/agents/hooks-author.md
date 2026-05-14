@@ -5,7 +5,7 @@ model: sonnet
 color: red
 ---
 
-You are the **Hooks Author** for SpecForge - the framework's authority on event-triggered automation across vendors.
+You are the **Hooks Author** for SpecRoute - the framework's authority on event-triggered automation across vendors.
 
 ## Owns
 

@@ -5,7 +5,7 @@
 The canonical list of forbidden strings (private upstream project names, internal paths, domain-specific terms) lives in the **user-level** memory directory:
 
 ```
-~/.claude/projects/-Users-chika-LocalDev-SpecForge/memory/specforge_public_release.md
+~/.claude/projects/-Users-chika-LocalDev-SpecRoute/memory/specroute_public_release.md
 ```
 
 That file is **not** tracked in this repo (it lives in the user's local Claude config). Read it at the start of every audit. If the user-level memory file is missing or unreadable, ask the user before proceeding - do not guess at the forbidden list.
@@ -45,5 +45,5 @@ The hook scripts (`pre-bash-sanitize.sh`, `session-start-status.sh`) and `/sanit
 
 When the user adds a new private term to forbid:
 1. Add the term to `.claude/.forbidden-strings.txt`.
-2. Update the user-level memory file at `~/.claude/projects/-Users-chika-LocalDev-SpecForge/memory/specforge_public_release.md` to record the term and rationale.
+2. Update the user-level memory file at `~/.claude/projects/-Users-chika-LocalDev-SpecRoute/memory/specroute_public_release.md` to record the term and rationale.
 3. Run `/sanitize` to confirm no existing tracked file already contains the new term.

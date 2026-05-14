@@ -1,6 +1,6 @@
 # Assets
 
-Static assets referenced by SpecForge documentation - diagrams, screenshots, logos, sample data files. Not for runtime artifacts (those live with their owning directory).
+Static assets referenced by SpecRoute documentation - diagrams, screenshots, logos, sample data files. Not for runtime artifacts (those live with their owning directory).
 
 ```
 assets/
@@ -12,7 +12,7 @@ assets/
 
 - **Diagrams** referenced by docs (architecture sketches, flowcharts). Prefer SVG; commit the source if generated.
 - **Screenshots** of UI surfaces shown in PRDs or workflows. PNG, named after the surface they show.
-- **Logos / brand artifacts**, if SpecForge or a consumer project develops them.
+- **Logos / brand artifacts**, if SpecRoute or a consumer project develops them.
 - **Sample data files** that worked examples reference. Generic only - no real customer data.
 
 ## What does NOT go here
@@ -30,8 +30,8 @@ assets/
 
 ## Sizing
 
-Keep assets reasonably small - under 500KB per file when possible. SpecForge is text-first; an asset directory dominated by megabyte screenshots becomes a clone-time tax for everyone.
+Keep assets reasonably small - under 500KB per file when possible. SpecRoute is text-first; an asset directory dominated by megabyte screenshots becomes a clone-time tax for everyone.
 
 ## Empty by default
 
-This directory ships empty (just this README) on a fresh SpecForge skeleton. Consumers populate it with their project's diagrams and screenshots as docs require them.
+This directory ships empty (just this README) on a fresh SpecRoute skeleton. Consumers populate it with their project's diagrams and screenshots as docs require them.

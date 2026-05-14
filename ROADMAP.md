@@ -1,4 +1,4 @@
-# SpecForge Roadmap
+# SpecRoute Roadmap
 
 This roadmap is intentionally honest about the current state. Updated alongside major releases.
 
@@ -10,7 +10,7 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 
 ## Phase 1 - Skeleton & implementation team ✓ Complete
 
-**Goal:** Establish the repository structure, the implementation agent roster, and the sanitization infrastructure that lets us build SpecForge in public without leaking private upstream material.
+**Goal:** Establish the repository structure, the implementation agent roster, and the sanitization infrastructure that lets us build SpecRoute in public without leaking private upstream material.
 
 - ✓ Repository skeleton (root files, `.gitignore`, `LICENSE`)
 - ✓ Multi-vendor strategy documented (`README.md` vendor matrix)
@@ -64,15 +64,15 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 - ☐ Additional vendor support based on community demand
 - ☐ Persistent DOI via Zenodo (at v1.0)
 - ☐ Adoption case studies (anonymous welcome) under `examples/`
-- ☐ A `specforge` CLI or extension (TBD - not committed; depends on whether a tool would meaningfully exceed `tools/sync-skills.py`)
+- ☐ A `specroute` CLI or extension (TBD - not committed; depends on whether a tool would meaningfully exceed `tools/sync-skills.py`)
 
 ---
 
 ## Non-goals
 
-To stay focused, SpecForge intentionally does **not** plan to:
+To stay focused, SpecRoute intentionally does **not** plan to:
 
-- Ship a runtime, package manager, or build system. SpecForge is markdown content.
+- Ship a runtime, package manager, or build system. SpecRoute is markdown content.
 - Become an opinionated framework on top of any single vendor. The supported vendor matrix is the contract.
 - Provide hosted services, paid features, or infrastructure. Apache 2.0 content, full stop.
 - Embed domain-specific business logic (financial, medical, legal). Examples stay generic so the framework remains broadly applicable.

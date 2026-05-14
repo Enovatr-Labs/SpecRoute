@@ -4,7 +4,7 @@
 
 The inner loop. How a single approved task becomes merged code. Runs once per task in `tasks.md`.
 
-For the canonical version, see [`workflows/spec-to-implementation.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/spec-to-implementation.md).
+For the canonical version, see [`workflows/spec-to-implementation.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/spec-to-implementation.md).
 
 ## Entry conditions
 

@@ -28,7 +28,7 @@ hooks/
 
 ## Per-vendor event matrix
 
-The full event lists. Bold events are the ones SpecForge's reference implementations exercise.
+The full event lists. Bold events are the ones SpecRoute's reference implementations exercise.
 
 ### Claude Code (~27 events)
 
@@ -227,7 +227,7 @@ Malicious shell in hook scripts ships to every consumer who copies the runtime -
 
 The three hooks in [`.claude/hooks/`](../.claude/hooks/) at the repo root are real, tracked examples:
 
-- `session-start-status.sh` - SpecForge skeleton status banner.
+- `session-start-status.sh` - SpecRoute skeleton status banner.
 - `pre-bash-sanitize.sh` - sanitization gate on `git commit` / `git push`.
 - `post-edit-frontmatter.sh` - frontmatter validation on agent/skill/command writes.
 

@@ -4,7 +4,7 @@
 
 Technical specifications — the **how** layer of the spec-driven flow. Specs translate approved PRDs into actionable engineering plans.
 
-For the canonical reference, see [`specs/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/specs/README.md).
+For the canonical reference, see [`specs/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/specs/README.md).
 
 ## Directory layout
 
@@ -82,8 +82,8 @@ Drafting and reviewing specs is owned by the `spec-author` agent. ADRs are also 
 
 ## Prompts for spec work
 
-- [`prompts/shared/prd-to-spec-prompt.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/prd-to-spec-prompt.md) — convert an approved PRD into the spec triplet.
-- [`prompts/shared/spec-to-tasks-prompt.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/prompts/shared/spec-to-tasks-prompt.md) — derive `tasks.md` from `requirements.md` + `design.md`.
+- [`prompts/shared/prd-to-spec-prompt.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/prd-to-spec-prompt.md) — convert an approved PRD into the spec triplet.
+- [`prompts/shared/spec-to-tasks-prompt.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/prompts/shared/spec-to-tasks-prompt.md) — derive `tasks.md` from `requirements.md` + `design.md`.
 
 ## See also
 

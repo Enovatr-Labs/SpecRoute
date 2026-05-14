@@ -4,7 +4,7 @@
 
 End-to-end engineering execution models. These are **operational playbooks** — what to do, in what order, when a recurring task comes up. Distinct from `agentic-docs/` (which answers conceptual questions) and `rules/` (which captures standing constraints).
 
-For the canonical index, see [`workflows/README.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/README.md).
+For the canonical index, see [`workflows/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/README.md).
 
 ## Workflow map
 

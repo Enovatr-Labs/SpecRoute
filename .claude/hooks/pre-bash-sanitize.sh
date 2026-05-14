@@ -9,7 +9,7 @@
 #   - Exit non-zero = block; the message on stderr is shown to the user
 #
 # If the wordlist file is missing, the hook does nothing (no false-positive blocks).
-# Each clone of SpecForge populates its own .claude/.forbidden-strings.txt.
+# Each clone of SpecRoute populates its own .claude/.forbidden-strings.txt.
 
 set -u
 

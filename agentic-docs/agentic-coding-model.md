@@ -4,7 +4,7 @@ How agents, skills, commands, and hooks compose to produce reviewable software. 
 
 ## The four primitives
 
-SpecForge recognizes four distinct automation primitives. Each has a different invocation pattern, a different cognitive load, and a different "right time to use." [`automation-decision-framework.md`](automation-decision-framework.md) is the decision matrix; this doc explains why we have four primitives and how they compose.
+SpecRoute recognizes four distinct automation primitives. Each has a different invocation pattern, a different cognitive load, and a different "right time to use." [`automation-decision-framework.md`](automation-decision-framework.md) is the decision matrix; this doc explains why we have four primitives and how they compose.
 
 | Primitive | Invocation | User input per call | Autonomy level |
 |---|---|---|---|
@@ -22,7 +22,7 @@ These are not interchangeable. Picking the wrong primitive produces friction:
 
 ## How they compose
 
-A typical SpecForge-driven feature implementation uses all four:
+A typical SpecRoute-driven feature implementation uses all four:
 
 ```
 ┌──────────────────────────────────────────────────────────────────────┐
@@ -57,7 +57,7 @@ Not every vendor supports every primitive. The matrix in [`AGENTS.md`](../AGENTS
 
 **Every supported vendor ships a hooks system.** The event taxonomies and config shapes differ; the underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible. See [`hooks/README.md`](../hooks/README.md) for the full per-vendor event matrix.
 
-A SpecForge consumer chooses primitives based on which vendors they target. A team on Claude Code uses all four. A team on Cursor uses rules and shared prompts. A team on multiple vendors uses the shared `prompts/` and `rules/` plus per-vendor implementations of each primitive where supported.
+A SpecRoute consumer chooses primitives based on which vendors they target. A team on Claude Code uses all four. A team on Cursor uses rules and shared prompts. A team on multiple vendors uses the shared `prompts/` and `rules/` plus per-vendor implementations of each primitive where supported.
 
 ## Composition rules
 
@@ -78,7 +78,7 @@ The four primitives map cleanly onto the spec-driven flow:
 - **Commands** drive the validation gates where checks must be deterministic (`/audit`, `/parity`, `/sanitize`).
 - **Hooks** drive the always-on guardrails (sanitization gate, frontmatter check, session-start status).
 
-A team that uses only one primitive is missing the others' value. SpecForge's templates make all four readily available so consumers pick the right tool for each step.
+A team that uses only one primitive is missing the others' value. SpecRoute's templates make all four readily available so consumers pick the right tool for each step.
 
 ## Pitfalls
 

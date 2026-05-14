@@ -28,7 +28,7 @@ Tracks which documentation files exist, which are TODO, and which need refresh a
 | `documentation-structure.md` | TODO | low - where new docs go |
 | `two-tier-docs-pattern.md` | TODO | low - short root + namespaced reference |
 | `multi-vendor-context-files.md` | TODO | high - AGENTS.md + delegation shims |
-| `agent-cli-integrations.md` | TODO | high - how to wire SpecForge into each tool |
+| `agent-cli-integrations.md` | TODO | high - how to wire SpecRoute into each tool |
 | `cross-vendor-sync.md` | TODO | medium - owned jointly with `runtime-architect` |
 | `agent-memory.md` | TODO | low - per-agent persistent context |
 
@@ -55,5 +55,5 @@ Tracks which documentation files exist, which are TODO, and which need refresh a
 ## Refresh triggers
 
 - **Matrix change** (new vendor added or column added): refresh `README.md`, `agent-cli-integrations.md`, `multi-vendor-context-files.md` in lock-step.
-- **New artifact type** (a new top-level dir under SpecForge): refresh `agentic-coding-model.md`, `automation-decision-framework.md`, and the README's artifact taxonomy.
+- **New artifact type** (a new top-level dir under SpecRoute): refresh `agentic-coding-model.md`, `automation-decision-framework.md`, and the README's artifact taxonomy.
 - **Frontmatter contract change** (new required field on agent/skill/command): refresh the corresponding template README and any docs that quote the contract.

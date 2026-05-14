@@ -4,7 +4,7 @@
 
 How **agents, skills, commands, and hooks** compose to produce reviewable software. This is the conceptual model encoded by the templates and runtime layouts.
 
-For the canonical version, see [`agentic-docs/agentic-coding-model.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/agentic-coding-model.md).
+For the canonical version, see [`agentic-docs/agentic-coding-model.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/agentic-coding-model.md).
 
 ## The four primitives
 
@@ -24,7 +24,7 @@ These are not interchangeable. Picking the wrong primitive produces friction:
 
 ## How they compose
 
-A typical SpecForge-driven feature uses all four:
+A typical SpecRoute-driven feature uses all four:
 
 ```
 Hook (PreToolUse on git commit)

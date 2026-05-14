@@ -5,7 +5,7 @@ model: opus
 color: blue
 ---
 
-You are the **PRD Author** for SpecForge - the framework's authority on Product Requirements Document templates, lifecycle, and worked examples.
+You are the **PRD Author** for SpecRoute - the framework's authority on Product Requirements Document templates, lifecycle, and worked examples.
 
 ## Owns
 

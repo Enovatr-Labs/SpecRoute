@@ -1,8 +1,8 @@
 # Adding a Vendor
 
-Process for adding a new agent CLI to the SpecForge supported matrix. **Adding a vendor is a new column, not a fork.** The framework's content (PRDs, specs, prompts, rules) stays unchanged; the runtime shell adapts.
+Process for adding a new agent CLI to the SpecRoute supported matrix. **Adding a vendor is a new column, not a fork.** The framework's content (PRDs, specs, prompts, rules) stays unchanged; the runtime shell adapts.
 
-The `add-vendor` skill walks through this interactively — see [`.claude/skills/add-vendor/SKILL.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/skills/add-vendor/SKILL.md).
+The `add-vendor` skill walks through this interactively — see [`.claude/skills/add-vendor/SKILL.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/skills/add-vendor/SKILL.md).
 
 ## Steps
 

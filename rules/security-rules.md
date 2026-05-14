@@ -1,6 +1,6 @@
 # Security Rules
 
-Cross-cutting security standards. Apply to all code in any project that adopts SpecForge.
+Cross-cutting security standards. Apply to all code in any project that adopts SpecRoute.
 
 See also [`SECURITY.md`](../SECURITY.md) for the framework's own security policy and threat model.
 
@@ -79,13 +79,13 @@ Document in the PRD's security section or a linked threat-model doc. Don't skip 
 
 ## 10. Sanitization before commit
 
-For any project using SpecForge:
+For any project using SpecRoute:
 
 - Maintain `.claude/.forbidden-strings.txt` (gitignored) with private project names, internal identifiers, etc.
 - Run `/sanitize` before committing.
 - The PreToolUse hook (`pre-bash-sanitize.sh`) blocks `git commit` / `git push` if forbidden strings appear in tracked files. Treat that as a hard stop.
 
-## 11. Secrets handling for SpecForge artifacts
+## 11. Secrets handling for SpecRoute artifacts
 
 - `.gitignore` excludes per-user settings and the wordlist.
 - Templates contain placeholders, not real values.

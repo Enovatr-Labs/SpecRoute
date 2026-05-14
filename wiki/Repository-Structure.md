@@ -3,7 +3,7 @@
 <!-- sources: README.md, AGENTS.md -->
 
 ```
-specforge/
+specroute/
 ├── AGENTS.md                  canonical, vendor-neutral root context
 ├── CLAUDE.md / GEMINI.md      per-vendor delegation shims
 ├── README.md / ROADMAP.md     project framing
@@ -35,7 +35,7 @@ specforge/
 
 **Consumer-facing templates** live under top-level directories (`prds/`, `specs/`, `agents/`, `skills/`, `commands/`, `hooks/`, `prompts/`, `rules/`, `runtimes/`, `examples/`).
 
-**The implementation team that builds SpecForge itself** lives under `.claude/`. Don't confuse the two. The consumer drops `runtimes/.claude/` into their own repo; they do *not* copy `.claude/`. See [[Implementation Team]].
+**The implementation team that builds SpecRoute itself** lives under `.claude/`. Don't confuse the two. The consumer drops `runtimes/.claude/` into their own repo; they do *not* copy `.claude/`. See [[Implementation Team]].
 
 ## Where do new docs go?
 

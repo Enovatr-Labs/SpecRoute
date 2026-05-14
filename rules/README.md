@@ -21,7 +21,7 @@ rules/
 
 ## How to use this directory
 
-1. **Pick what to enforce.** Read the four shared rule files (`engineering`, `code-review`, `security`, `documentation`). These are SpecForge's defaults; adapt to your project.
+1. **Pick what to enforce.** Read the four shared rule files (`engineering`, `code-review`, `security`, `documentation`). These are SpecRoute's defaults; adapt to your project.
 
 2. **Pick how to enforce it per vendor.** Each `<vendor>-rules.md` file explains how that vendor surfaces rules. The shared content from the top-level files gets referenced (or copied) into the per-vendor format.
 

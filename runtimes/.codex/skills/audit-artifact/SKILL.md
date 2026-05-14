@@ -1,6 +1,6 @@
 ---
 name: audit-artifact
-description: Interactive workflow for auditing a SpecForge artifact before it is treated as implementation-ready. Use when checking a PRD, spec triplet, prompt set, agent file, skill, command, hook, rule, or runtime layout. Asks which artifact path to inspect and which contract to apply. Triggers - "audit this artifact", "check this template", "is this spec ready", "review this prompt set".
+description: Interactive workflow for auditing a SpecRoute artifact before it is treated as implementation-ready. Use when checking a PRD, spec triplet, prompt set, agent file, skill, command, hook, rule, or runtime layout. Asks which artifact path to inspect and which contract to apply. Triggers - "audit this artifact", "check this template", "is this spec ready", "review this prompt set".
 argument-hint: "[path] [artifact-type?]"
 user-invocable: true
 allowed-tools: Read Glob Grep Bash
@@ -8,7 +8,7 @@ allowed-tools: Read Glob Grep Bash
 
 # Audit Artifact
 
-Use this skill when a user wants a guided readiness review of one SpecForge artifact or a small related set of artifacts.
+Use this skill when a user wants a guided readiness review of one SpecRoute artifact or a small related set of artifacts.
 
 ## Inputs
 

@@ -48,5 +48,5 @@ When a section in a template says "TODO: insert your example here," that's a mar
 
 ## See also
 
-- The framework's canonical [`agentic-docs/philosophy.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/philosophy.md) for SpecForge's broader operating beliefs.
+- The framework's canonical [`agentic-docs/philosophy.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/philosophy.md) for SpecRoute's broader operating beliefs.
 - [`prd.md`](../prds/active/user-search.md) §3 (Goals and Success Metrics) for the project's quantitative targets.

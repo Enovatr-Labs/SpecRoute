@@ -2,12 +2,12 @@
 
 **Version**: 1.0
 **Date**: 2026-05-08
-**Author**: SpecForge worked example
+**Author**: SpecRoute worked example
 **Status**: Approved
 **Architecture Reference**: [`../../specs/user-search/design.md`](../../specs/user-search/design.md)
 **Scope**: Add a paginated, filterable, indexed user-directory search to the platform's admin and self-service surfaces. In scope: API + frontend + observability. Out of scope: bulk export (separate PRD), cross-tenant federation.
 
-> This is the canonical worked example for SpecForge. It exercises every artifact shape end-to-end: a 23-section PRD; a spec triplet (`../../specs/user-search/requirements.md`, `../../specs/user-search/design.md`, `../../specs/user-search/tasks.md`); an agent roster; the full phased prompt set (1 global master, 4 phase masters, 22 numbered task prompts under `prompts/`); and an implementation plan. Generic feature, no proprietary domain.
+> This is the canonical worked example for SpecRoute. It exercises every artifact shape end-to-end: a 23-section PRD; a spec triplet (`../../specs/user-search/requirements.md`, `../../specs/user-search/design.md`, `../../specs/user-search/tasks.md`); an agent roster; the full phased prompt set (1 global master, 4 phase masters, 22 numbered task prompts under `prompts/`); and an implementation plan. Generic feature, no proprietary domain.
 
 ---
 

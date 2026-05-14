@@ -26,7 +26,7 @@ Good candidates:
 - **Open TODOs the agent owns.** "Still need to validate index plan in eu-west-1 staging."
 - **Where the agent left off.** "Tasks 5–8 done; task 9 in flight; tasks 10+ blocked on Q2 resolution."
 - **Cross-agent coordination.** "I have the lock on `src/services/users/search/`; another implementer should not touch this until task 10 lands."
-- **Pointers to authoritative external state.** "The forbidden-strings list is at `.claude/.forbidden-strings.txt`; this file is gitignored, repopulate from `~/.claude/projects/.../memory/specforge_public_release.md` if missing."
+- **Pointers to authoritative external state.** "The forbidden-strings list is at `.claude/.forbidden-strings.txt`; this file is gitignored, repopulate from `~/.claude/projects/.../memory/specroute_public_release.md` if missing."
 
 ## What does NOT go in agent memory
 
@@ -83,7 +83,7 @@ Agent memory is specifically for state the agent **accumulates over time** that 
 | Kiro | Steering files act as cross-conversation memory | Use `.kiro/steering/` with `inclusion: always` |
 | Cursor / Windsurf | No native support | Use rules with `alwaysApply: true` |
 
-For vendors without native support, the SpecForge convention is to surface the same content via the vendor's rule or context-file mechanism.
+For vendors without native support, the SpecRoute convention is to surface the same content via the vendor's rule or context-file mechanism.
 
 ## Anti-patterns
 

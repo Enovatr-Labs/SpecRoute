@@ -1,6 +1,6 @@
 # PRDs
 
-Product Requirements Documents for this project. Lifecycle directories follow the SpecForge convention.
+Product Requirements Documents for this project. Lifecycle directories follow the SpecRoute convention.
 
 ```
 prds/
@@ -24,7 +24,7 @@ A PRD's `Status:` frontmatter drives its directory:
 
 ## Templates
 
-This project's PRDs are based on the SpecForge framework's [`prds/templates/prd-template.md`](../../../prds/templates/prd-template.md) (full 23-section enterprise) and [`prds/templates/lightweight-prd-template.md`](../../../prds/templates/lightweight-prd-template.md) (single-page alternative). Copy and fill in.
+This project's PRDs are based on the SpecRoute framework's [`prds/templates/prd-template.md`](../../../prds/templates/prd-template.md) (full 23-section enterprise) and [`prds/templates/lightweight-prd-template.md`](../../../prds/templates/lightweight-prd-template.md) (single-page alternative). Copy and fill in.
 
 ## Adding a new PRD
 

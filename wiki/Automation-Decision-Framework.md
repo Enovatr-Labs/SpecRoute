@@ -2,9 +2,9 @@
 
 <!-- sources: agentic-docs/automation-decision-framework.md -->
 
-**The single most cross-referenced doc in SpecForge.** When you have a new task to automate, this framework tells you whether to build it as a skill, agent, command, or hook.
+**The single most cross-referenced doc in SpecRoute.** When you have a new task to automate, this framework tells you whether to build it as a skill, agent, command, or hook.
 
-For the canonical version, see [`agentic-docs/automation-decision-framework.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/automation-decision-framework.md).
+For the canonical version, see [`agentic-docs/automation-decision-framework.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/automation-decision-framework.md).
 
 ## Quick decision matrix
 
@@ -70,16 +70,16 @@ If two answers are "yes," the primitive split is wrong. Split into two artifacts
 
 ## Composition
 
-The four primitives compose — see [[Agentic Coding Model]] for the canonical composition pattern. A typical SpecForge feature implementation uses all four.
+The four primitives compose — see [[Agentic Coding Model]] for the canonical composition pattern. A typical SpecRoute feature implementation uses all four.
 
 ## Worked examples (in this repo)
 
 | Primitive | Where to find an example |
 |---|---|
-| Skill | [`.claude/skills/scaffold-artifact/SKILL.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/skills/scaffold-artifact/SKILL.md) |
-| Agent | [`.claude/agents/prd-author.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agents/prd-author.md) |
-| Command | [`.claude/commands/audit.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/commands/audit.md) |
-| Hook | [`.claude/hooks/pre-bash-sanitize.sh`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/hooks/pre-bash-sanitize.sh) |
+| Skill | [`.claude/skills/scaffold-artifact/SKILL.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/skills/scaffold-artifact/SKILL.md) |
+| Agent | [`.claude/agents/prd-author.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agents/prd-author.md) |
+| Command | [`.claude/commands/audit.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/commands/audit.md) |
+| Hook | [`.claude/hooks/pre-bash-sanitize.sh`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/hooks/pre-bash-sanitize.sh) |
 
 Consumer-facing templates live under the corresponding top-level dirs.
 

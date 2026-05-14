@@ -52,7 +52,7 @@ When you need to add documentation, ask:
    -> Lives in **`agentic-docs/`**.
 
 3. **Is it about how to do a recurring engineering task?**
-   -> The framework has [`workflows/`](https://github.com/Enovatr-Labs/SpecForge/blob/main/workflows/) with playbooks. This project consumes those; we don't replicate.
+   -> The framework has [`workflows/`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/workflows/) with playbooks. This project consumes those; we don't replicate.
 
 4. **Is it an architectural decision?**
    -> Lives in **`adrs/`** as a numbered ADR.
@@ -80,11 +80,11 @@ A doc that grows past these targets is usually trying to be two things; consider
 ## Anti-patterns we avoid
 
 - **Conceptual content in directory READMEs.** "Why does this matter?" belongs in `agentic-docs/`. The README answers "what's here and how do I add to it?"
-- **Duplicating framework content.** We link to upstream SpecForge docs rather than duplicate; only the project-specific contextualization lives here.
+- **Duplicating framework content.** We link to upstream SpecRoute docs rather than duplicate; only the project-specific contextualization lives here.
 - **`agentic-docs/some-guide.md` that's actually a workflow.** Workflows live in the framework's `workflows/`; we consume them.
 - **TODO markers as a placeholder for missing thinking.** TODOs are intentional - they mark places where a real value will be added later, not gaps in reasoning.
 
 ## See also
 
-- The framework's canonical [`agentic-docs/documentation-structure.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/documentation-structure.md) for the broader doc-organization pattern.
+- The framework's canonical [`agentic-docs/documentation-structure.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/documentation-structure.md) for the broader doc-organization pattern.
 - [`two-tier-docs-pattern.md`](two-tier-docs-pattern.md) for the root-vs-deep-reference distinction.

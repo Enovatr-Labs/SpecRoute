@@ -1,6 +1,6 @@
 # Examples
 
-End-to-end worked examples that demonstrate the SpecForge artifact pipeline. The canonical example is **drop-in runnable** — copy the folder into a new repository and Claude Code can drive the implementation end to end.
+End-to-end worked examples that demonstrate the SpecRoute artifact pipeline. The canonical example is **drop-in runnable** — copy the folder into a new repository and Claude Code can drive the implementation end to end.
 
 ```
 examples/
@@ -37,7 +37,7 @@ examples/
 
 ### A. Read the example (5 minutes)
 
-Walk the artifacts in spec-driven order to see how SpecForge fits together:
+Walk the artifacts in spec-driven order to see how SpecRoute fits together:
 
 1. [`sample-project/prds/active/user-search.md`](sample-project/prds/active/user-search.md) - start here, read as a product reviewer.
 2. [`sample-project/specs/user-search/requirements.md`](sample-project/specs/user-search/requirements.md) - see how PRD goals translate into stable-ID requirements.
@@ -73,7 +73,7 @@ cat >> .gitignore <<'EOF'
 .claude/.forbidden-strings.txt
 EOF
 
-# 5. (Optional) git init && git add . && git commit -m "Bootstrap from SpecForge"
+# 5. (Optional) git init && git add . && git commit -m "Bootstrap from SpecRoute"
 
 # 6. Open the repo with Claude Code.
 ```
@@ -95,7 +95,7 @@ See [`sample-project/README.md`](sample-project/README.md) for the full drop-in 
 
 ## What this example demonstrates
 
-The `user-search` feature exercises every artifact shape in SpecForge:
+The `user-search` feature exercises every artifact shape in SpecRoute:
 
 - **PRD** - the full 23-section enterprise template ([`prds/templates/prd-template.md`](../prds/templates/prd-template.md)). Real product framing, success metrics, scope boundaries, performance budgets, security requirements.
 - **Spec triplet** - `requirements.md` with stable IDs (`R1.1` through `NFR-4.1`), `design.md` referencing those IDs in every section with `**Satisfies:**` annotations, `tasks.md` with numbered work items each ending in `_Requirements: <ids>_`.
@@ -130,6 +130,6 @@ Suggested next examples (none built yet):
 - **Theoretical content** - every section must be filled in concretely. Placeholder-only text defeats the example's purpose.
 - **Domain-specific naming** - generic only.
 - **Mismatched cross-references** - the PRD's NFRs must match the requirements' NFRs must match the design's NFRs.
-- **Drifted templates** - when SpecForge templates change, examples that exercise those templates need to be re-checked.
+- **Drifted templates** - when SpecRoute templates change, examples that exercise those templates need to be re-checked.
 
 The `template-quality-reviewer` agent is the gate; see [`.claude/agents/template-quality-reviewer.md`](../.claude/agents/template-quality-reviewer.md).

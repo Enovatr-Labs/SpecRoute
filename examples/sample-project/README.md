@@ -63,7 +63,7 @@ sample-project/
 
 ```bash
 # 1. Copy this folder to your new repository.
-cp -R /path/to/specforge/examples/sample-project/. /path/to/your-new-repo/
+cp -R /path/to/specroute/examples/sample-project/. /path/to/your-new-repo/
 
 # 2. Move into your new repo.
 cd /path/to/your-new-repo/
@@ -85,7 +85,7 @@ EOF
 # 6. (Optional) Set up a real git repo if you haven't.
 git init
 git add .
-git commit -m "Bootstrap from SpecForge sample-project"
+git commit -m "Bootstrap from SpecRoute sample-project"
 ```
 
 ## Running the implementation
@@ -146,12 +146,12 @@ The framework's contracts (frontmatter, spec triplet, phased prompts, hook proto
 
 ## Vendor scope
 
-This sample is **Claude-Code-only**. To target other agent CLIs (Codex, Gemini, Kiro, Cursor, Windsurf), see the SpecForge framework's `runtimes/.<vendor>/` layouts and adapt this sample's `.claude/` to the equivalent vendor directory.
+This sample is **Claude-Code-only**. To target other agent CLIs (Codex, Gemini, Kiro, Cursor, Windsurf), see the SpecRoute framework's `runtimes/.<vendor>/` layouts and adapt this sample's `.claude/` to the equivalent vendor directory.
 
 For multi-vendor projects, you can keep `.claude/` here and add `.codex/`, `.gemini/`, etc. alongside; the spec triplet, prompts, and roster work in any agent CLI that reads markdown.
 
 ## See also
 
-- [`../README.md`](../README.md) - the parent `examples/` README explaining the SpecForge worked-example pattern
-- The SpecForge framework's [`agentic-docs/spec-driven-development.md`](../../agentic-docs/spec-driven-development.md) - the underlying methodology
+- [`../README.md`](../README.md) - the parent `examples/` README explaining the SpecRoute worked-example pattern
+- The SpecRoute framework's [`agentic-docs/spec-driven-development.md`](../../agentic-docs/spec-driven-development.md) - the underlying methodology
 - The framework's [`agentic-docs/automation-decision-framework.md`](../../agentic-docs/automation-decision-framework.md) - when to reach for skill / agent / command / hook

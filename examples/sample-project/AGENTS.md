@@ -6,7 +6,7 @@ Canonical, vendor-neutral context file for this project. This is the single sour
 
 A sample feature implementation: paginated, filterable, indexed user-directory search (`GET /api/users/search`). Generic domain - no proprietary business logic.
 
-This project demonstrates the [SpecForge](https://github.com/Enovatr-Labs/SpecForge) framework's spec-driven flow concretely. Every artifact you'd produce in a real spec-driven implementation is here, plus the runtime layout (`.claude/`) that lets Claude Code pick up the work without additional setup.
+This project demonstrates the [SpecRoute](https://github.com/Enovatr-Labs/SpecRoute) framework's spec-driven flow concretely. Every artifact you'd produce in a real spec-driven implementation is here, plus the runtime layout (`.claude/`) that lets Claude Code pick up the work without additional setup.
 
 ## Spec-driven flow
 
@@ -35,7 +35,7 @@ sample-project/
 ├── CLAUDE.md                Claude-specific delegation shim
 ├── prds/                    PRD lifecycle (active/deprecated/archive)
 ├── specs/                   spec triplets per feature
-├── agentic-docs/            framework reference docs (copied from SpecForge)
+├── agentic-docs/            framework reference docs (copied from SpecRoute)
 ├── prompts/                 phased execution plan
 ├── agent-roster.md          per-task agent assignments
 ├── implementation-plan.md   operational view
@@ -76,7 +76,7 @@ These are the rules that aren't obvious from the code and must be respected.
 
 ## Vendor scope
 
-This sample is **Claude-Code-only**. To target Codex / Gemini / Kiro / Cursor / Windsurf, see the SpecForge framework's [`runtimes/.<vendor>/`](https://github.com/Enovatr-Labs/SpecForge/tree/main/runtimes) layouts and adapt the agents, hooks, and commands to that vendor's contract.
+This sample is **Claude-Code-only**. To target Codex / Gemini / Kiro / Cursor / Windsurf, see the SpecRoute framework's [`runtimes/.<vendor>/`](https://github.com/Enovatr-Labs/SpecRoute/tree/main/runtimes) layouts and adapt the agents, hooks, and commands to that vendor's contract.
 
 ## How to start
 

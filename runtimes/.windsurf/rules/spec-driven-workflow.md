@@ -1,11 +1,11 @@
 ---
-description: SpecForge spec-driven workflow and artifact routing.
+description: SpecRoute spec-driven workflow and artifact routing.
 trigger: always
 ---
 
 # Spec-Driven Workflow
 
-Use this rule in every Windsurf conversation for a SpecForge-enabled repo.
+Use this rule in every Windsurf conversation for a SpecRoute-enabled repo.
 
 ## Canonical Flow
 

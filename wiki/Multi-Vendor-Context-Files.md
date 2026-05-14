@@ -2,9 +2,9 @@
 
 <!-- sources: agentic-docs/multi-vendor-context-files.md -->
 
-How a SpecForge-driven repository uses one canonical context file (`AGENTS.md`) and small per-vendor delegation shims (`CLAUDE.md`, `GEMINI.md`) to support multiple agent CLIs without N parallel root files drifting apart.
+How a SpecRoute-driven repository uses one canonical context file (`AGENTS.md`) and small per-vendor delegation shims (`CLAUDE.md`, `GEMINI.md`) to support multiple agent CLIs without N parallel root files drifting apart.
 
-For the canonical version, see [`agentic-docs/multi-vendor-context-files.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/multi-vendor-context-files.md).
+For the canonical version, see [`agentic-docs/multi-vendor-context-files.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/multi-vendor-context-files.md).
 
 ## The pattern
 
@@ -45,7 +45,7 @@ For repository overview, artifact taxonomy, vendor matrix, hard constraints, and
 the spec-driven flow: read AGENTS.md. This file holds only Claude-Code-specific overrides.
 
 ## Claude-Code-specific notes
-### .claude/ runtime is the SpecForge implementation team
+### .claude/ runtime is the SpecRoute implementation team
 ...
 ### Sanitization gate is active
 ...
@@ -108,9 +108,9 @@ Most edits to `AGENTS.md` don't require shim changes. The shims are for vendor-s
 
 ## Worked examples (in this repo)
 
-- [`AGENTS.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/AGENTS.md) — canonical
-- [`CLAUDE.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/CLAUDE.md) — delegation shim
-- [`GEMINI.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/GEMINI.md) — delegation shim
+- [`AGENTS.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/AGENTS.md) — canonical
+- [`CLAUDE.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CLAUDE.md) — delegation shim
+- [`GEMINI.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/GEMINI.md) — delegation shim
 
 ## See also
 

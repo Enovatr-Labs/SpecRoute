@@ -4,7 +4,7 @@
 
 Keep root context files short; put deep references in a separate directory. The two tiers serve different purposes and have different cost models. Conflating them produces docs that fail at both jobs.
 
-For the canonical version, see [`agentic-docs/two-tier-docs-pattern.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/two-tier-docs-pattern.md).
+For the canonical version, see [`agentic-docs/two-tier-docs-pattern.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/two-tier-docs-pattern.md).
 
 ## The pattern
 

@@ -1,8 +1,8 @@
 cff-version: 1.2.0
-message: "If you use SpecForge in academic work, blog posts, or other published material, please cite it as below."
-title: "SpecForge: An open-source framework for spec-driven agentic software engineering"
+message: "If you use SpecRoute in academic work, blog posts, or other published material, please cite it as below."
+title: "SpecRoute: An open-source framework for spec-driven agentic software engineering"
 abstract: >-
-  SpecForge is a vendor-neutral framework for spec-driven agentic software
+  SpecRoute is a vendor-neutral framework for spec-driven agentic software
   engineering. It captures production-grade patterns for PRDs, specifications
   (requirements / design / tasks triplet), agents, skills, slash commands,
   hooks, prompts, workflows, and engineering rules across six agent CLIs:
@@ -16,8 +16,8 @@ authors:
     given-names: Chika
     affiliation: Enovatr Labs
     email: chika@enovatr.com
-url: "https://github.com/Enovatr-Labs/SpecForge"
-repository-code: "https://github.com/Enovatr-Labs/SpecForge"
+url: "https://github.com/Enovatr-Labs/SpecRoute"
+repository-code: "https://github.com/Enovatr-Labs/SpecRoute"
 license: Apache-2.0
 date-released: 2026-05-11
 version: "0.2.0"
@@ -36,4 +36,4 @@ keywords:
 identifiers:
   - description: "Source code repository"
     type: url
-    value: "https://github.com/Enovatr-Labs/SpecForge"
+    value: "https://github.com/Enovatr-Labs/SpecRoute"

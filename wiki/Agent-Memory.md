@@ -4,7 +4,7 @@
 
 Per-agent persistent context that survives across conversations. Agents that maintain state — open TODOs, decisions made, where they left off — write notes that they re-read at the start of each session.
 
-For the canonical version, see [`agentic-docs/agent-memory.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/agent-memory.md).
+For the canonical version, see [`agentic-docs/agent-memory.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/agent-memory.md).
 
 ## What it is
 
@@ -58,9 +58,9 @@ These directories are tracked. Do not write:
 
 This repo's `.claude/agent-memory/` has working examples for the most stateful implementation agents:
 
-- [`sanitization-auditor/checklist.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agent-memory/sanitization-auditor/checklist.md) — sanitization wordlist + audit protocol; explicit "intentional placeholders" list.
-- [`runtime-architect/vendor-matrix-progress.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agent-memory/runtime-architect/vendor-matrix-progress.md) — vendor-by-vendor build-out state.
-- [`framework-docs-author/docs-status.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/.claude/agent-memory/framework-docs-author/docs-status.md) — drafting progress for `agentic-docs/`.
+- [`sanitization-auditor/checklist.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agent-memory/sanitization-auditor/checklist.md) — sanitization wordlist + audit protocol; explicit "intentional placeholders" list.
+- [`runtime-architect/vendor-matrix-progress.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agent-memory/runtime-architect/vendor-matrix-progress.md) — vendor-by-vendor build-out state.
+- [`framework-docs-author/docs-status.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/.claude/agent-memory/framework-docs-author/docs-status.md) — drafting progress for `agentic-docs/`.
 
 ## When agent memory is *not* the right tool
 

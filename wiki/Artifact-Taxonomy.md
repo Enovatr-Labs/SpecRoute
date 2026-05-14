@@ -2,7 +2,7 @@
 
 <!-- sources: AGENTS.md, README.md -->
 
-SpecForge defines nine artifact types. Each has a template, a contract, an owner agent, and a place it lives.
+SpecRoute defines nine artifact types. Each has a template, a contract, an owner agent, and a place it lives.
 
 | Artifact | What it is | Lives in | Wiki page |
 |---|---|---|---|

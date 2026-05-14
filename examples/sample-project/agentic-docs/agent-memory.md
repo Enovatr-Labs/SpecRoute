@@ -71,6 +71,6 @@ This project is Claude-only, so memory lives only at `.claude/agent-memory/`. If
 
 ## See also
 
-- The framework's canonical [`agentic-docs/agent-memory.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/agent-memory.md) for the broader pattern.
+- The framework's canonical [`agentic-docs/agent-memory.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/agent-memory.md) for the broader pattern.
 - [`.claude/agents/README.md`](../.claude/agents/README.md) - the agent roster (each agent can have a memory dir).
 - [`adrs/`](../adrs/) - where decisions go (vs operational state, which goes in memory).

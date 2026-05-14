@@ -67,6 +67,6 @@ If reality conflicts with the design, the agent stops and updates `design.md` fi
 
 ## See also
 
-- The framework's canonical [`agentic-docs/spec-driven-development.md`](https://github.com/Enovatr-Labs/SpecForge/blob/main/agentic-docs/spec-driven-development.md) for the methodology in general.
+- The framework's canonical [`agentic-docs/spec-driven-development.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/spec-driven-development.md) for the methodology in general.
 - [`implementation-plan.md`](../implementation-plan.md) for the schedule and phase dependencies in this project.
 - [`prompts/runtime/pickup-next-task.md`](../prompts/runtime/pickup-next-task.md) - the daily-driver "what's next?" prompt.

@@ -21,7 +21,7 @@ Supporting shell scripts referenced by `hooks/claude/hooks.template.json`. Each 
 
 See [`../../../.claude/hooks/`](../../../.claude/hooks/) at the repo root for working hooks:
 
-- `session-start-status.sh` - prints a SpecForge skeleton status banner.
+- `session-start-status.sh` - prints a SpecRoute skeleton status banner.
 - `pre-bash-sanitize.sh` - blocks `git commit`/`git push` if forbidden strings appear in tracked files.
 - `post-edit-frontmatter.sh` - validates frontmatter when agent/skill/command files are written or edited.
 

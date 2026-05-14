@@ -2,9 +2,9 @@
 
 <!-- sources: SECURITY.md -->
 
-SpecForge is markdown content — templates, prompts, agent definitions, runtime layouts — not a runtime application. The threat model is narrow but real.
+SpecRoute is markdown content — templates, prompts, agent definitions, runtime layouts — not a runtime application. The threat model is narrow but real.
 
-Full policy: [SECURITY.md](https://github.com/Enovatr-Labs/SpecForge/blob/main/SECURITY.md).
+Full policy: [SECURITY.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/SECURITY.md).
 
 ## In scope
 
@@ -19,7 +19,7 @@ We treat the following as security issues:
 ## Out of scope
 
 - Vulnerabilities in the agent CLIs themselves (Claude Code, Codex, Gemini CLI, Kiro, Cursor, Windsurf). Report upstream.
-- Vulnerabilities in MCP servers SpecForge references but doesn't ship. Report upstream.
+- Vulnerabilities in MCP servers SpecRoute references but doesn't ship. Report upstream.
 - Generic prompt-injection in third-party content a consumer feeds into their agent CLI.
 - Security of consumer-extracted artifacts after they fork/copy templates — the responsibility shifts at extraction time.
 
@@ -28,8 +28,8 @@ We treat the following as security issues:
 Report suspected vulnerabilities **privately** before opening a public issue:
 
 - **Email**: `security@enovatr.com` (primary), `chika@enovatr.com` (fallback).
-- **GitHub**: open a [private security advisory](https://github.com/Enovatr-Labs/SpecForge/security/advisories/new).
-- **Subject line**: `[SpecForge SECURITY] <short description>`.
+- **GitHub**: open a [private security advisory](https://github.com/Enovatr-Labs/SpecRoute/security/advisories/new).
+- **Subject line**: `[SpecRoute SECURITY] <short description>`.
 
 Include:
 - Affected file(s) and version (commit SHA or tag).
@@ -65,7 +65,7 @@ The `template-quality-reviewer` agent and the `/audit` command flag obvious viol
 
 ## Recognition
 
-We're happy to credit reporters in the security advisory and release notes unless you prefer to remain anonymous. SpecForge does not currently offer a paid bug bounty.
+We're happy to credit reporters in the security advisory and release notes unless you prefer to remain anonymous. SpecRoute does not currently offer a paid bug bounty.
 
 ## See also
 

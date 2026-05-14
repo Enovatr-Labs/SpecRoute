@@ -1,6 +1,6 @@
 # FAQ
 
-## What is SpecForge?
+## What is SpecRoute?
 
 An open-source framework for **spec-driven agentic software engineering**, vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf. It ships templates, prompts, agent definitions, runtime layouts, and engineering rules — **markdown content, not application code.**
 
@@ -8,7 +8,7 @@ See [[Home]] and [[Philosophy]].
 
 ## Is this a CLI? A package?
 
-No. There's no `package.json`, no build step, no test suite, no lint config. SpecForge is documentation and templates you drop into your own repository.
+No. There's no `package.json`, no build step, no test suite, no lint config. SpecRoute is documentation and templates you drop into your own repository.
 
 The only executables are sanitization-gate hooks and cross-vendor sync utilities under `tools/` — and those are intentionally minimal.
 
@@ -61,7 +61,7 @@ The triplet exists because conflating *what* / *how* / *do this* is a known fail
 
 ## Why does sanitization matter so much?
 
-SpecForge is open-source and is generalized from internal codebases. Private project names, customer data, and proprietary domain logic must not leak into tracked content.
+SpecRoute is open-source and is generalized from internal codebases. Private project names, customer data, and proprietary domain logic must not leak into tracked content.
 
 Three enforcement layers (see [[Sanitization]]):
 
@@ -71,13 +71,13 @@ Three enforcement layers (see [[Sanitization]]):
 
 The wordlist (`.claude/.forbidden-strings.txt`) is **gitignored** on purpose — the framework should never carry a permanent record of what it was extracted from.
 
-## Can I use SpecForge for my closed-source project?
+## Can I use SpecRoute for my closed-source project?
 
 Yes — Apache 2.0 license. Copy what you need, adapt to your stack, ignore the rest. The sanitization gate only applies to *this* repo's tracked content; it doesn't follow your fork.
 
 ## What's the difference between `.claude/` and `runtimes/.claude/`?
 
-- `.claude/` (at the repo root) is the **implementation team** that builds SpecForge itself — 11 agents, 4 skills, 4 commands, 3 hooks for the SpecForge contributors.
+- `.claude/` (at the repo root) is the **implementation team** that builds SpecRoute itself — 11 agents, 4 skills, 4 commands, 3 hooks for the SpecRoute contributors.
 - `runtimes/.claude/` is the **consumer template** that you drop into your own repository.
 
 Don't confuse them. See [[Implementation Team]].
@@ -92,7 +92,7 @@ The `add-vendor` skill walks through it interactively. See [[Adding a Vendor]] f
 
 ## How do I report a security issue?
 
-`security@enovatr.com` (preferred) or via [GitHub security advisory](https://github.com/Enovatr-Labs/SpecForge/security/advisories/new). **Don't open a public issue.** See [[Security]].
+`security@enovatr.com` (preferred) or via [GitHub security advisory](https://github.com/Enovatr-Labs/SpecRoute/security/advisories/new). **Don't open a public issue.** See [[Security]].
 
 ## Is there a roadmap?
 
@@ -115,11 +115,11 @@ Numbered files, sorted phases, explicit agent assignments. Each task prompt inst
 
 ## Why don't I see any code in the worked example?
 
-Because **SpecForge ships the inputs**, not the output. The worked example is the PRD + spec triplet + agent roster + 28 prompts + runtime layout. When you `cp -R examples/sample-project/. /path/to/new-repo/` and run `prompts/runtime/pickup-next-task.md` in Claude Code, the agents *generate* the code. See [[Worked Example]].
+Because **SpecRoute ships the inputs**, not the output. The worked example is the PRD + spec triplet + agent roster + 28 prompts + runtime layout. When you `cp -R examples/sample-project/. /path/to/new-repo/` and run `prompts/runtime/pickup-next-task.md` in Claude Code, the agents *generate* the code. See [[Worked Example]].
 
 ## How do I get help?
 
-- General questions: [GitHub discussions or issues](https://github.com/Enovatr-Labs/SpecForge/issues).
+- General questions: [GitHub discussions or issues](https://github.com/Enovatr-Labs/SpecRoute/issues).
 - Specific to a vendor: that vendor's docs + community.
 - Commercial / partnership: `chika@enovatr.com`.
 
