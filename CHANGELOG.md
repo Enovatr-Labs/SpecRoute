@@ -12,11 +12,23 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
-(Changes accumulating since v0.2.1 will be listed here.)
+(Changes accumulating since v0.2.3 will be listed here.)
 
 ---
 
-## [0.2.1] - 2026-05-14
+## [0.2.3] - 2026-05-19
+
+First publicly available release. Supersedes the withdrawn v0.2.0 (2026-05-11) and v0.2.1 (2026-05-14) entries below; the shipping content is unchanged from v0.2.1.
+
+### Security
+
+- Repository history sanitized end-to-end prior to public flip. A second-pass commit-message rewrite scrubbed a residual reference to the upstream private codebase that was reintroduced (while *describing* the prior sanitization) in the release-promotion commits behind v0.2.0 and v0.2.1. File content, authorship, and authorship timestamps are unchanged; only message bodies in the rewritten chain differ.
+- The repository was additionally recreated from the clean local state to drop GitHub-preserved `refs/pull/*/head` refs that retained the tainted commits out-of-band of the rewrite. The pre-recreate repository is retained privately as `Enovatr-Labs/SpecRoute-archive`.
+- The v0.2.0, v0.2.1, and v0.2.2 tag names were consumed during this process and are permanently reserved org-wide by the immutable-releases feature; v0.2.3 is therefore the equivalent shipping artifact for what would have been v0.2.1.
+
+---
+
+## 0.2.1 — 2026-05-14 *(withdrawn during pre-public sanitization; superseded by v0.2.3)*
 
 ### Changed
 
@@ -24,7 +36,7 @@ For a content-only framework, versions are interpreted as:
 
 ---
 
-## [0.2.0] - 2026-05-11
+## 0.2.0 — 2026-05-11 *(withdrawn during pre-public sanitization; superseded by v0.2.3)*
 
 First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.0 is what appears on the public landing page on day one of public visibility, with the wiki and GitHub-side hygiene infrastructure in place.
 
@@ -75,9 +87,8 @@ First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.
 - Repository history sanitized: one commit message body containing a reference to the upstream private codebase from which SpecRoute was extracted was rewritten before public flip. The rewrite preserves all file content and authorship; only the message paragraph in that one commit changed. The `v0.1.0` tag and release object were retargeted to the rewritten commit chain.
 - Sanitization infrastructure validated end-to-end on real-world push attempts: PreToolUse `pre-bash-sanitize.sh` hook + gitignored `.claude/.forbidden-strings.txt` wordlist + `/sanitize` command + `sanitization-auditor` agent.
 
-[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.1...HEAD
-[0.2.1]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.1
-[0.2.0]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.0
+[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.3
 
 ---
 
