@@ -4,7 +4,7 @@ This roadmap is intentionally honest about the current state. Updated alongside 
 
 Status legend: ✓ done · ◐ in progress · ☐ not started
 
-**Current version:** v0.2.0 (released 2026-05-11). See [`CHANGELOG.md`](CHANGELOG.md) for the release log.
+**Current version:** v0.2.4 (released 2026-05-19). See [`CHANGELOG.md`](CHANGELOG.md) for the release log.
 
 ---
 
@@ -59,7 +59,7 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 
 **Goal:** Real-world adoption signals, additional vendors, and community-contributed examples that prove the framework's reusability.
 
-- ◐ Versioned releases - v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 cut 2026-05-11 (first public release with wiki + GitHub-side hygiene); v1.0 target after vendor-doc currency cycle and DOI registration
+- ◐ Versioned releases - v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 / v0.2.1 cut 2026-05-11 / 2026-05-14 then retracted during pre-public sanitization (see [`CHANGELOG.md`](CHANGELOG.md)); v0.2.3 cut 2026-05-19 (first publicly available release with wiki + GitHub-side hygiene); v0.2.4 cut 2026-05-19 (version-string synchronization in `CITATION.cff`, `ROADMAP.md`, and wiki); v1.0 target after vendor-doc currency cycle and DOI registration
 - ☐ Additional worked examples beyond `sample-project/` (suggested: lightweight feature, refactor, ADR-only project, Codex variant of sample-project)
 - ☐ Additional vendor support based on community demand
 - ☐ Persistent DOI via Zenodo (at v1.0)

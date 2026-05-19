@@ -12,7 +12,16 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
-(Changes accumulating since v0.2.3 will be listed here.)
+(Changes accumulating since v0.2.4 will be listed here.)
+
+---
+
+## [0.2.4] - 2026-05-19
+
+### Fixed
+
+- `CITATION.cff` `version` and `date-released` fields advanced from `0.2.1` / `2026-05-14` to the current release. The field had been left stale during the v0.2.3 cut and was caught in the post-flip pre-publication review.
+- `ROADMAP.md` and `wiki/Home.md` / `wiki/Roadmap.md` "Current version" lines synchronized to the current release. Phase 4 release-history bullets in both `ROADMAP.md` and `wiki/Roadmap.md` updated to reflect the v0.2.0 / v0.2.1 retraction and the v0.2.3 → v0.2.4 path.
 
 ---
 
@@ -87,7 +96,8 @@ First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.
 - Repository history sanitized: one commit message body containing a reference to the upstream private codebase from which SpecRoute was extracted was rewritten before public flip. The rewrite preserves all file content and authorship; only the message paragraph in that one commit changed. The `v0.1.0` tag and release object were retargeted to the rewritten commit chain.
 - Sanitization infrastructure validated end-to-end on real-world push attempts: PreToolUse `pre-bash-sanitize.sh` hook + gitignored `.claude/.forbidden-strings.txt` wordlist + `/sanitize` command + `sanitization-auditor` agent.
 
-[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.3...HEAD
+[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.4...HEAD
+[0.2.4]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.4
 [0.2.3]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.3
 
 ---

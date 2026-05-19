@@ -6,7 +6,7 @@ Where SpecRoute is, what's next, and what's deliberately out of scope.
 
 Canonical source: [ROADMAP.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/ROADMAP.md). Release log: [CHANGELOG.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CHANGELOG.md).
 
-**Current version**: v0.2.0 (released 2026-05-11).
+**Current version**: v0.2.4 (released 2026-05-19).
 
 Status legend: ✓ done · ◐ in progress · ☐ not started
 
@@ -60,7 +60,7 @@ Ship copy-pasteable per-vendor runtime layouts and the tooling that keeps them i
 
 Real-world adoption signals, additional vendors, and community-contributed examples.
 
-- ◐ Versioned releases — v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 cut 2026-05-11 (first public release with wiki + GitHub-side hygiene); v1.0 target after vendor-doc currency cycle and DOI registration
+- ◐ Versioned releases — v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 / v0.2.1 cut 2026-05-11 / 2026-05-14 then retracted during pre-public sanitization (see [CHANGELOG](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CHANGELOG.md)); v0.2.3 cut 2026-05-19 (first publicly available release with wiki + GitHub-side hygiene); v0.2.4 cut 2026-05-19 (version-string synchronization in `CITATION.cff`, `ROADMAP.md`, and wiki); v1.0 target after vendor-doc currency cycle and DOI registration
 - ☐ Additional worked examples beyond `sample-project/`:
   - Lightweight feature (single-team, `lightweight-prd-template.md` + `feature-spec-template.md`)
   - Refactor (`technical-spec-template.md`)

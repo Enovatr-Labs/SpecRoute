@@ -140,7 +140,7 @@ If you use SpecRoute in academic work, blog posts, talks, or other published mat
   title        = {{SpecRoute: An open-source framework for spec-driven agentic software engineering}},
   organization = {Enovatr Labs},
   year         = {2026},
-  version      = {0.2.0},
+  version      = {0.2.4},
   url          = {https://github.com/Enovatr-Labs/SpecRoute},
   license      = {Apache-2.0}
 }
@@ -148,7 +148,7 @@ If you use SpecRoute in academic work, blog posts, talks, or other published mat
 
 **Plain text:**
 
-> Ihejimba, C. (2026). *SpecRoute: An open-source framework for spec-driven agentic software engineering* (Version 0.2.0) [Computer software]. Enovatr Labs. https://github.com/Enovatr-Labs/SpecRoute
+> Ihejimba, C. (2026). *SpecRoute: An open-source framework for spec-driven agentic software engineering* (Version 0.2.4) [Computer software]. Enovatr Labs. https://github.com/Enovatr-Labs/SpecRoute
 
 For tagged releases, prefer the version-specific commit or tag URL. A persistent DOI (via Zenodo) will be added once the framework reaches v1.0.
 

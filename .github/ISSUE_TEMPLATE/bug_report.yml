@@ -50,7 +50,7 @@ body:
     attributes:
       label: Version / commit
       description: SpecRoute version (`CITATION.cff`) or commit SHA you observed this on.
-      placeholder: "v0.2.0"
+      placeholder: "v0.2.4"
     validations:
       required: false
 
