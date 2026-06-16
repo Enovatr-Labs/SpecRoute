@@ -12,12 +12,12 @@ For the canonical reference, see [`agentic-docs/cross-vendor-sync.md`](https://g
 |---|---|---|
 | **Agents** | Claude Code, Codex | Flat `<name>.md` with frontmatter (`name`, `description`, `model`, `color`) |
 | **Skills** | Claude Code, Codex | Folder-per-skill `SKILL.md` with frontmatter |
-| **MCP server inventory** | Claude Desktop, Codex, Gemini CLI | Different shapes; see [[MCP Integration]] |
+| **MCP server inventory** | All six vendors (Claude Code, Codex, Gemini, Kiro, Cursor, Windsurf/Devin) | Two emit shapes — `mcpServers` JSON for all but Codex's `[mcp_servers]` TOML; see [[MCP Integration]] |
 | **Engineering rules** | All vendors | Markdown body; per-vendor frontmatter (Cursor MDC, Kiro inclusion, etc.) |
 | **Prompts** | Any vendor reading markdown | No vendor-specific shape; copy-paste-friendly |
 | **Specs** | All vendors (read by humans + agents) | Same in every vendor |
 
-**Not synced**: vendor-specific config files (`.claude/settings.json`, `.codex/config.toml`, `.gemini/gemini_cli_config.json`) and vendor-specific runtime layouts.
+**Not synced**: vendor-specific config files (`.claude/settings.json`, `.codex/config.toml`, `.gemini/settings.json` + `.gemini/commands/*.toml`) and vendor-specific runtime layouts.
 
 ## Tools that maintain sync
 

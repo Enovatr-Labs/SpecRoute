@@ -48,16 +48,22 @@ sample-project/
 │   ├── phase2_frontend/        tasks 13-17
 │   ├── phase3_validation/      tasks 18-22
 │   └── runtime/                operational prompts (pickup-next-task, daily-checkpoint)
-└── .claude/                    Claude Code runtime
-    ├── settings.json                       project-wide settings
-    ├── settings.local.template.json        rename to settings.local.json after copy
-    ├── claude_desktop_config.template.json rename to claude_desktop_config.json after copy
-    ├── .forbidden-strings.template.txt     rename to .forbidden-strings.txt after copy
-    ├── agents/                             8 implementation-team agents
-    ├── commands/                           /sanitize, /audit, /status, /parity
-    ├── hooks/                               hooks.json + 3 scripts
-    └── agent-memory/
+├── .claude/                    Claude Code runtime
+│   ├── settings.json                       project-wide settings
+│   ├── settings.local.template.json        rename to settings.local.json after copy
+│   ├── mcp.template.json                   rename to ../.mcp.json (repo root) after copy
+│   ├── .forbidden-strings.template.txt     rename to .forbidden-strings.txt after copy
+│   ├── agents/                             8 implementation-team agents
+│   ├── commands/                           /sanitize, /audit, /status, /parity
+│   ├── hooks/                               hooks.json + 3 scripts
+│   └── agent-memory/
+└── .codex/                     Codex runtime (second-vendor demonstration)
+    ├── README.md                           Codex drop-in notes + TOML agent shape
+    ├── config.toml                         MCP servers + approval policy
+    └── agents/                             same 8 agents, TOML shape (developer_instructions)
 ```
+
+The same project ships **two runtimes**: `.claude/` (Markdown agents) and `.codex/` (TOML agents). The PRDs, spec triplet, ADRs, prompts, and roster are vendor-neutral and shared - only the runtime layer differs. The `.codex/` variant is a worked demonstration of the mid-2026 vendor convergence: the identical implementation team in a second vendor's native shape. See [`.codex/README.md`](.codex/README.md).
 
 ## Drop-in setup (5 minutes)
 
@@ -70,7 +76,7 @@ cd /path/to/your-new-repo/
 
 # 3. Rename the .template files (these are gitignored after rename).
 mv .claude/settings.local.template.json     .claude/settings.local.json
-mv .claude/claude_desktop_config.template.json .claude/claude_desktop_config.json
+mv .claude/mcp.template.json                 .mcp.json   # Claude Code CLI reads .mcp.json at the repo root
 mv .claude/.forbidden-strings.template.txt  .claude/.forbidden-strings.txt
 
 # 4. Add the renamed files to your project's .gitignore.
@@ -146,9 +152,9 @@ The framework's contracts (frontmatter, spec triplet, phased prompts, hook proto
 
 ## Vendor scope
 
-This sample is **Claude-Code-only**. To target other agent CLIs (Codex, Gemini, Kiro, Cursor, Windsurf), see the SpecRoute framework's `runtimes/.<vendor>/` layouts and adapt this sample's `.claude/` to the equivalent vendor directory.
+This sample ships **two runtimes** - `.claude/` (Claude Code) and `.codex/` (Codex) - over one shared, vendor-neutral spec layer. The `.codex/` directory is a worked demonstration that the same team and artifacts carry across vendors: the eight agents are reproduced as TOML files with `developer_instructions`, and the MCP server set lives in `config.toml` instead of `mcp.template.json`. See [`.codex/README.md`](.codex/README.md).
 
-For multi-vendor projects, you can keep `.claude/` here and add `.codex/`, `.gemini/`, etc. alongside; the spec triplet, prompts, and roster work in any agent CLI that reads markdown.
+To target further agent CLIs (Gemini, Kiro, Cursor, Windsurf), see the SpecRoute framework's `runtimes/.<vendor>/` layouts and adapt this sample's `.claude/` (or `.codex/`) to the equivalent vendor directory. The spec triplet, prompts, and roster work in any agent CLI that reads markdown.
 
 ## See also
 

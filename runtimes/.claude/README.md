@@ -8,7 +8,7 @@ Drop this directory into the root of your project (rename or merge with any exis
 .claude/
 ├── settings.json                       project-wide settings (tracked)
 ├── settings.local.json                 per-user overrides (gitignored)
-├── claude_desktop_config.json          MCP server config for the desktop app
+├── (repo root) .mcp.json               MCP server config for the Claude Code CLI
 ├── agents/<name>.md                    flat-file agents
 ├── skills/<slug>/SKILL.md              folder-per-skill
 ├── commands/<name>.md                  slash commands
@@ -25,7 +25,7 @@ Drop this directory into the root of your project (rename or merge with any exis
    ```bash
    cp runtimes/.claude/settings.template.json .claude/settings.json
    cp runtimes/.claude/settings.local.template.json .claude/settings.local.json
-   cp runtimes/.claude/claude_desktop_config.template.json .claude/claude_desktop_config.json
+   cp runtimes/.claude/mcp.template.json .mcp.json    # Claude Code reads .mcp.json at the repo root
    cp runtimes/.claude/hooks/hooks.template.json .claude/hooks/hooks.json
    ```
 
@@ -61,7 +61,7 @@ Drop this directory into the root of your project (rename or merge with any exis
 | `.claude/settings.json` | Yes |
 | `.claude/settings.local.json` | **No** (per-user) |
 | `.claude/.forbidden-strings.txt` | **No** (per-installation) |
-| `.claude/claude_desktop_config.json` | Project decision; usually yes (sans secrets) |
+| `.mcp.json` (repo root) | Project decision; usually yes (sans secrets) |
 | `.claude/agents/*.md` | Yes |
 | `.claude/skills/<slug>/SKILL.md` | Yes |
 | `.claude/commands/*.md` | Yes |

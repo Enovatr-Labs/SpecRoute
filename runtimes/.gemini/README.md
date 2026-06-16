@@ -1,42 +1,49 @@
 # `.gemini/` - Gemini CLI runtime layout
 
-Drop this directory into the root of your project. Gemini reads from these paths.
+Drop this directory into the root of your project. Gemini reads from these paths. Current Gemini CLI builds back the full SpecRoute capability matrix: skills, subagents, commands, hooks, and MCP servers.
 
 ## Layout
 
 ```
 .gemini/
-├── settings.json                    MCP server config
-└── gemini_cli_config.json           command map (shell shortcuts)
+├── settings.json                MCP servers (mcpServers) + hooks block
+├── skills/
+│   └── <slug>/SKILL.md          Agent Skills open standard (enabled by default)
+├── agents/
+│   └── <name>.md                subagents (Markdown + YAML frontmatter)
+└── commands/
+    └── <name>.toml              custom commands (prompt + optional description)
 ```
 
 ## Setup
 
-1. Copy templates:
+1. Copy the settings template:
 
    ```bash
    cp runtimes/.gemini/settings.template.json .gemini/settings.json
-   cp runtimes/.gemini/gemini_cli_config.template.json .gemini/gemini_cli_config.json
    ```
 
-2. **MCP servers** - `settings.json`'s `mcpServers` map mirrors the canonical `runtimes/mcp/servers.yaml`. Run `runtimes/mcp/render/render_gemini.py` to regenerate.
+2. **MCP servers** - `settings.json`'s `mcpServers` map mirrors the canonical `runtimes/mcp/servers.yaml`. Run `runtimes/mcp/render/render_gemini.py` to regenerate it.
 
-3. **Commands** - `gemini_cli_config.json`'s `commands` map is Gemini's slash-command equivalent. Each entry runs a shell command (not a prompt). Customize for your project.
+3. **Hooks** - merge the `hooks` block from `hooks/gemini/hooks-settings.template.json` into `settings.json`. It covers the 11 Gemini lifecycle events (SessionStart, BeforeTool, AfterTool, ...). See that template and `hooks/gemini/scripts/` for the contract.
 
-## What Gemini does NOT support
+4. **Skills** - copy `runtimes/.gemini/skills/` to `.gemini/skills/`. One folder per skill with a `SKILL.md`; see [`skills/README.md`](skills/README.md) for the frontmatter contract.
 
-- Skills (folder-per-skill `SKILL.md`) - N/A
-- Agents (flat-file frontmatter) - N/A
-- Hooks - N/A
+5. **Subagents** - copy `runtimes/.gemini/agents/` to `.gemini/agents/`. One Markdown file per subagent; see [`agents/README.md`](agents/README.md).
 
-The shared concepts SpecRoute ships are:
+6. **Commands** - copy `runtimes/.gemini/commands/` to `.gemini/commands/`. One TOML file per command; subdirectories namespace as `/parent:child`. See [`commands/README.md`](commands/README.md).
 
-| Concept | Available in Gemini? |
-|---|---|
-| Slash commands | Yes (JSON map) |
-| MCP servers | Yes |
-| Engineering rules | Indirect - via root `GEMINI.md` and rules referenced from there |
-| Prompts | Yes - the `prompts/` directory works in any agent CLI that reads markdown |
+## Capability matrix
+
+| Concept | Available in Gemini? | Where |
+|---|---|---|
+| Skills | Yes | `.gemini/skills/<slug>/SKILL.md` |
+| Subagents | Yes | `.gemini/agents/<name>.md` |
+| Slash commands | Yes | `.gemini/commands/<name>.toml` (TOML, not the old JSON map) |
+| Hooks | Yes | `settings.json` `hooks` block (11 events) |
+| MCP servers | Yes | `settings.json` `mcpServers` |
+| Engineering rules | Indirect | root `GEMINI.md` and rules referenced from there |
+| Prompts | Yes | `prompts/` works in any agent CLI that reads markdown |
 
 ## Root context file
 
@@ -47,6 +54,10 @@ Gemini reads `GEMINI.md` at repo root. It should be a short delegation shim poin
 | Path | Tracked? |
 |---|---|
 | `.gemini/settings.json` | Yes (sans secrets) |
-| `.gemini/gemini_cli_config.json` | Yes |
+| `.gemini/skills/`, `.gemini/agents/`, `.gemini/commands/` | Yes |
 
 Secrets and personal preferences belong in environment variables or `.env` (gitignored).
+
+## Transition note
+
+Google began superseding the standalone Gemini CLI with the Antigravity CLI on 2026-06-18 for free and Google One tiers; paid tiers retain Gemini CLI access. The `.gemini/` layout described here remains valid for current installs, and the skills/agents/commands artifacts are portable to whatever runtime ships next.

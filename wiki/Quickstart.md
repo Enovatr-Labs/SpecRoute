@@ -5,7 +5,7 @@ Get a working SpecRoute setup in your own repo in 15 minutes.
 ## Prerequisites
 
 - A repository you control.
-- One or more supported agent CLIs installed locally. Most concrete tooling targets Claude Code; Codex is near-parity. See [[Vendor Matrix]].
+- One or more supported agent CLIs installed locally. All six (Claude Code, Codex, Gemini, Kiro, Cursor, Windsurf/Devin) support the same capability set; they differ in file format, not capability class. See [[Vendor Matrix]].
 - `git`, `python3` (only if you'll use `tools/sync-skills.py` or the MCP renderers).
 
 ## Three paths
@@ -49,7 +49,7 @@ cp -R SpecRoute/runtimes/.claude/ /path/to/your/repo/.claude/
 cd /path/to/your/repo/.claude
 mv settings.template.json            settings.json
 mv settings.local.template.json      settings.local.json
-mv claude_desktop_config.template.json claude_desktop_config.json
+mv mcp.template.json                 ../.mcp.json    # Claude Code CLI reads .mcp.json at repo root
 mv hooks/hooks.template.json         hooks/hooks.json
 
 # Set up the sanitization wordlist (gitignored)
@@ -69,7 +69,7 @@ cd /path/to/your-new-repo/
 
 # 2. Rename .template files (they become gitignored).
 mv .claude/settings.local.template.json     .claude/settings.local.json
-mv .claude/claude_desktop_config.template.json .claude/claude_desktop_config.json
+mv .claude/mcp.template.json                 .mcp.json    # Claude Code CLI reads .mcp.json at repo root
 mv .claude/.forbidden-strings.template.txt  .claude/.forbidden-strings.txt
 
 # 3. Add the renamed files to .gitignore.

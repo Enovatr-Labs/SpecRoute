@@ -8,10 +8,10 @@ Event-triggered automation. Hooks run automatically when something happens (file
 hooks/
 ├── README.md                            (this file)
 ├── claude/
-│   ├── hooks.template.json              Claude Code: ~27 events, 5 hook types
+│   ├── hooks.template.json              Claude Code: ~30 events, 5 hook types
 │   └── scripts/                         supporting shell scripts
 ├── codex/
-│   ├── hooks.template.json              Codex: 6 events; Claude-compatible JSON
+│   ├── hooks.template.json              Codex: 10 events; Claude-compatible JSON
 │   └── scripts/                         supporting shell scripts
 ├── gemini/
 │   ├── hooks-settings.template.json     Gemini CLI: 11 events; lives under `hooks` key in settings.json
@@ -19,7 +19,7 @@ hooks/
 ├── kiro/
 │   └── examples/                        Kiro: 10 events, *.kiro.hook JSON files
 ├── cursor/
-│   ├── hooks.template.json              Cursor: ~19 events with permission/decision schema
+│   ├── hooks.template.json              Cursor: ~21 events with permission/decision schema
 │   └── scripts/                         supporting shell scripts
 └── windsurf/
     ├── hooks.template.json              Windsurf: 12 events, blocking pre-hooks only
@@ -30,7 +30,7 @@ hooks/
 
 The full event lists. Bold events are the ones SpecRoute's reference implementations exercise.
 
-### Claude Code (~27 events)
+### Claude Code (~30 events)
 
 Most comprehensive. Reference: <https://code.claude.com/docs/en/hooks>.
 
@@ -68,7 +68,7 @@ Most comprehensive. Reference: <https://code.claude.com/docs/en/hooks>.
 
 Hook types: `command`, `http`, `mcp_tool`, `prompt`, `agent`. Config in `.claude/settings.json` `hooks` key, or `~/.claude/settings.json` for user level. Matchers support exact strings, `|`-separated lists, and JavaScript regex.
 
-### Codex (6 events)
+### Codex (10 events)
 
 Reference: <https://developers.openai.com/codex/hooks>.
 
@@ -122,7 +122,7 @@ Reference: <https://kiro.dev/docs/hooks/types/>.
 
 Config in `.kiro/hooks/<name>.kiro.hook` (one JSON file per hook). Tool-name field supports specific tools, built-in categories (`read`, `write`, `shell`, `web`, `spec`, `*`), prefix filters (`@mcp`, `@powers`, `@builtin`), and regex.
 
-### Cursor (~19 events)
+### Cursor (~21 events)
 
 Reference: <https://cursor.com/docs/agent/hooks>.
 

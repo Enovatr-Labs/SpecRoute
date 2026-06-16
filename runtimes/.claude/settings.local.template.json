@@ -13,7 +13,7 @@
   },
 
   "enabledMcpjsonServers": [
-    "_comment_about_mcp_servers": "List MCP server names from claude_desktop_config.json that you want enabled in this project. Empty list = all enabled."
+    "_comment_about_mcp_servers": "List MCP server names from .mcp.json that you want enabled in this project. Empty list = all enabled."
   ],
 
   "enableAllProjectMcpServers": true

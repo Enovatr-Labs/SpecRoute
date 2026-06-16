@@ -9,6 +9,7 @@ Claude Code shim. Read [`AGENTS.md`](AGENTS.md) first; it is the canonical, vend
 - Commands: `/sanitize`, `/audit`, `/status`, `/parity`.
 - Hooks: SessionStart status, PreToolUse sanitization gate, PostToolUse frontmatter check.
 - Per-agent memory: [`.claude/agent-memory/`](.claude/agent-memory/) - sparsely populated by default; agents accumulate state as the project progresses.
+- A parallel **Codex runtime** ships at [`.codex/`](.codex/) as a second-vendor demonstration: the same eight agents in TOML (`developer_instructions`) plus the MCP set in `config.toml`. It does not cross-sync with `.claude/` (Markdown vs TOML); see [`.codex/README.md`](.codex/README.md).
 
 ## Frontmatter Contracts
 

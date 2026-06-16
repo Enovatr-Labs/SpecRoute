@@ -46,7 +46,7 @@ Quick definitions for terms used throughout the wiki. Linked to the pages that g
 
 ## M
 
-**MCP (Model Context Protocol)** — A protocol for exposing tools and resources to agent CLIs. Three vendors (Claude Desktop, Codex, Gemini CLI) consume MCP server configs in different shapes. See [[MCP Integration]].
+**MCP (Model Context Protocol)** — A protocol for exposing tools and resources to agent CLIs. All six vendors consume MCP server configs, in two emit shapes: a `mcpServers` JSON object for everyone except Codex, which uses `[mcp_servers]` TOML. (The Claude Code CLI reads `.mcp.json` / `~/.claude.json`, not the Claude Desktop app's `claude_desktop_config.json`.) See [[MCP Integration]].
 
 ## N
 

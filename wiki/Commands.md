@@ -29,24 +29,17 @@ Body is the prompt that the slash command expands to. Body can include shell sni
 ### Gemini CLI
 
 ```
-.gemini/gemini_cli_config.json
+.gemini/commands/<name>.toml
 ```
 
-JSON file with a top-level `commands` object:
+TOML file per command (the old `gemini_cli_config.json` JSON command map is gone):
 
-```json
-{
-  "commands": {
-    "<slug>": {
-      "command": "<shell command to run>",
-      "description": "<one-line description>",
-      "directory": "<optional working directory>"
-    }
-  }
-}
+```toml
+prompt = "<the prompt the command expands to>"
+description = "<one-line description>"   # optional
 ```
 
-The `command` is a literal shell command, not a prompt. **Different paradigm from Claude.**
+`prompt` is required; `description` is optional. Subdirectories namespace the command — `.gemini/commands/git/commit.toml` is invoked as `/git:commit`.
 
 ### Codex
 
@@ -56,9 +49,17 @@ Codex has no separate command primitive. The equivalent is a skill with `user-in
 .codex/skills/<slug>/SKILL.md
 ```
 
-### Kiro / Cursor / Windsurf
+### Cursor
 
-These vendors have no slash-command concept. For Kiro use hooks for automation. For Cursor and Windsurf, the equivalent is a rule the agent reads and acts on.
+```
+.cursor/commands/*.md
+```
+
+Markdown custom slash commands, alongside `.cursor/skills/` `SKILL.md` skills.
+
+### Kiro / Windsurf
+
+Kiro invokes skills via `/skill` plus manual steering. Windsurf uses `.windsurf/workflows/*.md` (invoked as `/workflow-name`) and Cascade `SKILL.md` skills.
 
 ## When to build a command vs alternative
 
@@ -85,7 +86,7 @@ Read `audit.md` and `sanitize.md` for the most substantive examples of the markd
 ## Templates
 
 - Claude: [`commands/command-template.claude.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/commands/command-template.claude.md)
-- Gemini: [`commands/command-template.gemini.json`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/commands/command-template.gemini.json)
+- Gemini: [`commands/command-template.gemini.toml`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/commands/command-template.gemini.toml)
 
 ## Owner agent
 

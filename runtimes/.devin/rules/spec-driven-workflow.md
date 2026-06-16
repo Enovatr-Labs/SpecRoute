@@ -1,0 +1,30 @@
+---
+description: SpecRoute spec-driven workflow and artifact routing.
+trigger: always
+---
+
+# Spec-Driven Workflow
+
+Use this rule in every Devin conversation for a SpecRoute-enabled repo.
+
+## Canonical Flow
+
+Work moves in this order:
+
+```text
+PRD -> requirements/design/tasks -> implementation -> validation -> review
+```
+
+Do not skip from a vague request directly to implementation when the change needs product scope, interface design, rollout planning, or acceptance criteria.
+
+## Artifact Routing
+
+- Put product intent and success metrics in `prds/`.
+- Put requirements, design, and implementation tasks in `specs/`.
+- Put reusable prompts in `prompts/`.
+- Put engineering rules in `rules/`.
+- Put runtime-specific Devin rules in `.devin/rules/`.
+
+## Review Standard
+
+Before implementation starts, verify that the active spec has stable requirement IDs, clear acceptance criteria, and tasks that reference the requirements they satisfy.

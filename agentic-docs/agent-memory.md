@@ -75,13 +75,17 @@ Agent memory is specifically for state the agent **accumulates over time** that 
 
 ## Vendor support
 
+All six vendors now ship subagents, but **persistent per-agent memory is a separate
+capability** and is not part of the converged set - native support is still asymmetric:
+
 | Vendor | Native agent-memory support | Workaround |
 |---|---|---|
 | Claude Code | Yes - agents auto-read `.claude/agent-memory/<agent-name>/` if their frontmatter declares `memory: project` or `memory: user` | n/a |
-| Codex | Partial - depends on Codex version; some support per-agent context | Surface key state from agent memory in the agent's own `.md` body |
-| Gemini CLI | No native support | Use `GEMINI.md` references for project-wide state |
+| Codex | Partial - per-agent context via the agent's TOML | Surface key state in the agent's `developer_instructions` |
+| Gemini CLI | No native per-agent memory | Use `GEMINI.md` references for project-wide state |
 | Kiro | Steering files act as cross-conversation memory | Use `.kiro/steering/` with `inclusion: always` |
-| Cursor / Windsurf | No native support | Use rules with `alwaysApply: true` |
+| Cursor | No native per-agent memory | Use rules with `alwaysApply: true` |
+| Windsurf / Devin | No native per-agent memory | Use `.devin/rules/` (or legacy `.windsurf/rules/`) with `trigger: always_on` |
 
 For vendors without native support, the SpecRoute convention is to surface the same content via the vendor's rule or context-file mechanism.
 

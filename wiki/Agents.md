@@ -56,14 +56,16 @@ Every agent definition must have a "Don't use for" section that explicitly hands
 
 ## Per-vendor mirrors
 
-Concrete agent files are mirrored into:
+All six vendors now consume subagents — they differ in **file format**, not capability:
 
-- `runtimes/.claude/agents/<name>.md` — Claude Code reads from here.
-- `runtimes/.codex/agents/<name>.md` — Codex reads from here.
+- `runtimes/.claude/agents/<name>.md` — Claude Code (flat Markdown + frontmatter).
+- `runtimes/.codex/agents/<name>.toml` — Codex (standalone TOML: `name`, `description`, `developer_instructions`).
+- `runtimes/.gemini/agents/<name>.md`, `runtimes/.kiro/agents/<name>.md`, `runtimes/.cursor/agents/<name>.md` — Markdown subagents.
+- Windsurf / Devin — Cascade subagents.
 
-Gemini CLI, Kiro, Cursor, and Windsurf do **not** consume agent files in this shape — they have other concepts (commands, steering, rules). See [[Vendor Matrix]].
+See [[Vendor Matrix]].
 
-To keep the two runtime mirrors aligned: invoke `runtime-architect` or run `tools/sync-skills.py` (which also handles agents). See [[Cross-Vendor Sync]].
+Because Claude's flat Markdown and Codex's TOML are **different shapes**, `tools/sync-skills.py` mirrors skills only, not agents — keep agents aligned by invoking `runtime-architect`. See [[Cross-Vendor Sync]].
 
 ## Model choice
 

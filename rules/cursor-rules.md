@@ -53,7 +53,7 @@ Option A is the recommended default - Cursor's loader reads what's in the MDC fi
 | Rule precedence | When multiple rules match, Cursor merges them. Order is implementation-defined; don't rely on conflict resolution. |
 | Glob patterns | `**` matches recursively; `*` matches one segment. Standard glob semantics. |
 | `.cursorrules` (legacy) | Single file at repo root, no frontmatter. Use only for projects that haven't migrated to MDC. |
-| Hooks via `.cursor/hooks.json` | ~19 lifecycle events (sessionStart/End, pre/postToolUse, beforeShell/MCP/Read, afterFileEdit, beforeSubmitPrompt, stop, plus Tab-flow events) with `permission` / `decision` schema. Both `command` and `prompt` (LLM-evaluated) hook types. See [`hooks/cursor/`](../hooks/cursor/). |
+| Hooks via `.cursor/hooks.json` | ~21 lifecycle events (sessionStart/End, pre/postToolUse, beforeShell/MCP/Read, afterFileEdit, beforeSubmitPrompt, stop, plus Tab-flow events) with `permission` / `decision` schema. Both `command` and `prompt` (LLM-evaluated) hook types. See [`hooks/cursor/`](../hooks/cursor/). |
 | `failClosed` per hook | Default fail-open: hook errors don't block. Set `failClosed: true` per hook entry for security-critical gates. |
 
 ## See also

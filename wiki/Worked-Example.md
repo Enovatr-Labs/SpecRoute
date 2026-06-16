@@ -52,7 +52,7 @@ cd /path/to/your-new-repo/
 
 # 3. Rename the .template files (they become gitignored).
 mv .claude/settings.local.template.json     .claude/settings.local.json
-mv .claude/claude_desktop_config.template.json .claude/claude_desktop_config.json
+mv .claude/mcp.template.json                 .mcp.json    # Claude Code CLI reads .mcp.json at repo root
 mv .claude/.forbidden-strings.template.txt  .claude/.forbidden-strings.txt
 
 # 4. Add the renamed files to .gitignore.
@@ -105,7 +105,7 @@ examples/sample-project/
 └── .claude/
     ├── settings.json
     ├── settings.local.template.json
-    ├── claude_desktop_config.template.json
+    ├── mcp.template.json
     ├── .forbidden-strings.template.txt
     ├── agents/                     8 implementation-team agents
     ├── commands/                   /sanitize, /audit, /status, /parity

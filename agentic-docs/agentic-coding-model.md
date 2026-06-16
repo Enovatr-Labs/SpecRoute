@@ -48,11 +48,11 @@ The user types `/scaffold-artifact prd notification-preferences`. The skill asks
 
 Not every vendor supports every primitive. The matrix in [`AGENTS.md`](../AGENTS.md) documents this:
 
-- **Claude Code** supports all four primitives plus the richest hook system (~27 events, 5 hook types).
+- **Claude Code** supports all four primitives plus the richest hook system (~30 events, 5 hook types).
 - **Codex** supports skills and agents; commands are subsumed into skills via `user-invocable: true`; hooks via `.codex/hooks.json` (6 events, Claude-compatible JSON).
 - **Gemini CLI** supports commands (JSON map), MCP, and hooks via `.gemini/settings.json` (11 events; v0.26.0+).
 - **Kiro** supports hooks (`*.kiro.hook` files, 10 events including file create/save/delete) and steering rules; no skills, agents, or commands as standalone concepts.
-- **Cursor** supports rules and hooks via `.cursor/hooks.json` (~19 events with `permission` decision schema).
+- **Cursor** supports rules and hooks via `.cursor/hooks.json` (~21 events with `permission` decision schema).
 - **Windsurf** supports rules and hooks via `.windsurf/hooks.json` (12 events; pre-hooks block, post-hooks observe).
 
 **Every supported vendor ships a hooks system.** The event taxonomies and config shapes differ; the underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible. See [`hooks/README.md`](../hooks/README.md) for the full per-vendor event matrix.

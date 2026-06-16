@@ -1,6 +1,5 @@
 {
-  "_comment": "Claude Desktop MCP server configuration template. After copying this example folder, rename to .claude/claude_desktop_config.json and customize for your project. The default set is vendor-neutral; add proprietary servers only as your stack requires.",
-
+  "_comment": "Generated from runtimes/mcp/servers.yaml. Do not edit by hand. Re-run runtimes/mcp/render/render_kiro.py to regenerate. Install to .kiro/settings/mcp.json (workspace) or ~/.kiro/settings/mcp.json (user).",
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -17,7 +16,7 @@
         "@modelcontextprotocol/server-github"
       ],
       "env": {
-        "_comment": "Set GITHUB_PERSONAL_ACCESS_TOKEN in your shell profile or .env (gitignored). Do NOT hardcode it here."
+        "_comment": "Set the following in your shell or .env: GITHUB_PERSONAL_ACCESS_TOKEN"
       }
     },
     "memory": {

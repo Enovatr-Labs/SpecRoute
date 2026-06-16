@@ -21,5 +21,5 @@
 
   "_hooks_comment": "Hooks are configured separately in .claude/hooks/hooks.json. See runtimes/.claude/hooks/hooks.template.json.",
 
-  "_mcp_comment": "MCP server configuration is in claude_desktop_config.json (for the desktop app) or in this file under mcpServers (for project-scoped servers). See runtimes/.claude/claude_desktop_config.template.json for the desktop config and runtimes/mcp/servers.yaml for the cross-vendor source of truth."
+  "_mcp_comment": "The Claude Code CLI reads MCP servers from .mcp.json at the repo root (project scope) or ~/.claude.json (user scope). See runtimes/.claude/mcp.template.json for the template and runtimes/mcp/servers.yaml for the cross-vendor source of truth."
 }

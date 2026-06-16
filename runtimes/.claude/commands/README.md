@@ -42,6 +42,15 @@ See [`agentic-docs/automation-decision-framework.md`](../../../agentic-docs/auto
 
 ## Vendor support
 
-Slash commands are a Claude Code primitive. Codex's equivalent is a skill with `user-invocable: true`. Gemini's equivalent is a JSON entry in `gemini_cli_config.json`. Kiro / Cursor / Windsurf don't have slash commands.
+As of mid-2026 all six vendors support custom commands, in their native shapes:
 
-When mirroring to Codex, convert to a skill folder under `.codex/skills/<slug>/SKILL.md` with `user-invocable: true`.
+| Vendor | Command shape |
+|---|---|
+| Claude Code | `.claude/commands/<name>.md` (frontmatter + body) |
+| Codex | a skill invoked via `/skills` or `$mention` |
+| Gemini CLI | `.gemini/commands/<name>.toml` (`prompt` + `description`) |
+| Kiro | a skill invoked via `/skill` (+ manual steering) |
+| Cursor | `.cursor/commands/<name>.md` |
+| Windsurf / Devin | `.windsurf/workflows/<name>.md` / `.devin/workflows/<name>.md` (invoked `/<name>`) |
+
+When mirroring to Codex, convert to a skill folder under `.codex/skills/<slug>/SKILL.md`. See [`review-spec.md`](review-spec.md) for a worked example command.
