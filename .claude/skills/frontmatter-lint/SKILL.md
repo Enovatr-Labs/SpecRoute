@@ -29,38 +29,42 @@ If the argument is a path, lint that path. Otherwise lint all of:
 
 ## Step 2: Apply contracts
 
-### Agent contract (`.claude/agents/`, `agents/examples/`, `runtimes/.<vendor>/agents/`)
+Agent and skill frontmatter contracts are **vendor-specific** since the mid-2026 convergence - do not apply Claude's contract to every vendor's artifacts.
 
-Required:
+### Agent contract
+
+**Claude** (`.claude/agents/`, `agents/examples/`, `runtimes/.claude/agents/*.md`):
 - `name` - slug, lowercase-hyphenated, matches filename (without `.md`)
 - `description` - non-empty string, must include trigger phrases
 - `model` - one of `opus`, `sonnet`, `haiku`
 - `color` - recognized color name
+- Optional: `memory` (`project`|`user`), `internet` (`Yes`|`No`)
 
-Optional (warn if missing on consumer-facing examples):
-- `memory` - `project` | `user` | absent
-- `internet` - `Yes` | `No` | absent
+**Codex** (`runtimes/.codex/agents/*.toml`): TOML, not YAML - require `name`, `description`, `developer_instructions`.
 
-### Skill contract (`skills/examples/<name>/SKILL.md`, `runtimes/.<vendor>/skills/<name>/SKILL.md`)
+**Other vendors** validate loosely - valid YAML frontmatter with a non-empty `name` and `description`; do **not** require Claude's `model`/`color`:
+- Gemini `runtimes/.gemini/agents/*.md` - `name`, `description` (+ optional `kind`, `tools`, `model`, `temperature`)
+- Cursor `runtimes/.cursor/agents/*.md` - `name`, `description` (+ optional `model`, `readonly`)
+- Kiro `runtimes/.kiro/agents/*.md` - `name`, `description` (+ optional `tools`, `model`, `includeMcpJson`)
+- Devin `runtimes/.devin/agents/<name>/AGENT.md` - `name`, `description` (+ optional `model`, `allowed-tools`)
 
-Required:
-- `name` - slug, must match enclosing directory name
-- `description` - non-empty
-- `argument-hint` - non-empty (use `""` if no argument expected)
-- `user-invocable` - boolean
-- `allowed-tools` - non-empty space-separated string
+### Skill contract
+
+The Agent Skills open standard requires only `name` (matches enclosing directory) + `description` (non-empty) everywhere. Extra fields are vendor-specific:
+- **Claude / Codex** (`runtimes/.claude/skills/`, `runtimes/.codex/skills/`, `skills/examples/<name>/SKILL.md`): also require `argument-hint`, `user-invocable` (boolean), `allowed-tools` (non-empty).
+- **Gemini / Kiro / Cursor**: `name` + `description` only - flag Claude's `argument-hint`/`user-invocable`/`allowed-tools` as **invalid** if present.
+- **Windsurf / Devin**: `name`, `description` (+ optional `argument-hint`, `allowed-tools`, `triggers`).
 
 ### Command contract (Claude `commands/examples/*.claude.md`, `runtimes/.claude/commands/*.md`)
 
 Required:
 - `description` - non-empty
 
-### Command contract (Gemini `commands/examples/*.gemini.json`, `runtimes/.gemini/gemini_cli_config.json` entries)
+### Command contract (Gemini `commands/examples/*.gemini.toml`, `runtimes/.gemini/commands/*.toml`)
 
-Each command map entry requires:
-- `command` - non-empty shell string
-- `description` - non-empty
-- `directory` - optional path
+Each TOML command file requires:
+- `prompt` - non-empty string (the text the command expands to)
+- `description` - optional one-line string
 
 ## Step 3: Run the checks
 
@@ -73,13 +77,13 @@ For each file:
 5. Check `description` for at least one trigger phrase pattern (e.g. quoted utterance, `Triggers - "..."`).
 6. For agents: check `model` is in the allowed set.
 
-For Gemini JSON: parse the file as JSON, walk the `commands` map.
+For Gemini TOML: parse the file as TOML, check `prompt` is present and non-empty.
 
 ## Step 4: Report
 
 Group findings by severity:
 
-- **Errors** (would prevent loading): missing required field, malformed YAML/JSON, name/filename mismatch
+- **Errors** (would prevent loading): missing required field, malformed YAML/JSON/TOML, name/filename mismatch
 - **Warnings** (degrades discoverability): description without triggers, missing optional fields on consumer-facing examples
 - **Drift** (cross-runtime mismatch): a skill exists in `runtimes/.claude/skills/` but not `runtimes/.codex/skills/`, or has different frontmatter between the two
 

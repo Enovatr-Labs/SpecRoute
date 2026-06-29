@@ -5,7 +5,7 @@ Slash-invoked operations. Simple, deterministic, no configuration. The user type
 ```
 commands/
 ├── command-template.claude.md           Claude Code: markdown body + description frontmatter
-├── command-template.gemini.json         Gemini CLI: full command config template
+├── command-template.gemini.toml         Gemini CLI: TOML command template (prompt + description)
 └── examples/                            worked examples
 ```
 
@@ -32,24 +32,19 @@ Body is the prompt that the slash command expands to. Body can include shell sni
 ### Gemini CLI
 
 ```
-.gemini/gemini_cli_config.json
+.gemini/commands/<slug>.toml
 ```
 
-JSON file with a top-level `commands` object:
+One TOML file per command. The file name (minus `.toml`) is the command name; subdirectories namespace it (`.gemini/commands/git/commit.toml` -> `/git:commit`):
 
-```json
-{
-  "commands": {
-    "<slug>": {
-      "command": "<shell command to run>",
-      "description": "<one-line description>",
-      "directory": "<optional working directory>"
-    }
-  }
-}
+```toml
+description = "<one-line description>"
+prompt = """
+<the prompt the slash command expands to; use {{args}} for arguments>
+"""
 ```
 
-The `command` is a literal shell command, not a prompt. Different paradigm from Claude.
+`prompt` is required; `description` is optional. The `prompt` is the text the command expands to, same paradigm as Claude (not a shell command).
 
 ### Codex
 

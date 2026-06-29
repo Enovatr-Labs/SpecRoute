@@ -1,0 +1,45 @@
+# Codex configuration for the user-search sample project.
+# This file is tracked. Per-user secrets belong in environment variables, never inline.
+# Modeled on the SpecRoute framework's runtimes/.codex/config.template.toml.
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+
+# ─── MCP Servers ──────────────────────────────────────────────────────────
+# Mirrors this project's .claude/mcp.template.json server set
+# (filesystem, github, memory, sequential-thinking, playwright).
+# Keep the two in sync; in the framework these render from runtimes/mcp/servers.yaml.
+
+[mcp_servers.filesystem]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-filesystem", "."]
+
+# Per-tool approval mode for write-side filesystem operations:
+[mcp_servers.filesystem.tools.move_file]
+approval_mode = "approve"
+
+[mcp_servers.filesystem.tools.create_directory]
+approval_mode = "approve"
+
+[mcp_servers.filesystem.tools.write_file]
+approval_mode = "approve"
+
+[mcp_servers.github]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-github"]
+# Set GITHUB_PERSONAL_ACCESS_TOKEN in your shell or .env (gitignored). Do NOT hardcode it here.
+
+[mcp_servers.memory]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-memory"]
+
+[mcp_servers.sequential-thinking]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@executeautomation/playwright-mcp-server"]
+
+[mcp_servers.playwright.tools.playwright_navigate]
+approval_mode = "approve"

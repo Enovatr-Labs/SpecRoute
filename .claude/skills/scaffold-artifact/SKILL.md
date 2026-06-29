@@ -49,7 +49,7 @@ Use the artifact-type → location mapping:
 | `agent` | `agents/examples/<name>.md` | `agents/agent-template.md` |
 | `skill` | `skills/examples/<name>/SKILL.md` | `skills/skill-template/SKILL.md` |
 | `command` (claude) | `commands/examples/<name>.md` | `commands/command-template.claude.md` |
-| `command` (gemini) | (entry in `commands/examples/<name>.gemini.json`) | `commands/command-template.gemini.json` |
+| `command` (gemini) | `commands/examples/<name>.gemini.toml` | `commands/command-template.gemini.toml` |
 | `hook` (claude) | `hooks/claude/<name>.sh` + entry in `hooks/claude/hooks.template.json` | `hooks/claude/hooks.template.json` |
 | `hook` (kiro) | `hooks/kiro/examples/<name>.kiro.hook` | (existing example) |
 | `prompt` | `prompts/<vendor>/<name>.md` or `prompts/shared/<name>.md` | `prompts/shared/task-prompt-template.md` |

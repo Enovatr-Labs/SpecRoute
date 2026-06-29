@@ -39,7 +39,8 @@ sample-project/
 ├── prompts/                 phased execution plan
 ├── agent-roster.md          per-task agent assignments
 ├── implementation-plan.md   operational view
-└── .claude/                 Claude Code runtime
+├── .claude/                 Claude Code runtime (Markdown agents)
+└── .codex/                  Codex runtime (TOML agents; second-vendor demonstration)
 ```
 
 ## Hard constraints
@@ -76,7 +77,9 @@ These are the rules that aren't obvious from the code and must be respected.
 
 ## Vendor scope
 
-This sample is **Claude-Code-only**. To target Codex / Gemini / Kiro / Cursor / Windsurf, see the SpecRoute framework's [`runtimes/.<vendor>/`](https://github.com/Enovatr-Labs/SpecRoute/tree/main/runtimes) layouts and adapt the agents, hooks, and commands to that vendor's contract.
+This sample ships **two runtimes** over one shared spec layer: `.claude/` (Claude Code, Markdown agents) and `.codex/` (Codex, TOML agents). The `.codex/` variant is a worked demonstration of the mid-2026 vendor convergence - the same eight-agent team and MCP server set, expressed in Codex's native shape. The agents do not cross-sync (Markdown vs TOML); update both when an agent's substance changes. See [`.codex/README.md`](.codex/README.md).
+
+To target Gemini / Kiro / Cursor / Windsurf, see the SpecRoute framework's [`runtimes/.<vendor>/`](https://github.com/Enovatr-Labs/SpecRoute/tree/main/runtimes) layouts and adapt the agents, hooks, and commands to that vendor's contract.
 
 ## How to start
 

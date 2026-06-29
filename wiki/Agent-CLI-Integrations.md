@@ -16,7 +16,7 @@ cp -R runtimes/.claude/ /path/to/your/repo/.claude/
 cd /path/to/your/repo/.claude
 mv settings.template.json              settings.json
 mv settings.local.template.json        settings.local.json     # customize per-machine
-mv claude_desktop_config.template.json claude_desktop_config.json
+mv mcp.template.json                   ../.mcp.json            # Claude Code CLI reads .mcp.json at repo root
 mv hooks/hooks.template.json           hooks/hooks.json
 
 # 3. Install hook scripts
@@ -48,7 +48,7 @@ python3 /path/to/specroute/tools/sync-skills.py --source claude --apply
 
 Codex consumes the **same** `<name>.md` agent shape and the **same** folder-per-skill `SKILL.md` shape as Claude Code, so most content cross-mirrors. The `config.toml` carries Codex-specific MCP config and approval policy.
 
-Codex hooks require `[features] codex_hooks = true` in `config.toml`.
+Codex hooks are **enabled by default** (the `codex_hooks` feature flag was renamed `hooks` and is on).
 
 Per-runtime details: [`runtimes/.codex/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.codex/README.md).
 
@@ -58,19 +58,18 @@ Per-runtime details: [`runtimes/.codex/README.md`](https://github.com/Enovatr-La
 cp -R runtimes/.gemini/ /path/to/your/repo/.gemini/
 cd /path/to/your/repo/.gemini
 mv settings.template.json            settings.json
-mv gemini_cli_config.template.json   gemini_cli_config.json
+# commands are TOML files under .gemini/commands/ — copy and edit the example(s)
 ```
 
-Gemini consumes:
+As of v0.26.0 (current stable v0.45.0) Gemini CLI consumes the full stack:
 
-- `settings.json` `mcpServers` (same shape as Claude Desktop's MCP config).
-- `gemini_cli_config.json` `commands` (JSON map of shell shortcuts).
+- `settings.json` `mcpServers` (JSON object) **and** the `hooks` block (11 lifecycle events).
+- `.gemini/commands/*.toml` — custom commands (required `prompt`, optional `description`; subdirectories namespace as `/parent:child`). This replaces the old `gemini_cli_config.json` JSON command map.
+- `.gemini/skills/<slug>/SKILL.md` — Agent Skills (open standard), activated via the `activate_skill` tool.
+- `.gemini/agents/<name>.md` — subagents (frontmatter `name`, `description`, `kind`, `tools`, `model`, …).
+- `GEMINI.md` (delegation shim → `AGENTS.md`) and `rules/gemini-rules.md` document conventions.
 
-It does **not** consume skills, agents, or hooks. Project conventions surface through:
-
-- `GEMINI.md` (delegation shim → `AGENTS.md`).
-- The shared `prompts/` directory (Gemini reads markdown prompts pasted into the conversation).
-- `rules/gemini-rules.md` documents what's available.
+> **Transition note:** Google began superseding the standalone Gemini CLI with Antigravity CLI on 2026-06-18 for free / Google-One tiers (paid Gemini Code Assist / Enterprise retain access).
 
 Per-runtime details: [`runtimes/.gemini/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.gemini/README.md).
 
@@ -96,10 +95,12 @@ Per-runtime details: [`runtimes/.kiro/README.md`](https://github.com/Enovatr-Lab
 cp -R runtimes/.cursor/ /path/to/your/repo/.cursor/
 ```
 
-Cursor consumes:
+Cursor consumes (far more than rules — earlier SpecRoute matrices understated it):
 
-- `.cursor/rules/*.mdc` — Markdown with frontmatter (`description`, `globs`, `alwaysApply`).
-- (legacy) `.cursorrules` at the repo root.
+- `.cursor/rules/*.mdc` — Markdown with frontmatter (`description`, `globs`, `alwaysApply`); `AGENTS.md` is also natively read. `.cursorrules` at the repo root is legacy/deprecated.
+- `.cursor/mcp.json` — MCP servers (`mcpServers` JSON).
+- `.cursor/agents/<name>.md` — subagents; `.cursor/skills/` `SKILL.md`; `.cursor/commands/*.md` — custom slash commands.
+- `.cursor/hooks.json` — lifecycle hooks (`version: 1`).
 
 For each rule file in `rules/`, create a corresponding `.mdc` in `.cursor/rules/`:
 
@@ -121,21 +122,28 @@ Per-runtime details: [`runtimes/.cursor/README.md`](https://github.com/Enovatr-L
 cp -R runtimes/.windsurf/ /path/to/your/repo/.windsurf/
 ```
 
-Windsurf consumes `.windsurf/rules/*.md` with frontmatter similar to Cursor's. Use `trigger: always` for cross-cutting rules, `trigger: model-decision` with `globs` for context-aware rules.
+Windsurf consumes `.windsurf/rules/*.md` with frontmatter similar to Cursor's. Use `trigger: always_on` for cross-cutting rules, `trigger: model-decision` with `globs` for context-aware rules. Beyond rules it also reads `.windsurf/workflows/*.md` (invoked as `/workflow-name`), Cascade `SKILL.md` skills, subagents, `hooks.json` lifecycle hooks, and MCP servers at `~/.codeium/windsurf/mcp_config.json`.
+
+> **Transition note:** Windsurf was acquired by Cognition and relaunched as **Devin Desktop** (June 2026; docs at `docs.devin.ai`). The Cascade local agent reaches EOL on 2026-07-01, succeeded by Devin Local. `.devin/rules/*.md` now takes precedence over the legacy `.windsurf/rules/`; the layouts are otherwise compatible.
 
 Per-runtime details: [`runtimes/.windsurf/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.windsurf/README.md).
 
 ## MCP single source of truth
 
-Three vendors consume MCP configs in different shapes. Render from one source:
+All six vendors consume MCP configs, in different shapes and paths — Claude Code `.mcp.json` (project) / `~/.claude.json` (user), Codex `[mcp_servers]` TOML, Gemini `.gemini/settings.json`, Kiro `.kiro/settings/mcp.json`, Cursor `.cursor/mcp.json`, Windsurf/Devin `~/.codeium/windsurf/mcp_config.json`. Apart from Codex's TOML, every vendor uses the same `mcpServers` JSON object. There are six renderers — render `claude` / `codex` / `gemini` / `kiro` / `cursor` / `windsurf`:
 
 ```bash
-python3 runtimes/mcp/render/render_claude.py > runtimes/.claude/claude_desktop_config.template.json
-python3 runtimes/mcp/render/render_codex.py  > runtimes/.codex/config.template.toml
-python3 runtimes/mcp/render/render_gemini.py > runtimes/.gemini/settings.template.json
+python3 runtimes/mcp/render/render_claude.py  > runtimes/.claude/mcp.template.json
+python3 runtimes/mcp/render/render_codex.py   > runtimes/.codex/config.template.toml
+python3 runtimes/mcp/render/render_gemini.py  > runtimes/.gemini/settings.template.json
+python3 runtimes/mcp/render/render_kiro.py    > runtimes/.kiro/settings/mcp.template.json
+python3 runtimes/mcp/render/render_cursor.py  > runtimes/.cursor/mcp.template.json
+python3 runtimes/mcp/render/render_windsurf.py > runtimes/.windsurf/mcp_config.template.json
 ```
 
-Edit `runtimes/mcp/servers.yaml` and re-render. Commit all four files together so reviewers see the impact in one diff. See [[MCP Integration]].
+Edit `runtimes/mcp/servers.yaml` and re-render. Commit the canonical source and the rendered files together so reviewers see the impact in one diff. See [[MCP Integration]].
+
+> **Note:** `claude_desktop_config.json` is the **Claude Desktop app's** MCP file, not the Claude Code CLI's — the CLI reads `.mcp.json` / `~/.claude.json`.
 
 ## Cross-vendor sync
 

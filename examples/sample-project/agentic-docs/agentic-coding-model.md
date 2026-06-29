@@ -1,15 +1,18 @@
 # Agentic Coding Model in This Project
 
-How the four primitives (skills, agents, commands, hooks) compose for user-search. This project is Claude-Code-only, so the runtime layer is `.claude/`.
+How the four primitives (skills, agents, commands, hooks) compose for user-search. This project ships two runtimes over one shared spec layer: the Claude Code runtime (`.claude/`) and a Codex runtime (`.codex/`) that demonstrates the same team in a second vendor's native shape.
 
 ## What we use
 
-| Primitive | What it's used for | Where it lives |
-|---|---|---|
-| **Agents** | 8 implementation-team roles, named per task in `agent-roster.md` | [`.claude/agents/`](../.claude/agents/) |
-| **Commands** | Pre-commit and pre-PR validation | [`.claude/commands/`](../.claude/commands/) |
-| **Hooks** | Always-on enforcement (sanitization gate, frontmatter check, session status) | [`.claude/hooks/`](../.claude/hooks/) |
-| **Skills** | Not used in this project | n/a |
+| Primitive | What it's used for | Claude (`.claude/`) | Codex (`.codex/`) |
+|---|---|---|---|
+| **Agents** | 8 implementation-team roles, named per task in `agent-roster.md` | [`.claude/agents/`](../.claude/agents/) (Markdown + frontmatter) | [`.codex/agents/`](../.codex/agents/) (TOML, `developer_instructions`) |
+| **Commands** | Pre-commit and pre-PR validation | [`.claude/commands/`](../.claude/commands/) | a skill invoked via `/skills` or `$mention` |
+| **Hooks** | Always-on enforcement (sanitization gate, frontmatter check, session status) | [`.claude/hooks/`](../.claude/hooks/) | `.codex/hooks.json` or inline `[hooks]` in `config.toml` (none shipped here) |
+| **MCP servers** | filesystem, github, memory, sequential-thinking, playwright | [`.claude/mcp.template.json`](../.claude/mcp.template.json) | [`.codex/config.toml`](../.codex/config.toml) `[mcp_servers.*]` |
+| **Skills** | Not used in this project | n/a | n/a |
+
+The two runtimes are vendor shapes over the **same** project: identical agents, identical MCP set, identical spec triplet and prompts. Only the file format differs (Markdown vs TOML; `mcp.template.json` vs `config.toml`). Agents do not cross-sync automatically because the formats diverge - see [`.codex/README.md`](../.codex/README.md).
 
 We don't use skills here because the work is task-driven. Each task in `tasks.md` is well-scoped enough to delegate to an agent without interactive prompting. If we found ourselves writing prompts that asked the user a series of questions, we'd build a skill.
 

@@ -12,7 +12,37 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
-(Changes accumulating since v0.2.4 will be listed here.)
+(Changes accumulating since v0.3.0 will be listed here.)
+
+---
+
+## [0.3.0] - 2026-06-16
+
+**Vendor capability convergence.** All six supported tools now back the full capability set (skills, agents, commands, hooks, MCP) with real runtime templates - previously several vendors were rules/steering-only. The vendor docs and tooling were re-verified current against each vendor's mid-2026 releases (the vendor-doc currency cycle from the Phase 4 roadmap).
+
+### Added
+
+- `runtimes/.devin/` runtime layout for **Devin Desktop** (the relaunched Windsurf): rules, skills, per-profile `agents/<name>/AGENT.md` subagents, and workflows. `.devin/` takes precedence over the legacy `.windsurf/` layout.
+- Skills, subagents, and command templates for Gemini CLI, Kiro, Cursor, and Windsurf - each in the vendor's native shape (previously these vendors shipped only rules/steering).
+- Codex hooks wiring and a standalone `.codex/agents/<name>.toml` subagent example.
+- MCP renderers `render_kiro.py`, `render_cursor.py`, and `render_windsurf.py` - six renderers now emit from the single source `runtimes/mcp/servers.yaml`.
+- Per-vendor rule files `rules/kiro-rules.md` and `rules/devin-rules.md`.
+- A `review-spec` worked-example command, mirrored across vendors in each native shape.
+
+### Changed
+
+- `tools/sync-skills.py` rewritten to be **body-aware**: it syncs the `SKILL.md` body across all six vendors while preserving each vendor's distinct frontmatter contract. Agents are no longer synced - their formats diverge (Codex TOML, Devin `AGENT.md` directories).
+- Codex agents are standalone TOML (`name` / `description` / `developer_instructions`), not Claude's flat Markdown - the matrix and `sync-skills.py` reflect this.
+- Gemini commands migrated from the obsolete `gemini_cli_config.json` shell-command map to `.gemini/commands/*.toml` prompt templates.
+- Claude MCP template renamed `claude_desktop_config.template.json` → `mcp.template.json`; it renders to the Claude Code CLI's `.mcp.json` (project) / `~/.claude.json` (user), which is distinct from the Claude **Desktop app's** `claude_desktop_config.json`. Earlier docs conflated the two.
+- Vendor matrix and supporting docs reconciled to the convergence model: capability tiers (Full / Near-full / Partial / Rules-only) retired; "three vendors consume MCP" corrected to all six (two emit shapes - JSON for everyone except Codex's TOML).
+
+### Fixed
+
+- Hook event counts re-verified against official vendor docs and corrected repo-wide: Claude Code **~30** (was ~27/~31), Codex **10** and enabled by default (`hooks` feature; `codex_hooks` is a deprecated alias), Cursor **~21** (was ~19).
+- Gemini `SKILL.md` frontmatter corrected to the Agent Skills open-standard `name` / `description` only (Claude-specific `user-invocable` / `argument-hint` / `allowed-tools` removed).
+- Removed a hardcoded local filesystem path from `wiki/README.md` (sanitization).
+- Fixed a broken cross-reference link in `runtimes/.cursor/agents/README.md`.
 
 ---
 
@@ -123,7 +153,7 @@ Initial public release. Phases 1-3 of the roadmap complete; Phase 4 (maturity) i
 - Agents: `agent-template.md` with frontmatter contract; 7 archetypes (product, architect, backend, frontend, security, qa, devops); `roster.md` for cross-vendor inventory.
 - Skills: `skill-template/SKILL.md` (folder-per-skill convention).
 - Commands: per-vendor templates (Claude markdown + Gemini JSON).
-- Hooks: comprehensive coverage across all six vendors (Claude Code ~27 events with 5 hook types; Codex 6 events; Gemini 11 events; Kiro 10 events; Cursor ~19 events; Windsurf 12 events).
+- Hooks: comprehensive coverage across all six vendors (Claude Code ~30 events with 5 hook types; Codex 10 events; Gemini 11 events; Kiro 10 events; Cursor ~21 events; Windsurf 12 events).
 - Prompts: master/phase/task production-grade trio + per-vendor sets for Claude and Codex + shared utility prompts (prd-to-spec, spec-to-tasks, code-review).
 
 #### Runtime layouts

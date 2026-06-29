@@ -1,0 +1,32 @@
+---
+description: Review a spec, PRD, or implementation plan for implementation-readiness. Usage - /review-spec <path>
+---
+
+Run a readiness review of the planning artifact at `$ARGUMENTS` before any code work starts. This is the deterministic, user-invokable wrapper around the `spec-reviewer` checklist.
+
+## What this command does
+
+- Reads the artifact at the given path (and its nearest template/README for the applicable contract).
+- Applies the spec-reviewer checklist below.
+- Reports blocking gaps first, then non-blocking cleanups, then a one-line verdict.
+
+## Checklist
+
+- Goal, audience, and scope are stated in plain language; non-goals prevent scope creep.
+- Success metrics and acceptance criteria are present, measurable, and testable.
+- Requirements use stable IDs; every task back-references a requirement or states its rationale.
+- Design covers interfaces, data flow, and failure modes.
+- No unresolved placeholders or unowned decisions remain (placeholders are acceptable only in templates).
+- Validation covers functional, security, performance, and rollout concerns where relevant.
+
+## Output
+
+```markdown
+## Findings
+- High: <blocking issue with path:line>
+- Medium: <important non-blocking issue>
+- Low: <cleanup>
+
+## Ready?
+<yes/no> for implementation, with one sentence explaining why.
+```

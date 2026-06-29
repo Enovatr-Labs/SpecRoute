@@ -40,13 +40,14 @@ Create `runtimes/.<vendor>/` with:
 
 ## Step 3: Update the supported vendor matrix
 
-Edit the matrix table in three places (keep them lock-step):
+Edit the matrix table in all four mirror locations (keep them lock-step):
 
 - `README.md`
+- `AGENTS.md`
+- `wiki/Vendor-Matrix.md`
 - `agentic-docs/agent-cli-integrations.md`
-- `agentic-docs/multi-vendor-context-files.md`
 
-Add the new vendor row. Use `-` for cells the vendor doesn't support.
+Add the new vendor row, naming the vendor's native shape for each capability (skills, agents, commands, hooks, MCP). Also update the context-file table in `agentic-docs/multi-vendor-context-files.md` if the vendor reads a root context file.
 
 ## Step 4: Create the per-vendor rule file
 
@@ -65,10 +66,11 @@ If the vendor has an MCP config:
 
 ## Step 6: Update cross-vendor sync
 
-If the vendor has skills or agents:
+If the vendor carries folder-per-skill `SKILL.md` skills:
 
-- Update `tools/sync-skills.py` to include the new vendor's skills directory in the diff/copy logic
-- Update `agentic-docs/cross-vendor-sync.md` to describe the new sync target
+- Add the vendor slug to `SKILL_VENDORS` in `tools/sync-skills.py`. The tool is **body-aware**: it syncs the SKILL.md body and preserves each vendor's own frontmatter, so differing skill frontmatter contracts are fine.
+- Do **not** wire agent syncing - agent formats diverge across vendors (Claude flat Markdown, Codex TOML, Devin `AGENT.md` dirs), so agents are maintained per vendor.
+- Update `agentic-docs/cross-vendor-sync.md` to describe the new sync target.
 
 ## Step 7: Update the worked example
 

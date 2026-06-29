@@ -55,21 +55,16 @@ The Claude command frontmatter is minimal — only `description` is required. Th
 
 ## Command (Gemini)
 
-File: `commands/command-template.gemini.json`, `.gemini/gemini_cli_config.json`.
+File: `commands/command-template.gemini.toml`, `.gemini/commands/<name>.toml`.
 
-Not frontmatter — JSON entries:
+Not frontmatter — TOML keys (the old `gemini_cli_config.json` command map is gone):
 
-```json
-{
-  "commands": {
-    "<slug>": {
-      "command": "<shell command to run>",
-      "description": "<one-line description>",
-      "directory": "<optional working directory>"
-    }
-  }
-}
+```toml
+prompt = "<the prompt the command expands to>"   # required
+description = "<one-line description>"            # optional
 ```
+
+Subdirectories namespace the command: `.gemini/commands/git/commit.toml` is invoked as `/git:commit`.
 
 ## PRD
 

@@ -1,0 +1,20 @@
+# Gemini CLI command template.
+# Drop into .gemini/commands/<name>.toml. The file name is the command name:
+# .gemini/commands/deploy.toml -> /deploy. Subdirectories namespace the command:
+# .gemini/commands/git/commit.toml -> /git:commit.
+#
+# Required: prompt. Optional: description.
+# Use {{args}} as the placeholder for arguments the user passes after the command.
+
+description = "<One-line description shown in Gemini's command picker.>"
+
+prompt = """
+<The prompt the slash command expands to. Write it as an instruction to the model.>
+
+<Reference user-supplied arguments with {{args}}.>
+"""
+
+# Anti-patterns:
+#   - Do not put secrets in the prompt.
+#   - Do not use a command for interactive, multi-decision workflows (use a skill).
+#   - Do not shadow built-in commands without a clear reason.

@@ -14,15 +14,11 @@ The only executables are sanitization-gate hooks and cross-vendor sync utilities
 
 ## Which agent CLIs are supported?
 
-Six, in tiers (see [[Vendor Matrix]]):
+Six — Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf/Devin (see [[Vendor Matrix]]).
 
-- **Full**: Claude Code
-- **Near-full**: Codex
-- **Partial**: Gemini CLI
-- **Specialized**: Kiro
-- **Rules only**: Cursor, Windsurf
+Earlier SpecRoute releases sorted these into capability tiers (Full / Near-full / Partial / Rules-only). **As of mid-2026 that distinction no longer holds.** All six have converged on the same capability set — Agent Skills (`SKILL.md`), subagents, custom commands, lifecycle hooks, and MCP. They now differ in **file format and conventions**, not capability class (Codex agents are TOML where the others are Markdown; Gemini commands are TOML where Claude/Cursor are Markdown; MCP config is JSON for most but TOML for Codex).
 
-The framework's content (PRDs, specs, prompts, rules) works in any of them. Runtime-layer features (skills, agents, commands, hooks) only land where the vendor supports them.
+The framework's content (PRDs, specs, prompts, rules) and its runtime-layer artifacts (skills, agents, commands, hooks) now land in any of them, each in its native shape.
 
 ## Can I use this with just one vendor?
 
@@ -96,7 +92,7 @@ The `add-vendor` skill walks through it interactively. See [[Adding a Vendor]] f
 
 ## Is there a roadmap?
 
-Yes — [[Roadmap]]. Current version is v0.2.4. Phases 1–3 are complete; Phase 4 (maturity) is in progress.
+Yes — [[Roadmap]]. Current version is v0.3.0. Phases 1–3 are complete; Phase 4 (maturity) is in progress.
 
 ## What's a "phased master-prompt pattern"?
 

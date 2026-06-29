@@ -6,24 +6,30 @@ The supported-CLI contract. **Adding a new tool means a new column, not a fork.*
 
 | Vendor | Runtime dir | Root context file | Skills | Agents | Commands | Hooks | MCP config |
 |---|---|---|---|---|---|---|---|
-| **Claude Code** | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` | flat `<name>.md` + frontmatter | `commands/<name>.md` | `settings.json hooks` (~27 events, 5 hook types) | `claude_desktop_config.json` |
-| **Codex** | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` | flat `<name>.md` | via skills (`user-invocable: true`) | `hooks.json` or `config.toml [hooks]` (6 events; flag `codex_hooks=true`) | `config.toml [mcp_servers]` |
-| **Gemini CLI** | `.gemini/` | `GEMINI.md` (delegation shim) | – | – | `gemini_cli_config.json` | `settings.json hooks` (11 events; v0.26.0+) | `settings.json [mcpServers]` |
-| **Kiro** | `.kiro/` | `steering/` files | – | – | – | `*.kiro.hook` (10 events incl. file / agent / task triggers) | – |
-| **Cursor** | `.cursor/rules/` | `.cursorrules` | – | – | – | `hooks.json` v1 (~19 events; permission/decision schema) | – |
-| **Windsurf** | `.windsurf/rules/` | – | – | – | – | `hooks.json` (12 events; pre/post for read/write/run/mcp) | – |
+| **Claude Code** | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` | flat `<name>.md` + frontmatter | `commands/<name>.md` (merged into skills) | `settings.json hooks` (~30 events, 5 hook types) | `.mcp.json` / `~/.claude.json` |
+| **Codex** | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` | `agents/<name>.toml` | skills (`/skills`, `$mention`) | `hooks.json` or `config.toml [hooks]` (10 events; default-on) | `config.toml [mcp_servers]` |
+| **Gemini CLI** [^antigravity] | `.gemini/` | `GEMINI.md` (delegation shim) | `skills/<slug>/SKILL.md` | `agents/<name>.md` | TOML in `.gemini/commands/` | `settings.json hooks` (11 events; v0.26.0+) | `settings.json [mcpServers]` |
+| **Kiro** | `.kiro/` | `steering/` files | `skills/<slug>/SKILL.md` | `agents/<name>.md` | `/skill` + manual steering | `*.kiro.hook` (10 events incl. file/agent/task triggers) | `.kiro/settings/mcp.json` |
+| **Cursor** | `.cursor/` | `.cursor/rules/*.mdc` / `AGENTS.md` | `skills/` `SKILL.md` | `agents/<name>.md` | `commands/*.md` | `hooks.json` v1 (~21 events; permission/decision schema) | `.cursor/mcp.json` |
+| **Windsurf / Devin** [^devin] | `.windsurf/` · `.devin/` | `.devin/rules/*.md` (pref) / `.windsurf/rules/` (legacy) | Cascade `SKILL.md` | subagents | `.windsurf/workflows/*.md` | `hooks.json` (12 events; pre-hooks block, post-hooks observe) | `~/.codeium/windsurf/mcp_config.json` |
 
-## Vendor support tiers
+[^antigravity]: Google began superseding the standalone Gemini CLI with **Antigravity CLI** on 2026-06-18 for free / Google-One tiers (paid Gemini Code Assist / Enterprise retain access). The `.gemini/` integration shape below remains valid for current installs.
+[^devin]: Windsurf was acquired by Cognition and is being relaunched as **Devin Desktop** (docs at `docs.devin.ai`); Cascade reaches end-of-life 2026-07-01, succeeded by Devin Local. `.devin/rules/` now takes precedence over the legacy `.windsurf/rules/`.
 
-| Tier | Vendors | What's supported |
-|---|---|---|
-| **Full** | Claude Code | Skills, agents, commands, hooks, MCP, root context file, sub-agent delegation |
-| **Near-full** | Codex | Skills, agents, MCP, root context file (commands subsumed into skills via `user-invocable`) |
-| **Partial** | Gemini CLI | MCP, command map, root context file |
-| **Specialized** | Kiro | Steering rules, spec triplet, file-pattern hooks |
-| **Rules only** | Cursor, Windsurf | Rule files |
+## Capability convergence
 
-Pick vendors based on what your team uses. The framework's **content** (PRDs, specs, prompts, rules) works in any of them; the **runtime-layer features** (skills, agents, commands, hooks) only land where the vendor supports them.
+Earlier SpecRoute releases sorted vendors into capability tiers (Full / Near-full / Partial / Specialized / Rules-only). **As of mid-2026 that distinction no longer holds.** All six supported tools have converged on a common capability set — the [Agent Skills open standard](https://agentskills.io) (`SKILL.md`), subagents, custom commands, lifecycle hooks, and MCP:
+
+| Vendor | Skills | Agents | Commands | Hooks | MCP |
+|---|:--:|:--:|:--:|:--:|:--:|
+| Claude Code | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Codex | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Gemini CLI | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Kiro | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Cursor | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Windsurf / Devin | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+Vendors now differ in **file format and conventions**, not capability class — Codex agents are TOML where the others are Markdown; Gemini commands are TOML where Claude/Cursor are Markdown; MCP config lives in JSON for most but TOML for Codex. Pick vendors based on what your team uses; the framework's **content** (PRDs, specs, prompts, rules) and **runtime-layer artifacts** (skills, agents, commands, hooks) now land in any of them, each in its native shape.
 
 ## Hook system depth
 
@@ -31,11 +37,11 @@ All six vendors ship hooks; per-vendor depth differs significantly:
 
 | Vendor | Event count | Blocking semantics | Hook types beyond shell |
 |---|---|---|---|
-| Claude Code | ~27 | rich (per-event) | `http`, `mcp_tool`, `prompt`, `agent` |
-| Codex | 6 | per-event JSON | `command` only |
+| Claude Code | ~30 | rich (per-event) | `http`, `mcp_tool`, `prompt`, `agent` |
+| Codex | 10 | per-event JSON | `command` only |
 | Gemini CLI | 11 | per-event | `command` only |
-| Kiro | 10 | pre-hooks block | `askAgent` (built-in) |
-| Cursor | ~19 | `permission` schema | `command`, `prompt` |
+| Kiro | 10 | pre-hooks block | `askAgent`, `runCommand` |
+| Cursor | ~21 | `permission` schema | `command`, `prompt` |
 | Windsurf | 12 | pre-hooks only | `command`, `powershell` |
 
 See [[Hooks]] for the per-vendor event matrix.
@@ -49,23 +55,28 @@ Every vendor auto-loads at least one context file at session start:
 | Claude Code | `CLAUDE.md` | Delegation shim → `AGENTS.md` + Claude-specific overrides |
 | Codex | `AGENTS.md` | Canonical, vendor-neutral substance |
 | Gemini CLI | `GEMINI.md` | Delegation shim → `AGENTS.md` + Gemini-specific overrides |
-| Cursor | `.cursorrules` (legacy) or `.cursor/rules/*.mdc` | Rule files, MDC frontmatter |
+| Cursor | `.cursor/rules/*.mdc` or `AGENTS.md` (`.cursorrules` legacy) | Rule files, MDC frontmatter; native `AGENTS.md` support |
 | Kiro | `.kiro/steering/*.md` (`inclusion: always`) | Steering rules |
-| Windsurf | `.windsurf/rules/*.md` (`trigger: always`) | Rule files |
+| Windsurf / Devin | `.devin/rules/*.md` (pref) or `.windsurf/rules/*.md` (`trigger: always_on`) | Rule files |
 
 The canonical pattern: `AGENTS.md` carries substance; `CLAUDE.md` / `GEMINI.md` etc. are short delegation shims. See [[Multi-Vendor Context Files]].
 
 ## MCP support
 
-Three vendors consume MCP server configurations in **different shapes**:
+All six vendors now consume MCP server configurations, in **different shapes**:
 
 | Vendor | Shape | Path |
 |---|---|---|
-| Claude Desktop | `mcpServers` JSON object | `.claude/claude_desktop_config.json` |
+| Claude Code | `mcpServers` JSON object | `.mcp.json` (project) / `~/.claude.json` (user) |
 | Codex | `[mcp_servers.<name>]` TOML sections | `.codex/config.toml` |
 | Gemini CLI | `mcpServers` JSON object | `.gemini/settings.json` |
+| Kiro | `mcpServers` JSON object | `.kiro/settings/mcp.json` |
+| Cursor | `mcpServers` JSON object | `.cursor/mcp.json` |
+| Windsurf / Devin | `mcpServers` JSON object | `~/.codeium/windsurf/mcp_config.json` |
 
-Maintaining three by hand is the failure mode. SpecRoute ships a **single source of truth** at `runtimes/mcp/servers.yaml` with per-vendor renderers. See [[MCP Integration]].
+Maintaining these by hand is the failure mode. SpecRoute ships a **single source of truth** at `runtimes/mcp/servers.yaml` with per-vendor renderers (Claude `.mcp.json`, Codex TOML, Gemini JSON today; the remaining JSON-shaped vendors reuse the same `mcpServers` object). See [[MCP Integration]].
+
+> **Note:** `claude_desktop_config.json` is the **Claude Desktop app's** MCP file, not Claude Code's. The Claude Code CLI reads `.mcp.json` (project, committed) and `~/.claude.json` (user). Earlier SpecRoute releases pointed at the Desktop file in error.
 
 ## Vendor neutrality is the contract
 

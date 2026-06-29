@@ -4,31 +4,30 @@ Gemini CLI shim for this repository. Read [`AGENTS.md`](AGENTS.md) first; it is 
 
 ## Gemini-Specific Context
 
-- Gemini reads `.gemini/settings.json` for MCP servers (same JSON shape as Claude Desktop's `claude_desktop_config.json`).
-- Gemini reads `.gemini/gemini_cli_config.json` for command shortcuts (JSON command map; commands run shell strings, not prompts).
-- Templates for both live in [`runtimes/.gemini/`](runtimes/.gemini/).
+- Gemini reads `.gemini/settings.json` for MCP servers (`mcpServers` map).
+- Gemini reads TOML command files under `.gemini/commands/<name>.toml` for slash commands (each file is a prompt, not a shell string).
+- Gemini also supports skills under `.gemini/skills/` and subagents under `.gemini/agents/`.
+- Templates for all of these live in [`runtimes/.gemini/`](runtimes/.gemini/).
 
 ## Command Shape
 
-Gemini commands are JSON entries, not markdown prompts:
+Gemini commands are TOML files, one per command, under `.gemini/commands/`:
 
-```json
-{
-  "commands": {
-    "<slug>": {
-      "command": "<shell command to run>",
-      "description": "<one-line description>",
-      "directory": "<optional working dir>"
-    }
-  }
-}
+```toml
+# .gemini/commands/<slug>.toml  ->  /<slug>
+description = "<one-line description>"
+prompt = """
+<the prompt the command expands to; use {{args}} for arguments>
+"""
 ```
 
-See [`commands/command-template.gemini.json`](commands/command-template.gemini.json) for the full template and [`commands/examples/`](commands/examples/) for worked entries.
+`prompt` is required; `description` is optional. Subdirectories namespace the command (`.gemini/commands/git/commit.toml` -> `/git:commit`).
+
+See [`commands/command-template.gemini.toml`](commands/command-template.gemini.toml) for the full template and [`commands/examples/`](commands/examples/) for worked entries.
 
 ## Matrix Notes
 
-Gemini supports **commands and MCP** in the SpecRoute matrix. It does not consume `SKILL.md` folders, flat-file agents, or hook configurations directly. The SpecRoute concepts that don't map natively to Gemini still apply through:
+Gemini supports **commands, skills, subagents, and MCP** in the SpecRoute matrix. The SpecRoute concepts surface through:
 
 - [`prompts/`](prompts/) - reusable prompts (paste into a Gemini conversation).
 - [`prompts/shared/`](prompts/shared/) - the master/phase/task prompt trio works in any agent CLI.

@@ -10,7 +10,8 @@ runtimes/
 ├── .gemini/                             Gemini CLI runtime layout
 ├── .kiro/                               Kiro runtime layout
 ├── .cursor/                             Cursor runtime layout
-├── .windsurf/                           Windsurf runtime layout
+├── .devin/                              Devin Desktop runtime layout (preferred over .windsurf/)
+├── .windsurf/                           Windsurf runtime layout (legacy → Devin Desktop)
 └── mcp/                                 MCP single source of truth + renderers
 ```
 
@@ -32,7 +33,7 @@ runtimes/
    cd /path/to/your/repo
    mv .claude/settings.template.json .claude/settings.json
    mv .claude/settings.local.template.json .claude/settings.local.json    # then customize
-   mv .claude/claude_desktop_config.template.json .claude/claude_desktop_config.json
+   mv .claude/mcp.template.json .mcp.json                                 # Claude Code reads .mcp.json at repo root
    mv .claude/hooks/hooks.template.json .claude/hooks/hooks.json
    ```
 
@@ -61,19 +62,21 @@ runtimes/
 | Gemini CLI | [`.gemini/README.md`](.gemini/README.md) |
 | Kiro | [`.kiro/README.md`](.kiro/README.md) |
 | Cursor | [`.cursor/README.md`](.cursor/README.md) |
+| Devin Desktop | [`.devin/README.md`](.devin/README.md) |
 | Windsurf | [`.windsurf/README.md`](.windsurf/README.md) |
 | MCP single-source | [`mcp/README.md`](mcp/README.md) |
 
 ## Cross-vendor parity
 
-Two vendors share most artifact shapes (Claude Code and Codex):
+As of mid-2026 all six vendors support the same capability set (skills, agents, commands, hooks, MCP) - they differ in **file format**, not capability class:
 
-- Agents (flat `<name>.md` with frontmatter) - identical.
-- Skills (folder-per-skill `SKILL.md`) - identical.
+- **Skills** (folder-per-skill `SKILL.md`) - the Agent Skills open standard; identical across every vendor.
+- **Agents** - format diverges: flat Markdown for Claude/Gemini/Kiro/Cursor, standalone TOML for Codex (`<name>.toml`), per-profile `AGENT.md` dirs for Devin.
+- **Commands** - Markdown for Claude/Cursor, TOML for Gemini, workflows for Windsurf/Devin, skills for Codex/Kiro.
 
-The other vendors have different concepts. The matrix is documented in the root [`README.md`](../README.md). Adding a new vendor means a new column in the matrix and a new runtime directory here.
+The matrix is documented in the root [`README.md`](../README.md). Adding a new vendor means a new column in the matrix and a new runtime directory here.
 
-To check that Claude / Codex stay in sync: run [`tools/sync-skills.py --dry-run`](../tools/sync-skills.py) or the `/parity` command (in the SpecRoute runtime itself).
+To check that Claude / Codex **skills** stay in sync: run [`tools/sync-skills.py --dry-run`](../tools/sync-skills.py) or the `/parity` command. Agents are not synced - the formats diverge.
 
 ## Authoring agent
 

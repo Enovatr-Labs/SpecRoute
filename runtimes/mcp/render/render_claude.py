@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Render runtimes/mcp/servers.yaml into Claude Desktop's claude_desktop_config.json shape.
+"""Render runtimes/mcp/servers.yaml into the Claude Code CLI's .mcp.json shape.
 
 Usage:
-    python3 runtimes/mcp/render/render_claude.py > runtimes/.claude/claude_desktop_config.template.json
+    python3 runtimes/mcp/render/render_claude.py > runtimes/.claude/mcp.template.json
+
+The Claude Code CLI reads MCP servers from `.mcp.json` (project scope, committed)
+and `~/.claude.json` (user scope). This is NOT the Claude Desktop app's
+`claude_desktop_config.json` - the two are different files for different products,
+though they share the same `mcpServers` JSON shape.
 
 Reads YAML from runtimes/mcp/servers.yaml. Writes JSON to stdout. Does not modify any files.
 """
@@ -101,7 +106,7 @@ def _scalar(s: str):
 
 def render(servers: list[dict]) -> dict:
     out = {
-        "_comment": "Generated from runtimes/mcp/servers.yaml. Do not edit by hand. Re-run runtimes/mcp/render/render_claude.py to regenerate.",
+        "_comment": "Generated from runtimes/mcp/servers.yaml. Do not edit by hand. Re-run runtimes/mcp/render/render_claude.py to regenerate. Install to .mcp.json (project, committed) or ~/.claude.json (user) for the Claude Code CLI.",
         "mcpServers": {},
     }
     for s in servers:

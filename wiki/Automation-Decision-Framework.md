@@ -86,7 +86,7 @@ Consumer-facing templates live under the corresponding top-level dirs.
 ## Vendor notes
 
 - **Codex** has no separate command primitive. Equivalent: a skill with `user-invocable: true` and clear `argument-hint`. Document this; don't pretend Codex has Claude-style commands.
-- **All six vendors** ship hooks; per-vendor depth varies — Claude Code ~27 events / Codex 6 / Gemini 11 / Kiro 10 / Cursor ~19 / Windsurf 12. See [[Hooks]].
+- **All six vendors** ship hooks; per-vendor depth varies — Claude Code ~30 events / Codex 10 / Gemini 11 / Kiro 10 / Cursor ~21 / Windsurf 12. See [[Hooks]].
 
 ## See also
 

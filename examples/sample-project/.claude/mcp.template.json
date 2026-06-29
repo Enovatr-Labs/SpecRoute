@@ -1,0 +1,45 @@
+{
+  "_comment": "Claude Code CLI MCP server configuration template. After copying this example folder, rename to .mcp.json at the repo root (project scope, committed) or ~/.claude.json (user scope) and customize for your project. NOTE: this is the Claude Code CLI's MCP file, not the Claude Desktop app's claude_desktop_config.json. The default set is vendor-neutral; add proprietary servers only as your stack requires.",
+
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "."
+      ]
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "_comment": "Set GITHUB_PERSONAL_ACCESS_TOKEN in your shell profile or .env (gitignored). Do NOT hardcode it here."
+      }
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ]
+    },
+    "sequential-thinking": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@executeautomation/playwright-mcp-server"
+      ]
+    }
+  }
+}

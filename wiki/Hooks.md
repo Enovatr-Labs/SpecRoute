@@ -12,11 +12,11 @@ For the canonical reference (full event matrices), see [`hooks/README.md`](https
 
 | Vendor | Event count | Blocking semantics | Hook types beyond shell |
 |---|---|---|---|
-| Claude Code | ~27 | rich (per-event) | `http`, `mcp_tool`, `prompt`, `agent` |
-| Codex | 6 | per-event JSON | `command` only |
+| Claude Code | ~30 | rich (per-event) | `http`, `mcp_tool`, `prompt`, `agent` |
+| Codex | 10 | per-event JSON | `command` only |
 | Gemini CLI | 11 | per-event | `command` only |
 | Kiro | 10 | pre-hooks block | `askAgent` (built-in) |
-| Cursor | ~19 | `permission` schema | `command`, `prompt` |
+| Cursor | ~21 | `permission` schema | `command`, `prompt` |
 | Windsurf | 12 | pre-hooks only | `command`, `powershell` |
 
 Claude Code has the most comprehensive system. Cursor is second by event count. The other four cover the core "pre-tool, post-tool, session-start" patterns.

@@ -1,0 +1,15 @@
+# Gemini CLI example command.
+# Drop into .gemini/commands/check-docs.toml to expose /check-docs.
+
+description = "Check example docs for unresolved placeholder markers."
+
+prompt = """
+Scan the example documentation directories for unresolved placeholder markers
+(TODO, FIXME, and bare `<...>` template fields that should have been filled in).
+
+Search these paths: examples, prds/examples, specs/examples, agents/examples,
+skills/examples, commands/examples.
+
+Report each finding as `file:line - marker`. If the user passed any extra paths
+in {{args}}, include those in the scan as well. If nothing is found, say so.
+"""
