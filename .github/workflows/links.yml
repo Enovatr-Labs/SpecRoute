@@ -41,6 +41,11 @@ jobs:
         with:
           # Cache speeds up incremental runs and is gentle on third-party hosts.
           # Verbose for human-readable PR annotations; format md for the issue body.
+          # --remap: our docs use absolute github.com/.../blob/<branch>/ URLs (relative
+          # links don't render in the GitHub wiki mirror). Resolving them against the live
+          # branch makes any PR that renames/adds a referenced file 404 until it lands on
+          # that branch. Remapping self-links to the checked-out tree validates the PR's
+          # own state instead, and skips rate-limited round-trips to github.com.
           args: >-
             --cache
             --max-cache-age 1d
@@ -48,6 +53,8 @@ jobs:
             --verbose
             --format markdown
             --accept 200,206,429
+            --remap "https://github.com/Enovatr-Labs/SpecRoute/blob/(main|develop)/ file://${GITHUB_WORKSPACE}/"
+            --remap "https://github.com/Enovatr-Labs/SpecRoute/tree/(main|develop)/ file://${GITHUB_WORKSPACE}/"
             './**/*.md'
             './**/*.mdc'
           fail: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
