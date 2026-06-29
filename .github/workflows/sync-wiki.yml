@@ -43,7 +43,11 @@ jobs:
 
           # Sync wiki/ → wiki-repo/ exactly. --delete removes pages no longer
           # present in wiki/. We exclude .git and the local-only README.md.
-          rsync -av --delete \
+          # --checksum: compare by content hash, not size+mtime. Both repos are
+          # freshly checked out in the same second, so files share an mtime; a
+          # same-length edit (e.g. a date 2026-06-16 -> 2026-06-29) would
+          # otherwise be skipped by rsync's default quick-check and never sync.
+          rsync -av --delete --checksum \
             --exclude='.git' \
             --exclude='README.md' \
             wiki/ wiki-repo/
