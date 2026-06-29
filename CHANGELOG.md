@@ -16,7 +16,7 @@ For a content-only framework, versions are interpreted as:
 
 ---
 
-## [0.3.0] - 2026-06-16
+## [0.3.0] - 2026-06-29
 
 **Vendor capability convergence.** All six supported tools now back the full capability set (skills, agents, commands, hooks, MCP) with real runtime templates - previously several vendors were rules/steering-only. The vendor docs and tooling were re-verified current against each vendor's mid-2026 releases (the vendor-doc currency cycle from the Phase 4 roadmap).
 
