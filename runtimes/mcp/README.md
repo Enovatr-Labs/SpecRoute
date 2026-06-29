@@ -1,12 +1,19 @@
 # `runtimes/mcp/` - MCP Single Source of Truth
 
-The Model Context Protocol (MCP) server inventory lives here. Three vendors consume MCP configs in different shapes:
+The Model Context Protocol (MCP) server inventory lives here. **All six supported vendors consume MCP**, but there are only **two emit shapes**: a JSON `mcpServers` object (everyone except Codex) and `[mcp_servers]` TOML (Codex). The vendors differ mainly in *where* the config lives:
 
-- **Claude Desktop**: `claude_desktop_config.json` - `mcpServers` object
-- **Codex**: `config.toml` - `[mcp_servers.<name>]` sections
-- **Gemini CLI**: `settings.json` - `mcpServers` object (same shape as Claude)
+| Vendor | Shape | Path |
+|---|---|---|
+| Claude Code | `mcpServers` JSON | `.mcp.json` (project) / `~/.claude.json` (user) |
+| Codex | `[mcp_servers.<name>]` TOML | `.codex/config.toml` |
+| Gemini CLI | `mcpServers` JSON | `.gemini/settings.json` |
+| Kiro | `mcpServers` JSON | `.kiro/settings/mcp.json` |
+| Cursor | `mcpServers` JSON | `.cursor/mcp.json` |
+| Windsurf / Devin | `mcpServers` JSON | `~/.codeium/windsurf/mcp_config.json` (user scope) |
 
-Maintaining three configs by hand is the failure mode. This directory establishes a **single source of truth** (`servers.yaml`) and per-vendor renderers that emit each config from it.
+> Note: `.mcp.json` is the **Claude Code CLI's** file, not the Claude Desktop app's `claude_desktop_config.json`. Same shape, different products.
+
+Maintaining six configs by hand is the failure mode. This directory establishes a **single source of truth** (`servers.yaml`) and per-vendor renderers that emit each config from it.
 
 ## Layout
 
@@ -15,9 +22,12 @@ runtimes/mcp/
 ├── README.md                            (this file)
 ├── servers.yaml                         canonical inventory
 └── render/
-    ├── render_claude.py                 → claude_desktop_config.template.json
-    ├── render_codex.py                  → config.template.toml
-    └── render_gemini.py                 → gemini settings.template.json
+    ├── render_claude.py                 → .claude/mcp.template.json (Claude Code .mcp.json)
+    ├── render_codex.py                  → .codex/config.template.toml
+    ├── render_gemini.py                 → .gemini/settings.template.json
+    ├── render_kiro.py                   → .kiro/settings/mcp.template.json
+    ├── render_cursor.py                 → .cursor/mcp.template.json
+    └── render_windsurf.py               → ~/.codeium/windsurf/mcp_config.json (user scope; no committed template)
 ```
 
 ## Workflow
@@ -27,12 +37,15 @@ runtimes/mcp/
 2. **Re-run the renderers** to regenerate per-vendor configs:
 
    ```bash
-   python3 runtimes/mcp/render/render_claude.py > runtimes/.claude/claude_desktop_config.template.json
-   python3 runtimes/mcp/render/render_codex.py  > runtimes/.codex/config.template.toml
-   python3 runtimes/mcp/render/render_gemini.py > runtimes/.gemini/settings.template.json
+   python3 runtimes/mcp/render/render_claude.py   > runtimes/.claude/mcp.template.json
+   python3 runtimes/mcp/render/render_codex.py    > runtimes/.codex/config.template.toml
+   python3 runtimes/mcp/render/render_gemini.py   > runtimes/.gemini/settings.template.json
+   python3 runtimes/mcp/render/render_kiro.py     > runtimes/.kiro/settings/mcp.template.json
+   python3 runtimes/mcp/render/render_cursor.py   > runtimes/.cursor/mcp.template.json
+   python3 runtimes/mcp/render/render_windsurf.py > ~/.codeium/windsurf/mcp_config.json   # user scope
    ```
 
-3. **Commit the generated files alongside `servers.yaml`** so reviewers see the impact in one diff.
+3. **Commit the generated project-scoped files alongside `servers.yaml`** so reviewers see the impact in one diff. (Windsurf/Devin's config is user-scoped, so it has no committed template - render it straight to your home directory.)
 
 ## Why YAML?
 

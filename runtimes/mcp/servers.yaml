@@ -1,17 +1,25 @@
 # MCP Servers - Canonical Single Source of Truth
 #
-# This is the authoritative inventory of MCP servers for the project. Renderers
+# This is the authoritative inventory of MCP servers for the project. All six
+# supported vendors consume MCP; only two emit shapes exist (a JSON `mcpServers`
+# object for everyone except Codex, which uses `[mcp_servers]` TOML). Renderers
 # under render/ emit per-vendor configs from this file:
 #
-#   - .claude/claude_desktop_config.json  (Claude Desktop)
+#   - .claude/.mcp.json                   (Claude Code CLI; user scope ~/.claude.json)
 #   - .codex/config.toml [mcp_servers]    (Codex)
 #   - .gemini/settings.json [mcpServers]  (Gemini CLI)
+#   - .kiro/settings/mcp.json             (Kiro)
+#   - .cursor/mcp.json                    (Cursor)
+#   - ~/.codeium/windsurf/mcp_config.json (Windsurf / Devin; user scope)
 #
 # When you add or remove a server, edit this file then run:
 #
-#   python3 runtimes/mcp/render/render_claude.py > runtimes/.claude/claude_desktop_config.template.json
-#   python3 runtimes/mcp/render/render_codex.py  > runtimes/.codex/config.template.toml
-#   python3 runtimes/mcp/render/render_gemini.py > runtimes/.gemini/settings.template.json
+#   python3 runtimes/mcp/render/render_claude.py   > runtimes/.claude/mcp.template.json
+#   python3 runtimes/mcp/render/render_codex.py    > runtimes/.codex/config.template.toml
+#   python3 runtimes/mcp/render/render_gemini.py   > runtimes/.gemini/settings.template.json
+#   python3 runtimes/mcp/render/render_kiro.py     > runtimes/.kiro/settings/mcp.template.json
+#   python3 runtimes/mcp/render/render_cursor.py   > runtimes/.cursor/mcp.template.json
+#   python3 runtimes/mcp/render/render_windsurf.py > ~/.codeium/windsurf/mcp_config.json
 #
 # Default set is vendor-neutral. Add proprietary servers only if your project
 # truly needs them and the consumer can supply credentials.

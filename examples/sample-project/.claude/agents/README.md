@@ -36,6 +36,6 @@ This roster targets a representative product stack (relational DB, REST API, web
 
 The frontmatter contract (`name`, `description` with triggers, `model`, `color`) stays the same regardless.
 
-## Mirror to Codex
+## Codex variant
 
-If you also target Codex, mirror these agents into `.codex/agents/<name>.md` (same shape) and run `tools/sync-skills.py` (which also handles agents) from the SpecRoute framework to detect drift.
+This project also ships a Codex runtime at [`../../.codex/`](../../.codex/). The same eight agents live there as TOML files (`.codex/agents/<name>.toml`) with a `developer_instructions` body instead of Markdown + frontmatter. The shapes diverge, so agents do **not** cross-sync: when you change an agent's substance, update both `.claude/agents/<name>.md` and `.codex/agents/<name>.toml`. `tools/sync-skills.py` keeps skills in parity across vendors but excludes agents for this reason. See [`../../.codex/README.md`](../../.codex/README.md).

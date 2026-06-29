@@ -6,7 +6,7 @@ abstract: >-
   engineering. It captures production-grade patterns for PRDs, specifications
   (requirements / design / tasks triplet), agents, skills, slash commands,
   hooks, prompts, workflows, and engineering rules across six agent CLIs:
-  Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf. The framework
+  Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf/Devin. The framework
   ships markdown content (templates, runtime layouts, worked examples)
   rather than application code; consumers drop the per-vendor runtime
   layouts into their own repositories and adapt the templates to their stack.
@@ -19,8 +19,8 @@ authors:
 url: "https://github.com/Enovatr-Labs/SpecRoute"
 repository-code: "https://github.com/Enovatr-Labs/SpecRoute"
 license: Apache-2.0
-date-released: 2026-05-19
-version: "0.2.4"
+date-released: 2026-06-16
+version: "0.3.0"
 keywords:
   - agentic engineering
   - spec-driven development

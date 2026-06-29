@@ -23,8 +23,8 @@ The wiki must exist before you can clone it: first **create the Home page once v
 git clone https://github.com/Enovatr-Labs/SpecRoute.wiki.git /tmp/specroute-wiki
 cd /tmp/specroute-wiki
 
-# Copy all the files in here
-cp /Users/chika/LocalDev/SpecRoute/wiki/*.md .
+# Copy all the files in here (run from your SpecRoute checkout, or adjust the path)
+cp "$(git -C /path/to/SpecRoute rev-parse --show-toplevel)"/wiki/*.md .
 
 # Don't copy this README (it's local-only guidance)
 rm -f README.md

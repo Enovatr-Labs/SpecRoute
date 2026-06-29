@@ -25,7 +25,7 @@ examples/
     └── .claude/                    Claude Code runtime layout
         ├── settings.json                       project-wide settings
         ├── settings.local.template.json        rename after copy (gitignored)
-        ├── claude_desktop_config.template.json rename after copy
+        ├── mcp.template.json                   rename after copy
         ├── .forbidden-strings.template.txt     rename after copy (gitignored)
         ├── agents/                             8 implementation-team agents
         ├── commands/                           /sanitize, /audit, /status, /parity
@@ -64,7 +64,7 @@ cd /path/to/your-new-repo/
 
 # 3. Rename the .template files (these become gitignored).
 mv .claude/settings.local.template.json     .claude/settings.local.json
-mv .claude/claude_desktop_config.template.json .claude/claude_desktop_config.json
+mv .claude/mcp.template.json                .mcp.json
 mv .claude/.forbidden-strings.template.txt  .claude/.forbidden-strings.txt
 
 # 4. Add the renamed files to .gitignore.

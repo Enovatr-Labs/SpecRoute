@@ -1,68 +1,47 @@
 ---
-description: Cross-vendor parity check - diff skills, agents, commands, and hooks between runtimes/.claude/, runtimes/.codex/, and other runtime layouts. Reports drift.
+description: Cross-vendor parity check - body-aware skill sync status across all runtime layouts, plus MCP single-source coverage. Reports drift; read-only.
 ---
 
-Check parity between vendor runtime layouts. Drift is sometimes intentional (a Claude-only skill) but should be explicit, not accidental.
+Check parity between vendor runtime layouts. Skills share a portable body across all six vendors (each carries its own frontmatter); agents and commands are vendor-shaped and maintained per vendor. Drift is sometimes intentional but should be explicit, not accidental.
 
 ```bash
-echo "── skills parity (claude vs codex) ──"
-if [ -d "runtimes/.claude/skills" ] && [ -d "runtimes/.codex/skills" ]; then
-  claude_skills=$(find runtimes/.claude/skills -maxdepth 1 -mindepth 1 -type d -exec basename {} \; | sort)
-  codex_skills=$(find runtimes/.codex/skills -maxdepth 1 -mindepth 1 -type d -exec basename {} \; | sort)
-  echo "Claude only:"
-  comm -23 <(echo "$claude_skills") <(echo "$codex_skills") | sed 's/^/  /'
-  echo "Codex only:"
-  comm -13 <(echo "$claude_skills") <(echo "$codex_skills") | sed 's/^/  /'
-  echo "Both:"
-  comm -12 <(echo "$claude_skills") <(echo "$codex_skills") | wc -l | xargs echo "  shared count:"
+echo "── skills parity (body-aware, all vendors) ──"
+if [ -f tools/sync-skills.py ]; then
+  python3 tools/sync-skills.py        # read-only report; Claude is the default source of truth
 else
-  echo "  (one or both runtime skill dirs missing - skipping)"
+  echo "  (tools/sync-skills.py missing - skipping)"
 fi
 
 echo
-echo "── agents parity (claude vs codex) ──"
-if [ -d "runtimes/.claude/agents" ] && [ -d "runtimes/.codex/agents" ]; then
-  claude_agents=$(find runtimes/.claude/agents -maxdepth 1 -name "*.md" -exec basename {} .md \; | grep -v "^README$" | sort)
-  codex_agents=$(find runtimes/.codex/agents -maxdepth 1 -name "*.md" -exec basename {} .md \; | grep -v "^README$" | sort)
-  echo "Claude only:"
-  comm -23 <(echo "$claude_agents") <(echo "$codex_agents") | sed 's/^/  /'
-  echo "Codex only:"
-  comm -13 <(echo "$claude_agents") <(echo "$codex_agents") | sed 's/^/  /'
-fi
+echo "── agents: not cross-synced ──"
+echo "  Agent formats diverge by vendor (Claude/Gemini/Kiro/Cursor flat Markdown, Codex .toml,"
+echo "  Devin per-profile AGENT.md). There is no cross-vendor agent parity - maintain each independently."
 
 echo
-echo "── MCP servers parity ──"
+echo "── MCP single-source coverage ──"
 if [ -f "runtimes/mcp/servers.yaml" ]; then
   echo "Source of truth: runtimes/mcp/servers.yaml"
-  for vendor_config in runtimes/.claude/claude_desktop_config.template.json runtimes/.codex/config.template.toml runtimes/.gemini/settings.template.json; do
+  for vendor_config in \
+    runtimes/.claude/mcp.template.json \
+    runtimes/.codex/config.template.toml \
+    runtimes/.gemini/settings.template.json \
+    runtimes/.kiro/settings/mcp.template.json \
+    runtimes/.cursor/mcp.template.json; do
     if [ -f "$vendor_config" ]; then
-      echo "  ✓ $vendor_config exists (run renderer to verify drift)"
+      echo "  ✓ $vendor_config exists (re-run its renderer to verify drift vs servers.yaml)"
     else
       echo "  ✗ $vendor_config missing"
     fi
   done
+  echo "  note: Windsurf/Devin MCP is user-level (~/.codeium/windsurf/mcp_config.json) - no committed template"
 else
   echo "  (runtimes/mcp/servers.yaml missing - single source not yet established)"
-fi
-
-echo
-echo "── frontmatter drift on shared skills ──"
-if [ -d "runtimes/.claude/skills" ] && [ -d "runtimes/.codex/skills" ]; then
-  for d in runtimes/.claude/skills/*/; do
-    name=$(basename "$d")
-    other="runtimes/.codex/skills/$name/SKILL.md"
-    [ -f "$other" ] || continue
-    if ! diff -q "$d/SKILL.md" "$other" >/dev/null 2>&1; then
-      echo "  drift: $name"
-    fi
-  done
 fi
 ```
 
 After running:
 
-- Report each section's findings.
-- For "Claude only" / "Codex only" lists: ask whether each is intentional. If yes, document the rationale in the relevant `runtimes/README.md`. If no, invoke `runtime-architect` (or run `tools/sync-skills.py`) to mirror.
-- For drift on shared skills: invoke `runtime-architect` to reconcile.
+- **Skills:** if the report shows drift, re-run `tools/sync-skills.py --apply` to sync bodies (it preserves each vendor's frontmatter), or document intentional drift in the relevant `runtimes/README.md`.
+- **MCP:** re-run the per-vendor renderer (`runtimes/mcp/render/render_<vendor>.py`) and diff against the committed template to confirm they match `servers.yaml`.
 
-This command is read-only. To actually sync, use `tools/sync-skills.py` or invoke `runtime-architect`.
+This command is read-only. To actually sync skills, use `tools/sync-skills.py`; for anything else, invoke `runtime-architect`.

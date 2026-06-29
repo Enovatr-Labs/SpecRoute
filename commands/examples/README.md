@@ -16,7 +16,7 @@ Commands are not a single format. Each vendor has its own contract:
 | Vendor | Shape | Location |
 |---|---|---|
 | Claude Code | Markdown body + `description` frontmatter | `.claude/commands/<slug>.md` (or `runtimes/.claude/commands/<slug>.md` for the consumer template) |
-| Gemini CLI | JSON config with `commands.<slug>` entries | `.gemini/gemini_cli_config.json` |
+| Gemini CLI | TOML file with `prompt` (+ optional `description`) | `.gemini/commands/<slug>.toml` |
 | Codex | Skill with `user-invocable: true` and a clear `argument-hint` | `.codex/skills/<slug>/SKILL.md` |
 | Kiro | Not a separate concept | (use hooks for automation) |
 | Cursor / Windsurf | Not a separate concept | (use rules) |
@@ -27,6 +27,6 @@ When adding an example: ship the shape for every vendor where it makes sense.
 
 1. Pick a generic operation (lint check, format, dependency report, log tail).
 2. Use [`../command-template.claude.md`](../command-template.claude.md) for Claude.
-3. Use [`../command-template.gemini.json`](../command-template.gemini.json) for Gemini, or mirror the shape in `check-docs.gemini.json`.
+3. Use [`../command-template.gemini.toml`](../command-template.gemini.toml) for Gemini, or mirror the shape in `check-docs.gemini.toml`.
 4. For Codex: create the equivalent skill under `runtimes/.codex/skills/<slug>/SKILL.md` with `user-invocable: true`.
 5. Run `/audit` to validate.

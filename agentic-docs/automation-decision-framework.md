@@ -8,7 +8,7 @@
 |---|---|---|---|
 | **Skill** | You need an interactive workflow with parameters and decision points | Bootstrapping a new PRD with a guided template wizard | `skills/<name>/SKILL.md` |
 | **Agent** | You need fully autonomous execution that runs to completion | Drafting a 23-section PRD body given a goal | `agents/examples/<name>.md` (consumer) or `.claude/agents/<name>.md` (project-internal) |
-| **Command** | You need a simple, non-parameterized operation that always does the same thing | `/run-tests`, `/sanitize`, `/audit` | `commands/<name>.md` (Claude) or `gemini_cli_config.json` entry (Gemini) |
+| **Command** | You need a simple, non-parameterized operation that always does the same thing | `/run-tests`, `/sanitize`, `/audit` | `commands/<name>.md` (Claude) or `.gemini/commands/<name>.toml` (Gemini) |
 | **Hook** | You need automatic enforcement on an event you can't predict | Block `git commit` if sanitization fails; lint frontmatter on every Write | `hooks/<vendor>/...` |
 
 If none feel right, you may not have automated the right unit. Look at it again.
@@ -160,7 +160,7 @@ Hook (PreToolUse): <reads .claude/.forbidden-strings.txt, runs git grep, exits 0
 Bash: <only runs if hook exited 0>
 ```
 
-**Vendor support:** All six supported vendors ship a hooks system. Per-vendor depth varies (Claude Code is most comprehensive at ~27 events with 5 hook types; Codex covers 6 events; Gemini 11 events; Kiro 10 events; Cursor ~19 events; Windsurf 12 events). See [`hooks/README.md`](../hooks/README.md) for the full per-vendor event matrix and per-vendor templates under `hooks/<vendor>/`.
+**Vendor support:** All six supported vendors ship a hooks system. Per-vendor depth varies (Claude Code is most comprehensive at ~30 events with 5 hook types; Codex covers 10 events; Gemini 11 events; Kiro 10 events; Cursor ~21 events; Windsurf 12 events). See [`hooks/README.md`](../hooks/README.md) for the full per-vendor event matrix and per-vendor templates under `hooks/<vendor>/`.
 
 ## Decision-tree shortcut
 

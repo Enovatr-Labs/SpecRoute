@@ -24,7 +24,9 @@ Each agent CLI vendor has historically used its own root context file:
 - Claude Code: `CLAUDE.md`
 - Codex: `AGENTS.md`
 - Gemini CLI: `GEMINI.md`
-- Aider: `.aider.conf.yml` and others
+- Kiro: `.kiro/steering/*.md`
+- Cursor: `.cursor/rules/*.mdc` (also natively reads `AGENTS.md`)
+- Windsurf / Devin: `.devin/rules/*.md` (preferred) or legacy `.windsurf/rules/*.md`
 - (and more vendors will appear)
 
 Without a convention, projects targeting multiple vendors end up with N copies of the same content, drifting independently. When a convention changes (a new artifact type, a new vendor), every copy needs an update - and someone misses one, and the docs disagree, and the agent CLIs surface inconsistent guidance to the developer.

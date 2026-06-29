@@ -63,7 +63,7 @@ Every directory ships a `README.md`. Treat those as the authoritative answer to 
 - Templates and content: `.md` (Markdown).
 - Frontmatter: YAML at the top, fenced by `---`. Required fields vary by artifact — see [[Frontmatter Contracts]].
 - Scripts: bash for hooks; Python 3 for tooling. No external runtime dependencies.
-- Vendor-specific files keep their native shape (Gemini's `gemini_cli_config.json` stays JSON; Codex's `config.toml` stays TOML; Kiro's `*.kiro.hook` stays JSON).
+- Vendor-specific files keep their native shape (Gemini's `.gemini/commands/*.toml` and `config.toml` stay TOML; Codex's `config.toml` stays TOML; Kiro's `*.kiro.hook` stays JSON).
 
 ## What this repo is NOT
 

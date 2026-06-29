@@ -1,8 +1,5 @@
 {
-  "_comment": "Claude Desktop MCP server configuration template. After installing the Claude desktop app, this file lives at ~/Library/Application Support/Claude/claude_desktop_config.json (macOS) or %APPDATA%\\Claude\\claude_desktop_config.json (Windows). Per-project copies live at .claude/claude_desktop_config.json.",
-
-  "_comment_single_source_of_truth": "Maintain runtimes/mcp/servers.yaml as the canonical inventory. Run runtimes/mcp/render/render_claude.py to regenerate this file from servers.yaml.",
-
+  "_comment": "Generated from runtimes/mcp/servers.yaml. Do not edit by hand. Re-run runtimes/mcp/render/render_claude.py to regenerate. Install to .mcp.json (project, committed) or ~/.claude.json (user) for the Claude Code CLI.",
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -19,7 +16,7 @@
         "@modelcontextprotocol/server-github"
       ],
       "env": {
-        "_comment": "Set GITHUB_PERSONAL_ACCESS_TOKEN in your shell profile or in .env (gitignored). Do NOT hardcode it here."
+        "_comment": "Set the following in your shell or .env: GITHUB_PERSONAL_ACCESS_TOKEN"
       }
     },
     "memory": {

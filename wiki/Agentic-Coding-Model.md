@@ -46,7 +46,7 @@ The user types `/scaffold-artifact prd notification-preferences`. The skill asks
 
 Not every vendor supports every primitive. See [[Vendor Matrix]] for the contract.
 
-- **Claude Code** — all four primitives + the richest hook system (~27 events).
+- **Claude Code** — all four primitives + the richest hook system (~30 events).
 - **Codex** — skills + agents; commands subsumed into skills via `user-invocable: true`; hooks via 6 events.
 - **Gemini CLI** — commands (JSON map), MCP, and hooks via 11 events.
 - **Kiro** — hooks + steering rules; no standalone skills/agents/commands.

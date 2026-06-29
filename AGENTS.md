@@ -39,14 +39,16 @@ When to reach for which: see [`agentic-docs/automation-decision-framework.md`](a
 
 | Vendor | Runtime dir | Root context file | Skills | Agents | Commands | Hooks | MCP config |
 |---|---|---|---|---|---|---|---|
-| Claude Code | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` | flat `<name>.md` + frontmatter | `commands/<name>.md` | `settings.json hooks` (~27 events, 5 hook types) | `claude_desktop_config.json` |
-| Codex | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` | flat `<name>.md` | via skills (`user-invocable: true`) | `hooks.json` or `config.toml [hooks]` (6 events; flag `codex_hooks=true`) | `config.toml [mcp_servers]` |
-| Gemini CLI | `.gemini/` | `GEMINI.md` (delegation shim) | - | - | `gemini_cli_config.json` | `settings.json hooks` (11 events; v0.26.0+) | `settings.json [mcpServers]` |
-| Kiro | `.kiro/` | `steering/` files | - | - | - | `*.kiro.hook` (10 events incl. file/agent/task triggers) | - |
-| Cursor | `.cursor/rules/` | `.cursorrules` | - | - | - | `hooks.json` v1 (~19 events; permission/decision schema) | - |
-| Windsurf | `.windsurf/rules/` | - | - | - | - | `hooks.json` (12 events; pre-hooks block, post-hooks observe) | - |
+| Claude Code | `.claude/` | `CLAUDE.md` | folder-per-skill `SKILL.md` | flat `<name>.md` + frontmatter | `commands/<name>.md` (merged into skills) | `settings.json hooks` (~30 events, 5 hook types) | `.mcp.json` / `~/.claude.json` |
+| Codex | `.codex/` | `AGENTS.md` | folder-per-skill `SKILL.md` | `agents/<name>.toml` | skills (`/skills`, `$mention`) | `hooks.json` or `config.toml [hooks]` (10 events; default-on) | `config.toml [mcp_servers]` |
+| Gemini CLI (→ Antigravity) | `.gemini/` | `GEMINI.md` (delegation shim) | `skills/<slug>/SKILL.md` | `agents/<name>.md` | TOML in `.gemini/commands/` | `settings.json hooks` (11 events; v0.26.0+) | `settings.json [mcpServers]` |
+| Kiro | `.kiro/` | `steering/` files | `skills/<slug>/SKILL.md` | `agents/<name>.md` | `/skill` + manual steering | `*.kiro.hook` (10 events incl. file/agent/task triggers) | `.kiro/settings/mcp.json` |
+| Cursor | `.cursor/` | `.cursor/rules/*.mdc` / `AGENTS.md` | `skills/` `SKILL.md` | `agents/<name>.md` | `commands/*.md` | `hooks.json` v1 (~21 events; permission/decision schema) | `.cursor/mcp.json` |
+| Windsurf / Devin | `.windsurf/` · `.devin/` | `.devin/rules/*.md` (pref) / `.windsurf/rules/` (legacy) | Cascade `SKILL.md` | subagents | `.windsurf/workflows/*.md` | `hooks.json` (12 events; pre-hooks block, post-hooks observe) | `~/.codeium/windsurf/mcp_config.json` |
 
-Vendor neutrality is the contract. Adding a new tool = a new column, not a fork. The matrix is mirrored in [`README.md`](README.md), [`agentic-docs/agent-cli-integrations.md`](agentic-docs/agent-cli-integrations.md), and [`agentic-docs/multi-vendor-context-files.md`](agentic-docs/multi-vendor-context-files.md); when one changes, all three change in lock-step.
+As of mid-2026 all six tools have **converged** on the same capability set (skills, agents, commands, hooks, MCP) — they differ in file format, not capability class; see [`agentic-docs/agent-cli-integrations.md`](agentic-docs/agent-cli-integrations.md). Two are mid-transition: Gemini CLI is being superseded by Antigravity CLI (from 2026-06-18) and Windsurf is relaunching as Cognition's Devin Desktop (`.devin/rules/` preferred; Cascade EOL 2026-07-01).
+
+Vendor neutrality is the contract. Adding a new tool = a new column, not a fork. The matrix is mirrored in [`README.md`](README.md), [`agentic-docs/agent-cli-integrations.md`](agentic-docs/agent-cli-integrations.md), and [`wiki/Vendor-Matrix.md`](wiki/Vendor-Matrix.md); when one changes, all change in lock-step.
 
 ## Hard constraints
 

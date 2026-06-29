@@ -7,7 +7,7 @@ How rules and standards are loaded into Gemini CLI. Rules content itself defers 
 - **`GEMINI.md`** at the repo root - Gemini's canonical context file. Recommended: a slim delegation shim pointing to `AGENTS.md`.
 - **`AGENTS.md`** - broader project context. Most rules content is referenced from here.
 - **`.gemini/settings.json`** - MCP server configuration (no rule loader).
-- **`.gemini/gemini_cli_config.json`** - slash-command shortcuts (not a rule loader).
+- **`.gemini/commands/*.toml`** - slash commands (not a rule loader).
 
 ## Recommended structure
 
@@ -30,23 +30,24 @@ In `AGENTS.md`, link to:
 - [`rules/security-rules.md`](security-rules.md)
 - [`rules/documentation-rules.md`](documentation-rules.md)
 
-## What Gemini does NOT support
+## Vendor mapping notes
 
-- Folder-per-skill `SKILL.md` files.
-- Flat-file agents.
-- Slash commands with markdown body (Gemini commands are JSON entries with shell commands).
+- Skills: Gemini now supports folder-per-skill `SKILL.md` under `.gemini/skills/`.
+- Subagents: Gemini now supports subagents under `.gemini/agents/`.
+- Slash commands: Gemini commands are TOML files under `.gemini/commands/*.toml` (a `prompt`, not a markdown body or a shell string).
 
-For features SpecRoute ships that Gemini can't natively run, the equivalent is to:
+For SpecRoute artifacts that don't have a one-to-one Gemini equivalent:
 
 - Use `prompts/shared/` and `prompts/codex|claude/` as reference prompts that humans copy into a Gemini conversation.
-- Use `gemini_cli_config.json` for shell-shortcut equivalents of one-shot commands.
 
 ## Vendor-specific behaviors
 
 | Topic | Gemini behavior |
 |---|---|
-| MCP servers | Configured in `.gemini/settings.json` `mcpServers`. Same JSON shape as Claude Desktop. |
-| Slash commands | JSON entries in `.gemini/gemini_cli_config.json` `commands`. Run shell commands, not prompts. |
+| MCP servers | Configured in `.gemini/settings.json` `mcpServers`. |
+| Slash commands | TOML files under `.gemini/commands/*.toml` (required `prompt`, optional `description`; subdirs namespace as `/parent:child`; `{{args}}` is the argument placeholder). |
+| Skills | Folder-per-skill `SKILL.md` under `.gemini/skills/`. |
+| Subagents | Flat agent files under `.gemini/agents/`. |
 | Hooks | `.gemini/settings.json` `hooks` block - 11 events (`Before/AfterTool`, `Before/AfterAgent`, `Before/AfterModel`, `BeforeToolSelection`, `SessionStart`, `SessionEnd`, `Notification`, `PreCompress`). v0.26.0+. See [`hooks/gemini/`](../hooks/gemini/). |
 | Stdout discipline (hooks) | Gemini is **strict** - hook scripts must print **only the final JSON to stdout**. Send diagnostics to stderr. Plain-text-mixed-with-JSON breaks the parser. |
 | Rule loading | None native. Rules surface via `GEMINI.md` and `AGENTS.md`. |
