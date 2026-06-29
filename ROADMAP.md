@@ -4,7 +4,7 @@ This roadmap is intentionally honest about the current state. Updated alongside 
 
 Status legend: ✓ done · ◐ in progress · ☐ not started
 
-**Current version:** v0.3.0 (released 2026-06-16). See [`CHANGELOG.md`](CHANGELOG.md) for the release log.
+**Current version:** v0.3.0 (released 2026-06-29). See [`CHANGELOG.md`](CHANGELOG.md) for the release log.
 
 ---
 
@@ -60,7 +60,7 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 
 **Goal:** Real-world adoption signals, additional vendors, and community-contributed examples that prove the framework's reusability.
 
-- ◐ Versioned releases - v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 / v0.2.1 cut 2026-05-11 / 2026-05-14 then retracted during pre-public sanitization (see [`CHANGELOG.md`](CHANGELOG.md)); v0.2.3 cut 2026-05-19 (first publicly available release with wiki + GitHub-side hygiene); v0.2.4 cut 2026-05-19 (version-string synchronization in `CITATION.cff`, `ROADMAP.md`, and wiki); v0.3.0 cut 2026-06-16 (vendor capability convergence + vendor-doc currency cycle); v1.0 target after DOI registration and real-world adoption signals
+- ◐ Versioned releases - v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 / v0.2.1 cut 2026-05-11 / 2026-05-14 then retracted during pre-public sanitization (see [`CHANGELOG.md`](CHANGELOG.md)); v0.2.3 cut 2026-05-19 (first publicly available release with wiki + GitHub-side hygiene); v0.2.4 cut 2026-05-19 (version-string synchronization in `CITATION.cff`, `ROADMAP.md`, and wiki); v0.3.0 cut 2026-06-29 (vendor capability convergence + vendor-doc currency cycle); v1.0 target after DOI registration and real-world adoption signals
 - ✓ Vendor-doc currency cycle - all six vendors re-verified against their mid-2026 releases; runtime layouts built out to the converged capability set; matrix, tooling, and wiki reconciled (v0.3.0)
 - ☐ Additional worked examples beyond `sample-project/` (suggested: lightweight feature, refactor, ADR-only project, Codex variant of sample-project)
 - ☐ Additional vendor support based on community demand
