@@ -6,7 +6,7 @@ Where SpecRoute is, what's next, and what's deliberately out of scope.
 
 Canonical source: [ROADMAP.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/ROADMAP.md). Release log: [CHANGELOG.md](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CHANGELOG.md).
 
-**Current version**: v0.3.0 (released 2026-06-16).
+**Current version**: v0.3.0 (released 2026-06-29).
 
 Status legend: ✓ done · ◐ in progress · ☐ not started
 
@@ -60,7 +60,7 @@ Ship copy-pasteable per-vendor runtime layouts and the tooling that keeps them i
 
 Real-world adoption signals, additional vendors, and community-contributed examples.
 
-- ◐ Versioned releases — v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 / v0.2.1 cut 2026-05-11 / 2026-05-14 then retracted during pre-public sanitization (see [CHANGELOG](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CHANGELOG.md)); v0.2.3 cut 2026-05-19 (first publicly available release with wiki + GitHub-side hygiene); v0.2.4 cut 2026-05-19 (version-string synchronization in `CITATION.cff`, `ROADMAP.md`, and wiki); v0.3.0 cut 2026-06-16 (vendor capability convergence + vendor-doc currency cycle); v1.0 target after DOI registration and real-world adoption signals
+- ◐ Versioned releases — v0.1.0 cut 2026-05-09 (private milestone); v0.2.0 / v0.2.1 cut 2026-05-11 / 2026-05-14 then retracted during pre-public sanitization (see [CHANGELOG](https://github.com/Enovatr-Labs/SpecRoute/blob/main/CHANGELOG.md)); v0.2.3 cut 2026-05-19 (first publicly available release with wiki + GitHub-side hygiene); v0.2.4 cut 2026-05-19 (version-string synchronization in `CITATION.cff`, `ROADMAP.md`, and wiki); v0.3.0 cut 2026-06-29 (vendor capability convergence + vendor-doc currency cycle); v1.0 target after DOI registration and real-world adoption signals
 - ✓ Vendor-doc currency cycle — all six vendors re-verified against their mid-2026 releases; runtime layouts built out to the converged capability set; matrix, tooling, and wiki reconciled (v0.3.0)
 - ☐ Additional worked examples beyond `sample-project/`:
   - Lightweight feature (single-team, `lightweight-prd-template.md` + `feature-spec-template.md`)

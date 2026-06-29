@@ -62,7 +62,7 @@ Read [[Spec-Driven Development]] for the full flow, [[Agentic Coding Model]] for
 
 ## Project status
 
-- **Current version**: v0.3.0 (released 2026-06-16).
+- **Current version**: v0.3.0 (released 2026-06-29).
 - **Phases 1–3 complete** (skeleton, core templates, runtime layouts).
 - **Phase 4 in progress** (real-world adoption, more vendors, DOI registration).
 
