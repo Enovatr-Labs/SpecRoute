@@ -1,5 +1,4 @@
 {
-  "_comment": "Generated from runtimes/mcp/servers.yaml. Do not edit by hand. Re-run runtimes/mcp/render/render_cursor.py to regenerate.",
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -15,7 +14,9 @@
         "-y",
         "@modelcontextprotocol/server-github"
       ],
-      "_comment": "Requires these environment variables, exported in your shell or a gitignored .env: GITHUB_PERSONAL_ACCESS_TOKEN"
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${env:GITHUB_PERSONAL_ACCESS_TOKEN}"
+      }
     },
     "memory": {
       "command": "npx",

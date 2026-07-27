@@ -4,7 +4,7 @@ Standards for documentation across the project. See also [`agentic-docs/document
 
 ## 1. Two-tier docs
 
-- **Root context files** (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short. They're loaded into every agent conversation; long files crowd out the user's actual question.
+- **Root context files** (`AGENTS.md`, `CLAUDE.md`, `GEMINI.md`) stay short so they do not crowd out the user's prompt. SpecRoute's own convention: `AGENTS.md` ~100 lines, vendor shims ~30-50. The `AGENTS.md` standard itself (now stewarded by the Agentic AI Foundation under the Linux Foundation) specifies no schema and no length limit - this budget is ours, adopted for context-cost reasons, not an external requirement.
 - **Deep references** live in `agentic-docs/`. The root files link out; the deep docs hold the substance.
 
 See [`agentic-docs/two-tier-docs-pattern.md`](../agentic-docs/two-tier-docs-pattern.md).
@@ -33,13 +33,13 @@ The `/audit` command flags broken local links. Run before merging doc changes.
 
 | File type | Required frontmatter |
 |---|---|
-| Agent (`agents/examples/*.md`, `runtimes/.<vendor>/agents/*.md`) | `name`, `description`, `model`, `color` |
-| Skill (`skills/<slug>/SKILL.md`) | `name`, `description`, `argument-hint`, `user-invocable`, `allowed-tools` |
+| Agent (`agents/examples/*.md`, `runtimes/.<vendor>/agents/*.md`) | `name`, `description` (`model`, `color` conventional but optional) |
+| Skill (`skills/<slug>/SKILL.md`) | `name`, `description` (`argument-hint`, `user-invocable`, `allowed-tools` are optional vendor extensions) |
 | Claude command (`commands/<slug>.md`) | `description` |
 | Cursor rule (`*.mdc`) | `description`, optionally `globs` and `alwaysApply` |
 | Kiro steering (`*.md` under `.kiro/steering/`) | `inclusion: always` or `inclusion: fileMatch` + `fileMatchPattern` |
 
-Missing required frontmatter = the runtime won't load the file. The PostToolUse frontmatter hook validates on save.
+Missing a *required* field means the runtime won't register the artifact. The parenthesised fields are SpecRoute convention, not runtime requirements - don't treat their absence as a defect. The PostToolUse frontmatter hook reports the two classes separately.
 
 ## 6. Match docs to the audience
 

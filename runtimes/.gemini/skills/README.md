@@ -24,3 +24,24 @@ Gemini does **not** use Claude's `argument-hint`, `user-invocable`, or `allowed-
 The body is portable. Strip the Claude-only frontmatter (`argument-hint`, `user-invocable`, `allowed-tools`) down to `name` + `description`. Use `tools/sync-skills.py` to keep the body in sync across runtimes - it is body-aware and preserves each vendor's own frontmatter.
 
 `audit-artifact/` ships here as a worked reference. Replace or extend it with your project's skills.
+
+## Invoking a skill
+
+Use your runtime's skill prefix. In Claude Code both work once the skill is registered:
+
+```
+/all-hands review the changes        # skill/command menu
+@all-hands review the changes        # mention picker - lists files AND registered skills
+```
+
+A correctly registered skill appears in the `@` picker with type **Skill**. If you see only
+directories and no `Skill` row, it did not register - and the cause is almost always
+frontmatter:
+
+- **`disable-model-invocation: true` hides it** from the model-facing registry the `@` picker
+  completes against. Omit it unless you want the skill reachable *only* from the `/` menu.
+- **`allowed-tools` is comma-separated** (`Read, Grep, Glob, Bash, Agent`). Space separation
+  and stale tool names (`Task` was superseded by `Agent`) fail silently.
+- **The folder name must equal the `name` field.**
+
+Each skill's `SKILL.md` carries a per-runtime invocation table.

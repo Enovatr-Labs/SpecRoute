@@ -51,6 +51,6 @@ As of mid-2026 all six vendors support custom commands, in their native shapes:
 | Gemini CLI | `.gemini/commands/<name>.toml` (`prompt` + `description`) |
 | Kiro | a skill invoked via `/skill` (+ manual steering) |
 | Cursor | `.cursor/commands/<name>.md` |
-| Windsurf / Devin | `.windsurf/workflows/<name>.md` / `.devin/workflows/<name>.md` (invoked `/<name>`) |
+| Devin Desktop | a skill under `.devin/skills/<name>/SKILL.md`, invoked as `/<name>` |
 
 When mirroring to Codex, convert to a skill folder under `.codex/skills/<slug>/SKILL.md`. See [`review-spec.md`](review-spec.md) for a worked example command.

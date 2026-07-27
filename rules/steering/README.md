@@ -26,7 +26,7 @@ The two modes appear in different vendors with different frontmatter:
 |---|---|---|
 | Kiro | `inclusion: always` | `inclusion: fileMatch` + `fileMatchPattern: "..."` |
 | Cursor (MDC) | `alwaysApply: true` | `globs: ["..."]` (without `alwaysApply`) |
-| Windsurf | `trigger: always` | `trigger: model-decision` + `globs: ["..."]` |
+| Devin Desktop (Cascade rules) | `trigger: always_on` | `trigger: glob` + `globs: "..."` |
 | Claude Code | `CLAUDE.md` references | per-agent `description` triggers |
 | Codex | `AGENTS.md` references | per-agent / per-skill scoping |
 | Gemini | `GEMINI.md` references | not supported natively |
@@ -36,12 +36,12 @@ The two modes appear in different vendors with different frontmatter:
 1. Decide whether your rule is always-on or file-pattern-matched.
 2. Copy the appropriate template.
 3. Adjust frontmatter for your target vendor (use the table above).
-4. Drop into `.kiro/steering/`, `.cursor/rules/`, or `.windsurf/rules/` as appropriate.
+4. Drop into `.kiro/steering/`, `.cursor/rules/`, or `.devin/rules/` as appropriate.
 5. For Claude Code / Codex / Gemini, surface the rule by linking from the root context file.
 
 ## See also
 
 - [`runtimes/.kiro/steering/README.md`](../../runtimes/.kiro/steering/README.md) - Kiro steering layout.
 - [`runtimes/.cursor/rules/README.md`](../../runtimes/.cursor/rules/README.md) - Cursor rules layout.
-- [`runtimes/.windsurf/rules/README.md`](../../runtimes/.windsurf/rules/README.md) - Windsurf rules layout.
+- [`runtimes/.devin/rules/README.md`](../../runtimes/.devin/rules/README.md) - Cascade-facing rules within the Devin Desktop layout.
 - [`../engineering-rules.md`](../engineering-rules.md) - vendor-neutral engineering rules.

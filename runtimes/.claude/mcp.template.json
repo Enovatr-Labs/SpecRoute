@@ -15,9 +15,7 @@
         "-y",
         "@modelcontextprotocol/server-github"
       ],
-      "env": {
-        "_comment": "Set the following in your shell or .env: GITHUB_PERSONAL_ACCESS_TOKEN"
-      }
+      "_comment": "Requires these environment variables, exported in your shell or a gitignored .env: GITHUB_PERSONAL_ACCESS_TOKEN"
     },
     "memory": {
       "command": "npx",

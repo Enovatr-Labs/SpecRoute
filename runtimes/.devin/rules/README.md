@@ -1,6 +1,8 @@
 # `.devin/rules/`
 
-Devin rule files - always-on instructions and context that guide the agent in every session. Devin consumes `*.md` under `.devin/rules/`.
+Cascade-compatible rule files for Devin Desktop. Devin Local uses `AGENTS.md`
+as its recommended project rules mechanism; Cascade reads `*.md` under
+`.devin/rules/`.
 
 ## Layout
 
@@ -15,13 +17,16 @@ Devin rule files - always-on instructions and context that guide the agent in ev
 ```yaml
 ---
 description: <brief description>
-trigger: always | manual | model-decision
+trigger: glob
 globs:
   - "src/**/*.tsx"
 ---
 ```
 
-`trigger: always` rules load in every session; `model-decision` rules load when relevant to the glob; `manual` rules load on request.
+Valid triggers are `always_on`, `model_decision`, `glob`, and `manual`.
+`always_on` loads every time, `model_decision` lets the agent decide, `glob`
+activates on matching files, and `manual` requires an explicit mention. Use
+`globs` only with `trigger: glob`.
 
 ## Suggested files
 
@@ -29,11 +34,13 @@ Mirror `rules/` content. Common patterns:
 
 | File | Trigger |
 |---|---|
-| `spec-driven-workflow.md` | always |
-| `coding-preferences.md` | always |
-| `engineering-rules.md` | always |
-| `security-rules.md` | always |
-| `frontend.md` | model-decision (with appropriate globs) |
-| `backend.md` | model-decision |
+| `spec-driven-workflow.md` | always_on |
+| `coding-preferences.md` | always_on |
+| `engineering-rules.md` | always_on |
+| `security-rules.md` | always_on |
+| `frontend.md` | glob (with appropriate globs) |
+| `backend.md` | model_decision |
 
-The canonical example here is [`spec-driven-workflow.md`](spec-driven-workflow.md). See [`../../../rules/windsurf-rules.md`](../../../rules/windsurf-rules.md) for vendor-specific guidance.
+The canonical example here is [`spec-driven-workflow.md`](spec-driven-workflow.md).
+See [`../../../rules/devin-rules.md`](../../../rules/devin-rules.md) for
+Devin Desktop guidance.

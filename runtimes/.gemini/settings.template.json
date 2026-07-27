@@ -1,6 +1,5 @@
 {
-  "_comment": "Gemini CLI MCP server config template. Drop into .gemini/settings.json in your repo. Generated from runtimes/mcp/servers.yaml via render_gemini.py.",
-
+  "_comment": "Gemini CLI MCP server config template. Drop into .gemini/settings.json in your repo. Generated from runtimes/mcp/servers.yaml. Do not edit by hand. Re-run runtimes/mcp/render/render_gemini.py to regenerate.",
   "mcpServers": {
     "filesystem": {
       "command": "npx",
@@ -15,7 +14,8 @@
       "args": [
         "-y",
         "@modelcontextprotocol/server-github"
-      ]
+      ],
+      "_comment": "Requires these environment variables, exported in your shell or a gitignored .env: GITHUB_PERSONAL_ACCESS_TOKEN"
     },
     "memory": {
       "command": "npx",

@@ -2,6 +2,9 @@
 
 Drop this directory into the root of your project. Kiro reads from these paths.
 
+Targets **Kiro IDE 1.0** (released 2026-06-25). If you are upgrading an existing install, read
+[Hook format](#hook-format) first - 1.0 replaced the hook format and legacy hooks stop firing.
+
 ## Layout
 
 ```
@@ -11,7 +14,7 @@ Drop this directory into the root of your project. Kiro reads from these paths.
 ├── skills/<slug>/SKILL.md           on-demand Agent Skills          (Kiro 0.9+)
 ├── agents/<name>.md                 custom subagents                (Kiro 0.9+)
 ├── settings/mcp.json                MCP server inventory            (Kiro 0.9+)
-└── hooks/<name>.kiro.hook           event-triggered automation (JSON)
+└── hooks/<name>.json                event-triggered automation      (Kiro 1.0+)
 ```
 
 ## What Kiro consumes
@@ -21,7 +24,7 @@ Drop this directory into the root of your project. Kiro reads from these paths.
 - **Skills** (`skills/<slug>/SKILL.md`) - folder-per-skill Agent Skills loaded on demand. Arrived in **Kiro 0.9** (2026-02-05). See [`skills/README.md`](skills/README.md).
 - **Subagents** (`agents/<name>.md`) - flat-file workspace subagents Kiro can delegate to. Arrived in **Kiro 0.9** (2026-02-05). See [`agents/README.md`](agents/README.md).
 - **MCP servers** (`settings/mcp.json`) - workspace-level `mcpServers` object. Arrived in **Kiro 0.9** (2026-02-05). See [MCP section](#mcp-servers) below.
-- **Hooks** (`<name>.kiro.hook` JSON files) - file-pattern triggers that fire on `fileEdited`, `fileSaved`, or `manual`.
+- **Hooks** (`hooks/<name>.json`) - `"version": "v1"` files declaring a `hooks` array with lifecycle, file, and task triggers. Reformatted in **Kiro 1.0** (2026-06-25). Manual invocation moved to steering. See [Hook format](#hook-format) below.
 
 There is no separate commands directory. Invoke a skill with `/skill <slug>`, or pull one in automatically by referencing it from a manual-inclusion steering file (`inclusion: manual`).
 
@@ -54,7 +57,7 @@ See [`steering/README.md`](steering/README.md) for templates.
 
 ## Skills and subagents
 
-Both arrived in Kiro 0.9 (2026-02-05) and are the converged capability layer shared with the other vendor runtimes:
+Both arrived in Kiro 0.9 (2026-02-05), carried forward unchanged into Kiro IDE 1.0, and are the converged capability layer shared with the other vendor runtimes:
 
 - Skills use the Agent Skills open standard (progressive disclosure). Required frontmatter is `name` + `description` only - Kiro does not use the Claude/Codex fields `argument-hint`, `user-invocable`, or `allowed-tools`. See [`skills/README.md`](skills/README.md).
 - Subagents are single-file prompts with frontmatter `name` (required) plus optional `description`, `tools`, `model`, `includeMcpJson`, `includePowers`. Kiro does not use the Claude fields `color` or `memory`. See [`agents/README.md`](agents/README.md).
@@ -71,23 +74,42 @@ The file is rendered from the single source of truth: edit [`runtimes/mcp/server
 
 ## Hook format
 
-Each `.kiro.hook` is a JSON file:
+> ### ⚠️ Upgrading from Kiro 0.x
+>
+> **Kiro IDE 1.0 (2026-06-25) replaced the `*.kiro.hook` format.** Hooks now live at
+> `.kiro/hooks/<name>.json` with a `"version": "v1"` root and a `hooks` array.
+>
+> Legacy `*.kiro.hook` files get an upgrade badge in the IDE, but 1.0 will not execute them.
+> Treat a guardrail as off until its migrated replacement has been exercised.
+>
+> If you copied an earlier version of this runtime layout, run `ls .kiro/hooks/*.kiro.hook`;
+> anything it prints needs porting. The field-by-field mapping is in
+> [`hooks/README.md`](hooks/README.md) and [`../../hooks/kiro/README.md`](../../hooks/kiro/README.md).
+
+Each hook file is JSON:
 
 ```json
 {
-  "enabled": true,
-  "name": "<Hook Name>",
-  "description": "<purpose>",
-  "version": "1",
-  "when": {
-    "type": "fileEdited" | "fileSaved" | "manual",
-    "patterns": ["src/**/*.ts"]
-  },
-  "then": {
-    "type": "askAgent",
-    "prompt": "<what the agent should do>"
-  }
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "<Hook Name>",
+      "trigger": "PostFileSave",
+      "matcher": "src/**/*.ts|tests/**/*.ts",
+      "action": {
+        "type": "agent",
+        "prompt": "<what the agent should do>"
+      },
+      "timeout": 30,
+      "enabled": true
+    }
+  ]
 }
 ```
 
-See [`hooks/README.md`](hooks/README.md) for examples and the canonical samples in [`../../hooks/kiro/examples/`](../../hooks/kiro/examples/).
+Triggers: `SessionStart`, `Stop`, `PreToolUse`, `PostToolUse`, `PreTaskExec`, `PostTaskExec`,
+`UserPromptSubmit`, `PostFileCreate`, `PostFileSave`, `PostFileDelete`. Actions are
+`{"type": "agent", "prompt": …}` or `{"type": "command", "command": …}`. `matcher` is one string -
+`|`-separate multiple globs or tool names.
+
+See [`hooks/README.md`](hooks/README.md) for the full trigger table and the canonical samples in [`../../hooks/kiro/examples/`](../../hooks/kiro/examples/).

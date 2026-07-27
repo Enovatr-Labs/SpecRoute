@@ -7,7 +7,7 @@ inclusion: always
 > **Steering rule template - always-on inclusion.** This rule loads into every Kiro conversation. Use sparingly - always-on rules consume context budget.
 >
 > Cursor analog: frontmatter `alwaysApply: true` (no `globs`).
-> Windsurf analog: frontmatter `trigger: always`.
+> Devin Desktop Cascade analog: frontmatter `trigger: always_on`.
 > Claude Code / Codex / Gemini: surface from `AGENTS.md` references.
 
 ## When to use always-on

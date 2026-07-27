@@ -1,68 +1,58 @@
-# Devin-specific Rules
+# Devin Desktop Rules
 
-How rules are loaded into Devin Desktop (the relaunched Windsurf). Rule content itself defers to the vendor-neutral rule files in this directory.
+For Devin Local, the recommended project rules file is `AGENTS.md`. It is
+loaded automatically and can be nested for directory-scoped context.
+`AGENTS.local.md` is the personal, gitignored companion.
 
-## Where Devin looks
+```text
+project/
+├── AGENTS.md
+├── AGENTS.local.md                 personal; do not commit
+└── src/
+    └── AGENTS.md                   loaded when work enters src/
+```
 
-- **`.devin/rules/*.md`** - the current, preferred rule location (read + write).
-- **`.windsurf/rules/*.md`** - legacy, read-only fallback. Devin reads both, with `.devin/` taking precedence. New rules should go in `.devin/rules/`.
+Keep always-on rules small. Prefer a skill when instructions are only useful
+for a particular workflow.
 
-Devin Desktop (June 2026 relaunch of Windsurf by Cognition) reads the same workspace shapes Windsurf did - `rules/`, `workflows/`, `skills/` - now rooted at `.devin/`. The Cascade local agent reaches end-of-life on 2026-07-01 and is succeeded by Devin Local (a Rust rewrite with subagent support).
+## Cascade compatibility
 
-## Frontmatter
+Devin Desktop's Cascade agent also reads `.devin/rules/*.md` and accepts
+`.windsurf/rules/*.md` as a fallback. Cascade rule frontmatter uses these
+activation values:
 
-Devin's rule frontmatter mirrors the legacy Windsurf conventions:
+| `trigger` | Behavior |
+|---|---|
+| `always_on` | Include the full rule on every message |
+| `model_decision` | Load when the description appears relevant |
+| `glob` | Load when a read or edit matches `globs` |
+| `manual` | Load when the user mentions the rule |
 
 ```yaml
 ---
-description: <brief description>
-trigger: always_on | manual | model-decision
-globs:
-  - "src/**/*.tsx"
+description: Test conventions for TypeScript files
+trigger: glob
+globs: "src/**/*.test.ts"
 ---
 ```
 
-| Field | Effect |
-|---|---|
-| `trigger: always_on` | Loaded into every conversation. |
-| `trigger: model-decision` | The model decides whether to apply, typically based on file context. |
-| `trigger: manual` | Loaded only when the user explicitly references the rule. |
-| `globs` | Restricts rule applicability to matching files. |
+SpecRoute retains `runtimes/.devin/rules/` only for this Cascade-facing surface.
+It does not ship a separate Windsurf rule guide or runtime.
 
-Check your Devin version for the exact supported fields - they inherit from Windsurf and continue to evolve.
+## Other Devin Desktop artifacts
 
-## Recommended file set
+- Skills: `.devin/skills/<slug>/SKILL.md` or `.agents/skills/<slug>/SKILL.md`.
+- Subagents: `.devin/agents/<name>/AGENT.md` (experimental).
+- Hooks: `.devin/hooks.v1.json`.
+- MCP: `.devin/config.json` under `mcpServers`.
+- Commands: skills invoked as `/skill-name`.
 
-Mirror `rules/` content into `.devin/rules/`:
-
-| File | `trigger` | `globs` |
-|---|---|---|
-| `coding-preferences.md` | always_on | (none) |
-| `engineering-rules.md` | always_on | (none) |
-| `security-rules.md` | always_on | (none) |
-| `frontend.md` | model-decision | `src/**/*.tsx` |
-| `backend.md` | model-decision | `src/services/**` |
-
-## Source-of-truth strategy
-
-Same as Cursor / Windsurf - copy the rule body into the Devin rule file (with appropriate frontmatter), or keep thin pointer files. Copying is the recommended default.
-
-## Subagents, skills, and workflows
-
-Devin Local goes beyond rules:
-
-- **Subagents** live at `.devin/agents/<name>/AGENT.md` (per-profile directories). Devin also auto-imports Claude Code agents from `.claude/agents/*.md`.
-- **Skills** follow the Agent Skills standard at `.devin/skills/<slug>/SKILL.md`.
-- **Workflows** (`.devin/workflows/<name>.md`, invoked `/<name>`) are Devin's custom-command equivalent.
-
-## Hooks and MCP
-
-- Cascade/Devin hooks (`hooks.json`, 12 events; only `pre_*` hooks block) carry over from Windsurf. See [`hooks/windsurf/`](../hooks/windsurf/) for the template.
-- MCP servers are configured at the user-level path `~/.codeium/windsurf/mcp_config.json` (`mcpServers` JSON). Render it from the canonical inventory with `runtimes/mcp/render/render_windsurf.py`.
+Cascade's `.windsurf/workflows/`, `.windsurf/hooks.json`, and
+`~/.codeium/windsurf/mcp_config.json` are compatibility paths during the
+transition. Devin Local workflows should be migrated to skills.
 
 ## See also
 
-- [`engineering-rules.md`](engineering-rules.md) - vendor-neutral engineering rules.
-- [`runtimes/.devin/README.md`](../runtimes/.devin/README.md) - Devin runtime layout.
-- [`windsurf-rules.md`](windsurf-rules.md) - the legacy Windsurf conventions Devin inherits.
-- [`hooks/README.md`](../hooks/README.md) - cross-vendor hook taxonomy.
+- [`engineering-rules.md`](engineering-rules.md) — vendor-neutral engineering rules.
+- [`runtimes/.devin/README.md`](../runtimes/.devin/README.md) — the Devin Desktop runtime.
+- [`hooks/README.md`](../hooks/README.md) — cross-vendor hook taxonomy.

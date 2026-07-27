@@ -12,9 +12,8 @@
     ]
   },
 
-  "enabledMcpjsonServers": [
-    "_comment_about_mcp_servers": "List MCP server names from .mcp.json that you want enabled in this project. Empty list = all enabled."
-  ],
+  "_comment_about_mcp_servers": "enabledMcpjsonServers lists MCP server names from .mcp.json to enable in this project. An empty list means none are individually enabled; enableAllProjectMcpServers below is the blanket switch.",
+  "enabledMcpjsonServers": [],
 
   "enableAllProjectMcpServers": true
 }

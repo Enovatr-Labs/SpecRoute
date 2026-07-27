@@ -1,43 +1,76 @@
-# `.devin/` - Devin runtime layout (preferred)
+# `.devin/` — Devin Desktop runtime
 
-> **Successor to `.windsurf/`.** Windsurf was relaunched as Devin Desktop (2026-06-02). Devin reads **both** `.devin/` and the legacy `.windsurf/`, but `.devin/` is the current **read+write** layout and takes precedence. Cascade reaches end of life on **2026-07-01**; its successor is **Devin Local** (a Rust rewrite that supports subagents). Use this directory for new projects; [`../.windsurf/`](../.windsurf/) is a read-only fallback retained for Cascade installs during the transition.
-
-Drop this directory into the root of your project. Devin reads from these paths.
+This is SpecRoute's single runtime for **Devin Desktop**. It targets the
+next-generation Devin Local agent harness shared with Devin CLI.
 
 ## Layout
 
-```
+```text
 .devin/
-├── rules/
-│   └── <name>.md                    always-on instructions and context
-├── skills/
-│   └── <slug>/SKILL.md              reusable multi-step procedures
 ├── agents/
-│   └── <name>/AGENT.md              subagent profiles (Devin Local)
-├── workflows/
-│   └── <name>.md                    slash commands, invoked /<name>
-└── plans/                           (Devin-managed) saved execution plans
+│   └── <name>/AGENT.md              experimental custom subagents
+├── skills/
+│   └── <slug>/SKILL.md              reusable prompts and workflows
+├── hooks.v1.json                    lifecycle hooks
+├── hooks/scripts/*.sh               scripts invoked by the hook file
+├── config.json                      MCP servers and project settings
+└── rules/                           optional Cascade-facing rule files
 ```
 
-## What Devin consumes
-
-- **Rules** under `.devin/rules/` - always-on context. See [`rules/README.md`](rules/README.md).
-- **Skills** under `.devin/skills/<slug>/SKILL.md`. See [`skills/README.md`](skills/README.md).
-- **Subagents** under `.devin/agents/<name>/AGENT.md` (Devin Local). Devin also imports Claude Code agents from `.claude/agents/*.md`. See [`agents/README.md`](agents/README.md).
-- **Workflows** (slash commands) under `.devin/workflows/<name>.md`, invoked `/<name>`. See [`workflows/README.md`](workflows/README.md).
-- **Hooks** in `hooks.json` (12 events; only pre-hooks block). See [`hooks/windsurf/`](../../hooks/windsurf/) for the shared Cascade/Devin hook template.
-
-## MCP
-
-Devin/Windsurf reads MCP servers from `~/.codeium/windsurf/mcp_config.json` (user-level, `mcpServers` JSON). Maintain [`../mcp/servers.yaml`](../mcp/servers.yaml) as the single source and render into that file.
+Root and nested `AGENTS.md` files are the recommended rules mechanism for
+Devin Local. `.devin/rules/` remains in this bundle for Devin Desktop's Cascade
+rules engine; it is not the primary Local rules path.
 
 ## Setup
 
-1. Create `.devin/rules/`, `.devin/skills/`, `.devin/agents/`, and `.devin/workflows/` in your repo.
-2. Add rule, skill, agent, and workflow files. See each subdirectory's README.
-3. (Optional) Add `hooks.json` from the shared Cascade/Devin hook template.
-4. Devin loads rules as always-on context, registers workflows as `/<name>` slash commands, makes subagents available for delegation, and fires hooks on their lifecycle events.
+1. Copy the runtime:
 
-## Migration from `.windsurf/`
+   ```bash
+   mkdir -p .devin
+   cp -R runtimes/.devin/. .devin/
+   cp .devin/hooks/hooks.v1.template.json .devin/hooks.v1.json
+   cp .devin/config.template.json .devin/config.json
+   chmod +x .devin/hooks/scripts/*.sh
+   ```
 
-The two layouts are structurally parallel. To migrate: copy `.windsurf/rules/`, `.windsurf/skills/`, and `.windsurf/workflows/` to the matching `.devin/` directories, then add `.devin/agents/<name>/AGENT.md` profiles for any subagents (Devin Local only - Cascade had no first-class subagents). When both exist, `.devin/` wins.
+2. Create the gitignored, per-installation sanitization wordlist:
+
+   ```bash
+   printf '# One whitespace-free term per line.\n' > .devin/.forbidden-strings.txt
+   echo '.devin/.forbidden-strings.txt' >> .gitignore
+   ```
+
+3. Keep secrets in `.devin/config.local.json`, which Devin treats as a local
+   override. Do not add credentials to the tracked template.
+
+4. Verify:
+
+   ```bash
+   python3 -m json.tool .devin/hooks.v1.json >/dev/null
+   python3 -m json.tool .devin/config.json >/dev/null
+   bash -n .devin/hooks/scripts/*.sh
+   ```
+
+## Supported artifacts
+
+- **Rules/context**: `AGENTS.md` is recommended. `AGENTS.local.md` is the
+  personal, gitignored alternative.
+- **Skills**: `.devin/skills/<slug>/SKILL.md`; `.agents/skills/` is also
+  supported.
+- **Subagents**: `.devin/agents/<name>/AGENT.md`; custom subagents are
+  currently experimental.
+- **Commands**: skills are invoked as `/skill-name`.
+- **Hooks**: `.devin/hooks.v1.json` using the Devin CLI lifecycle format.
+- **MCP**: `.devin/config.json` under `mcpServers`; personal values belong in
+  `.devin/config.local.json`.
+
+## Cascade compatibility
+
+Devin Desktop still includes the legacy Cascade agent during the transition.
+Cascade uses `.windsurf/workflows/`, `.windsurf/hooks.json`, and
+`~/.codeium/windsurf/mcp_config.json`. Those are compatibility paths inside
+Devin Desktop, not a separate SpecRoute vendor or runtime. Devin Local does not
+support Cascade workflows; migrate repeatable workflows to skills.
+
+The public product name in SpecRoute is always **Devin Desktop**. The old name
+appears only in literal paths, migration notes, or historical release context.
