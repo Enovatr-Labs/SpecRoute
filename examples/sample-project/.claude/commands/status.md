@@ -49,7 +49,7 @@ git log --oneline -5
 Summarize as:
 
 1. Overall completion: `<built>/<expected>` top-level dirs, `<built>/2` runtime layouts.
-2. The 8 implementation agents (note any missing).
+2. The 9 implementation agents (note any missing).
 3. TODO count and the top items.
 4. Git: branch, uncommitted changes, recent commits.
 

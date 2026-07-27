@@ -1,5 +1,5 @@
 {
-  "_comment": "Cursor hooks. Install to .cursor/hooks.json (project) or ~/.cursor/hooks.json (user). The scripts referenced below install to .cursor/hooks/scripts/, and their paths are relative to the directory holding hooks.json. Cursor v1 exposes ~21 camelCase events. Reference: https://cursor.com/docs/agent/hooks",
+  "_comment": "Cursor hooks. Install to .cursor/hooks.json (project) or ~/.cursor/hooks.json (user). Project hook commands run from the project root, so the shipped .cursor/hooks/scripts/ paths are correct. User hook commands run from ~/.cursor/ and must use ./hooks/scripts/ paths instead. Cursor v1 exposes ~21 camelCase events. Reference: https://cursor.com/docs/agent/hooks",
 
   "_install": "mkdir -p .cursor/hooks/scripts && cp runtimes/.cursor/hooks/hooks.template.json .cursor/hooks.json && cp runtimes/.cursor/hooks/scripts/*.sh .cursor/hooks/scripts/ && chmod +x .cursor/hooks/scripts/*.sh",
 

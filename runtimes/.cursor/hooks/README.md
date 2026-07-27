@@ -28,9 +28,10 @@ cp runtimes/.cursor/hooks/scripts/*.sh        .cursor/hooks/scripts/
 chmod +x .cursor/hooks/scripts/*.sh
 ```
 
-Script paths in `hooks.json` are resolved relative to the directory holding `hooks.json`. For a
-project install that is the repo root, so `.cursor/hooks/scripts/x.sh` is correct. For a **user**
-install (`~/.cursor/hooks.json`) the same entry would need to read `./hooks/scripts/x.sh`.
+Cursor chooses the hook command's working directory by scope, not by the directory containing
+`hooks.json`. **Project** hooks run from the project root, so `.cursor/hooks/scripts/x.sh` is
+correct. **User** hooks run from `~/.cursor/`, so the same entry must use
+`./hooks/scripts/x.sh`.
 
 Create the wordlist the sanitization gate reads (per-installation, gitignored):
 

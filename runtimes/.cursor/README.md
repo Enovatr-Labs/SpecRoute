@@ -57,8 +57,9 @@ Rules and `AGENTS.md` carry ongoing context; skills carry on-demand multi-step w
    That wires three hooks: a `sessionStart` orientation banner, a `beforeShellExecution`
    sanitization gate that blocks `git commit` / `git push` / `gh pr create` / `gh release create`
    while forbidden strings remain in tracked files, and an `afterFileEdit` frontmatter check.
-   Script paths resolve relative to the directory holding `hooks.json` - the repo root for a
-   project install, `~/.cursor/` for a user install.
+   Cursor chooses the hook command's working directory by scope: project hooks run from the
+   project root, while user hooks run from `~/.cursor/`. That is why the shipped project commands
+   use `.cursor/hooks/scripts/...`; a user installation must use `./hooks/scripts/...`.
 
    **Blocking semantics**: exit `0` succeeds, exit `2` denies, and **anything else fails open** -
    the action proceeds. That default is Cursor's key difference from every other vendor here, so
