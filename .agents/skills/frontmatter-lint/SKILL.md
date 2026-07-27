@@ -1,9 +1,6 @@
 ---
 name: frontmatter-lint
 description: Validates YAML frontmatter across SpecRoute artifacts (agents, skills, commands) against the per-artifact contract. Reports missing required fields, malformed YAML, and drift between similar artifacts. Use proactively before commits, when reviewing PRs, or when an agent/skill/command isn't loading correctly.
-argument-hint: "[path?]"
-user-invocable: true
-allowed-tools: Read Glob Grep Bash
 ---
 
 # Frontmatter Lint

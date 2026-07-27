@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
+# /// script
+# dependencies = []
+# requires-python = ">=3.9"
+# ///
 """Cross-runtime skill sync.
 
 Sync the SKILL.md *body* of folder-per-skill artifacts across the runtime layouts
-under `runtimes/.<vendor>/skills/`. As of mid-2026 all six supported vendors carry
-Agent Skills (`SKILL.md`), so a skill's instructions can be shared across every
-runtime - but each vendor's skill **frontmatter contract differs** (Claude/Codex use
-`argument-hint`/`user-invocable`/`allowed-tools`; Kiro and Cursor use just
-`name`/`description`; Gemini rewrites `allowed-tools` to its own tool ids; etc.).
+under `runtimes/.<vendor>/skills/`. All six supported vendors carry Agent Skills
+(`SKILL.md`) across six runtime layouts, so a skill's instructions can be shared
+across every runtime - but each vendor's skill **frontmatter contract differs**:
+
+    claude             name, description, argument-hint, user-invocable,
+                       allowed-tools (space-separated capitalized tool names)
+    codex, gemini, kiro, cursor
+                       name, description only
+    devin              name, description, argument-hint, allowed-tools (YAML
+                       list of lowercase tool ids), plus optional `triggers`
 
 So this tool is deliberately **body-aware**: it syncs the Markdown body below the
 frontmatter and **preserves each target's own frontmatter**. Auxiliary files inside a
@@ -17,9 +26,11 @@ Codex standalone TOML, Devin per-profile `AGENT.md` dirs), so there is no safe
 file-level copy. Maintain agents per vendor.
 
 Usage:
-    python3 tools/sync-skills.py [--apply] [--source <vendor>] [--target <vendor>]
+    python3 tools/sync-skills.py [--dry-run | --apply] [--source <vendor>] [--target <vendor>]
+    uv run tools/sync-skills.py [--apply]
 
   --apply              actually write changes (default is dry-run)
+  --dry-run            explicitly select the default read-only mode
   --source <vendor>    source of truth runtime (default: claude)
   --target <vendor>    single target; if omitted, syncs to every other vendor
 
@@ -34,14 +45,13 @@ from __future__ import annotations
 import argparse
 import filecmp
 import shutil
-import sys
 from pathlib import Path
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 # Every vendor whose runtime layout carries folder-per-skill SKILL.md artifacts.
-SKILL_VENDORS = ["claude", "codex", "gemini", "kiro", "cursor", "windsurf", "devin"]
+SKILL_VENDORS = ["claude", "codex", "gemini", "kiro", "cursor", "devin"]
 
 
 def runtime_dir(runtime: str) -> Path:
@@ -125,13 +135,6 @@ def sync_skill_body(source: str, target: str, slug: str) -> None:
         shutil.copy2(src_path, dest)
 
 
-def copy_new_skill(source: str, target: str, slug: str) -> None:
-    """Copy a whole skill folder that does not yet exist in the target."""
-    src_base = runtime_dir(source) / "skills" / slug
-    tgt_base = runtime_dir(target) / "skills" / slug
-    shutil.copytree(src_base, tgt_base)
-
-
 def report(source: str, target: str, apply: bool) -> int:
     src_skills = list_skills(source)
     tgt_skills = list_skills(target)
@@ -145,8 +148,10 @@ def report(source: str, target: str, apply: bool) -> int:
     for slug in only_src:
         print(f"  MISSING in {target}: skills/{slug}/")
         if apply:
-            copy_new_skill(source, target, slug)
-            print(f"    copied (review {target}/skills/{slug}/SKILL.md frontmatter for {target}'s contract)")
+            print(
+                "    REFUSED: scaffold the target with native frontmatter first; "
+                "--apply never copies another vendor's header"
+            )
         drift_count += 1
     for slug in only_tgt:
         print(f"  EXTRA in {target}: skills/{slug}/ (won't remove without explicit instruction)")
@@ -169,7 +174,11 @@ def report(source: str, target: str, apply: bool) -> int:
 
 def main() -> int:
     p = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    p.add_argument("--apply", action="store_true", help="actually write changes (default: dry-run)")
+    mode = p.add_mutually_exclusive_group()
+    mode.add_argument("--apply", action="store_true",
+                      help="actually write body/aux drift changes (never creates missing skills)")
+    mode.add_argument("--dry-run", action="store_true",
+                      help="explicitly select the default read-only mode")
     p.add_argument("--source", default="claude", choices=SKILL_VENDORS,
                    help="source of truth runtime (default: claude)")
     p.add_argument("--target", default=None, choices=SKILL_VENDORS,

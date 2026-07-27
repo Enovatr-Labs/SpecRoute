@@ -1,9 +1,6 @@
 ---
 name: add-vendor
 description: Interactive workflow for adding a new agent CLI vendor to the SpecRoute supported matrix. Walks through scaffolding the runtime layout, adding the vendor's row to the matrix table, creating the per-vendor rule file, wiring MCP rendering (if applicable), and updating cross-vendor sync. Use when proposing or implementing support for a new agent CLI.
-argument-hint: "[vendor-name]"
-user-invocable: true
-allowed-tools: Read Write Edit Glob Grep Bash
 ---
 
 # Add Vendor

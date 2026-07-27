@@ -1,58 +1,128 @@
 # Runtime Architect - Vendor Matrix Progress
 
-Tracks the build-out state of each supported vendor's runtime layout. Update on every commit that adds or modifies a `runtimes/.<vendor>/` directory.
+Tracks the build-out state of each supported vendor runtime. Update this note
+whenever a `runtimes/.<vendor>/` layout, MCP renderer, or cross-runtime sync rule
+changes.
 
-## Supported vendors
+**Verified against the working tree on 2026-07-27.**
 
-The matrix is defined in `README.md`. Adding a vendor: see the `add-vendor` skill.
+Treat the commands below as truth. Snapshots age quickly, and untracked files are
+part of the working implementation even though `git ls-files` cannot see them.
 
-| Vendor | Runtime dir | Skills | Agents | Commands | Hooks | MCP | Rules | Status |
-|---|---|---|---|---|---|---|---|---|
-| Claude Code | `runtimes/.claude/` | done | done | done | done | done | done | done |
-| Codex | `runtimes/.codex/` | done | done | done | done | done | done | done |
-| Gemini CLI | `runtimes/.gemini/` | done | done | done | done | done | done | done |
-| Kiro | `runtimes/.kiro/` | done | done | done | done | done | done | done |
-| Cursor | `runtimes/.cursor/` | done | done | done | done | done | done | done |
-| Windsurf | `runtimes/.windsurf/` | done | done | done | done | done | done | done |
-| Devin | `runtimes/.devin/` | done | done | done | done | done | done | done |
+## Runtime identity
 
-`n/a` = vendor doesn't support the feature; `TODO` = supported but not yet built; `done` = template + at least one example present. All vendors have been built out to the converged capability set (skills/agents/commands/hooks/MCP); Gemini commands are TOML files under `.gemini/commands/*.toml`.
+SpecRoute supports six vendor identities and six runtime layouts:
 
-## MCP single-source-of-truth
+```text
+claude  codex  gemini  kiro  cursor  devin
+```
 
-Status: done.
+Devin Desktop is one product identity. The `.devin/` runtime is for Devin Local.
+Cascade compatibility namespaces such as `.windsurf/workflows/`,
+`.windsurf/hooks.json`, and `~/.codeium/windsurf/mcp_config.json` may still appear
+in product documentation, but they are not a seventh SpecRoute vendor or runtime.
+Do not recreate `runtimes/.windsurf/`.
 
-`runtimes/mcp/servers.yaml` is the canonical inventory. Renderers in `runtimes/mcp/render/` emit:
+The consumer-facing matrix is mirrored byte-identically in `README.md`,
+`AGENTS.md`, `wiki/Vendor-Matrix.md`, and
+`agentic-docs/agent-cli-integrations.md`. `/audit` hashes the rows and footnotes.
 
-- `runtimes/.claude/mcp.template.json` (Claude Code reads `.mcp.json` at project scope, `~/.claude.json` at user scope)
-- `runtimes/.codex/config.template.toml [mcp_servers]`
-- `runtimes/.gemini/settings.template.json [mcpServers]`
+## Regenerate capability inventory
 
-Default server set (vendor-neutral, non-proprietary): `filesystem`, `github`, `memory`, `sequential-thinking`, `playwright`. Add more only with rationale.
+```bash
+for v in claude codex gemini kiro cursor devin; do
+  printf '%-9s' "$v"
+  for d in skills agents commands hooks rules steering workflows scripts settings; do
+    [ -d "runtimes/.$v/$d" ] && printf ' %s' "$d"
+  done
+  echo
+done
+```
 
-## Cross-vendor sync (`tools/sync-skills.py`)
+A directory in that output is a measured repository fact, not proof that the
+vendor supports or lacks a capability. Verify vendor behavior independently.
 
-Status: done.
+Devin Local uses these project paths:
 
-Scope:
-- Diff `runtimes/.claude/skills/` vs `runtimes/.codex/skills/` (folder-per-skill, both vendors)
-- Diff `runtimes/.claude/agents/` vs `runtimes/.codex/agents/` (flat .md, both vendors)
-- Report drift; with `--apply`, copy the canonical version
+- `.devin/skills/<slug>/SKILL.md`
+- `.devin/agents/<name>/AGENT.md` for experimental subagents
+- `.devin/hooks.v1.json`
+- `.devin/config.json` with `mcpServers`
+- `.devin/rules/*.md` for rule content also consumed by Devin Desktop
 
-## Build order (completed)
+Do not infer `.devin/workflows/`, `.devin/hooks.json`, or `.devin/mcp.json`.
 
-1. `runtimes/.claude/` (most complete vendor; reference for others)
-2. `runtimes/mcp/servers.yaml` + Claude renderer
-3. `runtimes/.codex/` (mirror Claude skills + agents; add Codex MCP renderer)
-4. `tools/sync-skills.py` (now that two runtimes exist with overlap)
-5. `runtimes/.gemini/` (commands as `.gemini/commands/*.toml` + skills + agents + MCP renderer)
-6. `runtimes/.kiro/` (steering + hooks + skills + agents + MCP)
-7. `runtimes/.cursor/`, `runtimes/.windsurf/` (rules + skills + agents + MCP)
-8. `runtimes/.devin/`
+## Regenerate artifact counts
 
-All six original vendors plus Devin are now built out to the converged capability set (skills/agents/commands/hooks/MCP).
+```bash
+for v in claude codex gemini kiro cursor devin; do
+  printf '%-9s skills=%s\n' "$v" \
+    "$(find "runtimes/.$v/skills" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')"
+done
 
-## Open questions
+find runtimes/.claude/agents runtimes/.gemini/agents \
+     runtimes/.kiro/agents runtimes/.cursor/agents \
+     -maxdepth 1 -type f -name '*.md' ! -name README.md -print 2>/dev/null
+find runtimes/.codex/agents -maxdepth 1 -type f -name '*.toml' -print 2>/dev/null
+find runtimes/.devin/agents -mindepth 2 -maxdepth 2 -type f -name AGENT.md -print 2>/dev/null
+```
 
-- Should `runtimes/.codex/` include a `scripts/sync.py` that mirrors `tools/sync-skills.py` for in-runtime use? (Common pattern in upstream private references.) Probably yes - but make it a thin wrapper.
-- Cursor `.mdc` vs `.md` - confirm current Cursor expectation before building.
+Uniform counts are not a goal by themselves. Missing artifacts are defects only
+when the matrix or runtime README promises that SpecRoute ships them.
+
+## MCP single source of truth
+
+`runtimes/mcp/servers.yaml` is canonical. There should be one renderer per
+supported vendor:
+
+```bash
+find runtimes/mcp/render -maxdepth 1 -type f -name 'render_*.py' -print | sort
+git status --short runtimes/mcp/ runtimes/.devin/
+```
+
+Expected renderer/output mapping:
+
+| Renderer | Output |
+|---|---|
+| `render_claude.py` | `runtimes/.claude/mcp.template.json` |
+| `render_codex.py` | `runtimes/.codex/config.template.toml` |
+| `render_gemini.py` | `runtimes/.gemini/settings.template.json` |
+| `render_kiro.py` | `runtimes/.kiro/settings/mcp.template.json` |
+| `render_cursor.py` | `runtimes/.cursor/mcp.template.json` |
+| `render_devin.py` | `runtimes/.devin/config.template.json` |
+
+Install the Devin output as `.devin/config.json`. Personal values belong in the
+gitignored `.devin/config.local.json`.
+
+## Cross-runtime skill sync
+
+`tools/sync-skills.py` must target the same six runtime slugs:
+
+```bash
+rg -n 'SKILL_VENDORS' tools/sync-skills.py
+python3 tools/sync-skills.py --dry-run
+```
+
+The tool synchronizes skill bodies while preserving vendor frontmatter. Agents
+are intentionally not file-synced because their native formats diverge.
+
+`.agents/skills/` is separate: it mirrors this repository's contributor skills
+from `.claude/skills/`, not consumer runtime examples. `/parity` checks those
+bodies independently.
+
+## Historical context
+
+An earlier implementation modeled the former product name as a separate
+`runtimes/.windsurf/` compatibility layout and therefore reported seven layouts
+and seven renderers. That model was removed on 2026-07-27 to keep one Devin
+Desktop identity. Preserve compatibility path facts where the product still uses
+them, but do not restore a separate vendor row, sync target, renderer, or runtime.
+
+## Open checks
+
+- Confirm the six runtime directories and six renderers after every structural
+  change; do not copy a count from this note.
+- Re-run `/audit`, `/parity`, `python3 tools/wiki-parity.py`, and the private
+  provenance gate before release.
+- Keep the Devin Local paths above aligned with its shipped CLI/runtime contract;
+  keep Cascade compatibility claims explicitly labeled as Cascade.
