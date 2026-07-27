@@ -4,7 +4,7 @@
 
 Concrete wiring for SpecRoute into each supported agent CLI. Copy commands per vendor.
 
-For the canonical reference, see [`agentic-docs/agent-cli-integrations.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/agent-cli-integrations.md). For the supported matrix, see [[Vendor Matrix]].
+For the canonical reference, see [`agentic-docs/agent-cli-integrations.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/agentic-docs/agent-cli-integrations.md). For the supported matrix and the vendor notes intentionally kept out of the root README, see [[Vendor Matrix]].
 
 ## Claude Code
 

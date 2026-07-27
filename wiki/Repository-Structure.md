@@ -2,6 +2,8 @@
 
 <!-- sources: README.md, AGENTS.md -->
 
+The root README stays an overview. Deep framework references live under `agentic-docs/`, while vendor-specific implementation notes and evidence are surfaced through [[Vendor Matrix]].
+
 ```
 specroute/
 ├── AGENTS.md                  canonical, vendor-neutral root context
