@@ -41,6 +41,7 @@ on:
       - "ROADMAP.md"
       - "CHANGELOG.md"
       - "CODE_OF_CONDUCT.md"
+      - ".github/workflows/release.yml"
       - ".github/workflows/wiki-parity.yml"
   workflow_dispatch:
 

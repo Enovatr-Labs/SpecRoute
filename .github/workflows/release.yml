@@ -1,0 +1,717 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Publish a new release, resume a matching draft, or only realign develop
+        required: true
+        type: choice
+        default: publish
+        options:
+          - publish
+          - resume
+          - realign-develop
+      version:
+        description: Stable SemVer without a v prefix (for example, 0.4.1)
+        required: true
+        type: string
+      release_sha:
+        description: Exact 40-character commit SHA currently at main
+        required: true
+        type: string
+      provenance_sha:
+        description: Public commit SHA that passed the local private-source provenance audit
+        required: false
+        type: string
+      confirm_provenance:
+        description: I confirm the gitignored local provenance audit passed for provenance_sha
+        required: true
+        type: boolean
+        default: false
+      realign_develop:
+        description: After publishing, lease-guard realign develop to the released main commit
+        required: true
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    name: Read-only release preflight
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate dispatch inputs
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_ACTOR: ${{ github.actor }}
+          DISPATCH_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          RELEASE_MANAGERS: ${{ vars.RELEASE_MANAGERS }}
+          OPERATION: ${{ inputs.operation }}
+          VERSION: ${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+          PROVENANCE_SHA: ${{ inputs.provenance_sha }}
+          CONFIRM_PROVENANCE: ${{ inputs.confirm_provenance }}
+        run: |
+          set -euo pipefail
+          [[ "$DISPATCH_REF" == "refs/heads/main" ]] || {
+            echo "::error::Release operations must be dispatched from the main branch."
+            exit 1
+          }
+          normalized_managers="$(
+            printf '%s' "$RELEASE_MANAGERS" \
+              | tr '[:upper:]' '[:lower:]' \
+              | tr ',' '\n' \
+              | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+              | sed '/^$/d'
+          )"
+          [[ -n "$normalized_managers" ]] || {
+            echo "::error::RELEASE_MANAGERS must be a nonempty comma-separated repository variable."
+            exit 1
+          }
+          normalized_actor="$(printf '%s' "$DISPATCH_ACTOR" | tr '[:upper:]' '[:lower:]')"
+          grep -Fqx -- "$normalized_actor" <<<"$normalized_managers" || {
+            echo "::error::The original workflow dispatcher is not authorized by RELEASE_MANAGERS."
+            exit 1
+          }
+          normalized_triggering_actor="$(
+            printf '%s' "$DISPATCH_TRIGGERING_ACTOR" | tr '[:upper:]' '[:lower:]'
+          )"
+          grep -Fqx -- "$normalized_triggering_actor" <<<"$normalized_managers" || {
+            echo "::error::The user who started or reran this attempt is not authorized by RELEASE_MANAGERS."
+            exit 1
+          }
+          [[ "$VERSION" =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$ ]] || {
+            echo "::error::version must be stable MAJOR.MINOR.PATCH without a v prefix"
+            exit 1
+          }
+          [[ "$RELEASE_SHA" =~ ^[0-9a-f]{40}$ ]] || {
+            echo "::error::release_sha must be exactly 40 lowercase hex characters"
+            exit 1
+          }
+          if [[ "$OPERATION" != "realign-develop" ]]; then
+            [[ "$CONFIRM_PROVENANCE" == "true" ]] || {
+              echo "::error::the local provenance audit must be explicitly confirmed"
+              exit 1
+            }
+            [[ "$PROVENANCE_SHA" =~ ^[0-9a-f]{40}$ ]] || {
+              echo "::error::provenance_sha must be exactly 40 lowercase hex characters"
+              exit 1
+            }
+            [[ "$PROVENANCE_SHA" == "$RELEASE_SHA" ]] || {
+              echo "::error::the provenance attestation does not cover release_sha"
+              exit 1
+            }
+          fi
+          echo "::notice::Preconfigure the protected 'release' environment with required reviewers and a main-only deployment policy. Mutating jobs verify those controls before any repository write."
+          echo "::notice::The v* tag ruleset must block tag updates and deletion, and immutable releases must be enabled. Mutating jobs fail closed if these controls are absent."
+
+      - name: Checkout the exact candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.release_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Require the candidate to still be main
+        env:
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main develop
+          main_sha="$(git rev-parse refs/remotes/origin/main)"
+          [[ "$main_sha" == "$RELEASE_SHA" ]] || {
+            echo "::error::main moved after dispatch; start a new release run for the new SHA"
+            exit 1
+          }
+          [[ "$(git rev-parse HEAD)" == "$RELEASE_SHA" ]] || {
+            echo "::error::checkout does not match release_sha"
+            exit 1
+          }
+
+      - name: Run public release gates
+        # Run every required gate directly. Pushes made with workflow tokens do
+        # not trigger a second chain of GitHub Actions workflows.
+        env:
+          VERSION: ${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          python3 tools/release-preflight.py \
+            --version "$VERSION" \
+            --release-sha "$RELEASE_SHA"
+
+      - name: Check release state without mutation
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OPERATION: ${{ inputs.operation }}
+          TAG: v${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+
+          tag_exists=false
+          if git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1; then
+            tag_exists=true
+          fi
+
+          release_exists=false
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            release_exists=true
+          fi
+
+          if [[ "$OPERATION" == "publish" ]]; then
+            [[ "$tag_exists" == "false" ]] || {
+              echo "::error::$TAG already exists; use resume only for an exact matching tag and optional draft"
+              exit 1
+            }
+            [[ "$release_exists" == "false" ]] || {
+              echo "::error::a release already exists for $TAG"
+              exit 1
+            }
+            exit 0
+          fi
+
+          [[ "$tag_exists" == "true" ]] || {
+            echo "::error::$OPERATION requires the existing tag $TAG"
+            exit 1
+          }
+          git fetch --force origin "refs/tags/$TAG:refs/tags/$TAG"
+          [[ "$(git cat-file -t "$TAG")" == "tag" ]] || {
+            echo "::error::$TAG is not an annotated tag"
+            exit 1
+          }
+          [[ "$(git rev-parse "$TAG^{}")" == "$RELEASE_SHA" ]] || {
+            echo "::error::$TAG does not resolve to release_sha"
+            exit 1
+          }
+          if [[ "$OPERATION" == "resume" ]]; then
+            if [[ "$release_exists" == "true" ]]; then
+              release_json="$(gh release view "$TAG" --json isDraft,tagName)"
+              [[ "$(jq -r '.tagName' <<<"$release_json")" == "$TAG" ]] || {
+                echo "::error::release tag metadata does not match $TAG"
+                exit 1
+              }
+              [[ "$(jq -r '.isDraft' <<<"$release_json")" == "true" ]] || {
+                echo "::error::resume is allowed only with no release or an existing draft"
+                exit 1
+              }
+            fi
+            exit 0
+          fi
+
+          [[ "$release_exists" == "true" ]] || {
+            echo "::error::develop realignment requires an existing release for $TAG"
+            exit 1
+          }
+          release_json="$(gh release view "$TAG" --json isDraft,isImmutable,tagName)"
+          [[ "$(jq -r '.tagName' <<<"$release_json")" == "$TAG" ]] || {
+            echo "::error::release tag metadata does not match $TAG"
+            exit 1
+          }
+          [[ "$(jq -r '.isDraft' <<<"$release_json")" == "false" ]] || {
+            echo "::error::develop realignment requires a published release"
+            exit 1
+          }
+          [[ "$(jq -r '.isImmutable' <<<"$release_json")" == "true" ]] || {
+            echo "::error::develop realignment requires an immutable release"
+            exit 1
+          }
+
+      - name: Verify the published wiki matches this release
+        env:
+          LIVE_WIKI: ${{ runner.temp }}/specroute-wiki-live
+        run: |
+          set -euo pipefail
+          git clone --depth=1 \
+            "https://github.com/${GITHUB_REPOSITORY}.wiki.git" \
+            "$LIVE_WIKI"
+          diff -ru \
+            --exclude='.git' \
+            --exclude='README.md' \
+            wiki \
+            "$LIVE_WIKI"
+
+      - name: Check external Markdown links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2
+        with:
+          args: >-
+            --cache
+            --max-cache-age 1d
+            --no-progress
+            --verbose
+            --accept 200,206,429
+            --remap "https://github.com/Enovatr-Labs/SpecRoute/blob/(main|develop)/ file://${GITHUB_WORKSPACE}/"
+            --remap "https://github.com/Enovatr-Labs/SpecRoute/tree/(main|develop)/ file://${GITHUB_WORKSPACE}/"
+            './**/*.md'
+            './**/*.mdc'
+          fail: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    name: Publish immutable release
+    if: inputs.operation == 'publish' || inputs.operation == 'resume'
+    needs: preflight
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - name: Require the release GitHub App credentials
+        env:
+          RELEASE_APP_CLIENT_ID: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          RELEASE_APP_PRIVATE_KEY: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          [[ -n "$RELEASE_APP_CLIENT_ID" && -n "$RELEASE_APP_PRIVATE_KEY" ]] || {
+            echo "::error::Release publication requires RELEASE_APP_CLIENT_ID and RELEASE_APP_PRIVATE_KEY in the protected release environment. No PAT or GITHUB_TOKEN fallback is allowed."
+            exit 1
+          }
+
+      - name: Create short-lived release App token
+        id: release-app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-actions: read
+          permission-administration: read
+          permission-contents: write
+
+      - name: Verify protected release controls
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          ENVIRONMENT_NAME: release
+        run: |
+          set -euo pipefail
+          environment_json="$(gh api "repos/$GITHUB_REPOSITORY/environments/$ENVIRONMENT_NAME")" || {
+            echo "::error::The protected release environment does not exist or the Release App cannot inspect it."
+            exit 1
+          }
+          reviewer_count="$(
+            jq '[.protection_rules[]? | select(.type == "required_reviewers") | .reviewers[]?] | length' \
+              <<<"$environment_json"
+          )"
+          [[ "$reviewer_count" -ge 1 ]] || {
+            echo "::error::The release environment must require at least one reviewer."
+            exit 1
+          }
+          [[ "$(jq -r '.deployment_branch_policy.protected_branches' <<<"$environment_json")" == "false" ]] || {
+            echo "::error::The release environment must use a main-only custom deployment branch policy."
+            exit 1
+          }
+          [[ "$(jq -r '.deployment_branch_policy.custom_branch_policies' <<<"$environment_json")" == "true" ]] || {
+            echo "::error::The release environment must use a main-only custom deployment branch policy."
+            exit 1
+          }
+          policies_json="$(
+            gh api "repos/$GITHUB_REPOSITORY/environments/$ENVIRONMENT_NAME/deployment-branch-policies"
+          )" || {
+            echo "::error::Could not inspect release environment deployment branch policies."
+            exit 1
+          }
+          [[ "$(jq -r '.total_count' <<<"$policies_json")" == "1" ]] || {
+            echo "::error::The release environment must allow only one deployment branch policy."
+            exit 1
+          }
+          [[ "$(jq -r '.branch_policies[0].name' <<<"$policies_json")" == "main" ]] || {
+            echo "::error::The release environment deployment branch policy must be exactly main."
+            exit 1
+          }
+          [[ "$(jq -r '.branch_policies[0].type' <<<"$policies_json")" == "branch" ]] || {
+            echo "::error::The release environment policy named main must be a branch policy."
+            exit 1
+          }
+          ruleset_id="$(
+            gh api "repos/$GITHUB_REPOSITORY/rulesets" \
+              --jq '.[] | select(
+                .name == "release-tags-ruleset"
+                and .target == "tag"
+                and .enforcement == "active"
+              ) | .id' \
+              | head -n 1
+          )"
+          [[ -n "$ruleset_id" ]] || {
+            echo "::error::The active release-tags-ruleset was not found."
+            exit 1
+          }
+          ruleset_json="$(gh api "repos/$GITHUB_REPOSITORY/rulesets/$ruleset_id")" || {
+            echo "::error::Could not inspect the release tag ruleset."
+            exit 1
+          }
+          jq -e \
+            '.conditions.ref_name.include | index("refs/tags/v*") != null' \
+            >/dev/null <<<"$ruleset_json" || {
+            echo "::error::The release tag ruleset must include refs/tags/v*."
+            exit 1
+          }
+          jq -e \
+            '.conditions.ref_name.exclude | type == "array" and length == 0' \
+            >/dev/null <<<"$ruleset_json" || {
+            echo "::error::The release tag ruleset must not exclude any tag refs."
+            exit 1
+          }
+          missing_tag_rules="$(
+            jq -r \
+              '(["deletion", "non_fast_forward", "update"] - [.rules[].type]) | join(",")' \
+              <<<"$ruleset_json"
+          )"
+          [[ -z "$missing_tag_rules" ]] || {
+            echo "::error::The release tag ruleset is missing required immutable-tag controls."
+            exit 1
+          }
+          [[ "$(jq -r '.current_user_can_bypass' <<<"$ruleset_json")" == "never" ]] || {
+            echo "::error::The Release App must not be able to bypass the release tag ruleset."
+            exit 1
+          }
+          immutable_json="$(gh api "repos/$GITHUB_REPOSITORY/immutable-releases")" || {
+            echo "::error::Could not inspect immutable release configuration."
+            exit 1
+          }
+          [[ "$(jq -r '.enabled' <<<"$immutable_json")" == "true" ]] || {
+            echo "::error::Immutable releases must be enabled before publication."
+            exit 1
+          }
+
+      - name: Checkout the exact candidate
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.release_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Recheck authority and prepare changelog notes
+        env:
+          OPERATION: ${{ inputs.operation }}
+          VERSION: ${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+          PROVENANCE_SHA: ${{ inputs.provenance_sha }}
+          CONFIRM_PROVENANCE: ${{ inputs.confirm_provenance }}
+          NOTES_FILE: ${{ runner.temp }}/release-notes.md
+        run: |
+          set -euo pipefail
+          [[ "$CONFIRM_PROVENANCE" == "true" ]] || {
+            echo "::error::the local provenance audit is not confirmed"
+            exit 1
+          }
+          [[ "$PROVENANCE_SHA" == "$RELEASE_SHA" ]] || {
+            echo "::error::the provenance attestation no longer covers release_sha"
+            exit 1
+          }
+          git fetch --no-tags origin main
+          [[ "$(git rev-parse refs/remotes/origin/main)" == "$RELEASE_SHA" ]] || {
+            echo "::error::main moved during environment approval; no release mutation was made"
+            exit 1
+          }
+          [[ "$(git rev-parse HEAD)" == "$RELEASE_SHA" ]] || {
+            echo "::error::checkout does not match release_sha"
+            exit 1
+          }
+          python3 tools/release-preflight.py \
+            --version "$VERSION" \
+            --release-sha "$RELEASE_SHA" \
+            --notes-output "$NOTES_FILE"
+
+      - name: Recheck the published wiki after approval
+        env:
+          LIVE_WIKI: ${{ runner.temp }}/specroute-wiki-live
+        run: |
+          set -euo pipefail
+          git clone --depth=1 \
+            "https://github.com/${GITHUB_REPOSITORY}.wiki.git" \
+            "$LIVE_WIKI"
+          diff -ru \
+            --exclude='.git' \
+            --exclude='README.md' \
+            wiki \
+            "$LIVE_WIKI"
+
+      - name: Recheck tag and draft state after approval
+        id: release-state
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          OPERATION: ${{ inputs.operation }}
+          TAG: v${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$OPERATION" == "publish" ]]; then
+            ! git ls-remote --exit-code --tags origin "refs/tags/$TAG" >/dev/null 2>&1 || {
+              echo "::error::$TAG appeared during approval; use resume only if the annotated tag resolves to release_sha"
+              exit 1
+            }
+            ! gh release view "$TAG" >/dev/null 2>&1 || {
+              echo "::error::a release for $TAG appeared during approval"
+              exit 1
+            }
+            echo "create_draft=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git fetch --force origin "refs/tags/$TAG:refs/tags/$TAG"
+          [[ "$(git cat-file -t "$TAG")" == "tag" ]] || {
+            echo "::error::$TAG is not an annotated tag"
+            exit 1
+          }
+          [[ "$(git rev-parse "$TAG^{}")" == "$RELEASE_SHA" ]] || {
+            echo "::error::$TAG no longer resolves to release_sha"
+            exit 1
+          }
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            release_json="$(gh release view "$TAG" --json isDraft,tagName)"
+            [[ "$(jq -r '.tagName' <<<"$release_json")" == "$TAG" ]] || exit 1
+            [[ "$(jq -r '.isDraft' <<<"$release_json")" == "true" ]] || {
+              echo "::error::the matching release is not a draft"
+              exit 1
+            }
+            echo "create_draft=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "create_draft=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Create annotated tag
+        if: inputs.operation == 'publish'
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          TAG: v${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          tag_object_json="$(
+            gh api \
+              --method POST \
+              "repos/$GITHUB_REPOSITORY/git/tags" \
+              --raw-field "tag=$TAG" \
+              --raw-field "message=Release $TAG" \
+              --raw-field "object=$RELEASE_SHA" \
+              --raw-field "type=commit"
+          )"
+          tag_object_sha="$(jq -r '.sha' <<<"$tag_object_json")"
+          [[ "$tag_object_sha" =~ ^[0-9a-f]{40}$ ]] || {
+            echo "::error::GitHub did not return a valid annotated tag object."
+            exit 1
+          }
+          gh api \
+            --method POST \
+            "repos/$GITHUB_REPOSITORY/git/refs" \
+            --raw-field "ref=refs/tags/$TAG" \
+            --raw-field "sha=$tag_object_sha" \
+            >/dev/null
+
+      - name: Create changelog-derived draft
+        if: steps.release-state.outputs.create_draft == 'true'
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          TAG: v${{ inputs.version }}
+          NOTES_FILE: ${{ runner.temp }}/release-notes.md
+        run: |
+          set -euo pipefail
+          gh release create "$TAG" \
+            --draft \
+            --verify-tag \
+            --title "$TAG" \
+            --notes-file "$NOTES_FILE"
+
+      - name: Verify draft and publish
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          TAG: v${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+          NOTES_FILE: ${{ runner.temp }}/release-notes.md
+          DRAFT_BODY: ${{ runner.temp }}/draft-body.md
+        run: |
+          set -euo pipefail
+          git fetch --force origin "refs/tags/$TAG:refs/tags/$TAG"
+          [[ "$(git cat-file -t "$TAG")" == "tag" ]] || {
+            echo "::error::$TAG is not an annotated tag"
+            exit 1
+          }
+          [[ "$(git rev-parse "$TAG^{}")" == "$RELEASE_SHA" ]] || {
+            echo "::error::$TAG does not resolve to release_sha"
+            exit 1
+          }
+
+          release_json="$(gh release view "$TAG" --json body,isDraft,tagName)"
+          [[ "$(jq -r '.tagName' <<<"$release_json")" == "$TAG" ]] || exit 1
+          [[ "$(jq -r '.isDraft' <<<"$release_json")" == "true" ]] || {
+            echo "::error::release verification expected a draft"
+            exit 1
+          }
+          jq -r '.body' <<<"$release_json" > "$DRAFT_BODY"
+          NOTES_FILE="$NOTES_FILE" DRAFT_BODY="$DRAFT_BODY" python3 - <<'PY' || {
+          from os import environ
+          from pathlib import Path
+
+          expected = Path(environ["NOTES_FILE"]).read_text(encoding="utf-8").rstrip("\n")
+          actual = Path(environ["DRAFT_BODY"]).read_text(encoding="utf-8").rstrip("\n")
+          raise SystemExit(0 if actual == expected else 1)
+          PY
+            echo "::error::draft body does not exactly match the changelog release notes"
+            exit 1
+          }
+
+          gh release edit "$TAG" --draft=false --latest
+          published_json="$(gh release view "$TAG" --json isDraft,isImmutable,tagName,url)"
+          [[ "$(jq -r '.isDraft' <<<"$published_json")" == "false" ]] || {
+            echo "::error::release publication did not complete"
+            exit 1
+          }
+          [[ "$(jq -r '.isImmutable' <<<"$published_json")" == "true" ]] || {
+            echo "::error::published release did not become immutable"
+            exit 1
+          }
+          echo "Published $(jq -r '.url' <<<"$published_json")"
+
+  realign-develop:
+    name: Lease-guard realign develop
+    if: >-
+      always() &&
+      needs.preflight.result == 'success' &&
+      (
+        inputs.operation == 'realign-develop' ||
+        (
+          (inputs.operation == 'publish' || inputs.operation == 'resume') &&
+          inputs.realign_develop &&
+          needs.publish.result == 'success'
+        )
+      )
+    needs:
+      - preflight
+      - publish
+    runs-on: ubuntu-latest
+    environment: release
+    steps:
+      - name: Require the release GitHub App credentials
+        env:
+          RELEASE_APP_CLIENT_ID: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          RELEASE_APP_PRIVATE_KEY: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          [[ -n "$RELEASE_APP_CLIENT_ID" && -n "$RELEASE_APP_PRIVATE_KEY" ]] || {
+            echo "::error::Automated develop realignment requires RELEASE_APP_CLIENT_ID and RELEASE_APP_PRIVATE_KEY in the protected release environment. No PAT or GITHUB_TOKEN fallback is allowed."
+            exit 1
+          }
+
+      - name: Create short-lived release App token
+        id: release-app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-actions: read
+          permission-administration: read
+          permission-contents: write
+
+      - name: Verify protected release controls
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          ENVIRONMENT_NAME: release
+        run: |
+          set -euo pipefail
+          environment_json="$(gh api "repos/$GITHUB_REPOSITORY/environments/$ENVIRONMENT_NAME")" || {
+            echo "::error::The protected release environment does not exist or the Release App cannot inspect it."
+            exit 1
+          }
+          reviewer_count="$(
+            jq '[.protection_rules[]? | select(.type == "required_reviewers") | .reviewers[]?] | length' \
+              <<<"$environment_json"
+          )"
+          [[ "$reviewer_count" -ge 1 ]] || {
+            echo "::error::The release environment must require at least one reviewer."
+            exit 1
+          }
+          [[ "$(jq -r '.deployment_branch_policy.protected_branches' <<<"$environment_json")" == "false" ]] || {
+            echo "::error::The release environment must use a main-only custom deployment branch policy."
+            exit 1
+          }
+          [[ "$(jq -r '.deployment_branch_policy.custom_branch_policies' <<<"$environment_json")" == "true" ]] || {
+            echo "::error::The release environment must use a main-only custom deployment branch policy."
+            exit 1
+          }
+          policies_json="$(
+            gh api "repos/$GITHUB_REPOSITORY/environments/$ENVIRONMENT_NAME/deployment-branch-policies"
+          )" || {
+            echo "::error::Could not inspect release environment deployment branch policies."
+            exit 1
+          }
+          [[ "$(jq -r '.total_count' <<<"$policies_json")" == "1" ]] || {
+            echo "::error::The release environment must allow only one deployment branch policy."
+            exit 1
+          }
+          [[ "$(jq -r '.branch_policies[0].name' <<<"$policies_json")" == "main" ]] || {
+            echo "::error::The release environment deployment branch policy must be exactly main."
+            exit 1
+          }
+          immutable_json="$(gh api "repos/$GITHUB_REPOSITORY/immutable-releases")" || {
+            echo "::error::Could not inspect immutable release configuration."
+            exit 1
+          }
+          [[ "$(jq -r '.enabled' <<<"$immutable_json")" == "true" ]] || {
+            echo "::error::Immutable releases must be enabled before develop realignment."
+            exit 1
+          }
+
+      - name: Checkout the exact released commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ inputs.release_sha }}
+          fetch-depth: 0
+          token: ${{ steps.release-app-token.outputs.token }}
+
+      - name: Recheck published release and branch trees
+        env:
+          GH_TOKEN: ${{ steps.release-app-token.outputs.token }}
+          TAG: v${{ inputs.version }}
+          RELEASE_SHA: ${{ inputs.release_sha }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin main develop
+          [[ "$(git rev-parse refs/remotes/origin/main)" == "$RELEASE_SHA" ]] || {
+            echo "::error::main moved; refusing to realign develop"
+            exit 1
+          }
+
+          git fetch --force origin "refs/tags/$TAG:refs/tags/$TAG"
+          [[ "$(git cat-file -t "$TAG")" == "tag" ]] || {
+            echo "::error::$TAG is not an annotated tag"
+            exit 1
+          }
+          [[ "$(git rev-parse "$TAG^{}")" == "$RELEASE_SHA" ]] || {
+            echo "::error::$TAG does not resolve to release_sha"
+            exit 1
+          }
+          release_json="$(gh release view "$TAG" --json isDraft,isImmutable,tagName)"
+          [[ "$(jq -r '.tagName' <<<"$release_json")" == "$TAG" ]] || exit 1
+          [[ "$(jq -r '.isDraft' <<<"$release_json")" == "false" ]] || {
+            echo "::error::develop realignment requires a published release"
+            exit 1
+          }
+          [[ "$(jq -r '.isImmutable' <<<"$release_json")" == "true" ]] || {
+            echo "::error::develop realignment requires an immutable release"
+            exit 1
+          }
+          develop_sha="$(git rev-parse refs/remotes/origin/develop)"
+          main_tree="$(git rev-parse "$RELEASE_SHA^{tree}")"
+          develop_tree="$(git rev-parse "$develop_sha^{tree}")"
+          [[ "$develop_tree" == "$main_tree" ]] || {
+            echo "::error::develop contains content not present in released main; refusing force update"
+            exit 1
+          }
+
+          if [[ "$develop_sha" == "$RELEASE_SHA" ]]; then
+            echo "develop is already aligned to $RELEASE_SHA"
+            exit 0
+          fi
+
+          git push \
+            --force-with-lease="refs/heads/develop:$develop_sha" \
+            origin \
+            "$RELEASE_SHA:refs/heads/develop"
