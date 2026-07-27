@@ -25,7 +25,8 @@ Do not recreate `runtimes/.windsurf/`.
 
 The consumer-facing matrix is mirrored byte-identically in `README.md`,
 `AGENTS.md`, `wiki/Vendor-Matrix.md`, and
-`agentic-docs/agent-cli-integrations.md`. `/audit` hashes the rows and footnotes.
+`agentic-docs/agent-cli-integrations.md`. `/audit` hashes the table. Supporting
+vendor notes live in the integration reference and dedicated wiki page.
 
 ## Regenerate capability inventory
 

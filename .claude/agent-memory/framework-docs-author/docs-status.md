@@ -74,15 +74,15 @@ All five workflows plus the index are drafted: `README.md`, `prd-to-production.m
 
 46 pages. The wiki is a mirror layer, not a separate authorship surface - most pages restate an `agentic-docs/` or top-level file and link back to it. Only the pairing needs tracking here:
 
-- `wiki/Multi-Agent-Orchestration.md` - **untracked**, new on 2026-07-27, the wiki counterpart of `agentic-docs/multi-agent-orchestration.md`. Already linked from `wiki/_Sidebar.md`.
-- `wiki/Vendor-Matrix.md` - one of the four byte-identical vendor-matrix mirrors. `/audit` step 3 hashes the block; do not hand-edit one mirror.
+- `wiki/Multi-Agent-Orchestration.md` - the wiki counterpart of `agentic-docs/multi-agent-orchestration.md`, linked from `wiki/_Sidebar.md`.
+- `wiki/Vendor-Matrix.md` - one of the four byte-identical vendor-matrix mirrors. `/audit` step 3 hashes the table; do not hand-edit one mirror.
 - `wiki/Agent-CLI-Integrations.md` - a wiki stub that points at `[[Vendor Matrix]]` rather than restating the table. It is deliberately **not** a fifth mirror.
 
 ## Outstanding work
 
 Drafting is complete; the remaining work is recurring currency verification, not authorship.
 
-1. Keep the vendor matrix byte-identical across `README.md`, `AGENTS.md`, `wiki/Vendor-Matrix.md`, and `agentic-docs/agent-cli-integrations.md` - they drift first. `/audit` step 3 compares a `sha256` of the block (rows **and** footnotes) and names the offending file and cell. Note `agentic-docs/multi-vendor-context-files.md` is **not** a mirror.
+1. Keep the vendor matrix table byte-identical across `README.md`, `AGENTS.md`, `wiki/Vendor-Matrix.md`, and `agentic-docs/agent-cli-integrations.md` - they drift first. `/audit` step 3 compares a `sha256` of the table and names the offending file and cell. Supporting vendor notes live in the integration reference and dedicated wiki page rather than the README. Note `agentic-docs/multi-vendor-context-files.md` is **not** a mirror.
 2. Re-verify `agentic-docs/cross-vendor-sync.md` against `tools/sync-skills.py` whenever the tool changes.
 3. Confirm capability claims against vendor documentation and inventory claims against `runtimes/.<vendor>/`; do not infer one from the other.
 
