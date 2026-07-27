@@ -113,4 +113,10 @@ Same as the other vendors:
 1. Drop the script under `<project>/.cursor/hooks/scripts/` (or `~/.cursor/hooks/`).
 2. `chmod +x`.
 3. Reference it in `<project>/.cursor/hooks.json` (project) or `~/.cursor/hooks.json` (user).
-4. The path is relative to the hooks.json's parent directory.
+4. **Path resolution differs by scope** - this is the easiest thing to get wrong here, and getting it wrong is expensive (see below).
+   - **Project** (`<project>/.cursor/hooks.json`): hooks run from the **project root**, so write `.cursor/hooks/scripts/x.sh` - *including* the `.cursor/` prefix, even though `hooks.json` itself lives inside `.cursor/`.
+   - **User** (`~/.cursor/hooks.json`): paths resolve from `~/.cursor/`, so write `./hooks/scripts/x.sh` - *without* a `.cursor/` prefix.
+
+   Verified against <https://cursor.com/docs/agent/hooks>, which states: *"Project hooks run from the project root, so use `.cursor/hooks/format.sh` (not `./hooks/format.sh`)"*.
+
+   Why it matters more for Cursor than for other vendors: the shipped `beforeShellExecution` gate sets `failClosed: true`. A path that doesn't resolve exits 127, and fail-closed turns that into a **block on every shell command** rather than a silent no-op. Get this wrong and the agent stops working entirely.

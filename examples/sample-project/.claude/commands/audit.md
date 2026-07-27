@@ -10,52 +10,80 @@ Run `/sanitize` first. If it fails, stop and report the failures - do not contin
 
 ## 2. Frontmatter validation
 
-Walk every agent / skill / command file and validate frontmatter:
+This project ships two runtimes - `.claude/` (Markdown) and `.codex/` (TOML) - and their frontmatter contracts differ. Validate each against its own contract; do not hold Codex agents to Claude's `model` / `color` fields.
 
 ```bash
-echo "── frontmatter check (agents) ──"
-for f in .claude/agents/*.md agents/agent-template.md agents/examples/*.md runtimes/.claude/agents/*.md runtimes/.codex/agents/*.md; do
+echo "── frontmatter check (Claude agents) ──"
+for f in .claude/agents/*.md; do
   [ -f "$f" ] || continue
   case "$f" in *README.md) continue ;; esac
   for k in name description model color; do
-    grep -q "^$k:" "$f" || echo "  $f: missing $k"
+    grep -q "^$k:" "$f" || echo "  ERROR $f: missing $k"
+  done
+done
+
+echo
+echo "── frontmatter check (Codex agents) ──"
+# Codex agents are TOML, not Markdown - keys are `name = "..."`, not `name:`.
+for f in .codex/agents/*.toml; do
+  [ -f "$f" ] || continue
+  for k in name description developer_instructions; do
+    grep -qE "^$k *=" "$f" || echo "  ERROR $f: missing $k"
   done
 done
 
 echo
 echo "── frontmatter check (skills) ──"
-for f in skills/skill-template/SKILL.md skills/examples/*/SKILL.md runtimes/.claude/skills/*/SKILL.md runtimes/.codex/skills/*/SKILL.md; do
-  [ -f "$f" ] || continue
-  for k in name description argument-hint user-invocable allowed-tools; do
-    grep -q "^$k:" "$f" || echo "  $f: missing $k"
+# name + description are the Agent Skills open-standard required pair.
+# argument-hint / user-invocable / allowed-tools are Claude/Codex vendor
+# extensions - warnings only. Contract: SpecRoute wiki, "Frontmatter Contracts".
+# This project ships no skills today - use find so the check stays quiet
+# instead of erroring on an unmatched glob.
+skill_files=$(find .claude/skills .codex/skills -name SKILL.md 2>/dev/null)
+if [ -z "$skill_files" ]; then
+  echo "  (no skills in this project - nothing to check)"
+else
+  for f in $skill_files; do
+    for k in name description; do
+      grep -q "^$k:" "$f" || echo "  ERROR $f: missing $k"
+    done
+    for k in argument-hint user-invocable allowed-tools; do
+      grep -q "^$k:" "$f" || echo "  WARN  $f: missing $k (Claude/Codex vendor extension)"
+    done
   done
-done
+fi
 
 echo
 echo "── frontmatter check (Claude commands) ──"
-for f in commands/command-template.claude.md commands/examples/*.claude.md runtimes/.claude/commands/*.md .claude/commands/*.md; do
+for f in .claude/commands/*.md; do
   [ -f "$f" ] || continue
   case "$f" in *README.md) continue ;; esac
-  grep -q "^description:" "$f" || echo "  $f: missing description"
+  grep -q "^description:" "$f" || echo "  ERROR $f: missing description"
 done
 ```
 
-## 3. Vendor matrix consistency
+## 3. Cross-runtime agent parity
 
-The matrix table appears in three places. Confirm they are in sync:
+This project has no vendor matrix table (that lives upstream in SpecRoute). The equivalent consistency check here is that the `.claude/` and `.codex/` runtimes carry the same agent roster, and that `agent-roster.md` documents it:
 
 ```bash
-echo "── vendor matrix references ──"
-for f in README.md agentic-docs/agent-cli-integrations.md agentic-docs/multi-vendor-context-files.md; do
-  if [ -f "$f" ]; then
-    echo "$f: $(grep -c '^| ' "$f") matrix-row lines"
-  else
-    echo "$f: missing"
-  fi
+echo "── agent roster parity (.claude vs .codex) ──"
+claude_agents=$(find .claude/agents -name '*.md' ! -name 'README.md' -exec basename {} .md \; | sort)
+codex_agents=$(find .codex/agents -name '*.toml' -exec basename {} .toml \; | sort)
+echo "  .claude/agents: $(echo "$claude_agents" | wc -l | tr -d ' ') agents"
+echo "  .codex/agents:  $(echo "$codex_agents" | wc -l | tr -d ' ') agents"
+diff <(echo "$claude_agents") <(echo "$codex_agents") \
+  && echo "  ✓ rosters match" \
+  || echo "  ✗ DRIFT: '<' = Claude-only, '>' = Codex-only"
+
+echo
+echo "── roster documentation ──"
+for a in $claude_agents; do
+  grep -q "\`$a\`" agent-roster.md || echo "  ✗ $a not listed in agent-roster.md"
 done
 ```
 
-Flag any mismatch in the count of `| ...` rows across the three files.
+Note the two runtimes intentionally do **not** cross-sync file bodies (Markdown vs TOML) - only the roster of agent names must match.
 
 ## 4. Broken markdown links
 
@@ -96,9 +124,9 @@ TODOs are intentional placeholders. The audit doesn't fail on TODO count - it ju
 Summarize:
 
 - Sanitization: PASS / FAIL
-- Frontmatter: N issues across M files
-- Vendor matrix: in sync / drift detected
+- Frontmatter: N `ERROR` / M `WARN` across K files
+- Agent roster parity: in sync / drift detected
 - Links: N broken / clean
 - TODOs: N total
 
-Ready-to-publish iff: Sanitization PASS, Frontmatter 0 issues, Vendor matrix in sync, Links 0 broken.
+Ready-to-publish iff: Sanitization PASS, Frontmatter 0 `ERROR`, agent rosters in sync, Links 0 broken. `WARN` lines are advisory - they flag missing Claude/Codex vendor extensions, not contract violations.

@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Documentation Sync Checker",
+      "trigger": "PostFileSave",
+      "matcher": "README.md|AGENTS.md|docs/**/*.md|examples/**/*.md",
+      "action": {
+        "type": "agent",
+        "prompt": "Review the saved documentation for broken local links, vendor-matrix drift, and TODO markers in examples. Report findings only; do not edit files unless explicitly asked."
+      },
+      "timeout": 60,
+      "enabled": true
+    }
+  ]
+}

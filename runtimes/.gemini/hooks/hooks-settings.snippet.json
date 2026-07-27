@@ -1,0 +1,53 @@
+{
+  "_comment": "Gemini CLI has NO standalone hooks file. This is a snippet, not a config: merge its \"hooks\" key into the top level of .gemini/settings.json (project) or ~/.gemini/settings.json (user). Do not hand-edit runtimes/.gemini/settings.template.json to add hooks - that file is generated from runtimes/mcp/servers.yaml by runtimes/mcp/render/render_gemini.py, and a hand edit is overwritten on the next render. The merge command in _install does the right thing.",
+
+  "_install": "mkdir -p .gemini/hooks/scripts && cp runtimes/.gemini/hooks/scripts/*.sh .gemini/hooks/scripts/ && chmod +x .gemini/hooks/scripts/*.sh && python3 -c \"import json;s=json.load(open('.gemini/settings.json'));s['hooks']=json.load(open('runtimes/.gemini/hooks/hooks-settings.snippet.json'))['hooks'];json.dump(s,open('.gemini/settings.json','w'),indent=2)\"",
+
+  "_events": "Gemini's 11 events use a vocabulary shared with no other vendor: SessionStart, SessionEnd, BeforeAgent, AfterAgent, BeforeModel, AfterModel, BeforeToolSelection, BeforeTool, AfterTool, PreCompress, Notification. Only type=command is supported. Exit 2 is a system block; stderr is the reason. Reference: https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/reference.md",
+
+  "_matchers": "The matcher key is omitted from every entry below, which Gemini reads as match-all. A matcher is a regex over the tool name, and a matcher that fails to match is a silent hole; each script re-filters its own payload instead. Narrow only after confirming the tool names your build emits (run_shell_command, write_file, edit_file, replace, mcp_<server>_<tool>).",
+
+  "_stdout_discipline": "Gemini requires stdout to be the final JSON and nothing else. All three scripts obey this; diagnostics go to stderr. If you add your own, do not echo plain text.",
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/session-start-status.sh",
+            "name": "specroute-session-status",
+            "timeout": 15000
+          }
+        ]
+      }
+    ],
+
+    "BeforeTool": [
+      {
+        "sequential": true,
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/pre-shell-sanitize.sh",
+            "name": "specroute-sanitization-gate",
+            "timeout": 60000
+          }
+        ]
+      }
+    ],
+
+    "AfterTool": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .gemini/hooks/scripts/post-edit-frontmatter.sh",
+            "name": "specroute-frontmatter-check",
+            "timeout": 20000
+          }
+        ]
+      }
+    ]
+  }
+}

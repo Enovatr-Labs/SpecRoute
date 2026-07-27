@@ -1,0 +1,48 @@
+{
+  "_comment": "Codex hooks. Install to .codex/hooks.json (NOT .codex/hooks/hooks.json - Codex does not read that path). The scripts referenced below install to .codex/hooks/scripts/. Codex exposes 11 lifecycle events whose names are identical to Claude Code's: SessionStart, SessionEnd, PreToolUse, PermissionRequest, PostToolUse, UserPromptSubmit, Stop, PreCompact, PostCompact, SubagentStart, SubagentStop. Only type=command executes today - prompt and agent handlers are parsed then skipped, so none is shipped here. Reference: https://learn.chatgpt.com/docs/hooks",
+
+  "_install": "mkdir -p .codex/hooks/scripts && cp runtimes/.codex/hooks/hooks.template.json .codex/hooks.json && cp runtimes/.codex/hooks/scripts/*.sh .codex/hooks/scripts/ && chmod +x .codex/hooks/scripts/*.sh",
+
+  "_matchers": "Every entry below matches universally (matcher \"\"). That is deliberate: a matcher is a regex over the tool name, tool names differ between Codex releases, and a matcher that fails to match is a silent hole rather than a loud failure. Each script re-filters its own payload, which is testable from the shell. Narrow these only after confirming the tool names your Codex build actually emits.",
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/session-start-status.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+
+    "PreToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/pre-tool-sanitize.sh",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash .codex/hooks/scripts/post-edit-frontmatter.sh",
+            "timeout": 20
+          }
+        ]
+      }
+    ]
+  }
+}

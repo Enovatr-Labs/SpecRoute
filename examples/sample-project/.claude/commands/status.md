@@ -1,12 +1,14 @@
 ---
-description: Report the current state of the SpecRoute skeleton - which top-level dirs exist, which artifacts have been drafted, what's outstanding.
+description: Report the current state of the user-search project - which top-level dirs exist, which artifacts have been drafted, what's outstanding.
 ---
 
-Report the SpecRoute skeleton state at a glance. Run these checks and summarize the output as a status table.
+Report the project state at a glance. Run these checks and summarize the output as a status table.
 
 ```bash
 echo "── top-level directory status ──"
-for d in docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets; do
+# Keep this list in sync with EXPECTED_DIRS in .claude/hooks/session-start-status.sh.
+# Ground truth: ls -d */
+for d in prds specs adrs prompts agentic-docs; do
   if [ -d "$d" ]; then
     n=$(find "$d" -type f \( -name "*.md" -o -name "*.json" -o -name "*.toml" -o -name "*.yaml" -o -name "*.yml" -o -name "*.sh" -o -name "*.py" \) 2>/dev/null | wc -l | tr -d ' ')
     echo "  ✓  $d/ ($n files)"
@@ -17,11 +19,12 @@ done
 
 echo
 echo "── runtime layouts ──"
-for v in claude codex gemini kiro cursor windsurf; do
-  if [ -d "runtimes/.$v" ]; then
-    echo "  ✓  runtimes/.$v/"
+# This project ships two vendor runtimes at its own root (no runtimes/ dir).
+for v in claude codex; do
+  if [ -d ".$v" ]; then
+    echo "  ✓  .$v/"
   else
-    echo "  ✗  runtimes/.$v/ (not yet wired)"
+    echo "  ✗  .$v/ (not yet wired)"
   fi
 done
 
@@ -45,8 +48,8 @@ git log --oneline -5
 
 Summarize as:
 
-1. Overall completion: `<built>/<expected>` top-level dirs, `<built>/6` runtime layouts.
-2. The 11 implementation agents (note any missing).
+1. Overall completion: `<built>/<expected>` top-level dirs, `<built>/2` runtime layouts.
+2. The 8 implementation agents (note any missing).
 3. TODO count and the top items.
 4. Git: branch, uncommitted changes, recent commits.
 

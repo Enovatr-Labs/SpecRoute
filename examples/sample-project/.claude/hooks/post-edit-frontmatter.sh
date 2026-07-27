@@ -52,8 +52,12 @@ for line in body.splitlines():
         fields[mm.group(1)] = mm.group(2).strip()
 
 required = {
-    "agent":   ["name", "description", "model", "color"],
-    "skill":   ["name", "description", "argument-hint", "user-invocable", "allowed-tools"],
+    # Only `name` and `description` are genuinely required by the runtime.
+    # Claude Code requires just those two for agents; the open Agent Skills
+    # standard (agentskills.io) requires the same pair for skills. A linter that
+    # flags valid artifacts trains people to ignore it.
+    "agent":   ["name", "description"],
+    "skill":   ["name", "description"],
     "command": ["description"],
 }[artifact]
 
@@ -63,6 +67,21 @@ warnings = []
 if missing:
     warnings.append(f"missing required field(s): {', '.join(missing)}")
 
+# Conventional in SpecRoute but NOT required by any runtime - reported separately
+# so a missing one reads as a nudge rather than a defect.
+recommended = {
+    "agent":   ["model", "color"],
+    "skill":   ["argument-hint", "allowed-tools"],
+    "command": [],
+}[artifact]
+
+absent_recommended = [k for k in recommended if k not in fields or fields[k] == ""]
+if absent_recommended:
+    warnings.append(
+        f"missing recommended field(s): {', '.join(absent_recommended)} "
+        "(optional for the runtime; conventional in SpecRoute)"
+    )
+
 if "name" in fields:
     name = fields["name"].strip('"').strip("'")
     expected = path.split("/")[-1].removesuffix(".md")
@@ -71,8 +90,23 @@ if "name" in fields:
     if name != expected:
         warnings.append(f"name '{name}' does not match filename/dirname '{expected}'")
 
-if artifact == "agent" and fields.get("model") not in ("opus", "sonnet", "haiku"):
-    warnings.append(f"model '{fields.get('model')}' is not one of opus/sonnet/haiku")
+# `flagship`/`balanced`/`fast` are SpecRoute tier ABSTRACTIONS for roster tables -
+# no runtime accepts them, so an agent file carrying one is broken.
+TIER_ALIASES = {"flagship": "opus", "balanced": "sonnet", "fast": "haiku"}
+VALID_MODELS = {"opus", "sonnet", "haiku", "fable", "inherit"}
+
+if artifact == "agent" and "model" in fields:
+    model = fields["model"].strip('"').strip("'").split("#")[0].strip()
+    if model in TIER_ALIASES:
+        warnings.append(
+            f"model '{model}' is a SpecRoute tier abstraction, not a runtime value - "
+            f"use '{TIER_ALIASES[model]}' here and keep tiers to roster tables"
+        )
+    elif model and model not in VALID_MODELS and not model.startswith("claude-"):
+        warnings.append(
+            f"model '{model}' is not one of {'/'.join(sorted(VALID_MODELS))} "
+            "or a full model id (claude-*)"
+        )
 
 if warnings:
     print(f"frontmatter-lint [{artifact}] {path}:", file=sys.stderr)

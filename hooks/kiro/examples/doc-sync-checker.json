@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Doc Sync Checker",
+      "trigger": "PostFileSave",
+      "matcher": "README.md|AGENTS.md|agentic-docs/agent-cli-integrations.md|wiki/Vendor-Matrix.md",
+      "action": {
+        "type": "agent",
+        "prompt": "Validate doc sync: 1) Walk markdown links in the saved file; flag any that do not resolve. 2) Compare the complete vendor-matrix table and footnotes byte-for-byte across README.md, AGENTS.md, agentic-docs/agent-cli-integrations.md, and wiki/Vendor-Matrix.md. Report drift only; do not edit."
+      },
+      "timeout": 60,
+      "enabled": true
+    }
+  ]
+}

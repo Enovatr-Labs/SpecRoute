@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# SessionStart hook: prints a SpecRoute skeleton status banner so Claude
-# knows what's built vs. missing without re-grepping every session.
+# SessionStart hook: prints a project status banner so Claude knows what's
+# built vs. missing without re-grepping every session.
 #
 # Exit 0 always - informational only.
 
@@ -9,10 +9,11 @@ set -u
 REPO_ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 cd "$REPO_ROOT"
 
-echo "── SpecRoute skeleton status ──────────────────────────────────────"
+echo "── user-search project status ─────────────────────────────────────"
 
-# Top-level dirs from initial.md target structure
-EXPECTED_DIRS=(docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets)
+# Top-level dirs in this project's layout. Keep in sync with the same list in
+# .claude/commands/status.md. Regenerate the ground truth with: ls -d */
+EXPECTED_DIRS=(prds specs adrs prompts agentic-docs)
 MISSING=()
 PRESENT=()
 for d in "${EXPECTED_DIRS[@]}"; do
