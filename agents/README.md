@@ -39,18 +39,30 @@ These are not redundant - they answer different questions. An archetype is "what
 
 ## Frontmatter contract
 
+Only `name` and `description` are required. Shown here in Claude Code's shape; other vendors differ (see [`../wiki/Frontmatter-Contracts.md`](../wiki/Frontmatter-Contracts.md)).
+
 ```yaml
 ---
 name: <slug>                            # required; matches filename (without .md)
 description: <triggers>                 # required; must include trigger phrases for auto-selection
-model: opus | sonnet | haiku            # required
-color: <recognized color>               # required
-memory: project | user | absent         # optional
-internet: Yes | No | absent             # optional
+model: opus                             # optional; default `inherit`
+tools: Read, Grep, Glob                 # optional; allowlist
+disallowedTools: Write, Edit            # optional; denylist, applied before `tools`
+skills: [<skill-slug>]                  # optional; preload skill content
+memory: project | user | local          # optional
+effort: high                            # optional; low | medium | high | xhigh | max
+isolation: worktree                     # optional; dedicated git worktree
+permissionMode: <mode>                  # optional
+color: <recognized color>               # optional; UI tint only
 ---
 ```
 
 **`description` must include trigger phrases** in quotes (literal user utterances that should invoke the agent). Without triggers, Claude Code's automatic agent selection won't pick it up.
+
+Two things SpecRoute used to get wrong, corrected here:
+
+- **`model` takes a vendor model id, not a tier word.** `flagship` / `balanced` / `fast` are a SpecRoute documentation abstraction for roster tables. Writing one into an agent file produces an invalid value. Canonical tier-to-vendor mapping: [`../wiki/Agents.md`](../wiki/Agents.md#semantic-model-tiers).
+- **There is no `internet:` field.** It restricts nothing. Express web access through `tools` (include or omit `WebFetch` / `WebSearch`). A roster table may keep an "Internet" column as documentation of intent.
 
 See [`agent-template.md`](agent-template.md) for field-by-field guidance and [`roster.md`](roster.md) for the cross-vendor roster template.
 
@@ -58,12 +70,14 @@ See [`agent-template.md`](agent-template.md) for field-by-field guidance and [`r
 
 Concrete agent files are mirrored into:
 
-- `runtimes/.claude/agents/<name>.md` - Claude Code reads from here
-- `runtimes/.codex/agents/<name>.md` - Codex reads from here
+- `runtimes/.claude/agents/<name>.md` - Claude Code (Markdown + frontmatter)
+- `runtimes/.codex/agents/<name>.toml` - Codex (standalone TOML with `developer_instructions`)
+- `runtimes/.gemini/agents/<name>.md`, `runtimes/.kiro/agents/<name>.md`, `runtimes/.cursor/agents/<name>.md` - Markdown subagents with vendor-specific frontmatter
+- `runtimes/.devin/agents/<name>/AGENT.md` - Devin Desktop subagent profiles
 
-Gemini CLI, Kiro, Cursor, and Windsurf do not consume agent files in this shape - they have other concepts (commands, steering, rules). See the vendor matrix in [`../README.md`](../README.md).
+The **body** is portable across all of them; the frontmatter is not. Don't copy Claude's fields into another vendor's file. See the vendor matrix in [`../README.md`](../README.md) and the per-vendor field lists in [`../wiki/Frontmatter-Contracts.md`](../wiki/Frontmatter-Contracts.md).
 
-To keep the two runtime mirrors aligned: invoke `runtime-architect` or run `tools/sync-skills.py` (which also handles agents).
+Use `tools/sync-skills.py` to keep skill bodies aligned. Agent formats diverge across vendors, so maintain agent mirrors through `runtime-architect`.
 
 ## Authoring agent
 

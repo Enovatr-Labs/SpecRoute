@@ -91,4 +91,4 @@ Same as `hooks/claude/scripts/`:
 1. Drop the script under `.codex/hooks/scripts/` (consumer side).
 2. `chmod +x`.
 3. Reference in `.codex/hooks.json` or the inline `[[hooks.<EventName>.hooks]]` TOML block.
-4. Confirm `[features] codex_hooks = true` is set in `.codex/config.toml`.
+4. Hooks are enabled by default. If they are not firing, check `[features] hooks` in `.codex/config.toml` has not been set to `false` (`codex_hooks` is a deprecated alias of the same key).

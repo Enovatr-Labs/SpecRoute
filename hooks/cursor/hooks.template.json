@@ -1,180 +1,25 @@
 {
-  "_comment": "Cursor hooks template covering ~19 lifecycle events. Drop into <project>/.cursor/hooks.json (project) or ~/.cursor/hooks.json (user). Reference: https://cursor.com/docs/agent/hooks",
-
+  "_comment": "Executable Cursor starter. The full event catalog is documented in hooks/README.md; active entries reference only shipped scripts.",
+  "_reference": "https://cursor.com/docs/agent/hooks",
   "version": 1,
-
-  "_schema_summary": {
-    "matcher": "Optional. Tool type, subagent type, command pattern, or regex - depends on event.",
-    "type": "command (default) | prompt (LLM-evaluated condition)",
-    "exit_code_protocol": {
-      "0": "success; use JSON output",
-      "2": "block (equivalent to permission='deny')",
-      "other": "fail-open by default; set failClosed: true to block on hook failure"
-    },
-    "permission_schema": "Control hooks return { permission: 'allow'|'deny'|'ask', user_message: '...', agent_message: '...' }"
-  },
-
   "hooks": {
     "sessionStart": [
       {
         "command": "bash .cursor/hooks/scripts/session-start-status.sh",
-        "type": "command",
         "timeout": 10
       }
     ],
-
-    "sessionEnd": [
-      {
-        "command": "bash .cursor/hooks/scripts/session-end-summary.sh",
-        "timeout": 5
-      }
-    ],
-
-    "preToolUse": [
-      {
-        "command": "bash .cursor/hooks/scripts/pre-tool-validate.sh",
-        "matcher": "Shell|Write|MCP",
-        "failClosed": true,
-        "timeout": 30
-      }
-    ],
-
-    "postToolUse": [
-      {
-        "command": "bash .cursor/hooks/scripts/post-tool-log.sh",
-        "matcher": "Shell|Write"
-      }
-    ],
-
-    "postToolUseFailure": [
-      {
-        "command": "bash .cursor/hooks/scripts/tool-failure-log.sh"
-      }
-    ],
-
-    "subagentStart": [
-      {
-        "command": "bash .cursor/hooks/scripts/subagent-start-log.sh",
-        "matcher": "generalPurpose|explore"
-      }
-    ],
-
-    "subagentStop": [
-      {
-        "command": "bash .cursor/hooks/scripts/subagent-stop-summary.sh",
-        "loop_limit": 5
-      }
-    ],
-
     "beforeShellExecution": [
       {
         "command": "bash .cursor/hooks/scripts/pre-shell-sanitize.sh",
         "failClosed": true,
-        "timeout": 10
+        "timeout": 30
       }
     ],
-
-    "afterShellExecution": [
-      {
-        "command": "bash .cursor/hooks/scripts/post-shell-log.sh"
-      }
-    ],
-
-    "beforeMCPExecution": [
-      {
-        "command": "bash .cursor/hooks/scripts/pre-mcp-validate.sh",
-        "matcher": "MCP:filesystem|MCP:github"
-      }
-    ],
-
-    "afterMCPExecution": [
-      {
-        "command": "bash .cursor/hooks/scripts/post-mcp-log.sh"
-      }
-    ],
-
-    "beforeReadFile": [
-      {
-        "command": "bash .cursor/hooks/scripts/pre-read-redact.sh",
-        "matcher": ".*\\.env.*|.*secrets.*"
-      }
-    ],
-
     "afterFileEdit": [
       {
         "command": "bash .cursor/hooks/scripts/post-edit-frontmatter.sh"
       }
-    ],
-
-    "beforeSubmitPrompt": [
-      {
-        "command": "bash .cursor/hooks/scripts/prompt-policy-check.sh",
-        "failClosed": false
-      }
-    ],
-
-    "preCompact": [
-      {
-        "command": "bash .cursor/hooks/scripts/pre-compact-snapshot.sh"
-      }
-    ],
-
-    "afterAgentResponse": [
-      {
-        "command": "bash .cursor/hooks/scripts/response-audit.sh"
-      }
-    ],
-
-    "afterAgentThought": [
-      {
-        "command": "bash .cursor/hooks/scripts/thought-log.sh"
-      }
-    ],
-
-    "stop": [
-      {
-        "command": "bash .cursor/hooks/scripts/stop-quality-gate.sh",
-        "loop_limit": 3
-      }
-    ],
-
-    "_tab_inline_completion_events": {
-      "_comment": "Tab (inline completion) flows have their own scoped events. Include only if your project uses Cursor Tab.",
-      "beforeTabFileRead": [
-        {
-          "command": "bash .cursor/hooks/scripts/tab-pre-read.sh"
-        }
-      ],
-      "afterTabFileEdit": [
-        {
-          "command": "bash .cursor/hooks/scripts/tab-post-edit.sh"
-        }
-      ]
-    },
-
-    "_prompt_hook_example": {
-      "_comment": "Prompt hooks let an LLM evaluate the condition. Returns { ok: bool, reason: string }.",
-      "preToolUse": [
-        {
-          "type": "prompt",
-          "prompt": "Does this tool call look safe and within scope? $ARGUMENTS",
-          "model": "fast",
-          "timeout": 10
-        }
-      ]
-    }
-  },
-
-  "_path_conventions": {
-    "_comment": "User hooks (~/.cursor/hooks.json) run scripts from ~/.cursor/. Project hooks (<project>/.cursor/hooks.json) run from project root. Use relative paths accordingly.",
-    "user_level_command": "./hooks/script.sh  (resolves to ~/.cursor/hooks/script.sh)",
-    "project_level_command": ".cursor/hooks/script.sh  (resolves to <project>/.cursor/hooks/script.sh)"
-  },
-
-  "_enterprise_paths": {
-    "macOS": "/Library/Application Support/Cursor/hooks.json",
-    "Linux": "/etc/cursor/hooks.json",
-    "Windows": "C:\\ProgramData\\Cursor\\hooks.json",
-    "Team_Web_Dashboard": "Enterprise plan only"
+    ]
   }
 }

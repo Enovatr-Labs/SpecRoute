@@ -54,6 +54,30 @@ def run_git(args: list[str]) -> str:
     return subprocess.check_output(["git", *args], cwd=REPO_ROOT, text=True).strip()
 
 
+def dirty_paths() -> set[str]:
+    """Return modified, deleted, renamed, and untracked paths in the worktree."""
+    raw = subprocess.check_output(
+        ["git", "status", "--porcelain=v1", "-z"],
+        cwd=REPO_ROOT,
+    )
+    paths: set[str] = set()
+    rows = raw.split(b"\0")
+    index = 0
+    while index < len(rows):
+        row = rows[index]
+        index += 1
+        if not row:
+            continue
+        text = row.decode("utf-8", errors="surrogateescape")
+        status = text[:2]
+        path = text[3:]
+        if status[0] in {"R", "C"} and index < len(rows):
+            path = rows[index].decode("utf-8", errors="surrogateescape")
+            index += 1
+        paths.add(path)
+    return paths
+
+
 def git_last_modified_ts(path: Path) -> int | None:
     """Return last-commit Unix timestamp for `path`, or None if untracked."""
     try:
@@ -119,6 +143,7 @@ def main() -> int:
     }
 
     wiki_stems = collect_wiki_page_stems()
+    dirty = dirty_paths()
 
     pages = sorted(p for p in WIKI_DIR.glob("*.md") if p.name not in WIKI_NON_PAGES)
     for page in pages:
@@ -135,8 +160,15 @@ def main() -> int:
             if not src_path.exists():
                 findings["missing_source"].append(f"{page.name} → {src} (does not exist)")
                 continue
-            if wiki_ts is None:
-                continue  # wiki page is untracked; can't compare
+            page_rel = str(page.relative_to(REPO_ROOT))
+            if src in dirty:
+                if page_rel not in dirty:
+                    findings["stale_wiki"].append(
+                        f"{page.name} is unchanged while dirty source {src} has edits"
+                    )
+                continue
+            if page_rel in dirty or wiki_ts is None:
+                continue  # current wiki content has been refreshed or is new
             src_ts = git_last_modified_ts(src_path)
             if src_ts is None:
                 continue  # source is untracked; skip

@@ -9,7 +9,7 @@ repo-root/
 ├── AGENTS.md           ← canonical, vendor-neutral context (single source of truth)
 ├── CLAUDE.md           ← short delegation shim for Claude Code
 ├── GEMINI.md           ← short delegation shim for Gemini CLI
-├── (.cursorrules)      ← Cursor-specific delegation, if needed
+├── .cursor/rules/      ← Cursor-specific delegation, if needed (MDC rule files)
 └── ...
 ```
 
@@ -21,12 +21,13 @@ repo-root/
 
 Each agent CLI vendor has historically used its own root context file:
 
-- Claude Code: `CLAUDE.md`
+- Claude Code: `CLAUDE.md`, plus `.claude/rules/*.md` for modular instruction files
 - Codex: `AGENTS.md`
-- Gemini CLI: `GEMINI.md`
+- Gemini CLI / Antigravity: `GEMINI.md` (and *only* `GEMINI.md` without an opt-in - see below)
 - Kiro: `.kiro/steering/*.md`
 - Cursor: `.cursor/rules/*.mdc` (also natively reads `AGENTS.md`)
-- Windsurf / Devin: `.devin/rules/*.md` (preferred) or legacy `.windsurf/rules/*.md`
+- Devin Desktop: `AGENTS.md` for Devin Local; `.devin/rules/*.md` for Cascade
+  (`.windsurf/rules/*.md` remains a compatibility fallback)
 - (and more vendors will appear)
 
 Without a convention, projects targeting multiple vendors end up with N copies of the same content, drifting independently. When a convention changes (a new artifact type, a new vendor), every copy needs an update - and someone misses one, and the docs disagree, and the agent CLIs surface inconsistent guidance to the developer.
@@ -85,20 +86,45 @@ Three things distinguish the shim from a substantive context file:
 - Vendor-specific gotchas.
 - Pointers back to `AGENTS.md` for the substance.
 
+### Claude Code has a second surface now
+
+`.claude/rules/*.md` are modular instruction files the runtime discovers recursively. Without frontmatter they load at launch at the **same priority as `CLAUDE.md`**; with a `paths:` glob list (the only frontmatter field) they load only when a matching file is touched. User-level `~/.claude/rules/` loads before project rules.
+
+This is a better home than a growing `CLAUDE.md` for anything that is standing project substance rather than a Claude-specific override - and `paths:` gives Claude Code the file-scoped loading that Cursor gets from `globs` and Kiro from `inclusion: fileMatch`. Keep `CLAUDE.md` as the shim; put the bulk in `.claude/rules/`.
+
+Note the naming collision with SpecRoute's own top-level `rules/` directory, which is documentation rather than a runtime surface. See [`rules/README.md`](../rules/README.md).
 ## Vendor-specific runtime locations (recap)
 
 The matrix (also in [`AGENTS.md`](../AGENTS.md) and [`README.md`](../README.md)):
 
 | Vendor | Root context file | Auto-loaded? |
 |---|---|---|
-| Claude Code | `CLAUDE.md` | Yes (in repo root) |
+| Claude Code | `CLAUDE.md`, plus `.claude/rules/*.md` | Yes (in repo root) |
 | Codex | `AGENTS.md` | Yes (in repo root) |
-| Gemini CLI | `GEMINI.md` | Yes (in repo root) |
-| Cursor | `.cursorrules` (legacy) or `.cursor/rules/*.mdc` | Yes |
+| Gemini CLI / Antigravity | `GEMINI.md` | Yes - but **`AGENTS.md` is not**, see below |
+| Cursor | `.cursor/rules/*.mdc`; `AGENTS.md` also natively read | Yes |
 | Kiro | `.kiro/steering/*.md` (with `inclusion: always`) | Yes |
-| Windsurf | `.windsurf/rules/*.md` | Yes |
+| Devin Desktop | `AGENTS.md` for Devin Local; `.devin/rules/*.md` for Cascade | Yes |
 
-For Cursor / Kiro / Windsurf, the "delegation shim" pattern translates differently: there's no single root file, but their always-on rule files can each be a thin pointer to the canonical content. See [`runtimes/.<vendor>/`](../runtimes/) for templates.
+`.cursorrules` used to appear in this table as Cursor's legacy root file. It is now **absent from Cursor's documentation entirely and reported non-functional in current versions** - treat it as removed, not as a working fallback, and put Cursor's pointer content in `.cursor/rules/*.mdc` or `AGENTS.md`.
+
+For Cursor and Kiro, the "delegation shim" pattern translates through their
+always-on rule or steering files. Devin Local reads `AGENTS.md` directly; a
+Cascade rule under `.devin/rules/` is only needed when supporting that
+compatibility agent. See [`runtimes/.<vendor>/`](../runtimes/) for templates.
+
+### The Gemini exception
+
+**Gemini CLI does not read `AGENTS.md` by default.** It reads `GEMINI.md`. Loading `AGENTS.md` requires opting in through the `context.fileName` setting in `.gemini/settings.json`, and the upstream request to read it by default was closed as not planned.
+
+This is the one place where the pattern's core assumption - "every vendor's root file can point at the canonical one" - buys less than it appears to. A `GEMINI.md` that only says "read `AGENTS.md`" leaves Gemini with almost no context at launch; the model can still follow the link once it is working, but nothing is loaded up front.
+
+Two ways to close the gap, in order of preference:
+
+1. **Opt in.** Commit `{"context": {"fileName": ["GEMINI.md", "AGENTS.md"]}}` in `.gemini/settings.json`. The shim stays slim and the canonical file loads alongside it. Requires the setting to be present for every teammate, which is why it should be committed rather than set per user.
+2. **Let `GEMINI.md` carry the must-have content.** Duplication - exactly what this pattern exists to avoid - so restrict it to the standards that genuinely must be in context at launch, and keep the pointer to `AGENTS.md` for everything else.
+
+Don't quietly assume option 1 is in place. If `.gemini/settings.json` isn't in the repo, Gemini is running on `GEMINI.md` alone.
 
 ## Updating the canonical content
 

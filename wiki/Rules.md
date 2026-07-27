@@ -16,13 +16,27 @@ rules/
 ├── documentation-rules.md           doc standards
 ├── codex-rules.md                   Codex-specific surfacing
 ├── claude-rules.md                  Claude Code-specific surfacing
-├── gemini-rules.md                  Gemini-specific surfacing
+├── gemini-rules.md                  Gemini / Antigravity-specific surfacing
 ├── cursor-rules.md                  Cursor MDC conventions
-├── windsurf-rules.md                Windsurf rule conventions
+├── kiro-rules.md                    Kiro steering conventions
+├── devin-rules.md                   Devin Desktop rule conventions, including Cascade compatibility
 └── steering/
     ├── always-on-template.md        inclusion: always
     └── file-match-template.md       inclusion: fileMatch
 ```
+
+## `rules/` is not `.claude/rules/`
+
+Two different things share the word. Claude Code shipped a native `.claude/rules/` feature; SpecRoute's top-level `rules/` directory predates it and means something else.
+
+| | SpecRoute `rules/` | Claude Code `.claude/rules/` |
+|---|---|---|
+| What it is | Documentation - vendor-neutral standards plus per-vendor explainers of how each CLI surfaces them | A runtime feature - modular instruction files the CLI loads itself |
+| Who reads it | Humans, and agents following a link from a root context file | The Claude Code runtime, automatically |
+| Frontmatter | None | One optional field, `paths:` (glob list) |
+| Location | Repo root `rules/` | `.claude/rules/` per project, `~/.claude/rules/` per user |
+
+SpecRoute's directory is deliberately **not** renamed - its content is vendor-neutral and several vendors mirror it. Putting a file in the top-level `rules/` directory does nothing on its own; to make it active in Claude Code, copy the body into `.claude/rules/<topic>.md`.
 
 ## How to use this directory
 
@@ -53,12 +67,14 @@ File-pattern matching saves context budget — agents don't load Kotlin conventi
 
 | Vendor | Where rules live | Loading mechanism |
 |---|---|---|
-| Claude Code | `.claude/rules/` or `CLAUDE.md` | Auto-loaded via context file |
-| Codex | `AGENTS.md` body or `.codex/` rules dir | Via root context file |
-| Gemini CLI | `GEMINI.md` body | Via root context file |
-| Cursor | `.cursor/rules/*.mdc` | Frontmatter `alwaysApply` or `globs` |
+| Claude Code | `.claude/rules/*.md` or `CLAUDE.md` | `.claude/rules/` is auto-loaded and discovered recursively; optional `paths:` glob list scopes a file to matching edits, otherwise it loads at launch at `CLAUDE.md` priority. `~/.claude/rules/` loads first. |
+| Codex | `AGENTS.md` body | Via the root context file. Codex has **no** Markdown rule loader - its own `.rules` files are Starlark command-approval policy, a different thing. |
+| Gemini CLI / Antigravity | `GEMINI.md` body | Via the root context file. No rule-directory feature. `AGENTS.md` is **not** read unless `context.fileName` opts in. |
+| Cursor | `.cursor/rules/*.mdc` | Frontmatter `alwaysApply` or `globs`. `.cursorrules` is removed in practice - undocumented and reported non-functional. |
 | Kiro | `.kiro/steering/*.md` | Frontmatter `inclusion: always` or `fileMatch` |
-| Windsurf | `.windsurf/rules/*.md` | Frontmatter `trigger: always` or `model-decision` |
+| Devin Desktop | `.devin/rules/*.md` (preferred); Cascade also accepts `.windsurf/rules/*.md` | Frontmatter `trigger: always_on`, `model_decision`, `glob`, or `manual` |
+
+Three vendors now offer file-scoped rule loading under different field names - Claude's `paths:`, Cursor's `globs`, Kiro's `inclusion: fileMatch` - and two (Codex, Gemini) offer none at all. Rule content ports across vendors; rule *loading semantics* do not.
 
 See [[Vendor Matrix]] for the full contract.
 

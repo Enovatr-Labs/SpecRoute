@@ -1,5 +1,13 @@
 {
-  "_comment": "Claude Code hooks template for the consumer runtime. Drop into .claude/hooks/hooks.json. Replace <project>-specific paths and add hooks specific to your project.",
+  "_comment": "SOURCE OF TRUTH ONLY - the Claude Code CLI does NOT read a project-level .claude/hooks/hooks.json. That filename is a hook source for *plugins*. For a project, the CLI reads hooks from .claude/settings.json (tracked), .claude/settings.local.json (gitignored), ~/.claude/settings.json, managed policy settings, plugin hooks/hooks.json, and skill/agent frontmatter. Keep this file as the annotated original, then merge its .hooks key into .claude/settings.json with tools/sync-hooks-to-settings.sh. If you copy hooks.json into your repo and stop there, your hooks will never fire.",
+
+  "_comment_install": "cp runtimes/.claude/hooks/hooks.template.json .claude/hooks/hooks.json  &&  tools/sync-hooks-to-settings.sh .claude/hooks/hooks.json .claude/settings.json",
+
+  "_comment_paths": "Commands resolve through ${CLAUDE_PROJECT_DIR:-.} so they fire correctly no matter which directory the tool call ran from. Bare relative paths break as soon as Claude Code works in a subdirectory. Replace the script paths below with your own.",
+
+  "_comment_handler_types": "\"command\" is not the only handler type. Also available: \"http\" (POST the hook payload to a URL), \"mcp_tool\" (call a tool on a configured MCP server), \"prompt\" (LLM yes/no check), and \"agent\" (agentic verifier). \"prompt\" and \"agent\" are tool events only - PreToolUse, PostToolUse, PermissionRequest.",
+
+  "_comment_per_hook_options": "Each handler accepts: \"timeout\" (seconds), \"statusMessage\" (spinner text), \"async\" (run in background, do not block the turn), \"once\" (run a single time then drop), and \"if\" (permission-rule syntax such as \"Bash(git commit *)\" that skips the hook unless the tool call matches). Use \"if\" to avoid spawning a subprocess on every call - but do not narrow a *blocking* gate with it, because a pattern that fails to match is a silent hole rather than a loud failure.",
 
   "hooks": {
     "SessionStart": [
@@ -8,7 +16,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/session-start-status.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/scripts/session-start-status.sh\"",
+            "timeout": 15,
+            "statusMessage": "Reading project status"
           }
         ]
       }
@@ -20,7 +30,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/pre-bash-sanitize.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/scripts/pre-bash-sanitize.sh\"",
+            "timeout": 60,
+            "statusMessage": "Running the sanitization gate"
           }
         ]
       }
@@ -32,7 +44,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/scripts/post-edit-frontmatter.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/scripts/post-edit-frontmatter.sh\"",
+            "timeout": 20,
+            "statusMessage": "Checking frontmatter"
           }
         ]
       }

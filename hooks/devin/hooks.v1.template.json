@@ -1,0 +1,38 @@
+{
+  "SessionStart": [
+    {
+      "matcher": "",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash .devin/hooks/scripts/session-start-status.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ],
+  "PreToolUse": [
+    {
+      "matcher": "^exec$",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash .devin/hooks/scripts/pre-shell-sanitize.sh",
+          "timeout": 15
+        }
+      ]
+    }
+  ],
+  "PostToolUse": [
+    {
+      "matcher": "^edit$",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "bash .devin/hooks/scripts/post-edit-frontmatter.sh",
+          "timeout": 5
+        }
+      ]
+    }
+  ]
+}

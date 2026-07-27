@@ -8,7 +8,7 @@ fileMatchPattern: "src/**/*.tsx"
 > **Steering rule template - file-pattern-matched inclusion.** This rule loads only when the user is working with files matching `fileMatchPattern`. Use to scope rules to specific contexts.
 >
 > Cursor analog: `globs: ["src/**/*.tsx"]` without `alwaysApply: true`.
-> Windsurf analog: `trigger: model-decision` + `globs: [...]`.
+> Devin Desktop Cascade analog: `trigger: glob` + `globs: "..."`.
 > Claude Code / Codex / Gemini: not natively pattern-matched; surface via agent or skill scoping.
 
 ## When to use file-match

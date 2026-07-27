@@ -2,7 +2,7 @@
 
 ## What is SpecRoute?
 
-An open-source framework for **spec-driven agentic software engineering**, vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf. It ships templates, prompts, agent definitions, runtime layouts, and engineering rules — **markdown content, not application code.**
+An open-source framework for **spec-driven agentic software engineering**, vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Devin Desktop. It ships templates, prompts, agent definitions, runtime layouts, and engineering rules — **markdown content, not application code.**
 
 See [[Home]] and [[Philosophy]].
 
@@ -14,7 +14,7 @@ The only executables are sanitization-gate hooks and cross-vendor sync utilities
 
 ## Which agent CLIs are supported?
 
-Six — Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf/Devin (see [[Vendor Matrix]]).
+Six — Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Devin Desktop (see [[Vendor Matrix]]).
 
 Earlier SpecRoute releases sorted these into capability tiers (Full / Near-full / Partial / Rules-only). **As of mid-2026 that distinction no longer holds.** All six have converged on the same capability set — Agent Skills (`SKILL.md`), subagents, custom commands, lifecycle hooks, and MCP. They now differ in **file format and conventions**, not capability class (Codex agents are TOML where the others are Markdown; Gemini commands are TOML where Claude/Cursor are Markdown; MCP config is JSON for most but TOML for Codex).
 
@@ -73,7 +73,7 @@ Yes — Apache 2.0 license. Copy what you need, adapt to your stack, ignore the 
 
 ## What's the difference between `.claude/` and `runtimes/.claude/`?
 
-- `.claude/` (at the repo root) is the **implementation team** that builds SpecRoute itself — 11 agents, 4 skills, 4 commands, 3 hooks for the SpecRoute contributors.
+- `.claude/` (at the repo root) is the **implementation team** that builds SpecRoute itself — 12 agents, 6 skills, 4 commands, 3 hooks for the SpecRoute contributors.
 - `runtimes/.claude/` is the **consumer template** that you drop into your own repository.
 
 Don't confuse them. See [[Implementation Team]].
@@ -92,7 +92,7 @@ The `add-vendor` skill walks through it interactively. See [[Adding a Vendor]] f
 
 ## Is there a roadmap?
 
-Yes — [[Roadmap]]. Current version is v0.3.0. Phases 1–3 are complete; Phase 4 (maturity) is in progress.
+Yes — [[Roadmap]]. Current version is v0.4.0. Phases 1–3 are complete; Phase 4 (maturity) is in progress.
 
 ## What's a "phased master-prompt pattern"?
 
@@ -111,7 +111,7 @@ Numbered files, sorted phases, explicit agent assignments. Each task prompt inst
 
 ## Why don't I see any code in the worked example?
 
-Because **SpecRoute ships the inputs**, not the output. The worked example is the PRD + spec triplet + agent roster + 28 prompts + runtime layout. When you `cp -R examples/sample-project/. /path/to/new-repo/` and run `prompts/runtime/pickup-next-task.md` in Claude Code, the agents *generate* the code. See [[Worked Example]].
+Because **SpecRoute ships the inputs**, not the output. The worked example is the PRD + spec triplet + agent roster + 29 prompts + runtime layout. When you `cp -R examples/sample-project/. /path/to/new-repo/` and run `prompts/runtime/pickup-next-task.md` in Claude Code, the agents *generate* the code. See [[Worked Example]].
 
 ## How do I get help?
 

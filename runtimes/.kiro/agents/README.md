@@ -1,6 +1,6 @@
 # `.kiro/agents/` - Kiro custom subagents
 
-Flat-file subagents Kiro can delegate to. Arrived in **Kiro 0.9** (2026-02-05).
+Flat-file subagents Kiro can delegate to. Arrived in **Kiro 0.9** (2026-02-05); unchanged through **Kiro IDE 1.0** (2026-07-23), which reformatted hooks but left agents alone.
 
 ## Layout
 

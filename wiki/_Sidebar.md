@@ -9,6 +9,7 @@
 - [[Spec-Driven Development]]
 - [[Agentic Coding Model]]
 - [[Automation Decision Framework]]
+- [[Multi-Agent Orchestration]]
 - [[Two-Tier Docs Pattern]]
 - [[Multi-Vendor Context Files]]
 - [[Documentation Structure]]

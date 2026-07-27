@@ -38,3 +38,24 @@ All fields are optional; leave `paths` unset to make the skill universally avail
 
 - Skills are multi-step, on-demand workflows - not always-on rules. Use [`../rules/`](../rules/) for short, always-on guidelines.
 - Keep the body aligned with the Claude skill of the same slug; only the frontmatter shape differs (Cursor omits `argument-hint`, `user-invocable`, and `allowed-tools`).
+
+## Invoking a skill
+
+Use your runtime's skill prefix. In Claude Code both work once the skill is registered:
+
+```
+/all-hands review the changes        # skill/command menu
+@all-hands review the changes        # mention picker - lists files AND registered skills
+```
+
+A correctly registered skill appears in the `@` picker with type **Skill**. If you see only
+directories and no `Skill` row, it did not register - and the cause is almost always
+frontmatter:
+
+- **`disable-model-invocation: true` hides it** from the model-facing registry the `@` picker
+  completes against. Omit it unless you want the skill reachable *only* from the `/` menu.
+- **`allowed-tools` is comma-separated** (`Read, Grep, Glob, Bash, Agent`). Space separation
+  and stale tool names (`Task` was superseded by `Agent`) fail silently.
+- **The folder name must equal the `name` field.**
+
+Each skill's `SKILL.md` carries a per-runtime invocation table.

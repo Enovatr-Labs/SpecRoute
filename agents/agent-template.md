@@ -1,10 +1,15 @@
 ---
 name: <slug-lowercase-hyphenated>
 description: <one-paragraph description that includes trigger phrases. Pattern - "Use when <situation>. Owns <files/dirs>. Triggers - 'literal user utterance 1', 'literal user utterance 2', 'literal user utterance 3'." Trigger phrases drive auto-selection - without them the agent will not be invoked.>
-model: opus | sonnet | haiku
-color: blue | cyan | green | yellow | orange | red | pink | purple | <named color recognized by your runtime>
-memory: project | user | absent          # optional; "project" stores per-conversation context in this repo's .claude/agent-memory/
-internet: Yes | No | absent              # optional; whether the agent should perform web research
+model: <vendor model id>                 # optional; e.g. Claude `opus` / `sonnet` / `haiku` / `inherit`. NOT a SpecRoute tier word.
+tools: Read, Grep, Glob                  # optional; allowlist. Include WebFetch/WebSearch only if the agent should research the web.
+disallowedTools: Write, Edit             # optional; denylist, applied before `tools`
+skills: [<skill-slug>]                   # optional; preload skill content into this agent
+memory: project | user | local           # optional; "project" stores per-conversation context in this repo's .claude/agent-memory/
+effort: low | medium | high | xhigh | max  # optional; reasoning budget
+isolation: worktree                      # optional; run in a dedicated git worktree
+permissionMode: <mode>                   # optional; permission posture for this agent
+color: blue | cyan | green | yellow | orange | red | pink | purple   # optional; UI tint only
 ---
 
 You are the **<Role Title>** for <Project Name> - <one-sentence statement of the agent's authority and scope>.
@@ -40,10 +45,15 @@ Crisp boundaries here are how rosters stay healthy. If you find yourself violati
 ## How to fill this template
 
 1. **Pick a slug.** Lowercase, hyphen-separated. The filename matches the slug (e.g. `prd-author.md`).
-2. **Write the description with triggers.** This is the most important field. Include 3–5 concrete trigger utterances in quotes - these drive Claude Code's automatic agent selection. Without triggers, the agent is invisible.
-3. **Pick a model.** Default: `opus` for senior author roles (PRD, spec, architecture, security), `sonnet` for narrower deterministic roles (lint, sync, mechanical reviews). `haiku` for fast/cheap operations.
-4. **Pick a color.** Used by the runtime UI. Pick one that distinguishes from your other agents.
-5. **List `Owns`.** Be specific about file paths and directories. The agent's claim to those files is exclusive.
-6. **Write 4–6 operating principles.** Specific. Non-obvious. The kind of guidance you'd give a senior contributor on day one.
-7. **Write 2–4 "Don't use for" lines.** These hand off the adjacent concerns to the right neighbor.
-8. **Body length.** ~30–50 lines is the sweet spot. Longer agents tend to drift; shorter agents under-specify.
+2. **Write the description with triggers.** This is the most important field. Include 3–5 concrete trigger utterances in quotes - these drive automatic agent selection. Without triggers, the agent is invisible.
+3. **Pick a model - or don't.** `name` and `description` are the only required fields; every other field below is optional. When `model` is absent, Claude Code subagents inherit the parent session's model, which is often the right answer. If you do set it, write a **value your runtime accepts** (Claude: `opus` / `sonnet` / `haiku` / `fable` / a full model id / `inherit`). SpecRoute's `flagship` / `balanced` / `fast` tiers are a documentation abstraction for rosters only - never write them into an agent file. Mapping table: [`wiki/Agents.md`](../wiki/Agents.md#semantic-model-tiers).
+4. **Decide on web access via `tools`.** There is no `internet:` field - it is not read by any runtime. To let the agent research, include `WebFetch` / `WebSearch` in `tools`; to deny it, omit them from the allowlist or name them in `disallowedTools`.
+5. **Pick a color, optionally.** Used by the runtime UI only. Nothing breaks if you omit it.
+6. **List `Owns`.** Be specific about file paths and directories. The agent's claim to those files is exclusive.
+7. **Write 4–6 operating principles.** Specific. Non-obvious. The kind of guidance you'd give a senior contributor on day one.
+8. **Write 2–4 "Don't use for" lines.** These hand off the adjacent concerns to the right neighbor.
+9. **Body length.** ~30–50 lines is the sweet spot. Longer agents tend to drift; shorter agents under-specify.
+
+## Porting to another vendor
+
+`name`, `description`, and the whole body are portable. The rest is not - each vendor has its own field set (Codex is TOML with `developer_instructions`; Gemini has `kind` / `temperature`; Kiro has no `color` or `memory`; Cursor has `readonly` / `is_background`). Translate the frontmatter, keep the body. See [`wiki/Frontmatter-Contracts.md`](../wiki/Frontmatter-Contracts.md) for the per-vendor field lists.

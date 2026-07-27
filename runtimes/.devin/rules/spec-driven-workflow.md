@@ -1,6 +1,6 @@
 ---
 description: SpecRoute spec-driven workflow and artifact routing.
-trigger: always
+trigger: always_on
 ---
 
 # Spec-Driven Workflow

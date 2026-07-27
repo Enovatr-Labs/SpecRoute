@@ -53,7 +53,7 @@ Add the new vendor row, naming the vendor's native shape for each capability (sk
 
 `rules/<vendor>-rules.md`:
 
-- Vendor-specific rule file conventions (e.g. Cursor `.mdc` with `alwaysApply: true`, Windsurf `*.md` with custom frontmatter)
+- Vendor-specific rule file conventions (e.g. Cursor `.mdc` with `alwaysApply: true`, Devin Local `.devin/rules/*.md` with custom frontmatter)
 - Defer to `rules/engineering-rules.md`, `rules/code-review-rules.md` etc. for shared content
 - Document the inclusion semantics (always-on vs file-pattern-matched) per the vendor's loader
 
@@ -81,7 +81,7 @@ If the vendor supports any of the artifacts in `examples/sample-project/`, mirro
 Final checklist for the user:
 
 - [ ] Runtime layout scaffolded
-- [ ] Vendor matrix updated in README, agent-cli-integrations, multi-vendor-context-files
+- [ ] Vendor matrix updated in README, AGENTS.md, wiki/Vendor-Matrix.md, and agent-cli-integrations
 - [ ] Per-vendor rule file created
 - [ ] MCP rendering wired (if applicable)
 - [ ] Cross-vendor sync updated (if applicable)

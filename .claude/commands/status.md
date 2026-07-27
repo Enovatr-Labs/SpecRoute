@@ -6,7 +6,9 @@ Report the SpecRoute skeleton state at a glance. Run these checks and summarize 
 
 ```bash
 echo "── top-level directory status ──"
-for d in docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets; do
+# Keep this list in sync with EXPECTED_DIRS in .claude/hooks/session-start-status.sh.
+# Ground truth: ls -d */
+for d in agentic-docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets scripts wiki; do
   if [ -d "$d" ]; then
     n=$(find "$d" -type f \( -name "*.md" -o -name "*.json" -o -name "*.toml" -o -name "*.yaml" -o -name "*.yml" -o -name "*.sh" -o -name "*.py" \) 2>/dev/null | wc -l | tr -d ' ')
     echo "  ✓  $d/ ($n files)"
@@ -17,7 +19,7 @@ done
 
 echo
 echo "── runtime layouts ──"
-for v in claude codex gemini kiro cursor windsurf; do
+for v in claude codex gemini kiro cursor devin; do
   if [ -d "runtimes/.$v" ]; then
     echo "  ✓  runtimes/.$v/"
   else
@@ -46,7 +48,7 @@ git log --oneline -5
 Summarize as:
 
 1. Overall completion: `<built>/<expected>` top-level dirs, `<built>/6` runtime layouts.
-2. The 11 implementation agents (note any missing).
+2. The implementation agents (compare against `.claude/agents/README.md`; note any missing).
 3. TODO count and the top items.
 4. Git: branch, uncommitted changes, recent commits.
 

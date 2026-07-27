@@ -1,6 +1,6 @@
 # `.claude/hooks/scripts/`
 
-Supporting shell scripts referenced by `hooks.json`. Each script must:
+Supporting shell scripts. They are **executed via the `hooks` key in `.claude/settings.json`** - `hooks.json` alongside them is only the annotated source of truth, not something the CLI reads (a bare project `hooks/hooks.json` is read for plugins only). Each script must:
 
 - Be executable (`chmod +x`).
 - Read JSON from stdin (parse with `python3` or `jq`).

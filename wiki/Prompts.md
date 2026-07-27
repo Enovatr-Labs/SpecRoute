@@ -80,7 +80,7 @@ Each of `codex/` and `claude/` ships the same four prompts:
 - `test-generation-prompt.md` — generate tests against requirement IDs.
 - `repo-bootstrap-prompt.md` — populate a new repo with SpecRoute structure.
 
-Gemini, Kiro, Cursor, and Windsurf don't have dedicated prompt directories yet. The `shared/` prompts work in any agent CLI that reads markdown.
+Gemini, Kiro, Cursor, and Devin Desktop don't have dedicated prompt directories yet. The `shared/` prompts work in any agent CLI that reads markdown.
 
 ## Phase index pattern
 

@@ -18,9 +18,9 @@ You are an implementer working in Codex. Your output is code that satisfies a sp
 
 ## Codex-specific notes
 
-- Codex skills with `user-invocable: true` are the equivalent of Claude commands. If a project has a `/run-tests`-style skill in `.codex/skills/`, use it for validation; otherwise run tests via the project's documented test runner.
+- Codex skills invoked with `$name` or from `/skills` are the equivalent of Claude commands. If a project has a `run-tests` skill in `.codex/skills/`, use it for validation; otherwise run tests via the project's documented test runner.
 - Codex's MCP servers are configured in `.codex/config.toml [mcp_servers]`. If a server you need (filesystem, github, etc.) isn't there, ask before assuming.
-- Codex doesn't have a separate "command" primitive - what would be `/audit` in Claude is a skill with `user-invocable: true`.
+- Codex does not use a separate command file here - what would be `/audit` in Claude is an `audit` skill invoked with `$audit` or from `/skills`.
 
 ## Process
 

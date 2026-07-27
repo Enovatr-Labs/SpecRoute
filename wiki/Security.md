@@ -13,12 +13,12 @@ We treat the following as security issues:
 - **Malicious shell in hook templates or runtime examples.** Hook scripts (`hooks/claude/*.sh`, `runtimes/.claude/hooks/*.sh`) and any executable shipped here run on contributor and consumer machines. A backdoor or command injection affects every consumer who copies them.
 - **Supply-chain risk in tooling.** Scripts under `tools/` (`sync-skills.py`, MCP renderers in `runtimes/mcp/render/`) execute on consumer machines. Vulnerabilities here — arbitrary file write, code execution from untrusted YAML — qualify.
 - **Prompt-injection vectors in templates.** A template that, when filled in with adversarial input, causes the consumer's agent CLI to leak credentials or execute unintended commands.
-- **Sanitization bypass.** A change that lets private upstream terms or secrets evade `.claude/hooks/pre-bash-sanitize.sh`, `/sanitize`, or `/audit`. See [[Sanitization]].
+- **Sanitization or provenance bypass.** A change that lets private identifiers, secrets, or copied private-source material evade `.claude/hooks/pre-bash-sanitize.sh`, `/sanitize`, `tools/provenance-audit.py`, or `/audit`. See [[Sanitization]].
 - **Insecure default configurations** in `runtimes/.<vendor>/` templates that consumers are likely to copy verbatim (e.g. an MCP server config exposing `filesystem` to `/` instead of the project root).
 
 ## Out of scope
 
-- Vulnerabilities in the agent CLIs themselves (Claude Code, Codex, Gemini CLI, Kiro, Cursor, Windsurf). Report upstream.
+- Vulnerabilities in the agent CLIs themselves (Claude Code, Codex, Gemini CLI, Kiro, Cursor, Devin Desktop). Report upstream.
 - Vulnerabilities in MCP servers SpecRoute references but doesn't ship. Report upstream.
 - Generic prompt-injection in third-party content a consumer feeds into their agent CLI.
 - Security of consumer-extracted artifacts after they fork/copy templates — the responsibility shifts at extraction time.
@@ -59,7 +59,8 @@ When contributing hooks, scripts, or runtime templates:
 - **Set `set -u`** in shell scripts to catch unset variables.
 - **Use Python's `json.load`** (not `eval`) when parsing JSON.
 - **Pin MCP server versions** in `runtimes/mcp/servers.yaml` — `@latest` invites supply-chain surprises.
-- **Default to least privilege** — skill `allowed-tools` should be the minimum set; hooks should fail closed; example MCP `filesystem` configs should scope to the project, not `/`.
+- **Default to least privilege** — hooks should fail closed; example MCP `filesystem` configs should scope to the project, not `/`.
+- **Do not treat `allowed-tools` as a sandbox.** In Claude Code it **pre-approves** tools for the invoking turn (the grant clears next message) rather than restricting them; `disallowed-tools` is what removes tools from the pool. Keeping `allowed-tools` tight still reduces unattended auto-approval, but it is not a confinement boundary. Real confinement comes from `permissions` in `settings.json`, `disallowed-tools`, and the runtime sandbox.
 
 The `template-quality-reviewer` agent and the `/audit` command flag obvious violations. See [[Hooks]] for the full hardening checklist.
 

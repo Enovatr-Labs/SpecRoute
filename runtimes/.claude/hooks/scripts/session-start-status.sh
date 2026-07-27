@@ -9,7 +9,7 @@ cd "$REPO_ROOT" || exit 0
 
 echo "-- project status --------------------------------------------------"
 
-EXPECTED_DIRS=(docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets)
+EXPECTED_DIRS=(agentic-docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets scripts wiki)
 PRESENT=()
 MISSING=()
 

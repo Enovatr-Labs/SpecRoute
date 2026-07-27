@@ -1,0 +1,36 @@
+{
+  "_comment": "Cursor hooks. Install to .cursor/hooks.json (project) or ~/.cursor/hooks.json (user). Project hook commands run from the project root, so the shipped .cursor/hooks/scripts/ paths are correct. User hook commands run from ~/.cursor/ and must use ./hooks/scripts/ paths instead. Cursor v1 exposes ~21 camelCase events. Reference: https://cursor.com/docs/agent/hooks",
+
+  "_install": "mkdir -p .cursor/hooks/scripts && cp runtimes/.cursor/hooks/hooks.template.json .cursor/hooks.json && cp runtimes/.cursor/hooks/scripts/*.sh .cursor/hooks/scripts/ && chmod +x .cursor/hooks/scripts/*.sh",
+
+  "_fail_open_warning": "Cursor is FAIL-OPEN by default: a hook that crashes, times out, or exits with an unexpected code lets the action through. beforeShellExecution below sets failClosed: true because it is a security gate. Copy that flag onto any hook you add that must not be bypassed by its own failure.",
+
+  "version": 1,
+
+  "hooks": {
+    "sessionStart": [
+      {
+        "type": "command",
+        "command": "bash .cursor/hooks/scripts/session-start-status.sh",
+        "timeout": 15
+      }
+    ],
+
+    "beforeShellExecution": [
+      {
+        "type": "command",
+        "command": "bash .cursor/hooks/scripts/pre-shell-sanitize.sh",
+        "failClosed": true,
+        "timeout": 60
+      }
+    ],
+
+    "afterFileEdit": [
+      {
+        "type": "command",
+        "command": "bash .cursor/hooks/scripts/post-edit-frontmatter.sh",
+        "timeout": 20
+      }
+    ]
+  }
+}

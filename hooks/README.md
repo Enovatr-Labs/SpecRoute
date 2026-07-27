@@ -2,35 +2,40 @@
 
 Event-triggered automation. Hooks run automatically when something happens (file edit, session start, pre-tool invocation) - the user doesn't invoke them. This is what distinguishes hooks from skills, agents, and commands.
 
-**All six supported vendors ship a hooks system.** The event taxonomies and config shapes differ; the underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible.
+**All six supported vendors ship a hooks system.** The underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible. The **event taxonomies and config shapes are not** - they remain the least portable part of the framework. See [Cross-vendor convergence](#cross-vendor-convergence) for what actually transfers.
 
 ```
 hooks/
 ├── README.md                            (this file)
 ├── claude/
-│   ├── hooks.template.json              Claude Code: ~30 events, 5 hook types
+│   ├── hooks.template.json              Claude Code: 30 events, 5 hook types
 │   └── scripts/                         supporting shell scripts
 ├── codex/
-│   ├── hooks.template.json              Codex: 10 events; Claude-compatible JSON
+│   ├── hooks.template.json              Codex: 11 events; Claude-compatible JSON
 │   └── scripts/                         supporting shell scripts
 ├── gemini/
 │   ├── hooks-settings.template.json     Gemini CLI: 11 events; lives under `hooks` key in settings.json
 │   └── scripts/                         supporting shell scripts
 ├── kiro/
-│   └── examples/                        Kiro: 10 events, *.kiro.hook JSON files
+│   ├── README.md                        Kiro hook format + 0.x → 1.0 migration checklist
+│   └── examples/                        Kiro: 10 triggers, .kiro/hooks/<name>.json (v1)
 ├── cursor/
 │   ├── hooks.template.json              Cursor: ~21 events with permission/decision schema
 │   └── scripts/                         supporting shell scripts
-└── windsurf/
-    ├── hooks.template.json              Windsurf: 12 events, blocking pre-hooks only
-    └── scripts/                         supporting shell scripts
+├── devin/                               Devin Desktop (current)
+│   ├── hooks.v1.template.json           Devin Local: 8 events, .devin/hooks.v1.json
+│   └── scripts/                         supporting shell scripts
 ```
+
+Working implementations of all six live under [`runtimes/`](../runtimes/), one
+`runtimes/.<vendor>/hooks/` per vendor. The templates here are the reference tier; the runtimes are
+the copy-and-run tier.
 
 ## Per-vendor event matrix
 
 The full event lists. Bold events are the ones SpecRoute's reference implementations exercise.
 
-### Claude Code (~30 events)
+### Claude Code (30 events)
 
 Most comprehensive. Reference: <https://code.claude.com/docs/en/hooks>.
 
@@ -48,6 +53,7 @@ Most comprehensive. Reference: <https://code.claude.com/docs/en/hooks>.
 | `PostToolUseFailure` | Tool call fails | Soft |
 | `PostToolBatch` | Full parallel batch resolves | Yes |
 | `Notification` | Claude Code sends a notification | No |
+| `MessageDisplay` | Claude Code displays a message to the user | No |
 | `SubagentStart` | Subagent spawned | No |
 | `SubagentStop` | Subagent finishes | Yes |
 | `TaskCreated` | Task created via TaskCreate | Yes (rolls back) |
@@ -68,20 +74,31 @@ Most comprehensive. Reference: <https://code.claude.com/docs/en/hooks>.
 
 Hook types: `command`, `http`, `mcp_tool`, `prompt`, `agent`. Config in `.claude/settings.json` `hooks` key, or `~/.claude/settings.json` for user level. Matchers support exact strings, `|`-separated lists, and JavaScript regex.
 
-### Codex (10 events)
+### Codex (11 events)
 
-Reference: <https://developers.openai.com/codex/hooks>.
+Reference: <https://learn.chatgpt.com/docs/hooks>.
+
+Codex has adopted Claude Code's hook event vocabulary almost verbatim - **the event names below are identical to Claude Code's**. This is the strongest cross-vendor convergence in the whole matrix.
 
 | Event | Fires when | Blockable |
 |---|---|---|
 | `SessionStart` | Session begins or resumes | Yes (`continue: false`) |
+| `SessionEnd` | Session ends | No |
 | `UserPromptSubmit` | User submits a prompt | Yes |
 | `PreToolUse` | Before tool call executes | Yes (`permissionDecision: "deny"`) |
 | `PermissionRequest` | Before approval prompt | Yes |
 | `PostToolUse` | After tool completion (success or fail) | Soft (replaces tool result) |
 | `Stop` | Conversation turn ends | No (instead returns continuation prompt) |
+| `PreCompact` | Before context compaction | No |
+| `PostCompact` | After context compaction | No |
+| `SubagentStart` | Subagent begins | No |
+| `SubagentStop` | Subagent finishes | No |
 
-Config in `.codex/hooks.json` (preferred) or inline `[hooks]` table in `.codex/config.toml`. Requires `[features] codex_hooks = true`. Multiple matching hooks run **concurrently**. JSON output schema is intentionally Claude-compatible (`hookSpecificOutput`, `permissionDecision`, `decision: "block"`).
+Verified against an installed `codex-cli` 0.145.0 binary. Note Claude Code's `PostToolUseFailure` has **no** Codex counterpart - the convergence is close but not total.
+
+Discovery order: `~/.codex/hooks.json`, `~/.codex/config.toml` `[hooks]`, `<repo>/.codex/hooks.json`, `<repo>/.codex/config.toml` `[hooks]`, and plugin-bundled `hooks/hooks.json`. Hooks are **enabled by default**. The canonical `[features]` key is `hooks`; `codex_hooks` is a deprecated alias that still works. Disable with `[features] hooks = false`.
+
+Multiple matching hooks run **concurrently**. The JSON output schema is intentionally Claude-compatible (`hookSpecificOutput`, `permissionDecision`, `decision: "block"`). **Only `type: "command"` executes today** - `prompt` and `agent` handlers are parsed but skipped.
 
 ### Gemini CLI (11 events)
 
@@ -103,24 +120,56 @@ Reference: <https://github.com/google-gemini/gemini-cli/blob/main/docs/hooks/ref
 
 Config in `.gemini/settings.json` under `hooks` key (project) or `~/.gemini/settings.json` (user). Hook type `command` only. Each hook entry can set `sequential: true` to opt out of parallel execution. Stdout must be the final JSON only - no plain text.
 
-### Kiro (10 events)
+### Kiro (10 triggers)
 
 Reference: <https://kiro.dev/docs/hooks/types/>.
 
-| Event | Fires when | Blockable |
-|---|---|---|
-| `Prompt Submit` | User submits a prompt | (advisory) |
-| `Agent Stop` | Agent completes its turn | (advisory) |
-| `Pre Tool Use` | Agent about to invoke a tool | Yes |
-| `Post Tool Use` | After agent invokes a tool | (advisory) |
-| `File Create` | New files matching patterns are created | (advisory) |
-| `File Save` | Files matching patterns are saved | (advisory) |
-| `File Delete` | Files matching patterns are deleted | (advisory) |
-| `Pre Task Execution` | Before a spec task begins | Yes |
-| `Post Task Execution` | After a spec task completes | (advisory) |
-| `Manual Trigger` | Manually invoked | n/a |
+**Kiro IDE 1.0 (2026-06-25) replaced the hook format.** The old `*.kiro.hook` files and their
+space-separated event names (`File Save`, `Pre Tool Use`, …) are gone. The table below is 1.0.
+For the 0.x mapping and a migration checklist, see [`kiro/README.md`](kiro/README.md).
 
-Config in `.kiro/hooks/<name>.kiro.hook` (one JSON file per hook). Tool-name field supports specific tools, built-in categories (`read`, `write`, `shell`, `web`, `spec`, `*`), prefix filters (`@mcp`, `@powers`, `@builtin`), and regex.
+| Trigger | Fires when | Blockable |
+|---|---|---|
+| `SessionStart` | Session begins or resumes | No |
+| `Stop` | Agent completes its turn | (advisory) |
+| `PreToolUse` | Agent about to invoke a tool | Yes |
+| `PostToolUse` | After agent invokes a tool | (advisory) |
+| `PreTaskExec` | Before a spec task begins | Yes |
+| `PostTaskExec` | After a spec task completes | (advisory) |
+| `UserPromptSubmit` | User submits a prompt | (advisory) |
+| `PostFileCreate` | New file matching `matcher` is created | (advisory) |
+| `PostFileSave` | File matching `matcher` is saved | (advisory) |
+| `PostFileDelete` | File matching `matcher` is deleted | (advisory) |
+| ~~`Manual`~~ | **Retired in 1.0** - use a manual steering file instead | n/a |
+
+Config in `.kiro/hooks/<name>.json` - a `"version": "v1"` root with a `hooks` array, so one file may
+declare several hooks:
+
+```json
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Doc Sync Checker",
+      "trigger": "PostFileSave",
+      "matcher": "README.md|AGENTS.md|docs/**/*.md",
+      "action": { "type": "agent", "prompt": "<what the agent should do>" },
+      "timeout": 30,
+      "enabled": true
+    }
+  ]
+}
+```
+
+Hook types are `command` (shell, in an `action.command` field) and `agent` (prompt handed to the
+Kiro agent, in `action.prompt`) - the 0.x `runCommand` / `askAgent` names under a different spelling.
+`matcher` is a single string, where 0.x used a `patterns` array; `|`-separate multiple values. For
+tool triggers it accepts specific tools, built-in categories (`read`, `write`, `shell`, `web`,
+`spec`, `*`), prefix filters (`@mcp`, `@powers`, `@builtin`), and regex.
+
+> **Consumers with existing hooks:** 1.0 flags legacy `*.kiro.hook` files with an upgrade badge but
+> does not execute them. Run `ls .kiro/hooks/*.kiro.hook` - anything it prints is outside the v1
+> runtime and needs migration.
 
 ### Cursor (~21 events)
 
@@ -150,37 +199,58 @@ Reference: <https://cursor.com/docs/agent/hooks>.
 
 Config: `<project>/.cursor/hooks.json` (project), `~/.cursor/hooks.json` (user), enterprise paths under `/Library/Application Support/Cursor/` or `/etc/cursor/`. Top-level `version: 1` + `hooks` map. Hook types: `command` (default) and `prompt` (LLM-evaluated). Per-hook `failClosed`, `loop_limit`, `timeout`, `matcher`.
 
-### Windsurf (12 events)
+### Devin Desktop / Devin Local (8 events)
 
-Reference: <https://docs.windsurf.com/windsurf/cascade/hooks>.
+Reference: <https://docs.devin.ai/cli/extensibility/hooks/overview>.
 
 | Event | Fires when | Blockable |
 |---|---|---|
-| `pre_user_prompt` | Before prompt processing | Yes |
-| `pre_read_code` | Before file read | Yes |
-| `post_read_code` | After file read | No |
-| `pre_write_code` | Before file modification | Yes |
-| `post_write_code` | After file modification | No |
-| `pre_run_command` | Before terminal execution | Yes |
-| `post_run_command` | After terminal execution | No |
-| `pre_mcp_tool_use` | Before MCP invocation | Yes |
-| `post_mcp_tool_use` | After MCP invocation | No |
-| `post_cascade_response` | After response completion | No |
-| `post_cascade_response_with_transcript` | After response (async, full transcript) | No |
-| `post_setup_worktree` | After worktree creation | No |
+| `PreToolUse` | Before a tool executes | Yes |
+| `PostToolUse` | After a tool finishes | No |
+| `PermissionRequest` | A permission decision is needed | Yes |
+| `UserPromptSubmit` | User submits a message | Yes |
+| `Stop` | Agent wants to stop | Yes |
+| `PostCompaction` | Context compaction completes successfully | No |
+| `SessionStart` | Session begins | No |
+| `SessionEnd` | Session ends | No |
 
-Config: `.windsurf/hooks.json` (workspace), `~/.codeium/windsurf/hooks.json` (user), `~/.codeium/hooks.json` (JetBrains), system paths for enterprise. Each hook entry has `command` (bash) and/or `powershell` (Windows fallback), plus `show_output` and `working_directory`. Only **pre-hooks** are blockable.
+Config: `.devin/hooks.v1.json`, or the `hooks` key in `.devin/config.json`.
+Handlers may be `command` or `prompt`; matchers are regular expressions over
+`tool_name`.
+
+Cascade compatibility uses a separate 12-event snake-case contract at
+`.windsurf/hooks.json`. It is part of the transition inside Devin Desktop, not
+a seventh SpecRoute hook vendor.
 
 ## Cross-vendor convergence
 
-The schema is converging:
+**Hooks are the least converged layer in the framework.** Skills are where convergence is
+near-total - the Agent Skills `SKILL.md` shape is genuinely portable across all six vendors. Hooks
+are not there, and it is worth being precise about what does and doesn't transfer.
+
+What *has* converged:
 
 - **Common base input**: `session_id`, `transcript_path`, `cwd`, `hook_event_name` appear in every vendor's payload.
 - **Common output controls**: `continue`, `stopReason`, `systemMessage`, `suppressOutput` are accepted by Claude, Codex, and Gemini.
 - **Decision schemas**: Claude, Codex, and Gemini all support `hookSpecificOutput` with `permissionDecision: "allow|deny|ask"` for tool-use events.
 - **Exit codes**: `0` = success, `2` = blocking, anything else = warning is consistent across all six.
+- **Event naming, in four of six**: Claude, Codex, Kiro, and Devin Local share `SessionStart`,
+  `UserPromptSubmit`, `PreToolUse`, `PostToolUse`, `Stop`. Kiro's 1.0 rewrite (2026-06-25) moved it
+  onto these names from its old `Pre Tool Use` / `File Save` spellings, so a Claude hook's event
+  keys now port to Kiro with less translation than before.
 
-This means hook scripts written for Claude Code can often run unchanged under Codex (with renamed event keys), and the JSON-output discipline transfers.
+What has *not* converged, and shows no sign of doing so:
+
+- **Cursor** uses camelCase across ~21 events (`preToolUse`, `beforeShellExecution`, `afterFileEdit`)
+  and adds Tab-scoped events no other vendor has.
+- **Gemini CLI** uses its own verb-first vocabulary (`BeforeTool`, `AfterModel`,
+  `BeforeToolSelection`, `PreCompress`) that maps only loosely onto pre/post tool-use.
+- **Cascade compatibility inside Devin Desktop** retains snake_case operation
+  names such as `pre_read_code` and `post_run_command`.
+
+So: a hook script's *body* and its stdin/stdout discipline port well. Its *registration* - event
+name, config path, config shape - does not, and each vendor still needs its own template under
+`hooks/<vendor>/`. Budget for per-vendor hook wiring; do not budget for a single hooks file.
 
 ## Common matcher conventions
 
@@ -189,9 +259,9 @@ This means hook scripts written for Claude Code can often run unchanged under Co
 | Claude Code | exact / `\|` list / regex | Auto-detected by content |
 | Codex | regex string | Same conventions |
 | Gemini CLI | regex string | Per hook entry |
-| Kiro | tool name / category / `@mcp` / regex | Multiple modes |
+| Kiro | glob / tool name / category / `@mcp` / regex | Single `matcher` string; `\|`-separate values |
 | Cursor | tool type / pattern / regex | `matcher` field |
-| Windsurf | per-event `tool_info` filter (script-side) | No declarative matcher |
+| Devin Desktop | regex on `tool_name` | Same matcher model as Devin CLI |
 
 ## When to build a hook
 

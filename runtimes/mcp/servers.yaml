@@ -2,15 +2,15 @@
 #
 # This is the authoritative inventory of MCP servers for the project. All six
 # supported vendors consume MCP; only two emit shapes exist (a JSON `mcpServers`
-# object for everyone except Codex, which uses `[mcp_servers]` TOML). Renderers
-# under render/ emit per-vendor configs from this file:
+# object for everyone except Codex, which uses `[mcp_servers]` TOML). Six
+# renderers under render/ emit one config per supported vendor:
 #
-#   - .claude/.mcp.json                   (Claude Code CLI; user scope ~/.claude.json)
+#   - .mcp.json                           (Claude Code CLI; user scope ~/.claude.json)
 #   - .codex/config.toml [mcp_servers]    (Codex)
 #   - .gemini/settings.json [mcpServers]  (Gemini CLI)
 #   - .kiro/settings/mcp.json             (Kiro)
 #   - .cursor/mcp.json                    (Cursor)
-#   - ~/.codeium/windsurf/mcp_config.json (Windsurf / Devin; user scope)
+#   - .devin/config.json [mcpServers]      (Devin Desktop / Devin Local)
 #
 # When you add or remove a server, edit this file then run:
 #
@@ -19,7 +19,7 @@
 #   python3 runtimes/mcp/render/render_gemini.py   > runtimes/.gemini/settings.template.json
 #   python3 runtimes/mcp/render/render_kiro.py     > runtimes/.kiro/settings/mcp.template.json
 #   python3 runtimes/mcp/render/render_cursor.py   > runtimes/.cursor/mcp.template.json
-#   python3 runtimes/mcp/render/render_windsurf.py > ~/.codeium/windsurf/mcp_config.json
+#   python3 runtimes/mcp/render/render_devin.py    > runtimes/.devin/config.template.json
 #
 # Default set is vendor-neutral. Add proprietary servers only if your project
 # truly needs them and the consumer can supply credentials.

@@ -1,0 +1,37 @@
+{
+  "version": "v1",
+  "_comment": "Kiro IDE 1.0 hook config. Drop into .kiro/hooks/<name>.json - one file per hook set. Root version is the STRING \"v1\", not the integer 1. Triggers (10): SessionStart, Stop, PreToolUse, PostToolUse, PreTaskExec, PostTaskExec, UserPromptSubmit, PostFileCreate, PostFileSave, PostFileDelete. The 0.x 'Manual' trigger was retired - manual invocation is now a steering file. Actions are action.type 'command' or 'agent'. Reference: https://kiro.dev/docs/hooks/",
+  "hooks": [
+    {
+      "name": "Session start status",
+      "trigger": "SessionStart",
+      "action": {
+        "type": "command",
+        "command": "bash .kiro/hooks/scripts/session-start-status.sh"
+      },
+      "timeout": 10,
+      "enabled": true
+    },
+    {
+      "name": "Sanitization gate",
+      "trigger": "PreToolUse",
+      "action": {
+        "type": "command",
+        "command": "bash .kiro/hooks/scripts/pre-tool-sanitize.sh"
+      },
+      "timeout": 30,
+      "enabled": true
+    },
+    {
+      "name": "Frontmatter check",
+      "trigger": "PostFileSave",
+      "matcher": ".claude/agents/**/*.md|.kiro/agents/**/*.md|**/skills/**/SKILL.md",
+      "action": {
+        "type": "command",
+        "command": "bash .kiro/hooks/scripts/post-edit-frontmatter.sh"
+      },
+      "timeout": 30,
+      "enabled": true
+    }
+  ]
+}

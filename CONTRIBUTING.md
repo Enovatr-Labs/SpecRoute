@@ -26,7 +26,7 @@ Thanks for considering a contribution. SpecRoute is a community-curated framewor
 - Vendor-favoring changes that break parity in the supported matrix
 - Build tooling, package configs, or test runners - SpecRoute is content, not an application
 - Templates that aren't immediately usable (no abstract checklists, no theory-only docs)
-- Material extracted from a private codebase without sanitization
+- Material extracted from a private codebase without both generalization and sanitization
 
 ## Contribution workflow
 
@@ -49,7 +49,7 @@ Thanks for considering a contribution. SpecRoute is a community-curated framewor
 - A clear title and a short description that says **what** changed and **why**.
 - Link the related issue.
 - Note which vendors the change affects (or "vendor-neutral" if shared).
-- Confirm sanitization in the PR description.
+- Confirm sanitization in the PR description. Release maintainers also run the private-source provenance gate; its source paths and reviewed hashes remain local and gitignored.
 
 ## License
 

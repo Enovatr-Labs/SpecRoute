@@ -1,19 +1,6 @@
 {
-  "_comment": "Codex hooks template. Drop into .codex/hooks.json (preferred) or merge as inline [hooks] table into .codex/config.toml. Codex supports 10 lifecycle events: SessionStart, SubagentStart, PreToolUse, PermissionRequest, PostToolUse, PreCompact, PostCompact, UserPromptSubmit, SubagentStop, Stop. This template wires a representative subset. Reference: https://developers.openai.com/codex/hooks",
-
-  "_feature_flag": "Hooks are ENABLED BY DEFAULT. To disable, set in .codex/config.toml: [features]\\nhooks = false  ('codex_hooks' is a deprecated alias for the same key.)",
-
-  "_schema_summary": {
-    "matcher": "regex string applied to the event-specific field (tool name for *ToolUse / PermissionRequest; source for SessionStart). Use '*', '', or omit for universal match.",
-    "concurrency": "Multiple matching hooks for the same event run in PARALLEL — one cannot prevent another from starting.",
-    "exit_code_protocol": {
-      "0": "success; stdout parsed as optional JSON output (or used as plain-text context)",
-      "2": "blocking signal; stderr is the rejection reason",
-      "other": "failure (effect depends on event)"
-    },
-    "json_output_compatibility": "Codex's JSON output schema is intentionally Claude-compatible: hookSpecificOutput, permissionDecision, decision='block', additionalContext, continue: false."
-  },
-
+  "_comment": "Executable Codex starter. Hooks are enabled by default. The canonical feature key is hooks; codex_hooks is a deprecated alias. Only command handlers execute. Active entries reference only shipped scripts.",
+  "_reference": "https://learn.chatgpt.com/docs/hooks",
   "hooks": {
     "SessionStart": [
       {
@@ -21,60 +8,22 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .codex/hooks/scripts/session-start-status.sh",
-            "timeout": 60
+            "command": "bash .codex/hooks/scripts/session-start-status.sh"
           }
         ]
       }
     ],
-
-    "UserPromptSubmit": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .codex/hooks/scripts/prompt-policy-check.sh"
-          }
-        ]
-      }
-    ],
-
     "PreToolUse": [
       {
-        "matcher": "Bash|^apply_patch$",
+        "matcher": "",
         "hooks": [
           {
             "type": "command",
             "command": "bash .codex/hooks/scripts/pre-tool-sanitize.sh"
           }
         ]
-      },
-      {
-        "_example_mcp_match": {
-          "matcher": "mcp__filesystem__write.*",
-          "hooks": [
-            {
-              "type": "command",
-              "command": "bash .codex/hooks/scripts/pre-mcp-fs-write.sh"
-            }
-          ]
-        }
       }
     ],
-
-    "PermissionRequest": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .codex/hooks/scripts/permission-request-shell.sh"
-          }
-        ]
-      }
-    ],
-
     "PostToolUse": [
       {
         "matcher": "apply_patch|Edit|Write",
@@ -85,22 +34,6 @@
           }
         ]
       }
-    ],
-
-    "Stop": [
-      {
-        "matcher": "",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash .codex/hooks/scripts/stop-quality-gate.sh"
-          }
-        ]
-      }
     ]
-  },
-
-  "_inline_toml_equivalent": "If you prefer .codex/config.toml inline (hooks are on by default, so the [features] line is only needed to re-enable after disabling):\n\n[[hooks.SessionStart]]\nmatcher = \"startup|resume\"\n\n[[hooks.SessionStart.hooks]]\ntype = \"command\"\ncommand = \"bash .codex/hooks/scripts/session-start-status.sh\"\ntimeout = 60\n\n[[hooks.PreToolUse]]\nmatcher = \"Bash|^apply_patch$\"\n\n[[hooks.PreToolUse.hooks]]\ntype = \"command\"\ncommand = \"bash .codex/hooks/scripts/pre-tool-sanitize.sh\"\n",
-
-  "_managed_hooks_enterprise": "For enterprise distribution, use Requirements.toml managed_dir to centralize hook scripts. Codex pulls scripts from the managed directory; the JSON config above only references commands, not script content."
+  }
 }

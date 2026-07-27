@@ -11,8 +11,9 @@ cd "$REPO_ROOT"
 
 echo "── SpecRoute skeleton status ──────────────────────────────────────"
 
-# Top-level dirs from initial.md target structure
-EXPECTED_DIRS=(docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets)
+# Top-level dirs in the SpecRoute layout. Keep in sync with the same list in
+# .claude/commands/status.md. Regenerate the ground truth with: ls -d */
+EXPECTED_DIRS=(agentic-docs prds specs agents skills commands hooks prompts workflows rules runtimes examples tools assets scripts wiki)
 MISSING=()
 PRESENT=()
 for d in "${EXPECTED_DIRS[@]}"; do

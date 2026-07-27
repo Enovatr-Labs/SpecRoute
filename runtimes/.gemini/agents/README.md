@@ -23,6 +23,8 @@ One Markdown file per subagent. The body after the frontmatter becomes the subag
 
 ## Porting from `.claude/agents/`
 
-The body and `name`/`description` are portable. Claude's `model`/`color`/`memory`/`internet` fields do not apply; map intent to Gemini's `model`, `tools`, `kind`, and `temperature`. Note that Gemini subagents do not inherit the parent's tools, so be explicit in `tools`.
+The body and `name`/`description` are portable. Claude's `color` and `memory` fields do not apply here, and Claude's `model` values are not Gemini model ids - map intent to Gemini's `model`, `tools`, `kind`, and `temperature`. Note that Gemini subagents do not inherit the parent's tools, so be explicit in `tools`.
+
+If a SpecRoute roster row says `Internet: Yes`, express it here by listing Gemini's web tools in `tools`. There is no `internet:` frontmatter field in Gemini, Claude, or any other vendor - it is a roster column only. Tier words (`flagship` / `balanced` / `fast`) are likewise documentation; see [`wiki/Agents.md`](../../../wiki/Agents.md#semantic-model-tiers) for the mapping to concrete Gemini model ids.
 
 `spec-reviewer.md` ships here as a worked reference. Replace or extend it with your project's roster.

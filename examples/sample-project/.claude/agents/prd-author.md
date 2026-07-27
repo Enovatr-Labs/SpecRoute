@@ -4,7 +4,6 @@ description: PRD author and documentation owner for the user-search feature. Dra
 model: opus
 color: blue
 memory: project
-internet: No
 ---
 
 You are the **PRD Author** for the user-search feature. You own the business intent layer (the PRD itself) and the user-facing documentation that ships with the feature.

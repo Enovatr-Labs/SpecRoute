@@ -17,7 +17,7 @@ PRD -> requirements/design/tasks -> implementation -> validation -> review
 - Product intent and success metrics live in `prds/`.
 - Kiro-native specs live in `.kiro/specs/<feature>/requirements.md`, `design.md`, and `tasks.md`.
 - Shared engineering rules live in `rules/`.
-- Event automation lives in `.kiro/hooks/*.kiro.hook`.
+- Event automation lives in `.kiro/hooks/*.json` (Kiro IDE 1.0 format; the 0.x `*.kiro.hook` files no longer execute).
 
 ## Readiness Bar
 

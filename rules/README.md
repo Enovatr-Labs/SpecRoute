@@ -10,14 +10,28 @@ rules/
 ├── documentation-rules.md           doc standards
 ├── codex-rules.md                   Codex-specific surfacing
 ├── claude-rules.md                  Claude Code-specific surfacing
-├── gemini-rules.md                  Gemini-specific surfacing
+├── gemini-rules.md                  Gemini / Antigravity-specific surfacing
 ├── cursor-rules.md                  Cursor MDC conventions
-├── windsurf-rules.md                Windsurf rule conventions
+├── kiro-rules.md                    Kiro steering conventions
+├── devin-rules.md                   Devin Desktop rule conventions
 └── steering/
     ├── README.md
     ├── always-on-template.md        inclusion: always
     └── file-match-template.md       inclusion: fileMatch
 ```
+
+## `rules/` here is not Claude Code's `.claude/rules/`
+
+Two different things share the word "rules". Keep them straight:
+
+| | SpecRoute `rules/` (this directory) | Claude Code `.claude/rules/` |
+|---|---|---|
+| What it is | A SpecRoute documentation concept - the vendor-neutral standards plus a per-vendor explainer of how each CLI surfaces them | A Claude Code runtime feature - modular instruction files the CLI loads itself |
+| Who reads it | Humans, and agents that follow a link from a root context file | The Claude Code runtime, automatically |
+| Frontmatter | None | One optional field, `paths:` (glob list) |
+| Location | Repo root `rules/` | `.claude/rules/` in a project, `~/.claude/rules/` for the user |
+
+SpecRoute's directory predates the Claude Code feature and is deliberately **not** renamed - its content is vendor-neutral and several vendors mirror it. If you want Claude Code to auto-load some of this content, copy or link it into `.claude/rules/*.md`; putting a file in the top-level `rules/` directory does nothing on its own. See [`claude-rules.md`](claude-rules.md) for the mechanics.
 
 ## How to use this directory
 

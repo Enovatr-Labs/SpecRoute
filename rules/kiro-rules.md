@@ -4,7 +4,7 @@ How rules are loaded into Kiro. Rule content itself defers to the vendor-neutral
 
 ## Where Kiro looks
 
-Kiro's equivalent of "rules" is **steering** - Markdown files under `.kiro/steering/` whose frontmatter declares when they load. Unlike Cursor/Windsurf rule files, steering files are Kiro's first-class always-on/contextual context mechanism.
+Kiro's equivalent of "rules" is **steering** - Markdown files under `.kiro/steering/` whose frontmatter declares when they load. Unlike Cursor rules and Devin Desktop's Cascade-facing rules, steering files are Kiro's first-class always-on/contextual context mechanism.
 
 - **`.kiro/steering/*.md`** - steering files. The integration surface.
 
@@ -42,7 +42,7 @@ The canonical rule content lives in `rules/`. Copy the rule body into the steeri
 
 ## Skills, subagents, and MCP
 
-As of Kiro 0.9 (2026-02-05) Kiro consumes more than steering:
+Since Kiro 0.9 (2026-02-05), and continuing in **Kiro IDE 1.0** (2026-06-25), Kiro consumes more than steering:
 
 - **Skills** follow the Agent Skills standard at `.kiro/skills/<slug>/SKILL.md` (progressive disclosure - only `name`/`description` load until invoked).
 - **Subagents** live at `.kiro/agents/<name>.md` (frontmatter `name`, optional `description`, `tools`, `model`, `includeMcpJson`, `includePowers`).
@@ -51,11 +51,15 @@ As of Kiro 0.9 (2026-02-05) Kiro consumes more than steering:
 
 ## Hooks
 
-Kiro hooks are `*.kiro.hook` JSON files (10 events: file create/save/delete, prompt submit, agent stop, pre/post tool, pre/post task, manual) with `askAgent` or `runCommand` actions. See [`hooks/kiro/examples/`](../hooks/kiro/examples/).
+Kiro hooks are JSON files at `.kiro/hooks/<name>.json` with a `"version": "v1"` root and a `hooks` array. Each entry has `name`, `trigger`, `matcher`, `action`, `timeout`, and `enabled`. Actions are `{"type": "agent", "prompt": …}` or `{"type": "command", "command": …}`.
+
+Ten triggers: `SessionStart`, `Stop`, `PreToolUse`, `PostToolUse`, `PreTaskExec`, `PostTaskExec`, `UserPromptSubmit`, `PostFileCreate`, `PostFileSave`, `PostFileDelete`. `Manual` was retired in 1.0.
+
+**Kiro IDE 1.0 (2026-06-25) replaced the 0.x `*.kiro.hook` format.** Legacy files show an upgrade badge and do not execute until migrated. See [`hooks/kiro/README.md`](../hooks/kiro/README.md) for the field-by-field mapping and [`hooks/kiro/examples/`](../hooks/kiro/examples/) for worked examples.
 
 ## See also
 
 - [`engineering-rules.md`](engineering-rules.md) - vendor-neutral engineering rules.
 - [`runtimes/.kiro/README.md`](../runtimes/.kiro/README.md) - Kiro runtime layout.
-- [`steering/`](steering/) - file-pattern steering templates (shared concept with Cursor/Windsurf rules).
+- [`steering/`](steering/) - file-pattern steering templates (shared concept with Cursor and Devin Desktop's Cascade rules).
 - [`hooks/README.md`](../hooks/README.md) - cross-vendor hook taxonomy.

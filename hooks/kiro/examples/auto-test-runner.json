@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Auto Test Runner",
+      "trigger": "PostFileSave",
+      "matcher": "src/**/*.py|src/**/*.ts|src/**/*.tsx|tests/**/*.py|tests/**/*.ts",
+      "action": {
+        "type": "agent",
+        "prompt": "Run relevant tests for the modified file. If a test runner script exists, prefer that. Otherwise, infer the test framework from the project structure (pytest for Python, jest/vitest for TS) and run scoped tests for the modified file's test target. Report pass/fail status and any coverage impact."
+      },
+      "timeout": 120,
+      "enabled": false
+    }
+  ]
+}

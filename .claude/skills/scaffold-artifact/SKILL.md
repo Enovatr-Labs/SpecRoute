@@ -32,7 +32,7 @@ If the argument is missing or unclear, ask the user:
 
 1. Which artifact type? (PRD / lightweight PRD / SRS / spec triplet / feature spec / ADR / agent / skill / command / hook / prompt / runtime)
 2. Name (slug, lowercase-hyphenated)?
-3. If vendor-specific (command, hook, runtime, prompt): which vendor (claude / codex / gemini / kiro / cursor / windsurf)?
+3. If vendor-specific (command, hook, runtime, prompt): which vendor (claude / codex / gemini / kiro / cursor / devin)?
 
 ## Step 2: Resolve target path and template
 
@@ -48,10 +48,10 @@ Use the artifact-type → location mapping:
 | `adr` | `specs/examples/adr-<NNN>-<name>.md` | `specs/templates/architecture-decision-record.md` |
 | `agent` | `agents/examples/<name>.md` | `agents/agent-template.md` |
 | `skill` | `skills/examples/<name>/SKILL.md` | `skills/skill-template/SKILL.md` |
-| `command` (claude) | `commands/examples/<name>.md` | `commands/command-template.claude.md` |
+| `command` (claude) | `commands/examples/<name>.claude.md` | `commands/command-template.claude.md` |
 | `command` (gemini) | `commands/examples/<name>.gemini.toml` | `commands/command-template.gemini.toml` |
-| `hook` (claude) | `hooks/claude/<name>.sh` + entry in `hooks/claude/hooks.template.json` | `hooks/claude/hooks.template.json` |
-| `hook` (kiro) | `hooks/kiro/examples/<name>.kiro.hook` | (existing example) |
+| `hook` (claude) | `hooks/claude/scripts/<name>.sh` + entry in `hooks/claude/hooks.template.json` | `hooks/claude/hooks.template.json` |
+| `hook` (kiro) | `hooks/kiro/examples/<name>.json` | (existing example) |
 | `prompt` | `prompts/<vendor>/<name>.md` or `prompts/shared/<name>.md` | `prompts/shared/task-prompt-template.md` |
 | `runtime` | `runtimes/.<vendor>/` | (mirror nearest existing runtime) |
 

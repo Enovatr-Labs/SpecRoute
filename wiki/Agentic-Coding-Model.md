@@ -44,15 +44,20 @@ The user types `/scaffold-artifact prd notification-preferences`. The skill asks
 
 ## Vendor differences
 
-Not every vendor supports every primitive. See [[Vendor Matrix]] for the contract.
+**All six supported vendors now implement all four primitives.** Earlier releases sorted vendors into capability tiers; since the v0.3.0 convergence sweep that no longer holds. Vendors differ in **file format and invocation convention**, not capability class. See [[Vendor Matrix]] for the contract.
 
-- **Claude Code** — all four primitives + the richest hook system (~30 events).
-- **Codex** — skills + agents; commands subsumed into skills via `user-invocable: true`; hooks via 6 events.
-- **Gemini CLI** — commands (JSON map), MCP, and hooks via 11 events.
-- **Kiro** — hooks + steering rules; no standalone skills/agents/commands.
-- **Cursor / Windsurf** — rules + hooks.
+- **Claude Code** — all four as first-class concepts; the richest hook system (30 events, 5 hook types).
+- **Codex** — `SKILL.md` skills (invoked with `$name` or from `/skills`), agents as TOML (`.codex/agents/<name>.toml`), no separate command file, hooks via 11 events.
+- **Gemini CLI / Antigravity** — `SKILL.md` skills, Markdown subagents, commands as **TOML** under `.gemini/commands/`, hooks via 11 events.
+- **Kiro** — all four. Skills at `.kiro/skills/<slug>/SKILL.md`, subagents at `.kiro/agents/<name>.md`, commands surfaced as skills via `/skill` (plus `inclusion: manual` steering), hooks at `.kiro/hooks/<name>.json` (10 triggers; **format replaced in Kiro IDE 1.0, 2026-06-25**). Steering is its rules layer; specs are its native artifact.
+- **Cursor** — skills, subagents (`.cursor/agents/`, since 2.4), commands (`.cursor/commands/*.md`, since 1.6), `.mdc` rules, and hooks (~21 camelCase events with a `permission` schema).
+- **Devin Desktop** — Devin Local uses `SKILL.md` skills invoked as
+  `/skill-name`, experimental `.devin/agents/<name>/AGENT.md` subagents,
+  `AGENTS.md`, and eight lifecycle-hook events from `.devin/hooks.v1.json`.
+  Cascade workflows remain available only through the compatibility path
+  `.windsurf/workflows/*.md`.
 
-**Every supported vendor ships a hooks system.** Event taxonomies and config shapes differ; the underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible. See [[Hooks]].
+**Every supported vendor ships a hooks system.** The stdin/stdout contract is broadly compatible, but event vocabularies are the least converged part of the stack — Claude, Codex, Kiro, and Devin Local share core names such as `PreToolUse` / `PostToolUse` / `SessionStart`, while Cursor stays camelCase and Gemini CLI uses `BeforeTool` / `AfterModel`. Cascade retains its separate `pre_read_code` / `post_run_command` compatibility vocabulary. See [[Hooks]].
 
 ## Composition rules (hold across vendors)
 

@@ -1,13 +1,21 @@
 #!/usr/bin/env python3
+# /// script
+# dependencies = []
+# requires-python = ">=3.9"
+# ///
 """Render runtimes/mcp/servers.yaml into the Claude Code CLI's .mcp.json shape.
 
 Usage:
     python3 runtimes/mcp/render/render_claude.py > runtimes/.claude/mcp.template.json
+    uv run runtimes/mcp/render/render_claude.py > runtimes/.claude/mcp.template.json
 
 The Claude Code CLI reads MCP servers from `.mcp.json` (project scope, committed)
 and `~/.claude.json` (user scope). This is NOT the Claude Desktop app's
 `claude_desktop_config.json` - the two are different files for different products,
 though they share the same `mcpServers` JSON shape.
+
+This module is also the shared library for the sibling renderers: they import
+`parse_yaml_minimal` and `env_note` from here rather than duplicating them.
 
 Reads YAML from runtimes/mcp/servers.yaml. Writes JSON to stdout. Does not modify any files.
 """
@@ -104,6 +112,30 @@ def _scalar(s: str):
     return s
 
 
+def env_note(server: dict) -> str | None:
+    """Return a note naming a server's required env vars, or None if it needs none.
+
+    Every supported vendor's MCP config has an `env` map, but these are *tracked
+    templates*: inlining values would commit secrets, and the `${VAR}` expansion
+    syntax that would avoid that is not portable across all six runtimes; a
+    placeholder may be handed to the server verbatim instead of expanded.
+
+    So renderers without a documented expansion form surface `requires_env` as
+    a comment rather than a synthetic `env` entry - a `_comment` key nested
+    *inside* `env` (the previous shape) would reach the server process as an
+    environment variable literally named `_comment`. Devin Local is the
+    exception: its renderer emits the documented `${env:VAR}` substitution.
+    No renderer may drop `requires_env` silently.
+    """
+    required = server.get("requires_env")
+    if not required:
+        return None
+    return (
+        "Requires these environment variables, exported in your shell or a "
+        f"gitignored .env: {', '.join(required)}"
+    )
+
+
 def render(servers: list[dict]) -> dict:
     out = {
         "_comment": "Generated from runtimes/mcp/servers.yaml. Do not edit by hand. Re-run runtimes/mcp/render/render_claude.py to regenerate. Install to .mcp.json (project, committed) or ~/.claude.json (user) for the Claude Code CLI.",
@@ -114,10 +146,9 @@ def render(servers: list[dict]) -> dict:
             "command": s["command"],
             "args": list(s.get("args", [])),
         }
-        if s.get("requires_env"):
-            entry["env"] = {
-                "_comment": f"Set the following in your shell or .env: {', '.join(s['requires_env'])}"
-            }
+        note = env_note(s)
+        if note:
+            entry["_comment"] = note
         out["mcpServers"][s["name"]] = entry
     return out
 

@@ -26,7 +26,15 @@ Good candidates:
 - **Open TODOs the agent owns.** "Still need to validate index plan in eu-west-1 staging."
 - **Where the agent left off.** "Tasks 5–8 done; task 9 in flight; tasks 10+ blocked on Q2 resolution."
 - **Cross-agent coordination.** "I have the lock on `src/services/users/search/`; another implementer should not touch this until task 10 lands."
-- **Pointers to authoritative external state.** "The forbidden-strings list is at `.claude/.forbidden-strings.txt`; this file is gitignored, repopulate from `~/.claude/projects/.../memory/specroute_public_release.md` if missing."
+- **Pointers to authoritative external state.** "The forbidden-strings list is at `.claude/.forbidden-strings.txt`; this file is gitignored - if it is missing, repopulate it from your user-level memory directory."
+
+  Write the *derivation*, never a literal path, and never the filename of a note inside that directory. Claude Code flattens the project path by replacing `/` with `-`, so the location is `~/.claude/projects/<flattened-project-path>/memory/`:
+
+  ```bash
+  echo "$HOME/.claude/projects/$(git rev-parse --show-toplevel | tr '/' '-')/memory"
+  ```
+
+  A tracked file that names a maintainer's home directory - or a note filename inside it - is itself a small leak, and this file is tracked.
 
 ## What does NOT go in agent memory
 
@@ -52,7 +60,7 @@ These directories are tracked. They ship with the project and persist publicly. 
 | **Project agent memory** | `.claude/agent-memory/<agent-name>/` | Yes | Project-scoped state ships with the project; visible to all contributors |
 | **User-level memory** | `~/.claude/projects/<project>/memory/` | No | User-scoped state stays local; per-developer preferences and local-only sanitization rules |
 
-The project layer is for shared agent state that the team collectively benefits from. The user layer is for personal context (e.g. "I'm Chika, my role is X") that doesn't belong in the team's tracked files.
+The project layer is for shared agent state that the team collectively benefits from. The user layer is for personal context (e.g. "I'm <name>, my role is X") that doesn't belong in the team's tracked files.
 
 ## Reference implementations
 
@@ -85,7 +93,7 @@ capability** and is not part of the converged set - native support is still asym
 | Gemini CLI | No native per-agent memory | Use `GEMINI.md` references for project-wide state |
 | Kiro | Steering files act as cross-conversation memory | Use `.kiro/steering/` with `inclusion: always` |
 | Cursor | No native per-agent memory | Use rules with `alwaysApply: true` |
-| Windsurf / Devin | No native per-agent memory | Use `.devin/rules/` (or legacy `.windsurf/rules/`) with `trigger: always_on` |
+| Devin Desktop | No native per-agent memory | Put durable shared context in `AGENTS.md`; use `.devin/rules/` with `trigger: always_on` only for Cascade compatibility |
 
 For vendors without native support, the SpecRoute convention is to surface the same content via the vendor's rule or context-file mechanism.
 

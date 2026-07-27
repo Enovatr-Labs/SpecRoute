@@ -59,10 +59,10 @@ See [[MCP Integration]].
 
 If the vendor shares artifact shapes with Claude or Codex:
 
-- **For agents** — extend `tools/sync-skills.py` to include the new vendor's agents directory.
-- **For skills** — same.
+- **For skills** — add its runtime slug to `SKILL_VENDORS` in `tools/sync-skills.py`; body-aware sync preserves native frontmatter.
+- **For agents** — do not wire them into this tool. Agent formats diverge across vendors, so maintain the new runtime's agent mirrors explicitly.
 
-If the shapes are genuinely different (Kiro's `.kiro.hook` vs Claude's `hooks.json`), no sync target; document the asymmetry.
+If the shapes are genuinely different (Cursor's camelCase `hooks.json` vs Claude's `settings.json` hooks block), no sync target; document the asymmetry.
 
 ### 6. Add hook templates
 

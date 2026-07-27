@@ -94,4 +94,4 @@ Mocks at external boundaries only. Don't mock the system under test.
 - [`code-review-rules.md`](code-review-rules.md) - review-specific standards
 - [`security-rules.md`](security-rules.md) - security-specific standards
 - [`documentation-rules.md`](documentation-rules.md) - doc-specific standards
-- The per-vendor rule files (`{codex,claude,gemini,cursor,windsurf}-rules.md`) for vendor-specific format conventions
+- The per-vendor rule files (`{codex,claude,gemini,kiro,cursor,devin}-rules.md`) for vendor-specific format conventions

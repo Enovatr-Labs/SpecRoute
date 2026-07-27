@@ -1,6 +1,5 @@
 {
   "_comment": "Project-wide Claude Code settings for the user-search worked example. Tracked. Per-user overrides go in .claude/settings.local.json (gitignored).",
-
   "permissions": {
     "_comment": "Conservative defaults. Allow read-only inspection and basic git introspection without prompting.",
     "allow": [
@@ -13,12 +12,50 @@
     ],
     "deny": []
   },
-
   "model": "opus",
-
   "_env_comment": "Environment variables passed to tools. No secrets here - those go in .env (gitignored) or shell profile.",
   "env": {},
-
-  "_hooks_comment": "Hooks are configured in .claude/hooks/hooks.json.",
-  "_mcp_comment": "MCP servers for the Claude Code CLI live in .mcp.json at the repo root (project scope) or ~/.claude.json (user scope) - rename .claude/mcp.template.json into place. For the canonical inventory, regenerate from runtimes/mcp/servers.yaml in the SpecRoute repo."
+  "_mcp_comment": "MCP servers for the Claude Code CLI live in .mcp.json at the repo root (project scope) or ~/.claude.json (user scope) - rename .claude/mcp.template.json into place. For the canonical inventory, regenerate from runtimes/mcp/servers.yaml in the SpecRoute repo.",
+  "_hooks_comment": "Hooks MUST live here. Claude Code does not read a project-level .claude/hooks/hooks.json - that filename is a plugin hook source only. The annotated original lives at .claude/hooks/hooks.json; the \"hooks\" key below is generated from it by SpecRoute's tools/sync-hooks-to-settings.sh. Edit hooks.json, re-run the script, do not hand-edit \"hooks\" here.",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/session-start-status.sh\"",
+            "timeout": 15,
+            "statusMessage": "Reading project status"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/pre-bash-sanitize.sh\"",
+            "timeout": 60,
+            "statusMessage": "Running the sanitization gate"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/post-edit-frontmatter.sh\"",
+            "timeout": 20,
+            "statusMessage": "Checking frontmatter"
+          }
+        ]
+      }
+    ]
+  }
 }

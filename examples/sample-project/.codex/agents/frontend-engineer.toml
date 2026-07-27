@@ -2,7 +2,7 @@
 # Codex agents are standalone TOML files (NOT the flat Markdown shape Claude uses).
 # Required fields: name, description, developer_instructions.
 # Optional: model, model_reasoning_effort, sandbox_mode, mcp_servers, skills.config.
-# Reference: https://developers.openai.com/codex/subagents
+# Reference: https://learn.chatgpt.com/docs/agent-configuration/subagents
 
 name = "frontend-engineer"
 description = "Frontend implementer for the user-search feature. Owns the SearchInput, FilterChips, ResultTable, CursorPagination components and the /users/search page composition. Triggers - \"implement task #13 - search input\", \"build the FilterChips component\", \"compose the search page\", \"wire the API call\", \"add the link from /users\"."

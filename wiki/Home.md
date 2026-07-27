@@ -1,6 +1,6 @@
 # SpecRoute Wiki
 
-**An open-source framework for spec-driven agentic software engineering — vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf.**
+**An open-source framework for spec-driven agentic software engineering — vendor-neutral across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Devin Desktop.**
 
 SpecRoute captures production-grade patterns for PRDs, specifications, prompts, agents, skills, slash commands, hooks, workflows, and engineering rules. It is **content, not an application**: drop the templates and runtime layouts into your own repo and adapt them to your stack.
 
@@ -62,7 +62,7 @@ Read [[Spec-Driven Development]] for the full flow, [[Agentic Coding Model]] for
 
 ## Project status
 
-- **Current version**: v0.3.0 (released 2026-06-29).
+- **Current version**: v0.4.0 (released 2026-07-27).
 - **Phases 1–3 complete** (skeleton, core templates, runtime layouts).
 - **Phase 4 in progress** (real-world adoption, more vendors, DOI registration).
 

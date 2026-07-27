@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
+# /// script
+# dependencies = []
+# requires-python = ">=3.9"
+# ///
 """Render runtimes/mcp/servers.yaml into Kiro's .kiro/settings/mcp.json shape.
 
 Usage:
     python3 runtimes/mcp/render/render_kiro.py > runtimes/.kiro/settings/mcp.template.json
+    uv run runtimes/mcp/render/render_kiro.py > runtimes/.kiro/settings/mcp.template.json
 
 Kiro uses the same `mcpServers` JSON shape as Claude and Gemini (workspace config
 at .kiro/settings/mcp.json, user config at ~/.kiro/settings/mcp.json).
@@ -17,7 +22,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from render_claude import parse_yaml_minimal  # noqa: E402
+from render_claude import env_note, parse_yaml_minimal  # noqa: E402
 
 
 REPO_ROOT = Path(__file__).resolve().parents[3]
@@ -34,10 +39,9 @@ def render(servers: list[dict]) -> dict:
             "command": s["command"],
             "args": list(s.get("args", [])),
         }
-        if s.get("requires_env"):
-            entry["env"] = {
-                "_comment": f"Set the following in your shell or .env: {', '.join(s['requires_env'])}"
-            }
+        note = env_note(s)
+        if note:
+            entry["_comment"] = note
         out["mcpServers"][s["name"]] = entry
     return out
 

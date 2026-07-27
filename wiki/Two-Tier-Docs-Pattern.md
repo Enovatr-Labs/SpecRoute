@@ -20,7 +20,9 @@ GEMINI.md         (~30 lines, shim)       ├── spec-driven-development.md
                                           ├── ...
 ```
 
-**Tier 1** is short, scannable, and load-bearing for every interaction. **Tier 2** is detailed, comprehensive, and read selectively.
+**Tier 1** is short, scannable, and load-bearing for every interaction. **Tier 2** is detailed, comprehensive, and read selectively on demand.
+
+> **`AGENTS.md` standard vs SpecRoute convention.** The Agentic AI Foundation standard is plain Markdown with no required fields, frontmatter, schema, or official length cap; nested files use nearest-file precedence. The ~100-line target below is SpecRoute's context-budget convention, not an external requirement.
 
 ## Why two tiers
 
@@ -89,7 +91,10 @@ If a Tier 1 file passes the hard cap, ask which sections can move to Tier 2.
 - **Claude Code** loads `CLAUDE.md` automatically. Keep it short; deep references in `agentic-docs/` are loaded on demand.
 - **Codex** loads `AGENTS.md` automatically.
 - **Gemini CLI** loads `GEMINI.md` automatically.
-- **Cursor / Windsurf** load rule files; the two-tier pattern is enforced through which rules are `alwaysApply`-flagged vs glob-scoped.
+- **Cursor / Devin Desktop** read `AGENTS.md` natively and also load rule files
+  (`.cursor/rules/*.mdc`, `.devin/rules/*.md`; Cascade additionally accepts
+  `.windsurf/rules/`). The two-tier pattern is enforced through always-loaded
+  versus scoped rules.
 - **Kiro** loads `.kiro/steering/*.md` per `inclusion` frontmatter.
 
 See [[Multi-Vendor Context Files]] for the canonical-shim-pattern in full.

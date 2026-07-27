@@ -61,7 +61,12 @@ jobs:
         run: |
           set +e
           python3 tools/wiki-parity.py | tee parity-output.txt
-          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+          # `$?` after a pipeline is `tee`'s status, not the script's - tee always
+          # succeeds, so capturing `$?` here pinned exit_code to 0 and made both
+          # downstream steps unreachable. The gate looked wired and never fired.
+          # `PIPESTATUS[0]` is the first command's status. Read it immediately:
+          # any intervening command resets the array.
+          echo "exit_code=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
           set -e
 
       - name: Annotate staleness warnings (non-fatal)

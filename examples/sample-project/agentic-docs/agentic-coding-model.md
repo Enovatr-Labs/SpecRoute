@@ -6,7 +6,7 @@ How the four primitives (skills, agents, commands, hooks) compose for user-searc
 
 | Primitive | What it's used for | Claude (`.claude/`) | Codex (`.codex/`) |
 |---|---|---|---|
-| **Agents** | 8 implementation-team roles, named per task in `agent-roster.md` | [`.claude/agents/`](../.claude/agents/) (Markdown + frontmatter) | [`.codex/agents/`](../.codex/agents/) (TOML, `developer_instructions`) |
+| **Agents** | 9 implementation-team roles, named per task in `agent-roster.md` | [`.claude/agents/`](../.claude/agents/) (Markdown + frontmatter) | [`.codex/agents/`](../.codex/agents/) (TOML, `developer_instructions`) |
 | **Commands** | Pre-commit and pre-PR validation | [`.claude/commands/`](../.claude/commands/) | a skill invoked via `/skills` or `$mention` |
 | **Hooks** | Always-on enforcement (sanitization gate, frontmatter check, session status) | [`.claude/hooks/`](../.claude/hooks/) | `.codex/hooks.json` or inline `[hooks]` in `config.toml` (none shipped here) |
 | **MCP servers** | filesystem, github, memory, sequential-thinking, playwright | [`.claude/mcp.template.json`](../.claude/mcp.template.json) | [`.codex/config.toml`](../.codex/config.toml) `[mcp_servers.*]` |

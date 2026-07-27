@@ -53,14 +53,14 @@ sample-project/
 │   ├── settings.local.template.json        rename to settings.local.json after copy
 │   ├── mcp.template.json                   rename to ../.mcp.json (repo root) after copy
 │   ├── .forbidden-strings.template.txt     rename to .forbidden-strings.txt after copy
-│   ├── agents/                             8 implementation-team agents
+│   ├── agents/                             9 implementation-team agents
 │   ├── commands/                           /sanitize, /audit, /status, /parity
 │   ├── hooks/                               hooks.json + 3 scripts
 │   └── agent-memory/
 └── .codex/                     Codex runtime (second-vendor demonstration)
     ├── README.md                           Codex drop-in notes + TOML agent shape
     ├── config.toml                         MCP servers + approval policy
-    └── agents/                             same 8 agents, TOML shape (developer_instructions)
+    └── agents/                             same 9 agents, TOML shape (developer_instructions)
 ```
 
 The same project ships **two runtimes**: `.claude/` (Markdown agents) and `.codex/` (TOML agents). The PRDs, spec triplet, ADRs, prompts, and roster are vendor-neutral and shared - only the runtime layer differs. The `.codex/` variant is a worked demonstration of the mid-2026 vendor convergence: the identical implementation team in a second vendor's native shape. See [`.codex/README.md`](.codex/README.md).
@@ -117,7 +117,7 @@ The agent will read `specs/user-search/tasks.md`, find the lowest-numbered unche
 
 ## What the implementation team will do
 
-The 8 agents under `.claude/agents/` will, between them:
+The 9 agents under `.claude/agents/` will, between them:
 
 1. **Phase 0** — `backend-engineer` runs cache-TTL + cursor-encoding spikes; `security-auditor` runs the privacy review. Output: decisions recorded in `specs/user-search/design.md`.
 
@@ -152,9 +152,9 @@ The framework's contracts (frontmatter, spec triplet, phased prompts, hook proto
 
 ## Vendor scope
 
-This sample ships **two runtimes** - `.claude/` (Claude Code) and `.codex/` (Codex) - over one shared, vendor-neutral spec layer. The `.codex/` directory is a worked demonstration that the same team and artifacts carry across vendors: the eight agents are reproduced as TOML files with `developer_instructions`, and the MCP server set lives in `config.toml` instead of `mcp.template.json`. See [`.codex/README.md`](.codex/README.md).
+This sample ships **two runtimes** - `.claude/` (Claude Code) and `.codex/` (Codex) - over one shared, vendor-neutral spec layer. The `.codex/` directory is a worked demonstration that the same team and artifacts carry across vendors: the nine agents are reproduced as TOML files with `developer_instructions`, and the MCP server set lives in `config.toml` instead of `mcp.template.json`. See [`.codex/README.md`](.codex/README.md).
 
-To target further agent CLIs (Gemini, Kiro, Cursor, Windsurf), see the SpecRoute framework's `runtimes/.<vendor>/` layouts and adapt this sample's `.claude/` (or `.codex/`) to the equivalent vendor directory. The spec triplet, prompts, and roster work in any agent CLI that reads markdown.
+To target further agent CLIs (Gemini/Antigravity, Kiro, Cursor, Devin Desktop), see the SpecRoute framework's `runtimes/.<vendor>/` layouts and adapt this sample's `.claude/` (or `.codex/`) to the equivalent vendor directory. The spec triplet, prompts, and roster work in any agent CLI that reads markdown.
 
 ## See also
 

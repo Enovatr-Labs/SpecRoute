@@ -137,11 +137,11 @@ Agent review quality is a function of prompt quality + agent definition quality.
 | Vendor | Agent review viability |
 |---|---|
 | Claude Code | Strong — sub-agents via `Task` tool; can dispatch a `code-reviewer` agent |
-| Codex | Strong — skills with `user-invocable: true` work as review entry points |
-| Gemini CLI | Limited — no skill primitive; review prompts pasted directly |
+| Codex | Strong — skills can be invoked with `$name` or from the `/skills` menu |
+| Gemini CLI | Strong — Agent Skills can expose a review workflow and subagents can perform the review |
 | Cursor | Limited — rule-based, not workflow-based |
 | Kiro | Strong — file-saved hook can trigger review on PR-relevant changes |
-| Windsurf | Limited |
+| Devin Desktop | Strong — Devin Local supports skills and subagents; Cascade users can invoke the review prompt manually |
 
 For vendors with limited support, fall back to manual prompt invocation.
 

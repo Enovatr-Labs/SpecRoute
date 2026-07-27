@@ -2,7 +2,7 @@
 # Codex agents are standalone TOML files (NOT the flat Markdown shape Claude uses).
 # Required fields: name, description, developer_instructions.
 # Optional: model, model_reasoning_effort, sandbox_mode, mcp_servers, skills.config.
-# Reference: https://developers.openai.com/codex/subagents
+# Reference: https://learn.chatgpt.com/docs/agent-configuration/subagents
 
 name = "unit-test-writer"
 description = "Unit test author for the user-search feature. Writes tests against requirement IDs back-referenced by tasks - validator rules, RBAC matrix, query-builder SQL shapes, cursor round-trips, cache hit/miss paths, observability metrics, frontend component behaviors. Triggers - \"write unit tests for task #5\", \"cover the RBAC matrix\", \"test the cursor encoder round-trip\", \"test SearchInput debouncing\"."

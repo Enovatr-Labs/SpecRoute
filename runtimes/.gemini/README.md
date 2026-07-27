@@ -11,9 +11,13 @@ Drop this directory into the root of your project. Gemini reads from these paths
 │   └── <slug>/SKILL.md          Agent Skills open standard (enabled by default)
 ├── agents/
 │   └── <name>.md                subagents (Markdown + YAML frontmatter)
-└── commands/
-    └── <name>.toml              custom commands (prompt + optional description)
+├── commands/
+│   └── <name>.toml              custom commands (prompt + optional description)
+└── hooks/scripts/*.sh           shell scripts the settings.json hooks block invokes
 ```
+
+There is **no `.gemini/hooks.json`**. Gemini reads hooks from a top-level `hooks` key inside
+`settings.json`; a separate hooks file is never read. `.gemini/hooks/` holds only the scripts.
 
 ## Setup
 
@@ -25,7 +29,43 @@ Drop this directory into the root of your project. Gemini reads from these paths
 
 2. **MCP servers** - `settings.json`'s `mcpServers` map mirrors the canonical `runtimes/mcp/servers.yaml`. Run `runtimes/mcp/render/render_gemini.py` to regenerate it.
 
-3. **Hooks** - merge the `hooks` block from `hooks/gemini/hooks-settings.template.json` into `settings.json`. It covers the 11 Gemini lifecycle events (SessionStart, BeforeTool, AfterTool, ...). See that template and `hooks/gemini/scripts/` for the contract.
+3. **Hooks** - install the scripts, then merge the `hooks` key into `settings.json`:
+
+   ```bash
+   mkdir -p .gemini/hooks/scripts
+   cp runtimes/.gemini/hooks/scripts/*.sh .gemini/hooks/scripts/
+   chmod +x .gemini/hooks/scripts/*.sh
+
+   python3 - <<'PY'
+   import json
+   settings = json.load(open(".gemini/settings.json"))
+   snippet = json.load(open("runtimes/.gemini/hooks/hooks-settings.snippet.json"))
+   settings["hooks"] = snippet["hooks"]
+   json.dump(settings, open(".gemini/settings.json", "w"), indent=2)
+   PY
+
+   printf '# One whitespace-free term per line.\n' > .gemini/.forbidden-strings.txt
+   echo '.gemini/.forbidden-strings.txt' >> .gitignore
+   ```
+
+   That wires three hooks: a `SessionStart` orientation banner, a `BeforeTool` sanitization gate that
+   blocks `git commit` / `git push` / `gh pr create` / `gh release create` while forbidden strings
+   remain in tracked files, and an `AfterTool` frontmatter check.
+
+   **The hooks block ships as a separate snippet on purpose.** `runtimes/.gemini/settings.template.json`
+   is *generated* from [`../mcp/servers.yaml`](../mcp/servers.yaml) by
+   [`../mcp/render/render_gemini.py`](../mcp/render/render_gemini.py). Hand-editing it to add hooks is
+   silently overwritten on the next render and breaks the single-source invariant, so the hooks live in
+   [`hooks/hooks-settings.snippet.json`](hooks/hooks-settings.snippet.json) and are merged at install
+   time. Re-run the merge after any regeneration.
+
+   **Blocking semantics**: exit `0` succeeds, exit `2` is a system block with stderr as the reason,
+   anything else is a warning and the CLI continues. Stdout must be the final JSON and nothing else -
+   stricter than any other vendor. Only `type: "command"` is supported.
+
+   See [`hooks/README.md`](hooks/README.md) for the full contract and the 11-event vocabulary
+   (SessionStart, SessionEnd, BeforeAgent, AfterAgent, BeforeModel, AfterModel, BeforeToolSelection,
+   BeforeTool, AfterTool, PreCompress, Notification), which is shared with no other vendor.
 
 4. **Skills** - copy `runtimes/.gemini/skills/` to `.gemini/skills/`. One folder per skill with a `SKILL.md`; see [`skills/README.md`](skills/README.md) for the frontmatter contract.
 
@@ -40,7 +80,7 @@ Drop this directory into the root of your project. Gemini reads from these paths
 | Skills | Yes | `.gemini/skills/<slug>/SKILL.md` |
 | Subagents | Yes | `.gemini/agents/<name>.md` |
 | Slash commands | Yes | `.gemini/commands/<name>.toml` (TOML, not the old JSON map) |
-| Hooks | Yes | `settings.json` `hooks` block (11 events) |
+| Hooks | Yes | `settings.json` `hooks` block (11 events); scripts in `.gemini/hooks/scripts/` |
 | MCP servers | Yes | `settings.json` `mcpServers` |
 | Engineering rules | Indirect | root `GEMINI.md` and rules referenced from there |
 | Prompts | Yes | `prompts/` works in any agent CLI that reads markdown |
@@ -55,6 +95,8 @@ Gemini reads `GEMINI.md` at repo root. It should be a short delegation shim poin
 |---|---|
 | `.gemini/settings.json` | Yes (sans secrets) |
 | `.gemini/skills/`, `.gemini/agents/`, `.gemini/commands/` | Yes |
+| `.gemini/hooks/scripts/*.sh` | Yes |
+| `.gemini/.forbidden-strings.txt` | **No** (per-installation) |
 
 Secrets and personal preferences belong in environment variables or `.env` (gitignored).
 

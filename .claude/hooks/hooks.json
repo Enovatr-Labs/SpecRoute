@@ -1,4 +1,14 @@
 {
+  "_comment": "SOURCE OF TRUTH ONLY - the Claude Code CLI does not read this file. A bare project-level .claude/hooks/hooks.json is a hook source for *plugins*, not for projects. The CLI reads hooks from .claude/settings.json (tracked), .claude/settings.local.json (gitignored), ~/.claude/settings.json, managed policy, plugin hooks/hooks.json, and skill/agent frontmatter. Edit this file, then run tools/sync-hooks-to-settings.sh to merge the .hooks key below into .claude/settings.json - that is the file that actually executes.",
+
+  "_comment_paths": "Commands resolve through ${CLAUDE_PROJECT_DIR:-.} so hooks fire correctly regardless of the shell's cwd. Bare relative paths break the moment Claude Code runs a tool from a subdirectory.",
+
+  "_comment_sessionstart": "Prints the SpecRoute skeleton status banner (built vs TODO dirs, agent count, sanitization warning). Informational; always exits 0. Not async - the stdout is injected as session context, and an async hook's output arrives too late to be context.",
+
+  "_comment_pretooluse": "The sanitization gate. Blocks git commit / git push / gh pr create / gh release create when a term from the gitignored .claude/.forbidden-strings.txt appears in a tracked file. Deliberately NOT narrowed with a per-hook \"if\" condition: this is a publish gate, and a narrowing pattern that fails to match is a silent hole. The script's own case statement exits 0 immediately for non-publish commands, so the cost of the wide matcher is one short-lived subprocess.",
+
+  "_comment_posttooluse": "Warn-only frontmatter lint. The script filters by path itself (agents / skills / commands), so the matcher stays at the tool level.",
+
   "hooks": {
     "SessionStart": [
       {
@@ -6,7 +16,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/session-start-status.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/session-start-status.sh\"",
+            "timeout": 15,
+            "statusMessage": "Reading SpecRoute skeleton status"
           }
         ]
       }
@@ -17,7 +29,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/pre-bash-sanitize.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/pre-bash-sanitize.sh\"",
+            "timeout": 60,
+            "statusMessage": "Running the sanitization gate"
           }
         ]
       }
@@ -28,7 +42,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/post-edit-frontmatter.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/post-edit-frontmatter.sh\"",
+            "timeout": 20,
+            "statusMessage": "Checking frontmatter"
           }
         ]
       }

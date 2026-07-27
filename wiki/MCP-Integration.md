@@ -13,11 +13,11 @@ Model Context Protocol (MCP) server inventory, with a single source of truth and
 | Gemini CLI | `mcpServers` JSON object | `.gemini/settings.json` |
 | Kiro | `mcpServers` JSON object | `.kiro/settings/mcp.json` |
 | Cursor | `mcpServers` JSON object | `.cursor/mcp.json` |
-| Windsurf / Devin | `mcpServers` JSON object | `~/.codeium/windsurf/mcp_config.json` |
+| Devin Desktop | `mcpServers` JSON object | `.devin/config.json` |
 
 > **Note:** `claude_desktop_config.json` is the **Claude Desktop app's** MCP file, not the Claude Code CLI's. The CLI reads `.mcp.json` (project, committed) and `~/.claude.json` (user). Earlier SpecRoute releases pointed at the Desktop file in error.
 
-Maintaining six files by hand is the failure mode. They drift; reviewers can't tell which is authoritative.
+Maintaining six emitted configurations by hand is the failure mode. They drift; reviewers can't tell which is authoritative.
 
 ## The solution
 
@@ -31,7 +31,7 @@ runtimes/mcp/render/
 ├── render_gemini.py               renders to Gemini JSON
 ├── render_kiro.py                 renders to Kiro JSON
 ├── render_cursor.py               renders to Cursor JSON
-└── render_windsurf.py             renders to Windsurf / Devin JSON
+└── render_devin.py                renders Devin Desktop's `.devin/config.json`
 ```
 
 ## Workflow
@@ -48,11 +48,11 @@ python3 runtimes/mcp/render/render_codex.py   > runtimes/.codex/config.template.
 python3 runtimes/mcp/render/render_gemini.py  > runtimes/.gemini/settings.template.json
 python3 runtimes/mcp/render/render_kiro.py    > runtimes/.kiro/settings/mcp.template.json
 python3 runtimes/mcp/render/render_cursor.py  > runtimes/.cursor/mcp.template.json
-python3 runtimes/mcp/render/render_windsurf.py > runtimes/.windsurf/mcp_config.template.json
+python3 runtimes/mcp/render/render_devin.py   > runtimes/.devin/config.template.json
 
 # 3. Commit the canonical source + rendered outputs in one commit
 git add runtimes/mcp/servers.yaml runtimes/.*/mcp*.json runtimes/.codex/config.template.toml \
-        runtimes/.gemini/settings.template.json
+        runtimes/.gemini/settings.template.json runtimes/.devin/config.template.json
 git commit -m "mcp: add <server-name>"
 ```
 
@@ -75,12 +75,17 @@ servers:
       - gemini
       - kiro
       - cursor
-      - windsurf
+      - devin
     notes: |
       <optional contextual notes>
 ```
 
 Each renderer reads the same source and emits the vendor-specific shape. Renderers ignore servers whose `enabled_for` list excludes them.
+
+Devin Desktop's Cascade agent still reads the user-level compatibility path
+`~/.codeium/windsurf/mcp_config.json`. It accepts the same `mcpServers` object
+as the Devin renderer, so this compatibility destination does not create a
+separate vendor or renderer.
 
 ## What MCP gives you
 

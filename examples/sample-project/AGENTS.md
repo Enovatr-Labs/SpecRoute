@@ -50,13 +50,13 @@ These are the rules that aren't obvious from the code and must be respected.
 1. **Spec-driven order.** PRD -> spec triplet -> tasks -> implementation -> validation -> review. Don't jump straight to code.
 2. **Stable IDs.** Every requirement has a stable ID (R1.1, NFR-1.1, ...). Tasks back-reference IDs (`_Requirements: R1.1, R1.2_`). IDs are immutable - removed requirements get marked deprecated.
 3. **Sanitization.** Run `/sanitize` before commits. The PreToolUse hook (`.claude/hooks/pre-bash-sanitize.sh`) blocks `git commit` / `git push` if forbidden strings appear in tracked files. Treat hook blocks as hard stops.
-4. **Frontmatter contracts.** Agents are flat `<name>.md` with `name`, `description`, `model`, `color`. Skills are folder-per-skill with `SKILL.md` and the full frontmatter contract. Missing required fields = the runtime won't register the artifact.
+4. **Frontmatter contracts.** Agents are flat `<name>.md`; skills are folder-per-skill `SKILL.md`. Both genuinely require only `name` and `description` - `model`, `color`, `argument-hint`, and `allowed-tools` are project convention, not runtime requirements. `model` must be a real value (`opus`, `sonnet`, `haiku`, `fable`, `inherit`, or a full id), never a semantic tier name.
 5. **Two-tier docs.** This file (AGENTS.md) stays short. Deep references live in [`agentic-docs/`](agentic-docs/). See [`agentic-docs/two-tier-docs-pattern.md`](agentic-docs/two-tier-docs-pattern.md).
 6. **Generic domain content.** Sample / changelog / fixture content uses generic data ("Jane Example", "jane@example.com"). No real customer names or emails.
 
 ## Implementation team
 
-8 agents under [`.claude/agents/`](.claude/agents/) drive the work. Each has trigger phrases that auto-select it; see [`.claude/agents/README.md`](.claude/agents/README.md) for the full roster.
+9 agents under [`.claude/agents/`](.claude/agents/) drive the work. Each has trigger phrases that auto-select it; see [`.claude/agents/README.md`](.claude/agents/README.md) for the full roster.
 
 | Agent | Owns |
 |---|---|
@@ -71,15 +71,15 @@ These are the rules that aren't obvious from the code and must be respected.
 
 ## Runtime conventions
 
-- **Hooks** (`.claude/hooks/hooks.json`) - SessionStart status banner, PreToolUse sanitization gate, PostToolUse frontmatter check.
+- **Hooks** (`.claude/settings.json`, `hooks` key) - SessionStart status banner, PreToolUse sanitization gate, PostToolUse frontmatter check. The scripts sit in `.claude/hooks/`; the annotated original of the config sits in `.claude/hooks/hooks.json`, but Claude Code does **not** read that file for a project - only `settings.json`. Edit `hooks.json`, then re-sync with SpecRoute's `tools/sync-hooks-to-settings.sh`.
 - **Slash commands** - `/sanitize`, `/audit`, `/status`, `/parity`.
 - **Sanitization wordlist** - `.claude/.forbidden-strings.txt` (gitignored after rename from `.template.txt`).
 
 ## Vendor scope
 
-This sample ships **two runtimes** over one shared spec layer: `.claude/` (Claude Code, Markdown agents) and `.codex/` (Codex, TOML agents). The `.codex/` variant is a worked demonstration of the mid-2026 vendor convergence - the same eight-agent team and MCP server set, expressed in Codex's native shape. The agents do not cross-sync (Markdown vs TOML); update both when an agent's substance changes. See [`.codex/README.md`](.codex/README.md).
+This sample ships **two runtimes** over one shared spec layer: `.claude/` (Claude Code, Markdown agents) and `.codex/` (Codex, TOML agents). The `.codex/` variant is a worked demonstration of the mid-2026 vendor convergence - the same nine-agent team and MCP server set, expressed in Codex's native shape. The agents do not cross-sync (Markdown vs TOML); update both when an agent's substance changes. See [`.codex/README.md`](.codex/README.md).
 
-To target Gemini / Kiro / Cursor / Windsurf, see the SpecRoute framework's [`runtimes/.<vendor>/`](https://github.com/Enovatr-Labs/SpecRoute/tree/main/runtimes) layouts and adapt the agents, hooks, and commands to that vendor's contract.
+To target Gemini/Antigravity / Kiro / Cursor / Devin Desktop, see the SpecRoute framework's [`runtimes/.<vendor>/`](https://github.com/Enovatr-Labs/SpecRoute/tree/main/runtimes) layouts and adapt the agents, hooks, and commands to that vendor's contract.
 
 ## How to start
 

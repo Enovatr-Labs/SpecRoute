@@ -5,7 +5,9 @@ How rules are loaded into Cursor. Rule content itself defers to the vendor-neutr
 ## Where Cursor looks
 
 - **`.cursor/rules/*.mdc`** - Cursor MDC (Markdown with frontmatter) rule files. The integration surface.
-- **`.cursorrules`** at the repo root - older Cursor rule format; still supported in many versions.
+- **`AGENTS.md`** at the repo root - natively read for general project context.
+
+> **`.cursorrules` is gone.** The single-file root format is absent from Cursor's documentation entirely and is reported non-functional in current versions. Treat it as **removed in practice**, not "legacy but working": do not author one, and if a repo still has one, migrate its content into `.cursor/rules/*.mdc` (or `AGENTS.md`) rather than assuming it is still read.
 
 ## MDC frontmatter
 
@@ -52,9 +54,15 @@ Option A is the recommended default - Cursor's loader reads what's in the MDC fi
 |---|---|
 | Rule precedence | When multiple rules match, Cursor merges them. Order is implementation-defined; don't rely on conflict resolution. |
 | Glob patterns | `**` matches recursively; `*` matches one segment. Standard glob semantics. |
-| `.cursorrules` (legacy) | Single file at repo root, no frontmatter. Use only for projects that haven't migrated to MDC. |
-| Hooks via `.cursor/hooks.json` | ~21 lifecycle events (sessionStart/End, pre/postToolUse, beforeShell/MCP/Read, afterFileEdit, beforeSubmitPrompt, stop, plus Tab-flow events) with `permission` / `decision` schema. Both `command` and `prompt` (LLM-evaluated) hook types. See [`hooks/cursor/`](../hooks/cursor/). |
+| `.cursorrules` | Removed in practice - undocumented and reported non-functional. Migrate to `.cursor/rules/*.mdc`. |
+| Skills | Folder-per-skill `SKILL.md` under `.cursor/skills/<slug>/`, following the Agent Skills standard (`name` + `description`). Cursor does not use Claude's `argument-hint` / `user-invocable` / `allowed-tools` extensions. |
+| Subagents | Flat agent files under `.cursor/agents/<name>.md`. All frontmatter fields are optional; `name` defaults to the filename. |
+| Slash commands | Markdown files under `.cursor/commands/<slug>.md`. |
+| Hooks via `.cursor/hooks.json` | 21 lifecycle events in **camelCase** (`sessionStart`/`sessionEnd`, `preToolUse`/`postToolUse`, `beforeShellExecution`, `beforeMCPExecution`, `beforeReadFile`, `afterFileEdit`, `beforeSubmitPrompt`, `stop`, plus Tab-flow events) with a `permission` / `decision` schema. Both `command` and `prompt` (LLM-evaluated) hook types. See [`hooks/cursor/`](../hooks/cursor/). |
 | `failClosed` per hook | Default fail-open: hook errors don't block. Set `failClosed: true` per hook entry for security-critical gates. |
+| Plugins / marketplace | Cursor packages rules, skills, subagents, commands, hooks, and MCP servers as installable plugins. A plugin is a distribution mechanism for the same artifacts described here - not a new artifact type. See [`agentic-docs/cross-vendor-sync.md`](../agentic-docs/cross-vendor-sync.md). |
+
+Only `.cursor/rules/*.mdc` is a *rule* surface; the rest of that table exists because "where do my standards live in Cursor" now has more than one right answer. A standard that must gate an action belongs in a hook, not a rule.
 
 ## See also
 

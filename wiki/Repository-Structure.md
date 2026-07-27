@@ -23,19 +23,24 @@ specroute/
 ├── examples/                  sample-project/ canonical worked example
 ├── assets/                    images and diagrams
 │
-└── .claude/                   THIS repo's implementation-team runtime — not the consumer template
-    ├── agents/                11 implementation agents
-    ├── skills/                4 contributor skills (scaffold-artifact, add-vendor, …)
+├── .claude/                   THIS repo's Claude Code runtime — not the consumer template
+    ├── agents/                12 implementation agents
+    ├── skills/                6 contributor skills (scaffold-artifact, all-hands, doc-currency-check, …)
     ├── commands/              4 slash commands (/audit, /parity, /sanitize, /status)
     ├── hooks/                 SessionStart banner, PreToolUse sanitize gate, PostToolUse frontmatter
     └── agent-memory/          per-agent persistent context
+│
+└── .agents/                   THIS repo's vendor-neutral runtime root
+    └── skills/                same 6 skills, agentskills.io frontmatter — what Codex reads
 ```
 
 ## Two distinct concerns
 
 **Consumer-facing templates** live under top-level directories (`prds/`, `specs/`, `agents/`, `skills/`, `commands/`, `hooks/`, `prompts/`, `rules/`, `runtimes/`, `examples/`).
 
-**The implementation team that builds SpecRoute itself** lives under `.claude/`. Don't confuse the two. The consumer drops `runtimes/.claude/` into their own repo; they do *not* copy `.claude/`. See [[Implementation Team]].
+**The implementation team that builds SpecRoute itself** lives under `.claude/` (Claude Code) and `.agents/` (everything else). Don't confuse those with `runtimes/`. The consumer drops `runtimes/.claude/` into their own repo; they do *not* copy `.claude/`.
+
+`.agents/skills/` exists because `runtimes/.<vendor>/` is a **template**, not a runtime — no CLI reads that path. Until it was added, running Codex inside this repository found no skills at all. See [[Implementation Team]].
 
 ## Where do new docs go?
 
@@ -63,7 +68,7 @@ Every directory ships a `README.md`. Treat those as the authoritative answer to 
 - Templates and content: `.md` (Markdown).
 - Frontmatter: YAML at the top, fenced by `---`. Required fields vary by artifact — see [[Frontmatter Contracts]].
 - Scripts: bash for hooks; Python 3 for tooling. No external runtime dependencies.
-- Vendor-specific files keep their native shape (Gemini's `.gemini/commands/*.toml` and `config.toml` stay TOML; Codex's `config.toml` stays TOML; Kiro's `*.kiro.hook` stays JSON).
+- Vendor-specific files keep their native shape (Gemini's `.gemini/commands/*.toml` and `config.toml` stay TOML; Codex's `config.toml` stays TOML; Kiro's `.kiro/hooks/<name>.json` stays JSON).
 
 ## What this repo is NOT
 

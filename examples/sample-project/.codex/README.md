@@ -9,11 +9,11 @@ Drop this directory into the root of your project alongside (or instead of) `.cl
 ```
 .codex/
 ├── config.toml              MCP servers + approval policy
-└── agents/<name>.toml        8 standalone TOML subagents (the user-search team)
+└── agents/<name>.toml        9 standalone TOML subagents (the user-search team)
 ```
 
-The 8 agents mirror the `.claude/agents/` roster one-for-one:
-`prd-author`, `backend-engineer`, `frontend-engineer`, `database-engineer`,
+The 9 agents mirror the `.claude/agents/` roster one-for-one:
+`prd-author`, `spec-author`, `backend-engineer`, `frontend-engineer`, `database-engineer`,
 `security-auditor`, `unit-test-writer`, `integration-test-generator`, `deployment-validator`.
 
 ## TOML agent shape
@@ -38,7 +38,11 @@ Codex has **no per-agent memory directory**, so where the Claude agents declared
 
 ## Hooks and skills
 
-Hooks and skills follow the same framework conventions as Claude. This sample deliberately uses **no skills** (the work is task-driven; see [`../agentic-docs/agentic-coding-model.md`](../agentic-docs/agentic-coding-model.md)). If you add Codex hooks, copy the framework's `hooks/codex/hooks.template.json` to `.codex/hooks.json` (or merge an inline `[hooks]` table into `config.toml`); the JSON schema is Claude-compatible with 10 lifecycle events. If you add skills, the folder-per-skill `<slug>/SKILL.md` shape is identical to Claude and can be kept in sync with `tools/sync-skills.py`.
+Hooks and skills remain vendor-shaped. This sample deliberately uses **no skills**
+(the work is task-driven; see [`../agentic-docs/agentic-coding-model.md`](../agentic-docs/agentic-coding-model.md)).
+Codex exposes 11 hook events and command handlers. For skills, keep the portable
+`name` and `description` baseline and scaffold any additional fields from current
+Codex documentation before syncing bodies with `tools/sync-skills.py`.
 
 ## No agent cross-sync with `.claude/`
 

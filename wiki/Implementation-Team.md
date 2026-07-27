@@ -10,8 +10,9 @@ For per-agent definitions, see [`.claude/agents/README.md`](https://github.com/E
 
 | Path | What's there |
 |---|---|
-| `.claude/agents/` | 11 implementation agents |
-| `.claude/skills/` | 4 contributor skills (`scaffold-artifact`, `add-vendor`, `example-walkthrough`, `frontmatter-lint`) |
+| `.claude/agents/` | 12 implementation agents |
+| `.agents/skills/` | The same skills in vendor-neutral shape — the repo-level skills root Codex and other non-Claude CLIs read |
+| `.claude/skills/` | 6 contributor skills (`scaffold-artifact`, `add-vendor`, `example-walkthrough`, `frontmatter-lint`, `all-hands`, `doc-currency-check`) |
 | `.claude/commands/` | 4 slash commands (`/audit`, `/parity`, `/sanitize`, `/status`) |
 | `.claude/hooks/` | SessionStart status banner, PreToolUse sanitization gate, PostToolUse frontmatter check |
 | `.claude/agent-memory/` | Per-agent persistent context |
@@ -19,7 +20,9 @@ For per-agent definitions, see [`.claude/agents/README.md`](https://github.com/E
 | `.claude/settings.local.json` | **Gitignored** — per-user permissions, MCP enables |
 | `.claude/.forbidden-strings.txt` | **Gitignored** — per-installation sanitization wordlist |
 
-## The 11 implementation agents
+## The 12 implementation agents
+
+Verified against disk on 2026-07-27 (9 opus, 3 sonnet):
 
 | Agent | Owns | Model |
 |---|---|---|
@@ -32,19 +35,26 @@ For per-agent definitions, see [`.claude/agents/README.md`](https://github.com/E
 | `prompt-engineer` | Global / phase / task prompt templates and per-vendor sets | opus |
 | `framework-docs-author` | `agentic-docs/`, workflows, rules | opus |
 | `runtime-architect` | `runtimes/.<vendor>/`, MCP single source, sync tools | opus |
-| `sanitization-auditor` | `/sanitize`, `/audit`'s sanitization layer, wordlist guidance | sonnet |
-| `template-quality-reviewer` | Production-grade-and-immediately-usable bar | opus |
+| `sanitization-auditor` | `/sanitize`, `/audit`'s sanitization layer, wordlist guidance | opus |
+| `template-quality-reviewer` | Production-grade-and-immediately-usable bar | sonnet |
+| `docs-currency-auditor` | Vendor facts, version anchors, transition dates, cross-mirror consistency | opus |
+
+Regenerate rather than hand-editing the Model column:
+
+```bash
+grep -h '^model:' .claude/agents/*.md | sort | uniq -c
+```
 
 Each agent has a `.md` definition with:
-- Frontmatter (`name`, `description` with trigger phrases, `model`, `color`).
+- Frontmatter. **`name` and `description` (with trigger phrases) are the only required fields**; `model` and `color` are optional, and an absent `model` inherits the parent session's. These 12 set all four for legibility.
 - Operating principles.
 - Owns (what files the agent governs).
 - Don't use for (boundaries; hands off to neighboring agents).
-- Optional `memory: project` to read/write `.claude/agent-memory/<name>/`.
+- Optional `memory` to read/write persistent context.
 
-See [[Agents]] for the frontmatter contract and [[Frontmatter Contracts]] for the full reference.
+See [[Agents]] for the frontmatter contract and the semantic-tier mapping table, and [[Frontmatter Contracts]] for the full field reference.
 
-## The 4 contributor skills
+## The 6 contributor skills
 
 Interactive workflows for SpecRoute contributors:
 
@@ -52,6 +62,8 @@ Interactive workflows for SpecRoute contributors:
 - **`add-vendor`** — interactive walkthrough for adding a new agent CLI to the matrix.
 - **`example-walkthrough`** — guided end-to-end build of `examples/sample-project/`.
 - **`frontmatter-lint`** — interactive frontmatter validation across agents / skills / commands with offered fixes.
+- **`all-hands`** — convenes the relevant implementation agents to plan, implement, and review a piece of work end to end over this repo's own roster.
+- **`doc-currency-check`** — audits vendor facts, version anchors, dates, counts, and the four synchronized vendor-matrix copies.
 
 See [[Skills]] for the folder-per-skill convention.
 
@@ -60,8 +72,8 @@ See [[Skills]] for the folder-per-skill convention.
 Deterministic pre-commit checks:
 
 - **`/audit`** — comprehensive sweep (sanitization + frontmatter + vendor-matrix consistency + broken links + TODO health).
-- **`/parity`** — cross-vendor runtime parity check (`runtimes/.claude/` vs `runtimes/.codex/` skill / agent drift; MCP source-of-truth alignment).
-- **`/sanitize`** — quick string-level wordlist scan.
+- **`/parity`** — body-aware skill parity across all six runtime layouts plus MCP source-of-truth coverage; agent formats remain vendor-native.
+- **`/sanitize`** — scans working, staged, and historical publication content for forbidden identifiers, machine paths, secrets, and private-source overlap.
 - **`/status`** — SpecRoute skeleton state report (which top-level dirs exist, which artifacts have been drafted, what's outstanding).
 
 See [[Commands]] and [[Sanitization]].
@@ -71,7 +83,7 @@ See [[Commands]] and [[Sanitization]].
 Always-on automation:
 
 - **`session-start-status.sh`** (SessionStart) — prints the SpecRoute skeleton status banner so Claude orients without re-grepping.
-- **`pre-bash-sanitize.sh`** (PreToolUse) — blocks `git commit` / `git push` / `gh pr create` / `gh release create` if `git grep` finds forbidden terms.
+- **`pre-bash-sanitize.sh`** (PreToolUse) — blocks publish commands when forbidden terms appear in tracked files, untracked additions, the staged index, or outgoing history.
 - **`post-edit-frontmatter.sh`** (PostToolUse on Write/Edit) — validates frontmatter on agent / skill / command file writes; warns on stderr.
 
 See [[Hooks]] and [[Sanitization]].
@@ -100,6 +112,7 @@ See [[Agent Memory]].
 - `.claude/settings.json` — tracked, project-wide.
 - `.claude/settings.local.json` — **gitignored**, per-user overrides (permissions, MCP enables).
 - `.claude/.forbidden-strings.txt` — **gitignored**, per-installation sanitization wordlist.
+- `.claude/.provenance-sources.txt` and `.claude/.provenance-allowlist.txt` — **gitignored**, local inputs for private-source overlap auditing.
 
 See [[Sanitization]] for how the wordlist is populated and refreshed.
 

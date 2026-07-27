@@ -17,7 +17,7 @@ The `user-search` feature exercises every artifact shape in SpecRoute:
 | **Coverage table** | Every requirement and NFR mapped to the tasks that satisfy it. No `TODO` rows |
 | **Agent roster** | Generic archetypes only (no domain agents), task-by-task assignments, coordination notes |
 | **Phased prompts** | 1 global master + 4 phase masters + 22 numbered task prompts + 2 runtime operational prompts = 29 files |
-| **Runtime layout** | Working `.claude/` with 8 agents, 4 slash commands, 3 hooks, sanitization wordlist scaffolding |
+| **Runtime layout** | Working `.claude/` with 9 agents, 4 slash commands, 3 hooks, sanitization wordlist scaffolding |
 | **Implementation plan** | Schedule, resource assignment, critical path, risks watch, definition of done |
 | **5 ADRs** | Postgres indexed scans, cursor pagination, Redis cache TTL, HMAC-signed cursors, filter-set hash logging |
 
@@ -107,7 +107,7 @@ examples/sample-project/
     ├── settings.local.template.json
     ├── mcp.template.json
     ├── .forbidden-strings.template.txt
-    ├── agents/                     8 implementation-team agents
+    ├── agents/                     9 implementation-team agents
     ├── commands/                   /sanitize, /audit, /status, /parity
     ├── hooks/                      hooks.json + 3 hook scripts
     └── agent-memory/
@@ -140,4 +140,4 @@ The `template-quality-reviewer` agent is the gate. See [[Implementation Team]].
 - [[Quickstart]] — how to use the example to bootstrap your own repo
 - [[Spec-Driven Development]] — the flow the example embodies
 - [[Workflow PRD to Production]] — the outer workflow exercised in full
-- [[Implementation Team]] — the 8 agents `sample-project/.claude/` ships with
+- [[Implementation Team]] — the 9 agents `sample-project/.claude/` ships with

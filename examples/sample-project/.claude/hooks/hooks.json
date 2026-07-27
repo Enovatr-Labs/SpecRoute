@@ -1,4 +1,10 @@
 {
+  "_comment": "SOURCE OF TRUTH ONLY - the Claude Code CLI does NOT read this file. A project-level .claude/hooks/hooks.json is a hook source for *plugins*, not for projects; the CLI reads project hooks from .claude/settings.json. This file is the annotated original. After editing it, merge its .hooks key into .claude/settings.json with SpecRoute's tools/sync-hooks-to-settings.sh.",
+
+  "_comment_paths": "Commands resolve through ${CLAUDE_PROJECT_DIR:-.} so they fire regardless of the tool call's working directory.",
+
+  "_comment_events": "SessionStart prints the project status banner. PreToolUse gates publish commands on the sanitization wordlist. PostToolUse warns (never blocks) on malformed agent / skill / command frontmatter.",
+
   "hooks": {
     "SessionStart": [
       {
@@ -6,29 +12,37 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/session-start-status.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/session-start-status.sh\"",
+            "timeout": 15,
+            "statusMessage": "Reading project status"
           }
         ]
       }
     ],
+
     "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/pre-bash-sanitize.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/pre-bash-sanitize.sh\"",
+            "timeout": 60,
+            "statusMessage": "Running the sanitization gate"
           }
         ]
       }
     ],
+
     "PostToolUse": [
       {
         "matcher": "Write|Edit",
         "hooks": [
           {
             "type": "command",
-            "command": "bash .claude/hooks/post-edit-frontmatter.sh"
+            "command": "bash \"${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/post-edit-frontmatter.sh\"",
+            "timeout": 20,
+            "statusMessage": "Checking frontmatter"
           }
         ]
       }

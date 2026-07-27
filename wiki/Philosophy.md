@@ -15,7 +15,7 @@ A specification is cheaper to change than code. When humans and agents agree on 
 Modern agent CLIs are capable of architecture decisions, multi-file refactors, and end-to-end feature implementation. Treating them as autocomplete wastes that capacity. Given a real spec, they produce real software with the same review surface as a human contributor.
 
 ### 3. Vendor neutrality is a contract, not a wish
-Tooling churns. SpecRoute's value is **content** — PRDs, specs, prompts, agents, rules, skills, commands, hooks. The runtime layout is a thin shell adapting that content to each vendor. A consumer can switch vendors without rewriting their PRDs and specs; only the runtime shell changes. See [[Vendor Matrix]].
+Tooling churns across Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Devin Desktop. SpecRoute's value is **content** — PRDs, specs, prompts, agents, rules, skills, commands, hooks. The runtime layout is a thin shell adapting that content to each vendor. A consumer can switch vendors without rewriting their PRDs and specs; only the runtime shell changes. See [[Vendor Matrix]].
 
 ### 4. Templates that don't produce valid artifacts are theory
 Every template must, when filled in by a competent contributor, produce a working artifact. Frontmatter contracts must be concrete; cross-references must resolve; worked examples must exist alongside templates. Abstract "checklist masquerading as deliverable" templates are rejected.
