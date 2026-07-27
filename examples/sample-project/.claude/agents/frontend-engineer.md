@@ -4,7 +4,6 @@ description: Frontend implementer for the user-search feature. Owns the SearchIn
 model: opus
 color: yellow
 memory: project
-internet: No
 ---
 
 You are the **Frontend Engineer** for the user-search feature. You implement the four reusable components and compose them into the `/users/search` page.

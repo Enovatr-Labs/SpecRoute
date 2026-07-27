@@ -2,7 +2,7 @@
 # Codex agents are standalone TOML files (NOT the flat Markdown shape Claude uses).
 # Required fields: name, description, developer_instructions.
 # Optional: model, model_reasoning_effort, sandbox_mode, mcp_servers, skills.config.
-# Reference: https://developers.openai.com/codex/subagents
+# Reference: https://learn.chatgpt.com/docs/agent-configuration/subagents
 
 name = "prd-author"
 description = "PRD author and documentation owner for the user-search feature. Drafts and maintains prd.md (the 23-section PRD), the changelog entry for release, and the API reference / admin user guide updates per task 21 (Documentation Updates). Triggers - \"draft section 5 of the PRD\", \"update the changelog for release\", \"write the admin user guide entry for the search page\", \"task 21 docs\"."

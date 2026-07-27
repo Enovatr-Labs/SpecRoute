@@ -14,12 +14,12 @@ Each agent is a single `<name>.md` file with YAML frontmatter and a body:
 
 ```yaml
 ---
-name: <slug-matching-filename>
-description: <triggers>
-model: opus | sonnet | haiku
-color: <recognized color>
-memory: project | user | absent          # optional
-internet: Yes | No | absent              # optional
+name: <slug-matching-filename>           # required
+description: <triggers>                  # required
+model: sonnet                            # optional; vendor model id (Claude: opus | sonnet | haiku | fable | <full id> | inherit)
+tools: Read, Grep, Glob                  # optional; allowlist. Web access = include WebFetch / WebSearch here.
+memory: project | user | local           # optional
+color: <recognized color>                # optional; UI tint only
 ---
 
 You are the <Role Title> for <Project> - <one-sentence scope>.
@@ -37,11 +37,13 @@ You are the <Role Title> for <Project> - <one-sentence scope>.
 - <Adjacent concern> - <other agent>.
 ```
 
-See [`../agent-template.md`](../agent-template.md) for full guidance and the [`../roster.md`](../roster.md) for cross-vendor inventory.
+Only `name` and `description` are required. `model` takes a **vendor model id** - SpecRoute's `flagship` / `balanced` / `fast` tiers belong in roster tables, not in files the runtime loads. There is no `internet:` field; grant or withhold `WebFetch` / `WebSearch` via `tools` instead.
+
+See [`../agent-template.md`](../agent-template.md) for full guidance, [`../roster.md`](../roster.md) for the cross-vendor inventory, and [`../../wiki/Agents.md`](../../wiki/Agents.md#semantic-model-tiers) for the tier-to-vendor mapping table.
 
 ## Reference implementations
 
-The 11 agents under [`.claude/agents/`](../../.claude/agents/) at the repository root are real, tracked implementations of this contract. Read them as worked examples:
+The 12 agents under [`.claude/agents/`](../../.claude/agents/) at the repository root are real, tracked implementations of this contract. Read them as worked examples:
 
 - `prd-author.md`, `spec-author.md` - opus-tier author roles, `description` with explicit triggers
 - `command-author.md`, `hooks-author.md` - sonnet-tier narrower-scope roles

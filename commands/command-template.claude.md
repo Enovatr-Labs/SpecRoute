@@ -52,6 +52,8 @@ echo "── Done ──"
 
 4. **Output is structured.** Tables, status markers, punch lists. Don't make the user parse paragraphs.
 
-5. **No frontmatter beyond `description`.** Keep it minimal.
+5. **Keep the frontmatter to `description`** unless you need more. Claude Code's commands and skills have merged, so this file accepts the **full skill frontmatter** (`argument-hint`, `allowed-tools`, `disallowed-tools`, `model`, `context: fork`, and the rest - see [`skills/skill-template/SKILL.md`](../skills/skill-template/SKILL.md)). Nothing is strictly required; `description` is recommended because it is what the command list shows. Reach for the extra fields only when the command genuinely needs them - a command whose header grows a decision surface is a skill.
 
 6. **Mirror to the runtime.** Place the production version under `runtimes/.claude/commands/<slug>.md`.
+
+7. **Consider writing it as a skill instead.** `.claude/commands/<slug>.md` is legacy-but-supported and there is no need to migrate existing files, but new work is better placed at `.claude/skills/<slug>/SKILL.md`: identical contract, actively developed location, and you get a folder for supporting scripts.

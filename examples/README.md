@@ -27,7 +27,7 @@ examples/
         ├── settings.local.template.json        rename after copy (gitignored)
         ├── mcp.template.json                   rename after copy
         ├── .forbidden-strings.template.txt     rename after copy (gitignored)
-        ├── agents/                             8 implementation-team agents
+        ├── agents/                             9 implementation-team agents
         ├── commands/                           /sanitize, /audit, /status, /parity
         ├── hooks/                              hooks.json + 3 hook scripts
         └── agent-memory/
@@ -102,7 +102,7 @@ The `user-search` feature exercises every artifact shape in SpecRoute:
 - **Coverage table** - `tasks.md` includes a coverage table mapping every requirement and NFR to the tasks that satisfy it. Every cell is populated.
 - **Agent roster** - generic archetypes only (no domain-specific agents), with task-by-task assignments and coordination notes.
 - **Phased prompts** - full set: a global master, four phase masters, and twenty-two numbered task prompts plus two runtime operational prompts. Every numbered prompt instantiates the production task-prompt shape (Objective / Context / Agent Assignment / Prerequisites / Task Details with current→target diff blocks / Acceptance Criteria).
-- **Runtime layout** - a working `.claude/` with 8 implementation-team agents, 4 slash commands, 3 hook scripts, and the sanitization wordlist scaffolding. Drop-in functional.
+- **Runtime layout** - a working `.claude/` with 9 implementation-team agents, 4 slash commands, 3 hook scripts, and the sanitization wordlist scaffolding. Drop-in functional.
 - **Implementation plan** - the operational layer that composes everything: schedule, resource assignment, critical path, risks watch, definition of done.
 
 ## Adapting to your stack

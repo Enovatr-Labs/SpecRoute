@@ -6,6 +6,11 @@
 
 > Cross-vendor agent inventory for the user-search feature. Generic archetypes only; no domain-specific agents. Maps to the archetypes in [`agents/archetypes/`](../../agents/archetypes/).
 
+Reading the columns:
+
+- **Model** - the concrete Claude Code model id each agent file carries, matching `.claude/agents/<name>.md` exactly. In vendor-neutral prose SpecRoute calls these tiers `flagship` (→ `opus`) and `balanced` (→ `sonnet`); those tier words are a SpecRoute abstraction and are never written into an agent file. See [`wiki/Agents.md`](../../wiki/Agents.md#semantic-model-tiers).
+- **Internet** - **documentation only.** There is no `internet:` frontmatter field in any runtime. Every agent here is `No`, which means none of their files grant `WebFetch` / `WebSearch` in `tools`.
+
 ---
 
 ## Department 1: Specification
@@ -80,15 +85,17 @@
 
 ## Frontmatter examples
 
-Each agent above maps to a flat `<name>.md` file under `agents/examples/` (consumer template) and `runtimes/.claude/agents/` / `runtimes/.codex/agents/` (runtime). Example shape (see [`agents/agent-template.md`](../../agents/agent-template.md)):
+Each agent above maps to a flat `<name>.md` file under [`.claude/agents/`](.claude/agents/), plus a TOML twin under [`.codex/agents/`](.codex/agents/). Only `name` and `description` are required; the rest is optional (see [`agents/agent-template.md`](../../agents/agent-template.md)):
 
 ```yaml
 ---
 name: backend-engineer
 description: General-purpose backend implementer. Owns API handlers, query builders, cache logic, observability instrumentation. Triggers - "implement task #N", "wire the search endpoint", "add the validator".
-model: opus
+model: opus                           # optional; vendor model id. Default is `inherit`.
+tools: Read, Write, Edit, Glob, Grep, Bash   # optional; note the absence of WebFetch / WebSearch
 color: green
 memory: project
-internet: No
 ---
 ```
+
+The `tools` line is how the roster's `Internet: No` is actually enforced - by omitting `WebFetch` and `WebSearch` from the allowlist. Writing `internet: No` in frontmatter would restrict nothing; no runtime reads that field.

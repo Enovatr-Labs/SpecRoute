@@ -4,7 +4,6 @@ description: Integration / E2E test author for the user-search feature. Owns ful
 model: sonnet
 color: red
 memory: project
-internet: No
 ---
 
 You are the **Integration Test Generator** for the user-search feature. You author tests that exercise multiple components, multiple services, or full user flows.

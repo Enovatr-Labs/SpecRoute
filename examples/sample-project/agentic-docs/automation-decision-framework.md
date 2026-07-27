@@ -7,7 +7,7 @@ When this project reaches for which primitive. Concrete from the project's own c
 | Approach | Use when | Examples in this project |
 |---|---|---|
 | **Skill** | Interactive parameterized workflow | (none currently used) |
-| **Agent** | Autonomous multi-step task with a clear role | All 8 agents in [`.claude/agents/`](../.claude/agents/) |
+| **Agent** | Autonomous multi-step task with a clear role | All 9 agents in [`.claude/agents/`](../.claude/agents/) |
 | **Command** | Simple non-parameterized check or report | `/sanitize`, `/audit`, `/status`, `/parity` |
 | **Hook** | Automatic enforcement on a specific event | SessionStart status, PreToolUse sanitization gate, PostToolUse frontmatter check |
 
@@ -22,7 +22,7 @@ Likely candidates if scope grew:
 
 ## Why agents are the workhorse
 
-The 8 agents map 1:1 to roles in `agent-roster.md`. Each task in `tasks.md` names a primary agent in its Section 3. The mapping makes invocation natural - the user (or another agent) reads the task and invokes the named agent.
+The 9 agents map 1:1 to roles in `agent-roster.md`. Each task in `tasks.md` names a primary agent in its Section 3. The mapping makes invocation natural - the user (or another agent) reads the task and invokes the named agent.
 
 The boundaries are crisp:
 
