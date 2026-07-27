@@ -6,6 +6,7 @@ Cross-runtime utility scripts for SpecRoute consumers. These are templates - for
 tools/
 ├── README.md                            (this file)
 ├── provenance-audit.py                  local private-source/IP comparison
+├── release-preflight.py                 deterministic public release checks
 ├── sync-hooks-to-settings.sh            hooks authoring → live settings sync
 ├── sync-skills.py                       cross-runtime skill body sync
 └── wiki-parity.py                       wiki ↔ repo doc parity check
@@ -40,10 +41,58 @@ python3 tools/provenance-audit.py \
   --history
 ```
 
+For a release attestation, use a fresh
+`git clone --single-branch --branch main --no-local ...`, detach it at the exact
+40-character `release_sha`, and confirm it is clean before starting. A worktree
+is not sufficient: worktrees share refs, and `--history` audits every reachable
+ref via `--all`. The working-tree pass also inspects untracked, non-ignored
+content; a normal development checkout does not provide an unambiguous release
+attestation.
+
 Any finding requires local human review. Renaming identifiers is not enough:
 business rules, unusual schemas, architecture, distinctive prose, prompts, and
 workflow structure must be independently authored, publicly sourced, or
 demonstrably generalized before release.
+
+## `release-preflight.py`
+
+Deterministic, read-only checks for the exact public commit selected for a
+release. The manual `Release` workflow invokes it before entering the protected
+publication job.
+
+```bash
+python3 tools/release-preflight.py \
+  --version 0.4.1 \
+  --release-sha "$(git rev-parse HEAD)"
+```
+
+The version is bare SemVer (`X.Y.Z`), and the release SHA is the full
+40-character commit ID. The script fails if `HEAD` differs. It also checks the
+repository-owned release metadata, the changelog section for the version, and
+the parity contracts that must hold at publication time. Its public hygiene
+gate also refuses tracked local-only inputs, concrete home-directory paths,
+private-key material, high-confidence provider tokens, literal credentials, and
+credential-bearing URLs without printing matched values. It does not create a
+tag, release, commit, branch update, or package.
+
+This public preflight is deliberately separate from `provenance-audit.py`. The
+private-source comparison runs only on a maintainer's machine against the exact
+release commit. For `publish` and `resume`, the workflow accepts
+`provenance_sha` equal to `release_sha` plus `confirm_provenance: true`. Hosted
+CI receives only that public commit SHA and acknowledgement - never private
+repository identities, paths, source excerpts, terms files, or reviewed-finding
+allowlists.
+
+The acknowledgement records who authorized publication and which public commit
+they reviewed; it does not reproduce the private audit in hosted CI. A
+maintainer must not dispatch around a failed or incomplete local provenance
+review.
+
+The workflow's release preflight also compares the live GitHub wiki with the
+tracked `wiki/` source in read-only mode. It reports drift and blocks
+publication; it never writes to the wiki. Wiki publishing remains owned by the
+main-driven `Sync wiki` workflow. Tag pushes and GitHub-App branch updates do
+not recursively trigger other workflows.
 
 ## `sync-skills.py`
 

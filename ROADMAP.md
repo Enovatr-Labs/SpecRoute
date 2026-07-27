@@ -64,6 +64,7 @@ Status legend: ✓ done · ◐ in progress · ☐ not started
 - ✓ Multi-agent orchestration - the `all-hands` pattern (coordinator skill + roster-as-registry + department routing), shipped in all six runtime layouts, with `agentic-docs/multi-agent-orchestration.md` (v0.4.0)
 - ✓ Second currency cycle + contract correction - hook wiring fixed (hooks execute from `settings.json`, not a project `hooks/hooks.json`), Kiro migrated off the retired `*.kiro.hook` format, agent/skill frontmatter contracts corrected against vendor docs, `docs-currency-auditor` agent and `doc-currency-check` skill added to make the next cycle repeatable (v0.4.0)
 - ✓ Vendor-neutral runtime root - `.agents/skills/` added so Codex and other non-Claude CLIs find this repository's own skills; previously only `.claude/` was wired up (v0.4.0)
+- ◐ Guarded release automation - manual GitHub Actions `publish`, `resume`, and `realign-develop` operations plus deterministic preflight, fail-closed release-manager authorization, and SHA-bound local provenance attestation are implemented; the protected release environment, immutable-release setting, and narrowly scoped Release App installation remain prerequisites before the first dispatch, with its develop-ruleset bypass required only for optional automated realignment
 - ☐ Additional worked examples beyond `sample-project/` (suggested: lightweight feature, refactor, ADR-only project, Codex variant of sample-project)
 - ☐ Additional vendor support based on community demand
 - ☐ Persistent DOI via Zenodo (at v1.0)

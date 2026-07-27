@@ -66,6 +66,7 @@ Real-world adoption signals, additional vendors, and community-contributed examp
 - ✓ Second currency cycle + contract correction — hook wiring fixed (hooks execute from `settings.json`, not a project `hooks/hooks.json`), Kiro migrated off the retired `*.kiro.hook` format, agent/skill frontmatter contracts corrected against vendor docs, `docs-currency-auditor` agent and `doc-currency-check` skill added to make the next cycle repeatable (v0.4.0)
 - ✓ Vendor-neutral runtime root — `.agents/skills/` added so Codex and other non-Claude CLIs find this repository's own skills; previously only `.claude/` was wired up (v0.4.0)
 - ✓ Public-doc information architecture — vendor implementation notes and source evidence moved out of the root README into the integration reference and [[Vendor Matrix]], while `/audit` continues to enforce byte-identical matrix tables (v0.4.0)
+- ◐ Guarded release automation — manual GitHub Actions `publish`, `resume`, and `realign-develop` operations plus deterministic preflight, fail-closed release-manager authorization, and SHA-bound local provenance attestation are implemented; the protected release environment, immutable-release setting, and narrowly scoped Release App installation remain prerequisites before the first dispatch, with its develop-ruleset bypass required only for optional automated realignment (see [[Maintainers]])
 - ☐ Additional worked examples beyond `sample-project/`:
   - Lightweight feature (single-team, `lightweight-prd-template.md` + `feature-spec-template.md`)
   - Refactor (`technical-spec-template.md`)
