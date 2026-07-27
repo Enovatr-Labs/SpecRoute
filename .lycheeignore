@@ -17,3 +17,7 @@
 
 # Mail links - covered by --exclude-mail in the workflow but left here as defense in depth.
 ^mailto:
+
+# Pending v0.4.0 release links. Remove this exact exception after the tag and
+# GitHub Release are published from main.
+^https://github\.com/Enovatr-Labs/SpecRoute/(compare/v0\.4\.0\.\.\.HEAD|releases/tag/v0\.4\.0)$
