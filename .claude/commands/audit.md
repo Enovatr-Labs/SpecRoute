@@ -84,7 +84,7 @@ done
 
 ## 3. Vendor matrix consistency
 
-The vendor matrix table is mirrored in four files. All four blocks - **table rows and their footnotes** - are maintained byte-identical, so the check is a digest comparison, not a shape comparison.
+The vendor matrix table is mirrored in four files. All four tables are maintained byte-identically, so the check is a digest comparison, not a shape comparison. Supporting notes are centralized in the integration reference and dedicated wiki page.
 
 Why a digest and not just counts: row count and the set of runtime-dir tokens only detect a vendor being **added or dropped**. They cannot see a hook event count edited in one mirror or a config path renamed in a single cell - which is the drift this repo actually produces. Both signals are kept, but they play different roles: the digest decides pass/fail, and the row-count / vendor-set lines are the cheap human-readable summary printed for every mirror plus the first thing reported when a block does differ (a dropped row makes every subsequent row "differ", so the count line is what tells you it was one deletion rather than five edits).
 

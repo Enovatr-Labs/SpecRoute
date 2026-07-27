@@ -65,6 +65,7 @@ Real-world adoption signals, additional vendors, and community-contributed examp
 - ✓ Multi-agent orchestration — the `all-hands` pattern (coordinator skill + roster-as-registry + department routing), shipped in all six runtime layouts, with [[Multi-Agent Orchestration]] (v0.4.0)
 - ✓ Second currency cycle + contract correction — hook wiring fixed (hooks execute from `settings.json`, not a project `hooks/hooks.json`), Kiro migrated off the retired `*.kiro.hook` format, agent/skill frontmatter contracts corrected against vendor docs, `docs-currency-auditor` agent and `doc-currency-check` skill added to make the next cycle repeatable (v0.4.0)
 - ✓ Vendor-neutral runtime root — `.agents/skills/` added so Codex and other non-Claude CLIs find this repository's own skills; previously only `.claude/` was wired up (v0.4.0)
+- ✓ Public-doc information architecture — vendor implementation notes and source evidence moved out of the root README into the integration reference and [[Vendor Matrix]], while `/audit` continues to enforce byte-identical matrix tables (v0.4.0)
 - ☐ Additional worked examples beyond `sample-project/`:
   - Lightweight feature (single-team, `lightweight-prd-template.md` + `feature-spec-template.md`)
   - Refactor (`technical-spec-template.md`)

@@ -74,8 +74,8 @@ All five workflows plus the index are drafted: `README.md`, `prd-to-production.m
 
 46 pages. The wiki is a mirror layer, not a separate authorship surface - most pages restate an `agentic-docs/` or top-level file and link back to it. Only the pairing needs tracking here:
 
-- `wiki/Multi-Agent-Orchestration.md` - **untracked**, new on 2026-07-27, the wiki counterpart of `agentic-docs/multi-agent-orchestration.md`. Already linked from `wiki/_Sidebar.md`.
-- `wiki/Vendor-Matrix.md` - one of the four byte-identical vendor-matrix mirrors. `/audit` step 3 hashes the block; do not hand-edit one mirror.
+- `wiki/Multi-Agent-Orchestration.md` - the wiki counterpart of `agentic-docs/multi-agent-orchestration.md`, linked from `wiki/_Sidebar.md`.
+- `wiki/Vendor-Matrix.md` - one of the four byte-identical vendor-matrix mirrors. `/audit` step 3 hashes the table; do not hand-edit one mirror.
 - `wiki/Agent-CLI-Integrations.md` - a wiki stub that points at `[[Vendor Matrix]]` rather than restating the table. It is deliberately **not** a fifth mirror.
 
 ## Outstanding work
