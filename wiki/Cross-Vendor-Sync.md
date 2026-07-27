@@ -1,6 +1,6 @@
 # Cross-Vendor Sync
 
-<!-- sources: agentic-docs/cross-vendor-sync.md, tools/README.md -->
+<!-- sources: agentic-docs/cross-vendor-sync.md, tools/sync-skills.py -->
 
 How a SpecRoute-driven project keeps the artifacts that several vendors consume in lock-step. This is the maintainability story for multi-vendor support.
 

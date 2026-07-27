@@ -12,7 +12,20 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
-(Changes accumulating since v0.4.0 will be listed here.)
+### Added
+
+- A manually dispatched GitHub Actions release workflow with `publish`,
+  interrupted-release `resume`, and post-release `realign-develop` operations.
+  Once the required `release` environment and immutable-release setting are
+  configured, it binds publication to an exact `main` SHA, runs public preflight
+  gates, creates and verifies a draft before publication, and records a
+  commit-bound maintainer provenance acknowledgement without sending private
+  audit inputs to hosted CI. A fail-closed `RELEASE_MANAGERS` actor allowlist
+  rejects unauthorized dispatches before checkout; environment review separately
+  protects mutation.
+- `tools/release-preflight.py` for deterministic, read-only validation of the
+  selected version, commit, release metadata, and repository parity before a
+  tag or release is created.
 
 ---
 
