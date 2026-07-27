@@ -46,7 +46,7 @@ grep -h '^model:' .claude/agents/*.md | sort | uniq -c
 ```
 
 Each agent has a `.md` definition with:
-- Frontmatter. **`name` and `description` (with trigger phrases) are the only required fields**; `model` and `color` are optional, and an absent `model` inherits the parent session's. These 11 set all four for legibility.
+- Frontmatter. **`name` and `description` (with trigger phrases) are the only required fields**; `model` and `color` are optional, and an absent `model` inherits the parent session's. These 12 set all four for legibility.
 - Operating principles.
 - Owns (what files the agent governs).
 - Don't use for (boundaries; hands off to neighboring agents).
@@ -63,6 +63,7 @@ Interactive workflows for SpecRoute contributors:
 - **`example-walkthrough`** — guided end-to-end build of `examples/sample-project/`.
 - **`frontmatter-lint`** — interactive frontmatter validation across agents / skills / commands with offered fixes.
 - **`all-hands`** — convenes the relevant implementation agents to plan, implement, and review a piece of work end to end over this repo's own roster.
+- **`doc-currency-check`** — audits vendor facts, version anchors, dates, counts, and the four synchronized vendor-matrix copies.
 
 See [[Skills]] for the folder-per-skill convention.
 
@@ -71,8 +72,8 @@ See [[Skills]] for the folder-per-skill convention.
 Deterministic pre-commit checks:
 
 - **`/audit`** — comprehensive sweep (sanitization + frontmatter + vendor-matrix consistency + broken links + TODO health).
-- **`/parity`** — cross-vendor runtime parity check (`runtimes/.claude/` vs `runtimes/.codex/` skill / agent drift; MCP source-of-truth alignment).
-- **`/sanitize`** — quick string-level wordlist scan.
+- **`/parity`** — body-aware skill parity across all six runtime layouts plus MCP source-of-truth coverage; agent formats remain vendor-native.
+- **`/sanitize`** — scans working, staged, and historical publication content for forbidden identifiers, machine paths, secrets, and private-source overlap.
 - **`/status`** — SpecRoute skeleton state report (which top-level dirs exist, which artifacts have been drafted, what's outstanding).
 
 See [[Commands]] and [[Sanitization]].
@@ -82,7 +83,7 @@ See [[Commands]] and [[Sanitization]].
 Always-on automation:
 
 - **`session-start-status.sh`** (SessionStart) — prints the SpecRoute skeleton status banner so Claude orients without re-grepping.
-- **`pre-bash-sanitize.sh`** (PreToolUse) — blocks `git commit` / `git push` / `gh pr create` / `gh release create` if `git grep` finds forbidden terms.
+- **`pre-bash-sanitize.sh`** (PreToolUse) — blocks publish commands when forbidden terms appear in tracked files, untracked additions, the staged index, or outgoing history.
 - **`post-edit-frontmatter.sh`** (PostToolUse on Write/Edit) — validates frontmatter on agent / skill / command file writes; warns on stderr.
 
 See [[Hooks]] and [[Sanitization]].
@@ -111,6 +112,7 @@ See [[Agent Memory]].
 - `.claude/settings.json` — tracked, project-wide.
 - `.claude/settings.local.json` — **gitignored**, per-user overrides (permissions, MCP enables).
 - `.claude/.forbidden-strings.txt` — **gitignored**, per-installation sanitization wordlist.
+- `.claude/.provenance-sources.txt` and `.claude/.provenance-allowlist.txt` — **gitignored**, local inputs for private-source overlap auditing.
 
 See [[Sanitization]] for how the wordlist is populated and refreshed.
 

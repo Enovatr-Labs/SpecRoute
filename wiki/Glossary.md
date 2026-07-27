@@ -42,7 +42,7 @@ Quick definitions for terms used throughout the wiki. Linked to the pages that g
 
 ## I
 
-**Implementation team** — The `.claude/` directory at the repo root. Eleven agents, four skills, four commands, three hooks that build SpecRoute itself. Not the consumer template. See [[Implementation Team]].
+**Implementation team** — The `.claude/` directory at the repo root. Twelve agents, six skills, four commands, three hooks that build SpecRoute itself. Not the consumer template. See [[Implementation Team]].
 
 ## M
 

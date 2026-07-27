@@ -12,7 +12,68 @@ For a content-only framework, versions are interpreted as:
 
 ## [Unreleased]
 
-(Changes accumulating since v0.3.0 will be listed here.)
+(Changes accumulating since v0.4.0 will be listed here.)
+
+---
+
+## [0.4.0] - 2026-07-27
+
+**Multi-agent orchestration, and a currency cycle that found real defects.** This release adds the `all-hands` orchestration pattern across every runtime, and corrects a set of claims that had drifted from - or never matched - what the vendors actually do. Several were functional, not cosmetic: the sanitization gate this framework advertises was not firing, and one shipped template carried a model value no runtime accepts.
+
+Vendor facts in this release were verified against official documentation and, where docs were inconsistent, against installed vendor binaries. That method is now written down as a repeatable cycle.
+
+### Added
+
+- **`all-hands` multi-agent orchestration.** A coordinator skill that triages a work item, fans it out across the relevant agents in parallel waves, synthesizes their output, runs the validation gates, and reports. Shipped in all six runtime layouts (`runtimes/.<vendor>/skills/all-hands/`), each with its own vendor-correct frontmatter and a shared body kept in sync by `tools/sync-skills.py`. Consumer template at `skills/examples/all-hands/`.
+- `agentic-docs/multi-agent-orchestration.md` and `wiki/Multi-Agent-Orchestration.md` - the six mechanisms a working orchestrator needs, and what breaks when each is missing. Framed as a **composition** of the existing four primitives, not a fifth primitive.
+- `docs-currency-auditor` agent - owns vendor facts, version anchors, transition dates, and cross-mirror consistency. Produces evidence-backed findings; does not write the prose.
+- `doc-currency-check` skill - the currency cycle in executable form, encoding the specific rot classes that have bitten this repo.
+- `tools/sync-hooks-to-settings.sh` - merges the annotated `hooks.json` source of truth into `settings.json`, with JSON validation, refusal to overwrite an invalid destination, and idempotency.
+- Tracked `.claude/settings.json`, which `CLAUDE.md` had documented but which did not exist.
+- `runtimes/mcp/render/render_devin.py` and `runtimes/.devin/config.template.json` - six renderers now emit from `runtimes/mcp/servers.yaml`.
+- **Hook layouts in every runtime.** `runtimes/.codex/`, `.gemini/`, `.cursor/`, and `.devin/` now ship hooks in their vendor's native shape, plus a new top-level `hooks/devin/` reference. All six layouts now deliver the hook support they advertise. Gemini is the shape exception: its hooks live inside the generated `.gemini/settings.json`, so the layout ships a documented merge-in snippet rather than a standalone config.
+
+### Fixed
+
+- **Hooks never fired.** Claude Code executes hooks from `settings.json`; a project-level `.claude/hooks/hooks.json` is read only for plugins. This repo's own sanitization gate, the consumer template, and the worked example all shipped inert hooks while `CLAUDE.md` described a hook block as "a hard stop". All three are now wired through `settings.json` and the fix was verified by observing the hook actually run.
+- **`model: flagship` was written into live agent files.** `flagship`/`balanced`/`fast` are SpecRoute's vendor-neutral tier abstractions; no runtime accepts them. Nine shipped agent files carried one. Real files now carry real values; tiers are confined to roster tables, with a per-vendor mapping in `wiki/Agents.md`. The frontmatter hook now flags a tier name used as a model value.
+- **Kiro's hook format was retired.** Kiro IDE 1.0 (2026-06-25) replaced `*.kiro.hook` with `.kiro/hooks/<name>.json` v1; 0.x hooks do not execute until migrated. Examples migrated, trigger vocabulary updated, migration guidance added.
+- **Agent and skill frontmatter contracts were wrong in both directions.** Only `name` and `description` are required; `model` and `color` are optional. `internet: Yes|No` was documented as a contract field but is not one - removed, with web access now expressed through `tools`. Roughly eleven real optional fields were undocumented.
+- **`allowed-tools` was described as a restriction.** It *pre-approves* tools for the invoking turn; `disallowed-tools` is what removes them. The previous framing gave a false sense of confinement.
+- **A fabricated standard was cited.** A claimed "150-line instruction budget" from the Agentic AI Foundation does not exist - the `AGENTS.md` standard specifies no schema and no length limit. The Linux Foundation stewardship is real and is now stated accurately; the length target is labelled as SpecRoute's own convention.
+- **The capability table over-claimed.** It conflated "the vendor supports this" with "SpecRoute ships a runtime layout for this". Those are now distinct claims.
+- `agentic-docs/agentic-coding-model.md`'s vendor section predated the v0.3.0 convergence and contradicted the matrix in four places.
+- **Codex hook facts.** v0.3.0 recorded 10 events; there are **11** (`SessionEnd` was missing), confirmed against both `codex-cli` 0.145.0 and the official docs. Codex reuses Claude Code's event names verbatim, but the overlap is close rather than total: no `PostToolUseFailure`, and only `type: "command"` handlers execute. Hooks are **enabled by default**, and the canonical `[features]` key is `hooks` with `codex_hooks` as a deprecated alias - an intermediate draft of this release wrongly retracted that as unverifiable, on the strength of a grep that could not prove the negative. Corrected against the vendor documentation.
+- **Kiro hook templates would not have loaded.** The root `version` field is the string `"v1"`, not the integer `1` - all four shipped example hooks carried the integer, and two migration tables instructed readers to convert *toward* it. Kiro IDE 1.0 also has **10** triggers, not 11: `Manual` was retired in favour of manual steering files, and one shipped example used it. Both fixed and verified against `kiro.dev/docs/hooks/`.
+- MCP renderers declared a `pyyaml` dependency they never used, and the Gemini and Codex renderers silently dropped `requires_env`, omitting required environment wiring from the generated configs. All six now round-trip byte-identically against their committed templates.
+- `/audit` checked the wrong files for matrix consistency and used a glob that matched nothing for Codex agents; `/sanitize` could not detect flattened project paths, which was the one path leak actually present.
+- Maintainer home-directory paths removed from tracked files; `.claude/agent-memory/` notes regenerated against disk after marking 21 existing files as "TODO".
+- The SessionStart banner and `/status` reported a phantom missing `docs/` directory, renamed to `agentic-docs/` long ago.
+- **The sanitization gate could not see the files most likely to leak.** `/sanitize` and `pre-bash-sanitize.sh` both scanned via `git grep`, which reads **tracked content only** - so a commit that *adds* a leaking file passed cleanly, and new content is exactly what leaks. 49 of this release's own files were invisible to it. Both now scan tracked plus untracked-but-not-ignored paths, verified by planting a canary in a new file and confirming the gate blocks. (The first attempt at this fix was itself broken: `xargs` returns 123 when any `grep` batch finds nothing, so an exit-status guard swallowed real hits.)
+- Three inconsistencies caught by a post-implementation audit pass: `hooks/cursor/hooks.template.json` claimed 19 lifecycle events while wiring 18 against a documented 21 (now states the count and why the Tab/workspace hooks are omitted); `wiki/Frontmatter-Contracts.md`'s intro still asserted the pre-correction "missing fields = won't register" rule that its own corrected body contradicts; and `.claude/agent-memory/runtime-architect/vendor-matrix-progress.md` still carried an in-flight banner and a pre-hooks capability snapshot.
+- **`all-hands` did not register as a skill at all.** Its frontmatter carried `disable-model-invocation: true`, which removes a skill from the model-facing registry that Claude Code's `@` mention picker completes against - so `@all-hands` returned only directories and no `Skill` row, and the skill looked broken while being structurally valid. Its tool list also named `Task`, which was superseded by `Agent`. The Claude copy now uses the documented space-separated `allowed-tools` scalar, while every runtime keeps only its native frontmatter. The portable body documents each runtime's dispatch mechanism without claiming Claude's `subagent_type` is universal.
+- **Cursor hook path resolution was documented two contradictory ways.** `hooks/cursor/scripts/README.md` said paths resolve relative to `hooks.json`'s parent; the runtime README said project root. Cursor's docs settle it: **project** hooks resolve from the project root (`.cursor/hooks/scripts/x.sh`), **user** hooks from `~/.cursor/` (`./hooks/scripts/x.sh`). The shipped configs were already correct - only the reference doc was wrong. This mattered because the `beforeShellExecution` gate sets `failClosed: true`, so an unresolvable path exits 127 and blocks every shell command rather than failing quietly.
+- **`$ARGUMENTS` now degrades gracefully.** All six `all-hands` bodies are byte-identical by design, so a per-vendor substitution token cannot be expressed - but only Claude Code and Codex expand `$ARGUMENTS`. The body now tells the coordinator what to do when it reads the literal token instead of a work item.
+- **Kiro shipped one hook where every sibling ships three**, with no stated reason, and its hooks README was the only one without a Setup section. It now ships the same session-start / sanitization-gate / frontmatter-check trio, plus setup steps that assert the scripts exist rather than only that the config parses.
+- **The `wiki-parity` CI gate was inert.** It captured `$?` after a pipeline, which is `tee`'s status, not the script's - so `exit_code` was pinned to 0 and both the staleness-annotation and hard-break-failure steps were unreachable. Now uses `PIPESTATUS[0]`.
+- **`/audit`'s vendor-matrix check could not detect cell-level drift** - it compared only row count and the set of runtime-dir tokens, so a changed cell passed silently. It now hashes the extracted matrix block (table plus footnotes) across all four mirrors and reports the differing file, line and column. The four blocks are byte-identical.
+- `agentic-docs/agent-memory.md` named a real file inside a maintainer's private user-level memory directory. Replaced with a derivation command; the elided path form had slipped past the string-level scan.
+- `runtimes/.claude/settings.local.template.json` was **invalid JSON** - an object entry inside an array - so any consumer copying it got settings that silently failed to load.
+- Five wiki mirrors reconciled against their sources, including a claim that a `runtimes/.codex/hooks/pre-bash-sanitize.json` template shipped when no such file existed in either location.
+- Three agents with populated memory directories never declared `memory: project` (four agents now declare it, including the new `docs-currency-auditor`).
+
+### Changed
+
+- Counts and version anchors reconciled across the repo: 12 implementation agents, 6 contributor skills, 6 runtime layouts, 6 MCP renderers.
+- `.cursorrules` downgraded from "legacy, still supported" to removed in practice.
+- The product is documented under its current **Devin Desktop** name. The `.devin/` runtime now targets Devin Local; Cascade's remaining `.windsurf` paths are documented only as compatibility paths within the same product.
+- Hook documentation states plainly that hook taxonomies have **not** converged. Claude Code, Codex, Kiro, and Devin Local share several event names, but payload and decision schemas still differ. Skills, not hooks, are the near-total convergence point.
+
+### Known gaps
+
+- `.agents/skills/` is emerging as a vendor-neutral skills location (confirmed present in an installed Codex 0.145.0 binary as a repo-level skills root, alongside a still-working `.codex/skills`). Documented, but SpecRoute has not migrated to it, and the ecosystem has not settled.
+- Codex hooks are documented as enabled by default; `[features] hooks` is canonical and `codex_hooks` is a deprecated alias.
+- Cascade remains available inside Devin Desktop, but SpecRoute no longer ships it as a separate runtime. Projects still using Cascade may retain its documented `.windsurf/workflows/`, `.windsurf/hooks.json`, and user-level MCP compatibility paths while migrating reusable procedures to skills.
 
 ---
 
@@ -22,10 +83,10 @@ For a content-only framework, versions are interpreted as:
 
 ### Added
 
-- `runtimes/.devin/` runtime layout for **Devin Desktop** (the relaunched Windsurf): rules, skills, per-profile `agents/<name>/AGENT.md` subagents, and workflows. `.devin/` takes precedence over the legacy `.windsurf/` layout.
-- Skills, subagents, and command templates for Gemini CLI, Kiro, Cursor, and Windsurf - each in the vendor's native shape (previously these vendors shipped only rules/steering).
+- An early `runtimes/.devin/` layout for **Devin Desktop**. Its agents and skills remain; v0.4.0 later replaced the unsupported workflow, hook, and MCP path assumptions with Devin Local's documented `.devin/` contracts.
+- Skills, subagents, and command templates for Gemini CLI, Kiro, Cursor, and the then-Windsurf-branded Desktop product - each in the vendor's native shape as understood at that release.
 - Codex hooks wiring and a standalone `.codex/agents/<name>.toml` subagent example.
-- MCP renderers `render_kiro.py`, `render_cursor.py`, and `render_windsurf.py` - six renderers now emit from the single source `runtimes/mcp/servers.yaml`.
+- MCP renderers `render_kiro.py`, `render_cursor.py`, and the historical `render_windsurf.py` - six renderers emitted from the single source `runtimes/mcp/servers.yaml`. v0.4.0 replaced the latter with `render_devin.py`.
 - Per-vendor rule files `rules/kiro-rules.md` and `rules/devin-rules.md`.
 - A `review-spec` worked-example command, mirrored across vendors in each native shape.
 
@@ -126,7 +187,9 @@ First public release. v0.1.0 was tagged privately as the launch milestone; v0.2.
 - Repository history sanitized: one commit message body containing a reference to the upstream private codebase from which SpecRoute was extracted was rewritten before public flip. The rewrite preserves all file content and authorship; only the message paragraph in that one commit changed. The `v0.1.0` tag and release object were retargeted to the rewritten commit chain.
 - Sanitization infrastructure validated end-to-end on real-world push attempts: PreToolUse `pre-bash-sanitize.sh` hook + gitignored `.claude/.forbidden-strings.txt` wordlist + `/sanitize` command + `sanitization-auditor` agent.
 
-[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.2.4...HEAD
+[Unreleased]: https://github.com/Enovatr-Labs/SpecRoute/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.4.0
+[0.3.0]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.3.0
 [0.2.4]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.4
 [0.2.3]: https://github.com/Enovatr-Labs/SpecRoute/releases/tag/v0.2.3
 
@@ -153,12 +216,12 @@ Initial public release. Phases 1-3 of the roadmap complete; Phase 4 (maturity) i
 - Agents: `agent-template.md` with frontmatter contract; 7 archetypes (product, architect, backend, frontend, security, qa, devops); `roster.md` for cross-vendor inventory.
 - Skills: `skill-template/SKILL.md` (folder-per-skill convention).
 - Commands: per-vendor templates (Claude markdown + Gemini JSON).
-- Hooks: comprehensive coverage across all six vendors (Claude Code ~30 events with 5 hook types; Codex 10 events; Gemini 11 events; Kiro 10 events; Cursor ~21 events; Windsurf 12 events).
+- Hooks: comprehensive coverage across all six vendors as understood at that release (Claude Code 30 events with 5 hook types; Codex 10 events; Gemini 11 events; Kiro 10 events; Cursor ~21 events; the then-Windsurf-branded Desktop product's Cascade agent with 12 events). Devin Local's v1 hook contract replaced the last integration in v0.4.0.
 - Prompts: master/phase/task production-grade trio + per-vendor sets for Claude and Codex + shared utility prompts (prd-to-spec, spec-to-tasks, code-review).
 
 #### Runtime layouts
 
-- Per-vendor `runtimes/.claude/`, `runtimes/.codex/`, `runtimes/.gemini/`, `runtimes/.kiro/`, `runtimes/.cursor/`, `runtimes/.windsurf/` — copy-pasteable into consumer repos.
+- Six per-vendor runtime layouts. The initial Desktop integration used a `.windsurf/` compatibility layout; v0.4.0 removed it in favor of the single current `.devin/` runtime.
 - MCP single-source-of-truth: `runtimes/mcp/servers.yaml` + working Python renderers for Claude, Codex, Gemini.
 - `tools/sync-skills.py` — cross-runtime skill / agent diff and copy.
 
@@ -166,7 +229,7 @@ Initial public release. Phases 1-3 of the roadmap complete; Phase 4 (maturity) i
 
 - 5 workflow playbooks: `prd-to-production.md`, `spec-to-implementation.md`, `agent-review-loop.md`, `testing-and-validation.md`, `release-readiness.md`.
 - Vendor-neutral rules: engineering, code-review, security, documentation.
-- Per-vendor rule surfacing: codex, claude, gemini, cursor, windsurf.
+- Per-vendor rule surfacing for Codex, Claude, Gemini, Cursor, and the then-current Desktop branding; the latter moved to `rules/devin-rules.md` in v0.3.0.
 - Steering templates (always-on vs file-pattern-matched).
 
 #### Worked example

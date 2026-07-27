@@ -85,11 +85,11 @@ Consumer-facing templates live under the corresponding top-level dirs.
 
 ## Vendor notes
 
-- **Codex** has no separate command primitive. Equivalent: a skill with `user-invocable: true` and clear `argument-hint`. Document this; don't pretend Codex has Claude-style commands.
-- **All six vendors** ship hooks; per-vendor depth varies — Claude Code ~30 events / Codex 10 / Gemini 11 / Kiro 10 / Cursor ~21 / Windsurf 12. See [[Hooks]].
+- **Codex** has no separate command file in this framework. Equivalent: a skill invoked with `$name` or from `/skills`. Document this; do not add Claude-only frontmatter to make the analogy work.
+- **All six vendors** ship hooks; per-vendor depth varies — Claude Code 30 events / Codex 11 / Gemini 11 / Kiro 10 / Cursor 21 / Devin Local 8. Cascade retains a separate 12-event compatibility surface. See [[Hooks]].
 
 ## See also
 
 - [[Skills]] · [[Agents]] · [[Commands]] · [[Hooks]] — the per-primitive references
 - [[Agentic Coding Model]] — how the four compose
-- [[Implementation Team]] — 11 worked agents + 4 skills + 4 commands + 3 hooks
+- [[Implementation Team]] — 12 worked agents + 6 skills + 4 commands + 3 hooks

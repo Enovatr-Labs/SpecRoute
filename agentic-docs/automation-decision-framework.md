@@ -41,6 +41,8 @@ A skill is a parameterized, guided multi-step workflow. The user invokes it by n
 - `add-vendor` - walks a contributor through adding a new agent CLI to the matrix.
 - `example-walkthrough` - guided end-to-end build of `examples/sample-project/`.
 - `frontmatter-lint` - interactive frontmatter validation with offered fixes.
+- `all-hands` - multi-agent orchestration across the implementation roster.
+- `doc-currency-check` - audits the docs for claims that have gone stale.
 
 **Usage pattern:**
 
@@ -123,7 +125,7 @@ Command: <runs sanitization, frontmatter checks, matrix consistency, broken-link
 Output: <punch list of findings or PASS>
 ```
 
-**Vendor note:** Codex doesn't have a separate command primitive. The Codex equivalent is a skill with `user-invocable: true` and a clear `argument-hint`. Document this equivalence; don't pretend Codex has Claude-style commands.
+**Vendor note:** Codex has no separate command file in this framework. The equivalent is a skill invoked with `$name` or from `/skills`. Document this equivalence; do not add Claude-only frontmatter to make the analogy work.
 
 ### Hook (event-triggered automation)
 
@@ -150,7 +152,7 @@ A hook is automation that runs on an event the user didn't explicitly invoke. Pr
 
 - `SessionStart` - prints a SpecRoute skeleton status banner so Claude orients without re-grepping.
 - `PreToolUse` (Bash) - blocks `git commit`/`git push` if sanitization wordlist matches in tracked files.
-- `PostToolUse` (Write|Edit) - validates frontmatter on agent/skill/command file writes; warns on stderr.
+- `PostToolUse` (Write|Edit) - validates frontmatter on agent/skill/command file writes; reports via `systemMessage` so the warning is actually visible in-session.
 
 **Usage pattern:**
 
@@ -160,7 +162,7 @@ Hook (PreToolUse): <reads .claude/.forbidden-strings.txt, runs git grep, exits 0
 Bash: <only runs if hook exited 0>
 ```
 
-**Vendor support:** All six supported vendors ship a hooks system. Per-vendor depth varies (Claude Code is most comprehensive at ~30 events with 5 hook types; Codex covers 10 events; Gemini 11 events; Kiro 10 events; Cursor ~21 events; Windsurf 12 events). See [`hooks/README.md`](../hooks/README.md) for the full per-vendor event matrix and per-vendor templates under `hooks/<vendor>/`.
+**Vendor support:** All six supported vendors ship a hooks system, but the taxonomies are **not** interchangeable. Depth varies (Claude Code 30 events / 5 handler types; Codex 11; Gemini CLI 11; Kiro 10; Cursor 21; Devin Local 8). Claude Code, Codex, Kiro, and Devin Local share several event names, but payloads and decision schemas still differ; Cursor uses camelCase and Gemini uses `BeforeTool` / `AfterModel`. Porting registration between vendors remains a rewrite. See [`hooks/README.md`](../hooks/README.md) for the full matrix.
 
 ## Decision-tree shortcut
 
@@ -186,13 +188,30 @@ If two answers are "yes," the primitive split is wrong. Split the work into two 
 
 The four primitives compose. A typical SpecRoute feature implementation uses all four - see [`agentic-coding-model.md`](agentic-coding-model.md) for the composition pattern.
 
+### Multi-agent orchestration
+
+One composition is common enough to have a name: a **skill whose work product is delegation**. The user invokes one entry point; it triages the work, fans it out across the relevant agents in parallel waves, synthesizes their output, runs the validation commands, and reports.
+
+This is not a fifth primitive - it is skill + agents + commands + hooks wired together:
+
+```
+Skill (the coordinator)  →  Agents (the specialists)  →  Commands (the gates)
+                                    ↕
+                              Hooks (always-on, firing on every edit)
+```
+
+It looks like it breaks the decision tree above - the user invokes it by name *and* it runs autonomously. It doesn't: the coordinator asks the user nothing about *how* to do the work, it asks the roster. Reach for it when a change implicates several specialists and the user shouldn't have to know which ones.
+
+Don't reach for it when one agent obviously owns the work - the coordination overhead is real. See [`multi-agent-orchestration.md`](multi-agent-orchestration.md) for the six mechanisms a working orchestrator needs, and [`.claude/skills/all-hands/SKILL.md`](../.claude/skills/all-hands/SKILL.md) for this repo's instance.
+
 ## Worked examples in this repo
 
-| Primitive | Where to find an example |
+| Pattern | Where to find an example |
 |---|---|
 | Skill | `.claude/skills/scaffold-artifact/SKILL.md` |
 | Agent | `.claude/agents/prd-author.md` |
 | Command | `.claude/commands/audit.md` |
-| Hook | `.claude/hooks/pre-bash-sanitize.sh` + `.claude/hooks/hooks.json` |
+| Hook | `.claude/hooks/pre-bash-sanitize.sh` (script) wired in `.claude/settings.json` (`hooks` key) |
+| Multi-agent orchestration | `.claude/skills/all-hands/SKILL.md` |
 
 These are the implementation team's primitives. Consumer-facing templates live under the corresponding top-level dirs (`skills/`, `agents/`, `commands/`, `hooks/`).

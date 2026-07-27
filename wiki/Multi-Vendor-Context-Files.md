@@ -13,7 +13,7 @@ repo-root/
 ├── AGENTS.md           ← canonical, vendor-neutral context (single source of truth)
 ├── CLAUDE.md           ← short delegation shim for Claude Code
 ├── GEMINI.md           ← short delegation shim for Gemini CLI
-├── (.cursorrules)      ← Cursor-specific delegation, if needed
+├── .cursor/rules/      ← Cursor-specific delegation, if needed (MDC rule files)
 └── ...
 ```
 
@@ -21,13 +21,28 @@ repo-root/
 
 **`CLAUDE.md`**, **`GEMINI.md`**, and any other vendor root files are **delegation shims** — they say "for project context, read `AGENTS.md`" and add only per-vendor overrides.
 
+**The shim has to actually pull the file in.** Of the six supported CLIs,
+**Codex, Cursor, and Devin Desktop read `AGENTS.md` natively**. Claude Code does
+not — its documentation says plainly that it reads `CLAUDE.md` — and neither
+does Gemini CLI without an opt-in. So a shim that merely *mentions*
+`AGENTS.md` leaves the canonical content unloaded at launch; bridge it with an
+`@AGENTS.md` import inside the vendor file, or make the vendor file a symlink
+to it. Claims of universal native support are still wrong; the shim is what
+makes the pattern work for runtimes that do not load it.
+
+`AGENTS.md` itself is a convention, not a schema: it began at OpenAI, is now stewarded by the Agentic AI Foundation under the Linux Foundation, and specifies **no required fields, no frontmatter, and no schema**. Nested `AGENTS.md` files are spec'd behaviour — an agent reads the nearest one up the directory tree.
+
 ## Why this pattern
 
 Each agent CLI uses its own root context file:
 
-- Claude Code: `CLAUDE.md`
+- Claude Code: `CLAUDE.md`, plus `.claude/rules/*.md` for modular instruction files
 - Codex: `AGENTS.md`
-- Gemini CLI: `GEMINI.md`
+- Gemini CLI / Antigravity: `GEMINI.md` (and *only* `GEMINI.md` without an opt-in — see below)
+- Kiro: `.kiro/steering/*.md`
+- Cursor: `.cursor/rules/*.mdc`; also natively reads `AGENTS.md`
+- Devin Desktop: `AGENTS.md` natively, plus `.devin/rules/*.md`; Cascade also
+  accepts `.windsurf/rules/*.md`
 - And more will appear.
 
 Without a convention, projects targeting multiple vendors end up with N copies of the same content, drifting independently. The delegation-shim convention solves it: one canonical file, each vendor's root file points at it.
@@ -74,14 +89,44 @@ Three things distinguish the shim:
 
 | Vendor | Root context file | Auto-loaded? |
 |---|---|---|
-| Claude Code | `CLAUDE.md` | Yes (in repo root) |
+| Claude Code | `CLAUDE.md`, plus `.claude/rules/*.md` | Yes (in repo root) |
 | Codex | `AGENTS.md` | Yes (in repo root) |
-| Gemini CLI | `GEMINI.md` | Yes (in repo root) |
-| Cursor | `.cursorrules` (legacy) or `.cursor/rules/*.mdc` | Yes |
+| Gemini CLI / Antigravity | `GEMINI.md` | Yes — but **`AGENTS.md` is not**, see below |
+| Cursor | `.cursor/rules/*.mdc`; `AGENTS.md` also natively read | Yes |
 | Kiro | `.kiro/steering/*.md` (with `inclusion: always`) | Yes |
-| Windsurf | `.windsurf/rules/*.md` | Yes |
+| Devin Desktop | `AGENTS.md`; `.devin/rules/*.md` (Cascade also accepts `.windsurf/rules/*.md`) | Yes |
 
-For Cursor / Kiro / Windsurf, the "delegation shim" translates differently: there's no single root file, but their always-on rule files can each be a thin pointer to the canonical content. See [[Vendor Matrix]] and per-runtime READMEs under `runtimes/.<vendor>/`.
+`.cursorrules` used to appear here as Cursor's legacy root file. It is now **absent from Cursor's documentation entirely and reported non-functional in current versions** — treat it as removed, not as a working fallback, and put Cursor's pointer content in `.cursor/rules/*.mdc` or `AGENTS.md`.
+
+Cursor and Devin Desktop read the canonical `AGENTS.md` directly. For Kiro,
+the delegation shim translates into an always-on steering file that points to
+the canonical content. See [[Vendor Matrix]] and per-runtime READMEs under
+`runtimes/.<vendor>/`.
+
+### The Gemini exception
+
+**Gemini CLI does not read `AGENTS.md` by default.** It reads `GEMINI.md`. Loading `AGENTS.md` requires opting in via the `context.fileName` setting in `.gemini/settings.json`, and the upstream request to read it by default was closed as not planned.
+
+This is where the pattern's core assumption — every vendor's root file can point at the canonical one — buys less than it looks. A `GEMINI.md` that only says "read `AGENTS.md`" leaves Gemini with almost nothing at launch; the model can still follow the link once working, but nothing is loaded up front.
+
+Two ways to close the gap, in order of preference:
+
+1. **Opt in.** Commit `{"context": {"fileName": ["GEMINI.md", "AGENTS.md"]}}` in `.gemini/settings.json`. The shim stays slim and the canonical file loads alongside it. Commit it so teammates get the same behaviour.
+2. **Let `GEMINI.md` carry the must-have content.** Duplication, which is exactly what this pattern avoids — so restrict it to standards that genuinely must be in context at launch.
+
+Don't quietly assume option 1 is in place. If `.gemini/settings.json` isn't in the repo, Gemini is running on `GEMINI.md` alone.
+
+### Claude Code has a second surface
+
+`.claude/rules/*.md` are modular instruction files discovered recursively. Without frontmatter they load at launch at the **same priority as `CLAUDE.md`**; with a `paths:` glob list (the only frontmatter field) they load only when a matching file is touched. User-level `~/.claude/rules/` loads before project rules.
+
+This is a better home than a growing `CLAUDE.md` for standing project substance — keep `CLAUDE.md` as the shim and put the bulk in `.claude/rules/`. `paths:` also gives Claude Code the file-scoped loading Cursor gets from `globs` and Kiro from `inclusion: fileMatch`. Note the naming collision with SpecRoute's own top-level `rules/` directory, which is documentation rather than a runtime surface; see [[Rules]].
+
+### `.agents/` — the emerging neutral location
+
+Alongside `AGENTS.md`, a vendor-neutral **`.agents/` directory** is emerging as the shared home for runtime artifacts. SpecRoute records this from an installed Codex 0.145.0 binary rather than from documentation, because the public docs are inconsistent on it: the binary carries `.agents/skills` as a repo-level skills root, plus `.agents/plugins/marketplace.json`, and enumerates `.agents` beside `.claude` and `.cursor` when detecting external agent configuration.
+
+The same binary **still** carries `.codex/skills` and `$CODEX_HOME/skills`, and both work today. Treat `.agents/` as the convergence point to watch — not yet a reason to migrate off the per-vendor paths.
 
 ## Updating the canonical content
 

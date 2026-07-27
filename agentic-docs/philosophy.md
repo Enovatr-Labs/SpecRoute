@@ -14,7 +14,7 @@ Modern agent CLIs are capable of architecture decisions, multi-file refactors, a
 
 ### 3. Vendor neutrality is a contract, not a wish
 
-Tooling churns. Claude Code, Codex, Gemini CLI, Kiro, Cursor, Windsurf - and whatever ships next - each have their own runtime conventions. SpecRoute's value is the **content** (PRDs, specs, prompts, agent definitions, rules, skills, commands, hooks). The runtime layout is a thin shell that adapts the same content to each vendor's expectations. A SpecRoute consumer can switch vendors without rewriting their PRDs and specs; only the runtime shell changes.
+Tooling churns. Claude Code, Codex, Gemini CLI, Kiro, Cursor, Devin Desktop - and whatever ships next - each have their own runtime conventions. SpecRoute's value is the **content** (PRDs, specs, prompts, agent definitions, rules, skills, commands, hooks). The runtime layout is a thin shell that adapts the same content to each vendor's expectations. A SpecRoute consumer can switch vendors without rewriting their PRDs and specs; only the runtime shell changes.
 
 ### 4. Templates that don't produce valid artifacts are theory
 

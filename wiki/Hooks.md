@@ -4,7 +4,7 @@
 
 Event-triggered automation. Hooks run automatically when something happens (file edit, session start, pre-tool invocation) — the user doesn't invoke them. This is what distinguishes hooks from skills, agents, and commands.
 
-**All six supported vendors ship a hooks system.** The event taxonomies and config shapes differ; the underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible.
+**All six supported vendors ship a hooks system.** The underlying contract (script reads JSON on stdin, returns JSON on stdout, uses exit codes for blocking) is broadly compatible. The **event taxonomies and config shapes are not** — hooks remain the least portable layer in the framework.
 
 For the canonical reference (full event matrices), see [`hooks/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/hooks/README.md).
 
@@ -12,14 +12,18 @@ For the canonical reference (full event matrices), see [`hooks/README.md`](https
 
 | Vendor | Event count | Blocking semantics | Hook types beyond shell |
 |---|---|---|---|
-| Claude Code | ~30 | rich (per-event) | `http`, `mcp_tool`, `prompt`, `agent` |
-| Codex | 10 | per-event JSON | `command` only |
+| Claude Code | 30 | rich (per-event) | `http`, `mcp_tool`, `prompt`, `agent` |
+| Codex | 11 | per-event JSON | `command` only |
 | Gemini CLI | 11 | per-event | `command` only |
-| Kiro | 10 | pre-hooks block | `askAgent` (built-in) |
-| Cursor | ~21 | `permission` schema | `command`, `prompt` |
-| Windsurf | 12 | pre-hooks only | `command`, `powershell` |
+| Kiro | 10 | pre-hooks block | `agent` (built-in) |
+| Cursor | 21 | `permission` schema | `command`, `prompt` |
+| Devin Desktop (Devin Local) | 8 | exit 2 blocks | `command`, `prompt` |
 
 Claude Code has the most comprehensive system. Cursor is second by event count. The other four cover the core "pre-tool, post-tool, session-start" patterns.
+
+Devin Desktop's Cascade agent has a separate compatibility surface with 12
+snake_case events and `command` / `powershell` handlers. That Cascade contract
+does not change the primary Devin Local row above.
 
 ## Per-vendor config locations
 
@@ -28,23 +32,66 @@ hooks/
 ├── claude/    hooks.template.json     ~/.claude/settings.json or .claude/settings.json
 ├── codex/     hooks.template.json     .codex/hooks.json or [hooks] in config.toml
 ├── gemini/    hooks-settings template under `hooks` key in .gemini/settings.json
-├── kiro/      *.kiro.hook             .kiro/hooks/<name>.kiro.hook
+├── kiro/      examples/*.json         .kiro/hooks/<name>.json (v1 schema)
 ├── cursor/    hooks.template.json     .cursor/hooks.json (v1 schema)
-└── windsurf/  hooks.template.json     .windsurf/hooks.json
+└── devin/     hooks.v1.template.json  .devin/hooks.v1.json
 ```
 
-The `hooks/` directory under the repo root ships templates for **all six vendors**. Drop the per-vendor template into your runtime layout and customize.
+The `hooks/` directory under the repo root ships one template for each of the
+six vendors. Cascade still recognizes `.windsurf/hooks.json`, but that literal
+compatibility path is not a separate SpecRoute vendor or runtime.
+
+## Kiro 1.0 hook format (breaking change, 2026-06-25)
+
+**Kiro IDE 1.0 replaced the `*.kiro.hook` format.** Hooks now live at `.kiro/hooks/<name>.json`:
+
+```json
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Doc Sync Checker",
+      "trigger": "PostFileSave",
+      "matcher": "README.md|AGENTS.md|docs/**/*.md",
+      "action": { "type": "agent", "prompt": "<what the agent should do>" },
+      "timeout": 30,
+      "enabled": true
+    }
+  ]
+}
+```
+
+Ten triggers: `SessionStart`, `Stop`, `PreToolUse`, `PostToolUse`, `PreTaskExec`, `PostTaskExec`, `UserPromptSubmit`, `PostFileCreate`, `PostFileSave`, `PostFileDelete`. Actions are `agent` (prompt) or `command` (shell) — the 0.x `askAgent` / `runCommand` respelled.
+
+Old → new mapping: `fileSaved` → `PostFileSave`; `fileEdited` → `PostFileSave` for user saves or `PostToolUse` for agent writes; `manual` → **no equivalent** (the `Manual` trigger was retired; use a manual steering file); the `when.patterns` array collapses into a single `|`-separated `matcher` string.
+
+> ⚠️ Legacy `*.kiro.hook` files get an upgrade badge in the IDE but do not execute until migrated. Run `ls .kiro/hooks/*.kiro.hook`; anything it prints is not part of the v1 runtime. Full checklist in [`hooks/kiro/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/hooks/kiro/README.md).
 
 ## Cross-vendor convergence
 
-The schema is converging:
+Hooks are where cross-vendor convergence is weakest. **Skills** are the layer where it is near-total — the Agent Skills `SKILL.md` shape ports across all six vendors essentially unchanged. Hooks do not.
 
-- **Common base input**: `session_id`, `transcript_path`, `cwd`, `hook_event_name` appear in every vendor's payload.
+What *has* converged:
+
+- **Common input concepts**: every vendor supplies event, session, and operation
+  context, but field names and available values differ; do not assume one
+  payload schema is portable.
 - **Common output controls**: `continue`, `stopReason`, `systemMessage`, `suppressOutput` accepted by Claude, Codex, and Gemini.
 - **Decision schemas**: Claude, Codex, and Gemini support `hookSpecificOutput` with `permissionDecision: "allow|deny|ask"`.
 - **Exit codes**: `0` = success, `2` = blocking, anything else = warning, consistent across all six.
+- **Event naming, in four of six**: Claude, Codex, Kiro, and Devin Local share
+  core names such as `SessionStart`, `UserPromptSubmit`, `PreToolUse`,
+  `PostToolUse`, and `Stop`.
 
-This means hook scripts written for Claude Code can often run unchanged under Codex (with renamed event keys).
+What has *not*:
+
+- **Cursor** — camelCase across ~21 events (`preToolUse`, `beforeShellExecution`, `afterFileEdit`), plus Tab-scoped events no other vendor has.
+- **Gemini CLI** — its own verb-first vocabulary (`BeforeTool`, `AfterModel`, `BeforeToolSelection`, `PreCompress`).
+- **Devin Desktop's Cascade compatibility surface** — snake_case operation
+  names (`pre_read_code`, `post_run_command`, `post_cascade_response`) remain
+  distinct from the primary Devin Local lifecycle.
+
+A hook script's *body* and its stdin/stdout discipline port well. Its *registration* — event name, config path, config shape — does not. Budget for per-vendor hook wiring.
 
 ## When to build a hook
 
@@ -95,9 +142,9 @@ Read these as worked examples of the hook protocol (stdin JSON, exit codes, stde
 | Claude Code | exact / `|`-list / regex (auto-detected) |
 | Codex | regex string |
 | Gemini CLI | regex string (per hook entry) |
-| Kiro | tool name / category (`read`, `write`, `shell`, etc.) / `@mcp` prefix / regex |
+| Kiro | glob / tool name / category (`read`, `write`, `shell`, etc.) / `@mcp` prefix / regex — one `matcher` string, `\|`-separated |
 | Cursor | tool type / pattern / regex (`matcher` field) |
-| Windsurf | per-event `tool_info` filter (script-side; no declarative matcher) |
+| Devin Desktop | regex on Devin Local `tool_name`; Cascade compatibility hooks use script-side `tool_info` filtering |
 
 ## Owner agent
 

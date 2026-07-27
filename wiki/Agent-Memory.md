@@ -22,6 +22,8 @@ A directory per agent, holding markdown notes:
 
 The agent's own definition (`.claude/agents/<name>.md`) names the agent's responsibilities; the agent-memory directory holds **state** the agent accumulates over time.
 
+`memory` is a real Claude Code agent frontmatter field. It takes `project`, `user`, or `local`, and it is optional — most agents omit it. An agent that declares `memory: project` auto-reads `.claude/agent-memory/<its-own-name>/` at the start of each session. In this repo the stateful specialists (`sanitization-auditor`, `runtime-architect`, `framework-docs-author`, `docs-currency-auditor`) declare it; the rest don't, because they have no state worth carrying.
+
 ## What goes in agent memory
 
 - **Decisions made.** "We chose option A for cursor encoding because option B failed the load test." Saves having the same debate twice.
@@ -38,7 +40,8 @@ These directories are tracked. Do not write:
 - **Live secrets or credentials.**
 - **Information that belongs in a real artifact.** If it's "this PRD said X," update the PRD.
 - **Per-conversation working state.** Use task lists for that, not memory.
-- **User-level preferences.** Those go in user-level memory at `~/.claude/projects/<project>/memory/`, outside the repo.
+- **User-level preferences.** Those go in user-level memory at `~/.claude/projects/<flattened-project-path>/memory/`, outside the repo.
+- **Anything that names the user-level memory directory** — its absolute path, or the filenames inside it. Both disclose more than they look like they do; write a placeholder and derive the real path at use time. See [[Sanitization]].
 
 ## Lifecycle
 
@@ -52,7 +55,9 @@ These directories are tracked. Do not write:
 | Layer | Path | Tracked? | Use for |
 |---|---|---|---|
 | **Project agent memory** | `.claude/agent-memory/<agent-name>/` | Yes | Shared agent state ships with the project |
-| **User-level memory** | `~/.claude/projects/<project>/memory/` | No | Per-developer personal context |
+| **User-level memory** | `~/.claude/projects/<flattened-project-path>/memory/` | No | Per-developer personal context |
+
+Claude Code derives the flattened segment from the repo path by replacing `/` with `-`, so it differs per machine. Never hard-code it into a tracked file.
 
 ## Reference implementations
 
@@ -73,13 +78,16 @@ Agent memory is specifically for state the agent **accumulates over time** that 
 
 ## Vendor support
 
-| Vendor | Native support | Workaround |
+All six supported vendors now ship subagents, but **persistent per-agent memory is a separate capability** and is not part of that converged set. Native support is still asymmetric:
+
+| Vendor | Native agent-memory support | Workaround |
 |---|---|---|
-| Claude Code | Yes — auto-reads `.claude/agent-memory/<agent-name>/` if frontmatter declares `memory: project` or `memory: user` | n/a |
-| Codex | Partial — depends on version | Surface key state in the agent's `.md` body |
-| Gemini CLI | No native support | Use `GEMINI.md` references for project-wide state |
+| Claude Code | Yes — an agent auto-reads `.claude/agent-memory/<agent-name>/` when its frontmatter declares `memory: project` (or `user` / `local`) | n/a |
+| Codex | Partial — per-agent context via the agent's TOML | Surface key state in the agent's `developer_instructions` |
+| Gemini CLI | No native per-agent memory | Use `GEMINI.md` references for project-wide state |
 | Kiro | Steering files act as cross-conversation memory | Use `.kiro/steering/` with `inclusion: always` |
-| Cursor / Windsurf | No native support | Use rules with `alwaysApply: true` |
+| Cursor | No native per-agent memory | Use `.cursor/rules/*.mdc` with `alwaysApply: true` |
+| Devin Desktop | No native persistent per-agent memory | Use `AGENTS.md` or `.devin/rules/`; Cascade also accepts `.windsurf/rules/` |
 
 For vendors without native support, surface the same content via the vendor's rule or context-file mechanism.
 
@@ -92,6 +100,6 @@ For vendors without native support, surface the same content via the vendor's ru
 
 ## See also
 
-- [[Implementation Team]] — the 11 agents whose memory directories live here
+- [[Implementation Team]] — the agents whose memory directories live here
 - [[Multi-Vendor Context Files]] — how per-vendor memory mechanisms compare
 - [[Rules]] — content standards

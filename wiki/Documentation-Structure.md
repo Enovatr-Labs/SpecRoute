@@ -76,7 +76,8 @@ A directory's `README.md` answers questions specific to **that directory**: what
 
 | File type | Sweet spot |
 |---|---|
-| Root context file (`AGENTS.md`, `CLAUDE.md`) | 50–150 lines |
+| Root context file (`AGENTS.md`) | ~100 lines, hard cap ~150 |
+| Delegation shim (`CLAUDE.md`, `GEMINI.md`) | 30–50 lines, hard cap 75 |
 | `agentic-docs/<topic>.md` | 100–300 lines |
 | `workflows/<flow>.md` | 100–250 lines |
 | `rules/<topic>.md` | 80–200 lines |

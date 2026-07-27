@@ -5,7 +5,9 @@ Get a working SpecRoute setup in your own repo in 15 minutes.
 ## Prerequisites
 
 - A repository you control.
-- One or more supported agent CLIs installed locally. All six (Claude Code, Codex, Gemini, Kiro, Cursor, Windsurf/Devin) support the same capability set; they differ in file format, not capability class. See [[Vendor Matrix]].
+- One or more supported agent CLIs installed locally. All six (Claude Code,
+  Codex, Gemini, Kiro, Cursor, and Devin Desktop) support the same capability
+  set; they differ in file format, not capability class. See [[Vendor Matrix]].
 - `git`, `python3` (only if you'll use `tools/sync-skills.py` or the MCP renderers).
 
 ## Three paths
@@ -51,6 +53,14 @@ mv settings.template.json            settings.json
 mv settings.local.template.json      settings.local.json
 mv mcp.template.json                 ../.mcp.json    # Claude Code CLI reads .mcp.json at repo root
 mv hooks/hooks.template.json         hooks/hooks.json
+chmod +x hooks/scripts/*.sh
+
+# Hooks EXECUTE from settings.json's `hooks` key - a bare .claude/hooks/hooks.json is
+# only read for plugins, never for a project. settings.template.json already ships a
+# working `hooks` block, so the copy above is enough. If you keep editing hooks.json as
+# your annotated source of truth, re-merge it after each change:
+#   bash /path/to/SpecRoute/tools/sync-hooks-to-settings.sh
+jq -e '.hooks' settings.json >/dev/null && echo "hooks wired"
 
 # Set up the sanitization wordlist (gitignored)
 touch .forbidden-strings.txt
@@ -58,7 +68,9 @@ echo ".claude/settings.local.json"       >> ../.gitignore
 echo ".claude/.forbidden-strings.txt"    >> ../.gitignore
 ```
 
-For other vendors (Codex, Gemini, Kiro, Cursor, Windsurf), the per-vendor README under `runtimes/.<vendor>/` walks the exact steps. See [[Agent CLI Integrations]] for all six.
+For other vendors (Codex, Gemini, Kiro, Cursor, and Devin Desktop), the
+per-vendor README under `runtimes/.<vendor>/` walks the exact steps. See
+[[Agent CLI Integrations]] for all six.
 
 ## Run the canonical example
 

@@ -8,7 +8,7 @@ Keep root context files short; put deep references in a separate directory. The 
 Tier 1: Root context files                Tier 2: Deep reference library
 (loaded into every conversation)          (read on demand by humans and agents)
 
-AGENTS.md         (~100 lines)            docs/
+AGENTS.md         (~100 lines)            agentic-docs/
 CLAUDE.md         (~50 lines, shim)       ├── philosophy.md
 GEMINI.md         (~30 lines, shim)       ├── spec-driven-development.md
                                           ├── agentic-coding-model.md
@@ -17,7 +17,9 @@ GEMINI.md         (~30 lines, shim)       ├── spec-driven-development.md
                                           └── ...
 ```
 
-**Tier 1** is short, scannable, and load-bearing for every interaction. **Tier 2** is detailed, comprehensive, and read selectively.
+**Tier 1** is short, scannable, and load-bearing for every interaction. **Tier 2** is detailed, comprehensive, and read selectively on demand.
+
+> **On the AGENTS.md standard.** `AGENTS.md` is now stewarded by the **Agentic AI Foundation under the Linux Foundation** (it began as an OpenAI-originated convention). The standard deliberately specifies **no required fields, no frontmatter, and no schema** - it is plain Markdown, and nested files are spec'd behavior, with agents reading the nearest one in the tree. So there is no official length limit to comply with. **The ~100-line target below is SpecRoute's own convention**, chosen for the context-budget reasons in the next section - not an external requirement.
 
 ## Why two tiers
 
@@ -45,7 +47,7 @@ In `AGENTS.md` (canonical) and per-vendor delegation shims:
 - **What this repository is** - one paragraph.
 - **Core artifact taxonomy** - a table.
 - **Hard constraints** - the rules that aren't obvious from the code (vendor neutrality, sanitization, frontmatter contracts).
-- **Pointers to deep references** - "for X, see `docs/<topic>.md`".
+- **Pointers to deep references** - "for X, see `agentic-docs/<topic>.md`".
 - **Vendor-specific overrides** (in the per-vendor shims only).
 
 In `CLAUDE.md` and `GEMINI.md` specifically: ~30–50 lines, mostly pointers. They delegate to `AGENTS.md` and add per-vendor specifics.
@@ -107,7 +109,7 @@ the reader has already encountered it)
 |---|---|---|
 | `AGENTS.md` | ~100 lines | ~150 lines |
 | `CLAUDE.md`, `GEMINI.md` (delegation shims) | 30–50 lines | 75 lines |
-| `docs/<topic>.md` | 100–300 lines | flexible |
+| `agentic-docs/<topic>.md` | 100–300 lines | flexible |
 
 If a Tier 1 file passes the hard cap, ask: which sections can move to Tier 2?
 
@@ -116,7 +118,8 @@ If a Tier 1 file passes the hard cap, ask: which sections can move to Tier 2?
 - **Claude Code** loads `CLAUDE.md` automatically. Keep it short; deep references in `agentic-docs/` are loaded on demand by the agent reading them.
 - **Codex** loads `AGENTS.md` automatically.
 - **Gemini CLI** loads `GEMINI.md` automatically.
-- **Cursor / Windsurf** load rule files (`*.mdc`, `*.md` under `.cursor/rules/`, `.windsurf/rules/`); the two-tier pattern is enforced through which rules are `alwaysApply`-flagged vs glob-scoped.
+- **Cursor** loads `*.mdc` files under `.cursor/rules/`; the two-tier pattern is enforced through `alwaysApply` versus glob scoping.
+- **Devin Desktop** reads `AGENTS.md` directly in Devin Local. Cascade compatibility can mirror vendor-specific guidance under `.devin/rules/`.
 - **Kiro** loads `.kiro/steering/*.md` per its `inclusion` frontmatter - same pattern, different syntax.
 
 ## See also

@@ -50,14 +50,18 @@ For breaking changes to the framework's contracts (vendor matrix, frontmatter, s
 ## What this project is *not*
 
 - **A SaaS or hosted service.** SpecRoute is markdown content. We don't run anything.
-- **A vendor-specific framework.** Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Windsurf are parallel execution environments. The [[Vendor Matrix]] is the contract.
+- **A vendor-specific framework.** Claude Code, Codex, Gemini CLI / Antigravity, Kiro, Cursor, and Devin Desktop are parallel execution environments. The [[Vendor Matrix]] is the contract.
 - **A standards body.** We propose patterns we've found useful; consumers fork what they need and ignore the rest.
 
 ## Acknowledgments
 
 SpecRoute generalizes patterns from internal Enovatr Labs codebases into a public framework. Specific design choices (the spec triplet, the phased master-prompt pattern, the per-vendor runtime layouts) draw on production usage across multiple projects. Sanitized for public release.
 
-The agentic-engineering ecosystem moves quickly. We watch the upstream conventions of the agent CLIs we support and update SpecRoute in lock-step when they evolve.
+The agentic-engineering ecosystem moves quickly. We watch the upstream conventions of the agent CLIs we support and update SpecRoute in lock-step when they evolve — the 30-event Claude Code hook taxonomy and the cross-vendor hook coverage were both added when those vendors shipped or expanded their hooks systems. Currency is itself an owned job: see the `docs-currency-auditor` agent in [[Implementation Team]].
+
+## License
+
+Apache 2.0. Copyright © Enovatr Labs. See [LICENSE](https://github.com/Enovatr-Labs/SpecRoute/blob/main/LICENSE).
 
 ## See also
 

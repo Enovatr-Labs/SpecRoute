@@ -44,7 +44,8 @@ specroute/
 │   ├── multi-vendor-context-files.md
 │   ├── agent-cli-integrations.md
 │   ├── cross-vendor-sync.md
-│   └── agent-memory.md
+│   ├── agent-memory.md
+│   └── multi-agent-orchestration.md
 │
 ├── workflows/                           recurring engineering tasks
 │   ├── prd-to-production.md
@@ -101,7 +102,8 @@ A directory's `README.md` answers questions specific to **that directory**: what
 
 | File type | Sweet spot |
 |---|---|
-| Root context file (`AGENTS.md`, `CLAUDE.md`) | 50–150 lines |
+| Root context file (`AGENTS.md`) | ~100 lines, hard cap ~150 |
+| Delegation shim (`CLAUDE.md`, `GEMINI.md`) | 30–50 lines, hard cap 75 |
 | `docs/<topic>.md` | 100–300 lines |
 | `workflows/<flow>.md` | 100–250 lines |
 | `rules/<topic>.md` | 80–200 lines |
@@ -125,4 +127,5 @@ Documentation structure is owned by the `framework-docs-author` agent. See [`.cl
 ## See also
 
 - [`two-tier-docs-pattern.md`](two-tier-docs-pattern.md) - short root context + deep references.
+- [`multi-agent-orchestration.md`](multi-agent-orchestration.md) - the all-hands pattern; a composition of the four primitives, not a fifth one.
 - [`rules/documentation-rules.md`](../rules/documentation-rules.md) - content quality standards.
