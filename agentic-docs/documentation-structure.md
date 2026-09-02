@@ -37,6 +37,7 @@ specroute/
 ├── agentic-docs/                        conceptual, framework-level
 │   ├── philosophy.md
 │   ├── spec-driven-development.md
+│   ├── spec-driven-landscape.md
 │   ├── agentic-coding-model.md
 │   ├── automation-decision-framework.md
 │   ├── documentation-structure.md       (this file)

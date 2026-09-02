@@ -51,7 +51,7 @@ If the vendor consumes MCP servers:
 
 1. Document the vendor's MCP config shape and path.
 2. Add `runtimes/mcp/render/render_<vendor>.py`.
-3. Update `runtimes/mcp/servers.yaml` per-server `enabled_for` lists to include the new vendor.
+3. Confirm the new renderer preserves `requires_env` for every server that declares it — no renderer may drop a credential requirement silently. `servers.yaml` needs no per-vendor edit: every renderer emits every server.
 
 See [[MCP Integration]].
 
@@ -106,7 +106,7 @@ After the changes, run `/audit` — it checks vendor-matrix consistency across t
 - [ ] `runtimes/.<vendor>/` exists with a README and the appropriate template files.
 - [ ] Matrix row is identical across `README.md`, `AGENTS.md`, `agentic-docs/agent-cli-integrations.md`.
 - [ ] `rules/<vendor>-rules.md` documents how rules surface.
-- [ ] If the vendor consumes MCP: renderer exists, `servers.yaml` per-server `enabled_for` updated.
+- [ ] If the vendor consumes MCP: renderer exists, its output parses, and every `requires_env` credential is still named in it.
 - [ ] If the vendor has hooks: `hooks/<vendor>/` templates exist, event list documented in `hooks/README.md`.
 - [ ] If the vendor auto-loads a root file: delegation shim exists at repo root (30–50 lines).
 - [ ] Per-runtime README walks through setup (rename templates, .gitignore additions, etc.).

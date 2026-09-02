@@ -79,7 +79,7 @@ runtimes/
 
 ## Cross-vendor parity
 
-As of mid-2026 all six vendors support the same capability set (skills, agents, commands, hooks, MCP) - they differ in **file format**, not capability class:
+Since the 2026 capability convergence all six vendors support the same capability set (skills, agents, commands, hooks, MCP) - they differ in **file format**, not capability class:
 
 - **Skills** (folder-per-skill `SKILL.md`) - the Agent Skills open standard; identical across every vendor.
 - **Agents** - format diverges: flat Markdown for Claude/Gemini/Kiro/Cursor, standalone TOML for Codex (`<name>.toml`), per-profile `AGENT.md` dirs for Devin.

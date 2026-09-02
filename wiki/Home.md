@@ -14,6 +14,7 @@ SpecRoute captures production-grade patterns for PRDs, specifications, prompts, 
 | Understand the project layout | [[Repository Structure]] |
 | Know *why* the framework exists | [[Philosophy]] |
 | See the framework end-to-end on a real feature | [[Worked Example]] |
+| Decide between SpecRoute and a peer framework | [[Spec-Driven Landscape]] |
 
 ## The core idea
 
@@ -30,6 +31,7 @@ Read [[Spec-Driven Development]] for the full flow, [[Agentic Coding Model]] for
 ### Concepts
 - [[Philosophy]] — what we believe and why
 - [[Spec-Driven Development]] — PRD → spec → tasks → impl → validation
+- [[Spec-Driven Landscape]] — how SpecRoute relates to spec-kit, OpenSpec, BMAD-METHOD, and Kiro
 - [[Agentic Coding Model]] — how four primitives compose
 - [[Automation Decision Framework]] — skill vs agent vs command vs hook
 - [[Two-Tier Docs Pattern]] — short root context + deep references

@@ -34,15 +34,17 @@ The directory name is the skill slug. The slug is what users invoke (e.g. `scaff
 
 ```yaml
 ---
-name: <slug>                             # required by the standard; matches enclosing dir (max 64 chars)
-description: <triggers>                  # required by the standard; drives auto-selection (max 1024 chars)
+name: <slug>                             # required by the standard; matches enclosing dir (1-64 chars)
+description: <triggers>                  # required by the standard; drives auto-selection (1-1024 chars)
 license: MIT                             # optional agentskills.io standard field
-compatibility: "Requires bash, git"      # optional agentskills.io standard environment requirements
-metadata:                                # optional agentskills.io standard metadata map
+compatibility: "Requires bash, git"      # optional agentskills.io standard environment requirements (max 500 chars)
+metadata:                                # optional agentskills.io standard metadata map (string keys -> string values)
   author: "<author-or-team>"
   version: "1.0.0"
+allowed-tools: Read Write Edit Glob Bash # optional agentskills.io standard field (EXPERIMENTAL - support
+                                         # varies between implementations); PRE-APPROVES these tools,
+                                         # does not restrict
 # Claude Code extensions - not part of the standard:
-allowed-tools: Read Write Edit Glob Bash # optional; PRE-APPROVES these tools, does not restrict
 disallowed-tools: Bash                   # optional; the field that actually removes tools
 argument-hint: "[arg1] [arg2?]"          # optional argument hint
 user-invocable: true                     # optional; menu visibility only
@@ -53,9 +55,50 @@ The standard requires `name` and `description`. Claude Code itself is looser - *
 
 The standard caps `description` at 1024 characters. Front-load the trigger phrases.
 
-### `allowed-tools` is not a sandbox
+### The `name` contract in full
 
-This is the single most common misreading of the skill contract:
+The standard is stricter about `name` than most authors expect. All five rules apply:
+
+| Rule | Detail |
+|---|---|
+| Length | 1-64 characters. |
+| Charset | Unicode lowercase alphanumerics (`a`-`z`, `0`-`9`) and hyphens only. No uppercase, underscores, dots, or spaces. |
+| No edge hyphens | Must **not** start or end with a hyphen. `-audit` and `audit-` are invalid. |
+| No consecutive hyphens | `pdf--processing` is invalid; `pdf-processing` is valid. |
+| Directory match | Must match the enclosing directory name exactly. This is the standard's one hard structural rule. |
+
+`description` is 1-1024 characters and must be non-empty. `compatibility`, when present, is capped at 500 characters.
+
+### Progressive disclosure budgets
+
+The standard loads a skill in two stages, and each stage has a budget worth designing to:
+
+| Stage | What loads | Budget |
+|---|---|---|
+| Discovery | frontmatter metadata (`name` + `description`) | **~100 tokens**, always in context for every registered skill |
+| Activation | the full `SKILL.md` body | **< 5000 tokens** recommended |
+
+Keep the main `SKILL.md` **under 500 lines**. Past that, move detail into referenced files the skill reads only at the step that needs them - `references/` for supporting docs, `scripts/` for helpers, `assets/` for templates. A long skill is not a richer skill; it is one that spends its activation budget before the first step runs.
+
+This is the bar SpecRoute's own skills are measured against too, not just consumer-facing examples.
+
+### Validating a skill
+
+The Agent Skills project publishes a reference validator in the `skills-ref` library ([github.com/agentskills/agentskills](https://github.com/agentskills/agentskills)):
+
+```bash
+skills-ref validate ./my-skill
+```
+
+This is an **optional external tool**. SpecRoute has no build step, package manager, or toolchain, and deliberately does not wire `skills-ref` into `/audit`, any hook, or CI - adding an external binary to a commit gate would break the repo's no-toolchain contract. Run it by hand when you want an independent check against the standard; the in-repo `frontmatter-lint` skill and `/audit` remain the checks that always run.
+
+### `allowed-tools` is a standard field, and it is not a sandbox
+
+Two things about `allowed-tools` are routinely got wrong.
+
+**It is part of the standard.** `allowed-tools` is an `agentskills.io` field - a space-separated string of pre-approved tools - not a Claude Code extension. The standard marks it **(Experimental)**: "support for this field may vary between agent implementations." So write it when it helps the runtime you are targeting, and never depend on it being honoured everywhere. Its absence is not a defect and must not be warned about. `argument-hint` and `user-invocable`, by contrast, genuinely are Claude Code extensions.
+
+**It does not confine anything.** This is the single most common misreading of the skill contract:
 
 - **`allowed-tools` pre-approves.** The listed tools run without a permission prompt for the invoking turn, and the grant clears on the next message. It does **not** remove anything from the tool pool - the skill can still use tools you left off the list, they just prompt.
 - **`disallowed-tools` restricts.** This is the field that removes tools from the pool for the skill's run.
@@ -107,7 +150,7 @@ The table describes SpecRoute's design vocabulary, not four separate file format
 
 ## Per-vendor mirrors
 
-As of mid-2026, all six supported vendors (Claude Code, Codex, Gemini/Antigravity, Kiro, Cursor, Devin Desktop) consume folder-per-skill `SKILL.md` artifacts under `runtimes/.<vendor>/skills/<slug>/SKILL.md`.
+Since the 2026 capability convergence, all six supported vendors (Claude Code, Codex, Gemini/Antigravity, Kiro, Cursor, Devin Desktop) consume folder-per-skill `SKILL.md` artifacts under `runtimes/.<vendor>/skills/<slug>/SKILL.md`.
 
 A vendor-neutral `.agents/skills/` root is also emerging and has been verified directly in Codex. It does not replace the per-vendor directories yet; re-check other runtime support against current vendor documentation. See [`agentic-docs/cross-vendor-sync.md`](../agentic-docs/cross-vendor-sync.md).
 

@@ -55,7 +55,7 @@ Option A is the recommended default - Cursor's loader reads what's in the MDC fi
 | Rule precedence | When multiple rules match, Cursor merges them. Order is implementation-defined; don't rely on conflict resolution. |
 | Glob patterns | `**` matches recursively; `*` matches one segment. Standard glob semantics. |
 | `.cursorrules` | Removed in practice - undocumented and reported non-functional. Migrate to `.cursor/rules/*.mdc`. |
-| Skills | Folder-per-skill `SKILL.md` under `.cursor/skills/<slug>/`, following the Agent Skills standard (`name` + `description`). Cursor does not use Claude's `argument-hint` / `user-invocable` / `allowed-tools` extensions. |
+| Skills | Folder-per-skill `SKILL.md` under `.cursor/skills/<slug>/`, following the Agent Skills standard (`name` + `description`). Cursor does not use Claude's `argument-hint` / `user-invocable` extensions. `allowed-tools` *is* a standard field, but the standard marks it (Experimental) with support varying between implementations, and the shipped Cursor templates omit it. |
 | Subagents | Flat agent files under `.cursor/agents/<name>.md`. All frontmatter fields are optional; `name` defaults to the filename. |
 | Slash commands | Markdown files under `.cursor/commands/<slug>.md`. |
 | Hooks via `.cursor/hooks.json` | 21 lifecycle events in **camelCase** (`sessionStart`/`sessionEnd`, `preToolUse`/`postToolUse`, `beforeShellExecution`, `beforeMCPExecution`, `beforeReadFile`, `afterFileEdit`, `beforeSubmitPrompt`, `stop`, plus Tab-flow events) with a `permission` / `decision` schema. Both `command` and `prompt` (LLM-evaluated) hook types. See [`hooks/cursor/`](../hooks/cursor/). |

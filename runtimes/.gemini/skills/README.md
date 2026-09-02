@@ -17,11 +17,11 @@ Gemini's SKILL.md frontmatter is just the two Agent Skills open-standard keys:
 | `name` | Yes | Slug matching the folder name. |
 | `description` | Yes | Include trigger phrases so the model knows when to invoke; this is what Gemini uses for discovery. |
 
-Gemini does **not** use Claude's `argument-hint`, `user-invocable`, or `allowed-tools` skill fields - drop them when porting. Skills are activated via the `activate_skill` tool, not exposed as slash commands (use `.gemini/commands/*.toml` for those).
+Gemini does **not** use Claude's `argument-hint` or `user-invocable` extensions, nor the standard's *Experimental* `allowed-tools` - drop all three when porting. (`allowed-tools` is an `agentskills.io` field, not a Claude extension; Gemini simply does not consume it.) Skills are activated via the `activate_skill` tool, not exposed as slash commands (use `.gemini/commands/*.toml` for those).
 
 ## Porting from `.claude/skills/`
 
-The body is portable. Strip the Claude-only frontmatter (`argument-hint`, `user-invocable`, `allowed-tools`) down to `name` + `description`. Use `tools/sync-skills.py` to keep the body in sync across runtimes - it is body-aware and preserves each vendor's own frontmatter.
+The body is portable. Strip the Claude Code extensions (`argument-hint`, `user-invocable`) and the standard's unconsumed `allowed-tools` down to `name` + `description`. Use `tools/sync-skills.py` to keep the body in sync across runtimes - it is body-aware and preserves each vendor's own frontmatter.
 
 `audit-artifact/` ships here as a worked reference. Replace or extend it with your project's skills.
 
@@ -40,8 +40,9 @@ frontmatter:
 
 - **`disable-model-invocation: true` hides it** from the model-facing registry the `@` picker
   completes against. Omit it unless you want the skill reachable *only* from the `/` menu.
-- **`allowed-tools` is comma-separated** (`Read, Grep, Glob, Bash, Agent`). Space separation
-  and stale tool names (`Task` was superseded by `Agent`) fail silently.
+- **`allowed-tools` is a space-separated string** (`Read Grep Glob Bash Agent`), per the standard;
+  Claude Code also accepts a YAML list. Comma separation and stale tool names (`Task` was
+  superseded by `Agent`) fail silently.
 - **The folder name must equal the `name` field.**
 
 Each skill's `SKILL.md` carries a per-runtime invocation table.

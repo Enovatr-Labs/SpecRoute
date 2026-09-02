@@ -73,9 +73,12 @@ jobs:
       - name: Annotate staleness warnings (non-fatal)
         if: steps.parity.outputs.exit_code == '2'
         run: |
-          echo "::warning::Wiki parity: staleness warnings only — see job log."
+          echo "::warning::Wiki parity: staleness warnings only — see job log. If the summary still holds, record it with: python3 tools/wiki-parity.py --accept wiki/<Page>.md"
           # Stale wiki pages do not block the PR. Reviewers can decide if the
-          # summary still reflects the source.
+          # summary still reflects the source. Release preflight is stricter and
+          # blocks on these, so the reviewer's judgement has to be recorded
+          # rather than just held: `--accept` stamps a sources-reviewed marker
+          # that expires the next time the source changes.
 
       - name: Fail on hard breaks
         if: steps.parity.outputs.exit_code == '1'

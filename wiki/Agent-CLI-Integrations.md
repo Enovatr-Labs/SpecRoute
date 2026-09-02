@@ -58,7 +58,7 @@ Codex consumes the **same** folder-per-skill `SKILL.md` shape as Claude Code, so
 
 Codex hooks are enabled by default. The canonical feature key is `[features] hooks`; `codex_hooks` remains a deprecated alias. Its 11 events reuse Claude Code's names verbatim (`SessionStart`, `SessionEnd`, `PreToolUse`, `PermissionRequest`, `PostToolUse`, `UserPromptSubmit`, `Stop`, `PreCompact`, `PostCompact`, `SubagentStart`, `SubagentStop`), but the overlap is close, not total: no `PostToolUseFailure`, and only `type: "command"` handlers execute.
 
-**`.agents/` is the emerging vendor-neutral location.** Verified against an installed Codex 0.145.0 binary, not documentation: it carries `.agents/skills` as a repo-level skills root plus `.agents/plugins/marketplace.json`. It **still** carries `.codex/skills` and `$CODEX_HOME/skills` too - both work today, so do not migrate off `.codex/skills` yet.
+**`.agents/` is the emerging vendor-neutral location.** Verified by inspecting an installed Codex binary (0.147.0 at last check), not documentation: it resolves `.agents` as a repo-level skills root and carries `.agents/plugins/marketplace.json`. It **still** carries `.codex/skills` and `$CODEX_HOME/skills` too - both work today, so do not migrate off `.codex/skills` yet.
 
 Per-runtime details: [`runtimes/.codex/README.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/runtimes/.codex/README.md).
 
@@ -183,7 +183,7 @@ the Devin renderer covers both destinations. Edit `runtimes/mcp/servers.yaml`,
 re-render, and commit the canonical source and rendered files together so
 reviewers see the impact in one diff. See [[MCP Integration]].
 
-> **Spec change in flight:** as of 2026-07-27, the MCP revision dated **2026-07-28** is a release candidate, not a published specification. Re-check the final revision before changing transport wiring. SpecRoute's `servers.yaml` schema is unaffected.
+> **MCP revision 2026-07-28 (published).** This revision made the protocol core stateless: the `initialize` / `initialized` exchange and the `Mcp-Session-Id` header were removed. It also deprecated the HTTP+SSE transport in favour of streamable HTTP, under a formal deprecation policy with a **12-month minimum** removal window. Sources: [release announcement](https://blog.modelcontextprotocol.io/posts/2026-07-28/), [specification](https://modelcontextprotocol.io/specification/2026-07-28). SpecRoute's rendered MCP configs are unaffected - see [[MCP Integration]].
 
 > **Note:** `claude_desktop_config.json` is the **Claude Desktop app's** MCP file, not the Claude Code CLI's — the CLI reads `.mcp.json` / `~/.claude.json`.
 

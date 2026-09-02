@@ -1,6 +1,7 @@
 # Repository Structure
 
 <!-- sources: README.md, AGENTS.md -->
+<!-- sources-reviewed: AGENTS.md@4595d729aa63, README.md@96eb9df66b9d -->
 
 The root README stays an overview. Deep framework references live under `agentic-docs/`, while vendor-specific implementation notes and evidence are surfaced through [[Vendor Matrix]].
 

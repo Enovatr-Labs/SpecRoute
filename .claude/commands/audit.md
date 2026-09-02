@@ -12,7 +12,7 @@ Run `/sanitize` first. If it fails, stop and report the failures - do not contin
 
 Walk every agent / skill / command file and validate frontmatter:
 
-Contracts are vendor-scoped since the mid-2026 convergence - see [`wiki/Frontmatter-Contracts.md`](../../wiki/Frontmatter-Contracts.md) and the `frontmatter-lint` skill. Do not hold non-Claude vendors to Claude's contract.
+Contracts are vendor-scoped since the 2026 capability convergence - see [`wiki/Frontmatter-Contracts.md`](../../wiki/Frontmatter-Contracts.md) and the `frontmatter-lint` skill. Do not hold non-Claude vendors to Claude's contract.
 
 ```bash
 echo "── frontmatter check (agents: Claude contract) ──"
@@ -52,10 +52,57 @@ done
 
 echo
 echo "── frontmatter check (skills) ──"
-# Contract lives in wiki/Frontmatter-Contracts.md. The Agent Skills open standard
-# uses name + description as the portable baseline. argument-hint /
-# user-invocable / allowed-tools are optional Claude Code extensions, so they
-# are warnings only in Claude-shaped templates.
+# Contract lives in wiki/Frontmatter-Contracts.md and is the vendor-neutral
+# Agent Skills standard (https://agentskills.io/specification): `name` and
+# `description` are the only required fields, in every runtime.
+#
+# `name` is validated mechanically, because the standard is stricter than it
+# looks: 1-64 chars, lowercase a-z / 0-9 / hyphen only, no leading or trailing
+# hyphen, no CONSECUTIVE hyphens (`pdf--processing` is invalid), and it MUST
+# match the enclosing directory name. `^[a-z0-9]+(-[a-z0-9]+)*$` enforces the
+# charset and all three hyphen rules in one pattern.
+#
+# Nothing here warns on a MISSING optional field. `argument-hint` and
+# `user-invocable` are Claude Code extensions; `allowed-tools` is a standard
+# field the spec marks (Experimental), with support varying between
+# implementations. Warning on their absence would push contributors toward
+# fields no runtime is obliged to honour.
+#
+# skills/skill-template/SKILL.md is the documented exception: it deliberately
+# carries the placeholder `name: <skill-slug>`, so name-value checks skip it.
+# `description:` may be an inline scalar OR a YAML block scalar (`>-`, `|`, ...).
+# Reading only the first physical line scores a folded description as the two
+# characters `>-`, so the 1024-char cap passes trivially and a genuinely
+# over-length value ships. yaml_value folds the block's continuation lines in
+# first, and strips a trailing inline `# comment` from plain scalars the way the
+# canonical templates annotate their fields.
+yaml_value() {
+  awk -v key="$1" '
+    NR == 1 && $0 == "---" { infm = 1; next }
+    !infm { exit }
+    $0 == "---" { exit }
+    !inblock && $0 ~ "^" key ":" {
+      value = substr($0, length(key) + 2)
+      sub(/^[[:space:]]+/, "", value)
+      if (value ~ /^[|>][0-9]*[-+]?$/) { inblock = 1; next }
+      sub(/[[:space:]]+#.*$/, "", value)
+      sub(/[[:space:]]+$/, "", value)
+      print value
+      exit
+    }
+    inblock {
+      if ($0 == "" || $0 ~ /^[[:space:]]/) {
+        line = $0
+        sub(/^[[:space:]]+/, "", line)
+        out = out (out == "" ? "" : " ") line
+        next
+      }
+      exit
+    }
+    END { if (inblock) print out }
+  ' "$2"
+}
+
 for f in .claude/skills/*/SKILL.md .agents/skills/*/SKILL.md \
          skills/skill-template/SKILL.md skills/examples/*/SKILL.md \
          runtimes/.claude/skills/*/SKILL.md runtimes/.codex/skills/*/SKILL.md \
@@ -65,12 +112,44 @@ for f in .claude/skills/*/SKILL.md .agents/skills/*/SKILL.md \
   for k in name description; do
     grep -q "^$k:" "$f" || echo "  ERROR $f: missing $k"
   done
-  case "$f" in
-    .claude/*|skills/*|runtimes/.claude/*)
-      for k in argument-hint user-invocable allowed-tools; do
-        grep -q "^$k:" "$f" || echo "  WARN  $f: missing $k (optional Claude extension)"
-      done ;;
-  esac
+
+  dir=$(basename "$(dirname "$f")")
+  name=$(sed -n '/^name:/{s/^name:[[:space:]]*//;s/[[:space:]]*#.*$//;s/[[:space:]]*$//;p;q;}' "$f")
+  desc=$(yaml_value description "$f")
+  compat=$(yaml_value compatibility "$f")
+  lines=$(wc -l < "$f" | tr -d ' ')
+
+  # Canonical template: the placeholder name is its fill-in contract, not a defect.
+  if [ "$f" != "skills/skill-template/SKILL.md" ]; then
+    [ "$name" = "$dir" ] || \
+      echo "  ERROR $f: name '$name' != enclosing directory '$dir'"
+    printf '%s' "$name" | grep -qE '^[a-z0-9]+(-[a-z0-9]+)*$' || \
+      echo "  ERROR $f: name '$name' breaks the standard's charset/hyphen rules (a-z 0-9 and -, no edge or consecutive hyphens)"
+    { [ "${#name}" -ge 1 ] && [ "${#name}" -le 64 ]; } || \
+      echo "  ERROR $f: name must be 1-64 chars (is ${#name})"
+  fi
+
+  [ -n "$desc" ] || echo "  ERROR $f: description is empty"
+  [ "${#desc}" -le 1024 ] || \
+    echo "  ERROR $f: description is ${#desc} chars (standard max 1024)"
+  [ -z "$compat" ] || [ "${#compat}" -le 500 ] || \
+    echo "  ERROR $f: compatibility is ${#compat} chars (standard max 500)"
+
+  # Progressive disclosure: metadata (~100 tokens) is always loaded, the body
+  # (<5000 tokens recommended) loads on activation. Keep SKILL.md under 500 lines.
+  [ "$lines" -le 500 ] || \
+    echo "  WARN  $f: $lines lines - over the standard's 500-line progressive-disclosure budget; move detail into references/ or scripts/"
+
+  # allowed-tools is a space-separated string when present. Its absence is never a
+  # finding: the standard marks the field (Experimental). Trailing `# comment` is
+  # stripped first - the canonical templates annotate their fields inline.
+  if grep -q "^allowed-tools:" "$f"; then
+    at=$(sed -n '/^allowed-tools:/{s/^allowed-tools:[[:space:]]*//;s/[[:space:]]*#.*$//;p;q;}' "$f")
+    case "$at" in
+      \[*) : ;;   # YAML list - accepted by Claude Code
+      *,*) echo "  ERROR $f: allowed-tools is comma-separated; the standard specifies a space-separated string" ;;
+    esac
+  fi
 done
 
 echo
@@ -244,5 +323,6 @@ Summarize:
 
 Ready-to-publish iff: Sanitization and local provenance PASS, Frontmatter
 0 `ERROR`, Vendor matrix in sync, Links 0 broken, and Wiki parity has no
-unexplained warning. `WARN` lines are advisory and must name the vendor whose
-optional convention they describe.
+unexplained warning. `WARN` lines are advisory and must say what they describe -
+either the vendor whose optional convention is involved, or the standard's budget
+that was exceeded. A `WARN` is never emitted for a merely absent optional field.

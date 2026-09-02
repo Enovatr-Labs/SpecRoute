@@ -49,7 +49,8 @@ ls -l .codex/hooks/scripts/*.sh
 ```
 
 Hooks are enabled by default. The canonical feature key is `hooks`; `codex_hooks` remains a
-deprecated alias in 0.145.0. To disable hooks explicitly in `.codex/config.toml`:
+deprecated alias (still present in 0.147.0, the last version checked). To disable hooks
+explicitly in `.codex/config.toml`:
 
 ```toml
 [features]

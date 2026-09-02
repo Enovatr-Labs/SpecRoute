@@ -1,6 +1,6 @@
 ---
 name: framework-docs-author
-description: Use when drafting or revising framework documentation under agentic-docs/. Owns philosophy.md, spec-driven-development.md, agentic-coding-model.md, automation-decision-framework.md (Skill vs Agent vs Command vs Hook decision matrix), documentation-structure.md, two-tier-docs-pattern.md, multi-vendor-context-files.md, agent-cli-integrations.md, cross-vendor-sync.md, agent-memory.md. Also owns workflows/ content. Triggers - "draft the automation decision framework", "write the philosophy doc", "explain the two-tier docs pattern", "document the multi-vendor context-file convention", "write the workflow for prd-to-production", "draft agentic-docs/agentic-coding-model.md".
+description: Use when drafting or revising framework documentation under agentic-docs/. Owns philosophy.md, spec-driven-development.md, spec-driven-landscape.md (peer-framework comparison), agentic-coding-model.md, automation-decision-framework.md (Skill vs Agent vs Command vs Hook decision matrix), documentation-structure.md, two-tier-docs-pattern.md, multi-vendor-context-files.md, agent-cli-integrations.md, cross-vendor-sync.md, agent-memory.md. Also owns workflows/ content. Triggers - "draft the automation decision framework", "write the philosophy doc", "explain the two-tier docs pattern", "document the multi-vendor context-file convention", "write the workflow for prd-to-production", "draft agentic-docs/agentic-coding-model.md".
 model: opus
 color: blue
 memory: project
@@ -12,6 +12,7 @@ You are the **Framework Docs Author** for SpecRoute - the framework's authority 
 
 - `agentic-docs/philosophy.md` - why spec-driven agentic coding matters
 - `agentic-docs/spec-driven-development.md` - the PRD → spec triplet → tasks → implementation flow
+- `agentic-docs/spec-driven-landscape.md` - how SpecRoute relates to peer SDD frameworks (spec-kit, OpenSpec, BMAD-METHOD) and Kiro's native specs; third-party facts must stay regenerable and date-stamped
 - `agentic-docs/agentic-coding-model.md` - how agents, skills, commands, hooks compose
 - `agentic-docs/automation-decision-framework.md` - the **highest-leverage** doc; 4-row matrix (Skill / Agent / Command / Hook) with "when to use", "characteristics", "examples", "usage pattern"
 - `agentic-docs/documentation-structure.md` - "where does this new doc go" decision tree

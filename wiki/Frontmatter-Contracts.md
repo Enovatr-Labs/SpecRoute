@@ -4,7 +4,7 @@
 
 The frontmatter reference for every SpecRoute artifact that has a contract.
 
-**Read the Required vs Conventional split below carefully.** SpecRoute requires `name` and `description` on published agents and skills as its portable baseline; some vendor parsers accept less. `model`, `color`, `argument-hint`, `user-invocable`, and `allowed-tools` are vendor-specific conventions, not universal requirements. PRD and spec frontmatter is different: those fields gate the lifecycle, not the runtime.
+**Read the Required vs Conventional split below carefully.** SpecRoute requires `name` and `description` on published agents and skills as its portable baseline; some vendor parsers accept less. `model`, `color`, `argument-hint`, and `user-invocable` are vendor-specific conventions, not universal requirements. On skills, `allowed-tools` **is** an `agentskills.io` standard field, but the standard marks it *(Experimental)* - support varies between implementations, so it is still never required. PRD and spec frontmatter is different: those fields gate the lifecycle, not the runtime.
 
 ## Agent (Claude Code)
 
@@ -69,22 +69,36 @@ Skill frontmatter follows the open [Agent Skills standard](https://agentskills.i
 
 ```yaml
 ---
-name: <slug>                             # required; matches enclosing directory name (max 64 chars)
-description: <triggers>                  # required in practice; drives auto-selection (max 1024 chars)
+name: <slug>                             # required; matches enclosing directory name (1-64 chars)
+description: <triggers>                  # required in practice; drives auto-selection (1-1024 chars)
 license: MIT                             # optional; agentskills.io standard field
-compatibility: "Requires bash, git"      # optional; agentskills.io environment requirements
-metadata:                                # optional; agentskills.io metadata map
+compatibility: "Requires bash, git"      # optional; agentskills.io environment requirements (max 500 chars)
+metadata:                                # optional; agentskills.io metadata map (string keys -> string values)
   author: "<author-or-team>"
   version: "1.0.0"
+allowed-tools: Read Write Edit Glob Bash # optional; agentskills.io standard field (EXPERIMENTAL - support
+                                         # varies between implementations). Pre-approves tools,
+                                         # does NOT restrict them.
 # Claude Code extensions:
-allowed-tools: Read Write Edit Glob Bash # optional; pre-approves tools, does NOT restrict them
 disallowed-tools: Bash                   # optional; removes tools from the pool
 argument-hint: "[arg1] [arg2?]"          # optional
 user-invocable: true                     # optional
 ---
 ```
 
-- `name` must match the enclosing directory name.
+The standard's `name` rules are stricter than most authors expect, and all five apply:
+
+| Rule | Detail |
+|---|---|
+| Length | 1-64 characters. |
+| Charset | Unicode lowercase alphanumerics (`a`-`z`, `0`-`9`) and hyphens only. No uppercase, underscores, dots, or spaces. |
+| No edge hyphens | Must **not** start or end with a hyphen. `-audit` and `audit-` are invalid. |
+| No consecutive hyphens | `pdf--processing` is invalid; `pdf-processing` is valid. |
+| Directory match | Must match the enclosing directory name exactly. This is the standard's one hard structural rule. |
+
+`description` is 1-1024 characters and must be non-empty. `compatibility`, when present, is capped at 500 characters. `metadata` is a map of string keys to string values.
+
+- **`allowed-tools` is a standard field, marked (Experimental).** It is an `agentskills.io` field - a space-separated string of pre-approved tools - not a Claude Code extension, but the specification notes that support for it may vary between agent implementations. Write it where the target runtime honours it; do not depend on it being honoured everywhere, and do not treat its absence as a defect.
 - **`allowed-tools` does not confine the skill.** It *pre-approves* those tools for the invoking turn so the user isn't prompted; the grant clears on the next message. The field that removes a tool from the pool is `disallowed-tools`. Listing a short `allowed-tools` is a convenience, not a sandbox - don't rely on it for confinement.
 - `argument-hint` and `user-invocable` are **Claude Code extensions**, not portable fields. The shipped Codex / Gemini / Kiro / Cursor templates omit them.
 
@@ -217,6 +231,16 @@ description without a file pattern; `globs` belongs only to `trigger: glob`.
 The PostToolUse hook in this repo's `.claude/hooks/post-edit-frontmatter.sh` validates agent / skill / command frontmatter on write — surfaces violations on stderr but doesn't block (soft hook). The `frontmatter-lint` skill provides interactive validation.
 
 For a comprehensive pre-commit sweep that includes frontmatter checks, run `/audit`.
+
+### Optional external validator (skills only)
+
+The Agent Skills project publishes a reference validator in the `skills-ref` library ([github.com/agentskills/agentskills](https://github.com/agentskills/agentskills)):
+
+```bash
+skills-ref validate ./my-skill
+```
+
+It checks a skill directory against the published standard - `name` charset and hyphen rules, field lengths, directory match. It is **optional and external**: SpecRoute has no build step, package manager, or toolchain, so `skills-ref` is deliberately **not** wired into `/audit`, the PostToolUse hook, or CI. Run it by hand for an independent second opinion; the in-repo checks stay the ones that always run.
 
 ## See also
 

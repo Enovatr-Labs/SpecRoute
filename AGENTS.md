@@ -60,7 +60,7 @@ Vendor neutrality is the contract. Adding a new tool = a new column, not a fork.
 
 ### `.agents/` - the emerging neutral location
 
-Alongside `AGENTS.md`, a vendor-neutral **`.agents/` directory** is emerging as the shared home for runtime artifacts. This was verified against an installed Codex 0.145.0 binary rather than taken from documentation, because public docs are inconsistent on it: the binary carries `.agents/skills` as a repo-level skills root (its error string is `failed to stat repo skills root`), plus `.agents/plugins/marketplace.json` and `.agents/plugins/api_marketplace.json`, and enumerates `.agents` beside `.claude` and `.cursor` when detecting external agent configuration (`hooks.json`, `settings.json`).
+Alongside `AGENTS.md`, a vendor-neutral **`.agents/` directory** is emerging as the shared home for runtime artifacts. This was verified against an installed `codex-cli` binary (0.147.0 at last check) rather than taken from documentation, because public docs are inconsistent on it: the binary carries `.agents` as a repo-level skills root (its error string is `failed to stat repo skills root`), plus `.agents/plugins/marketplace.json` and `.agents/plugins/api_marketplace.json`, and enumerates `.agents` beside `.claude` and `.cursor` when detecting external agent configuration (`hooks.json`, `settings.json`).
 
 The same binary **still** carries `.codex/skills` and `$CODEX_HOME/skills`. Both work today. SpecRoute records `.agents/` as the convergence point to watch; it does **not** yet recommend migrating off `.codex/skills`.
 
@@ -109,5 +109,6 @@ When adding a new top-level artifact, prefer invoking the corresponding agent (`
 1. Read [`README.md`](README.md) for the public framing.
 2. Read [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md) and [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md) for the why.
 3. Read [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) for when to reach for which artifact.
-4. Walk the worked example in [`examples/sample-project/`](examples/sample-project/) - it exercises every artifact shape end-to-end.
-5. Pick a vendor and copy `runtimes/.<vendor>/` into your own repo to start using SpecRoute.
+4. Read [`agentic-docs/spec-driven-landscape.md`](agentic-docs/spec-driven-landscape.md) for how SpecRoute relates to spec-kit, OpenSpec, BMAD-METHOD, and Kiro's native specs - answer from that page, not from memory.
+5. Walk the worked example in [`examples/sample-project/`](examples/sample-project/) - it exercises every artifact shape end-to-end.
+6. Pick a vendor and copy `runtimes/.<vendor>/` into your own repo to start using SpecRoute.

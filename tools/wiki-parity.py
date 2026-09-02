@@ -15,13 +15,33 @@ Lychee verifies external/repo URLs; this script handles two things lychee cannot
      b. The wiki page's last-modified git timestamp is >= the source's.
         If a source is newer, the wiki summary is potentially stale (warning).
 
+   Timestamp staleness is a PROXY: it fires whenever a source commit is newer
+   than its mirror, even when the region that changed is not one the page
+   summarizes. That is unavoidable - the script cannot read a summary and decide
+   whether it still holds. A maintainer can, so a page MAY record that judgement:
+
+       <!-- sources: README.md, AGENTS.md -->
+       <!-- sources-reviewed: README.md@a1b2c3d4e5f6, AGENTS.md@0f1e2d3c4b5a -->
+
+   Each entry pins the source's content digest at the moment a maintainer
+   confirmed the summary still reflects it. While the digest matches, that source
+   raises no staleness warning. Edit the source and the digest stops matching, so
+   the warning returns and must be re-reviewed - the acknowledgement is per
+   content state, never permanent.
+
+   Stamp it with `--accept`, which never runs over the whole wiki: naming the
+   pages is the assertion.
+
+       python3 tools/wiki-parity.py --accept wiki/Hooks.md wiki/Sanitization.md
+
 2. **Wiki-internal link resolution.** GitHub-wiki gollum-style `[[Page Name]]`
    links are not URLs and aren't checked by lychee. This script verifies each
    target resolves to an existing `wiki/<Page-Name>.md`.
 
 Exit codes:
   0  — no findings
-  1  — hard breaks (missing source file, unresolved [[wiki link]])
+  1  — hard breaks (missing source file, unresolved [[wiki link]],
+       malformed or orphaned sources-reviewed entry)
   2  — only staleness warnings (no hard breaks)
 
 Run locally:
@@ -32,6 +52,8 @@ Or via the wiki-parity workflow on every PR.
 
 from __future__ import annotations
 
+import argparse
+import hashlib
 import re
 import subprocess
 import sys
@@ -41,7 +63,16 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 WIKI_DIR = REPO_ROOT / "wiki"
 
 # <!-- sources: a.md, b/c.md -->  (case-insensitive, multiline-safe)
-SOURCES_RE = re.compile(r"<!--\s*sources:\s*(.+?)\s*-->", re.IGNORECASE)
+# The negative lookahead keeps this from also matching `sources-reviewed:`.
+SOURCES_RE = re.compile(r"<!--\s*sources(?!-reviewed):\s*(.+?)\s*-->", re.IGNORECASE)
+
+# <!-- sources-reviewed: a.md@0123456789ab, b/c.md@fedcba987654 -->
+SOURCES_REVIEWED_RE = re.compile(
+    r"<!--\s*sources-reviewed:\s*(.*?)\s*-->", re.IGNORECASE | re.DOTALL
+)
+
+# Length of the source content digest recorded in a sources-reviewed entry.
+DIGEST_LEN = 12
 
 # [[Page Name]]  or  [[Display|Page-Name]]
 WIKI_LINK_RE = re.compile(r"\[\[([^\]\n]+?)\]\]")
@@ -112,6 +143,40 @@ def parse_sources(content: str) -> list[str]:
     return [s.strip() for s in m.group(1).split(",") if s.strip()]
 
 
+def source_digest(path: Path) -> str:
+    """Content digest of a source file, as recorded in a sources-reviewed entry.
+
+    Hashing content rather than pinning a commit sha keeps `--accept` usable
+    before the reviewed change is committed - the maintainer stamps what they
+    just read, and the value stays valid once it lands.
+    """
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:DIGEST_LEN]
+
+
+def parse_sources_reviewed(content: str) -> tuple[dict[str, str], list[str]]:
+    """Return ({source: digest}, [malformed entries]) from the review marker."""
+    match = SOURCES_REVIEWED_RE.search(content)
+    if not match:
+        return {}, []
+    reviewed: dict[str, str] = {}
+    malformed: list[str] = []
+    for raw in match.group(1).split(","):
+        entry = raw.strip()
+        if not entry:
+            continue
+        src, sep, digest = entry.rpartition("@")
+        if not sep or not src or not re.fullmatch(r"[0-9a-f]{%d}" % DIGEST_LEN, digest):
+            malformed.append(entry)
+            continue
+        reviewed[src] = digest
+    return reviewed, malformed
+
+
+def render_sources_reviewed(reviewed: dict[str, str]) -> str:
+    body = ", ".join(f"{src}@{digest}" for src, digest in sorted(reviewed.items()))
+    return f"<!-- sources-reviewed: {body} -->"
+
+
 def parse_wiki_links(content: str) -> list[str]:
     """Extract target page names from [[Page]] and [[Display|Page-Name]] links."""
     raw = WIKI_LINK_RE.findall(content)
@@ -131,13 +196,101 @@ def title_to_stem(title: str) -> str:
     return title.replace(" ", "-")
 
 
+def accept_pages(page_args: list[str]) -> int:
+    """Stamp `sources-reviewed` on the named pages from their sources' content.
+
+    Deliberately never operates on the whole wiki: naming each page is the
+    maintainer's assertion that they read it against its current sources and the
+    summary still holds.
+    """
+    failures = 0
+    for raw in page_args:
+        candidate = Path(raw)
+        page = candidate if candidate.is_absolute() else (REPO_ROOT / raw)
+        page = page.resolve()
+        try:
+            page.relative_to(WIKI_DIR)
+        except ValueError:
+            print(f"error: {raw} is not a page under wiki/", file=sys.stderr)
+            failures += 1
+            continue
+        if not page.is_file() or page.name in WIKI_NON_PAGES:
+            print(f"error: {raw} is not a wiki page", file=sys.stderr)
+            failures += 1
+            continue
+
+        content = page.read_text(encoding="utf-8")
+        sources = parse_sources(content)
+        if not sources:
+            print(
+                f"error: {page.name} declares no <!-- sources: --> manifest, "
+                f"so there is nothing to review it against",
+                file=sys.stderr,
+            )
+            failures += 1
+            continue
+
+        missing = [src for src in sources if not (REPO_ROOT / src).exists()]
+        if missing:
+            print(
+                f"error: {page.name} declares missing source(s): {', '.join(missing)}",
+                file=sys.stderr,
+            )
+            failures += 1
+            continue
+
+        reviewed = {src: source_digest(REPO_ROOT / src) for src in sources}
+        marker = render_sources_reviewed(reviewed)
+
+        if SOURCES_REVIEWED_RE.search(content):
+            updated = SOURCES_REVIEWED_RE.sub(lambda _: marker, content, count=1)
+        else:
+            # Sit the marker directly beneath the manifest it acknowledges.
+            match = SOURCES_RE.search(content)
+            insert_at = match.end()
+            updated = content[:insert_at] + "\n" + marker + content[insert_at:]
+
+        if updated == content:
+            print(f"  unchanged  {page.name}")
+            continue
+        page.write_text(updated, encoding="utf-8")
+        print(f"  reviewed   {page.name} against {', '.join(sources)}")
+
+    if failures:
+        print(f"\n{failures} page(s) could not be stamped.", file=sys.stderr)
+        return 1
+    return 0
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Check parity between wiki/*.md and the source docs they summarize.",
+    )
+    parser.add_argument(
+        "--accept",
+        nargs="+",
+        metavar="PAGE",
+        help=(
+            "Record that you have read the named wiki page(s) against their current "
+            "sources and the summary still holds. Stamps a sources-reviewed marker "
+            "that expires the next time a source changes. Never accepts the whole wiki."
+        ),
+    )
+    return parser.parse_args()
+
+
 def main() -> int:
+    args = parse_args()
+    if args.accept:
+        return accept_pages(args.accept)
+
     if not WIKI_DIR.is_dir():
         print(f"error: {WIKI_DIR} does not exist", file=sys.stderr)
         return 1
 
-    findings = {
+    findings: dict[str, list[str]] = {
         "missing_source": [],
+        "invalid_review": [],
         "broken_wiki_link": [],
         "stale_wiki": [],
     }
@@ -151,6 +304,17 @@ def main() -> int:
 
         # 1. Source-manifest validation
         sources = parse_sources(content)
+        reviewed, malformed = parse_sources_reviewed(content)
+        for entry in malformed:
+            findings["invalid_review"].append(
+                f"{page.name} → sources-reviewed entry {entry!r} is not "
+                f"`<path>@<{DIGEST_LEN}-hex-digest>`"
+            )
+        for src in sorted(set(reviewed) - set(sources)):
+            findings["invalid_review"].append(
+                f"{page.name} → sources-reviewed names {src}, which is not in its sources list"
+            )
+
         wiki_ts: int | None = None
         if sources:
             wiki_ts = git_last_modified_ts(page)
@@ -159,6 +323,11 @@ def main() -> int:
             src_path = REPO_ROOT / src
             if not src_path.exists():
                 findings["missing_source"].append(f"{page.name} → {src} (does not exist)")
+                continue
+            # A maintainer reviewed this page against exactly this source content
+            # and recorded that the summary still holds. The acknowledgement dies
+            # with the next edit to the source, so it cannot go permanently stale.
+            if reviewed.get(src) == source_digest(src_path):
                 continue
             page_rel = str(page.relative_to(REPO_ROOT))
             if src in dirty:
@@ -187,7 +356,7 @@ def main() -> int:
 
     # Report
     total = sum(len(v) for v in findings.values())
-    hard_break_total = len(findings["missing_source"]) + len(findings["broken_wiki_link"])
+    hard_break_total = total - len(findings["stale_wiki"])
 
     if total == 0:
         print("Wiki parity: OK")

@@ -1,6 +1,6 @@
 ---
 name: doc-currency-check
-description: Audit SpecRoute's documentation for staleness against reality - vendor facts, version anchors, dates written in the wrong tense, counts that no longer match disk, and claims mirrored inconsistently across the four vendor-matrix copies. Use before a release, after any vendor ships a breaking change, or on a scheduled currency cycle. Triggers - "check the docs are current", "run a currency pass", "what's gone stale", "audit for dated claims", "are our vendor facts still right".
+description: Audit SpecRoute's documentation for staleness against reality - vendor facts, version anchors, dates written in the wrong tense, counts that no longer match disk, third-party facts about peer projects on the spec-driven landscape page, and claims mirrored inconsistently across the four vendor-matrix copies. Use before a release, after any vendor ships a breaking change, or on a scheduled currency cycle. Triggers - "check the docs are current", "run a currency pass", "what's gone stale", "audit for dated claims", "are our vendor facts still right", "are the peer comparison numbers still current".
 ---
 
 # Doc Currency Check
@@ -9,7 +9,7 @@ SpecRoute's value proposition is being *correct about other people's tools*. Tha
 
 ## Why these specific checks
 
-Every check below exists because that exact failure happened here:
+Most checks below exist because that exact failure happened here:
 
 - A vendor replaced a config format and 19 files kept describing the dead one.
 - A half-applied migration left a contract declared in one file and contradicted in three.
@@ -17,9 +17,13 @@ Every check below exists because that exact failure happened here:
 - A capability table claimed support the runtime layouts didn't ship.
 - A fabricated external "standard" was cited as the authority for a real change.
 
+The exception is **Step 8**, third-party project facts. Nothing has gone wrong there
+yet; it was added when the landscape page first introduced claims about peer projects.
+It is preventive, and saying so keeps this list an honest incident record.
+
 ## Step 1: Scope
 
-If given an area, run only that section. Otherwise run all six checks below.
+If given an area, run only that section. Otherwise run all seven checks below.
 
 ## Step 2: Vendor facts (needs internet)
 
@@ -114,7 +118,60 @@ rg -ni "standard|specification|must (stay|be|not)|budget|required by|mandates" -
 
 For each, ask: **can I produce a source?** If not, it either goes or gets restated as SpecRoute's own convention. Citing a standard that doesn't say what you claim is worse than citing nothing - it is the failure mode this framework exists to prevent, applied to itself.
 
-## Step 8: Report
+## Step 8: Third-party project facts
+
+`agentic-docs/spec-driven-landscape.md` and its mirror `wiki/Spec-Driven-Landscape.md`
+compare SpecRoute against peer frameworks (github/spec-kit, Fission-AI/OpenSpec,
+bmad-code-org/BMAD-METHOD, and Kiro's native specs). This is the only place SpecRoute
+asserts facts about *other projects*, and those rot faster than vendor facts: peers
+rename commands and restructure directories between minor versions, with no deprecation
+window and no migration note.
+
+Two tiers, and the second is the dangerous one.
+
+**Regenerable** - star counts and SPDX license identifiers. They go stale constantly,
+but refreshing them is cheap and safe because a command produces them. **Do not write a
+second copy of that command here.** The landscape page ships it directly beneath the
+table it fills, under "The comparison set"; run the page's own command so there is one
+copy to keep right. A duplicate in this skill is just a second thing to drift.
+
+**Not regenerable** - peer slash-command vocabularies (`/speckit.*`, `/opsx:*`),
+phase-model names (`propose -> apply -> archive`, `constitution -> specify -> plan ->
+tasks -> implement`), and artifact directory paths (`.specify/`, `openspec/specs/`,
+`openspec/changes/`, `.kiro/specs/`). No command regenerates these. They change
+silently, and a wrong one sends the reader to a command or path that no longer exists -
+which reads as authoritative and is entirely false. Check each against the peer's
+**current** README or docs and record the URL in the finding.
+
+The discipline the page already follows, which a currency pass must preserve:
+
+- **Numbers live only in the table, never in prose.** A star count repeated in a
+  sentence is a second place to rot that the regeneration command never touches. Finding
+  one in prose is itself a finding, whether or not the number is currently right.
+- **Every number carries a verified-on date**, and the date moves only when the command
+  was actually re-run. A refreshed date over unchanged numbers is a false currency
+  signal - worse than an honestly old date.
+- **Both copies change.** The wiki mirror deliberately carries the table *and* the
+  regeneration command in full, so a real refresh is an edit in **both** files, never a
+  timestamp bump in one:
+
+```bash
+grep -n "verified 20[0-9][0-9]-\|Last run:" \
+  agentic-docs/spec-driven-landscape.md wiki/Spec-Driven-Landscape.md
+```
+
+Cells or dates that disagree between the two are drift. Step 6 will **not** catch it -
+that check covers the four vendor-matrix mirrors, not this page.
+
+**Attribute, do not adjudicate.** Where a peer claims something about itself that its
+repository cannot independently confirm - OpenSpec's "works with 30+ AI coding
+assistants" is the live example - the page attributes it ("the project states that...")
+instead of asserting it. Re-verifying such a claim means confirming **the peer still
+makes it**, not testing whether it is true. Never promote an attributed claim to an
+asserted one because it looked plausible, and never "correct" a peer's self-description
+against your own count.
+
+## Step 9: Report
 
 Group by severity:
 
@@ -122,6 +179,9 @@ Group by severity:
 - **Stale** - true when written, overtaken since. Fix or reword to stop rotting.
 - **Unsourced** - asserted as external fact with no citation. Source it, soften it, or drop it.
 - **Inconsistent** - mirrors disagree. Pick the true one and propagate.
+
+A peer-project finding names the peer's own current documentation as its evidence, and
+says plainly whether the claim is one SpecRoute asserts or one it attributes.
 
 For each: `file:line`, the claim, the evidence, and the proposed replacement. Cite a URL or a command whose output proves it. **Never** propose a correction you have not verified - a confident wrong fix is worse than the stale text.
 

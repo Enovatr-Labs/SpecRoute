@@ -42,7 +42,7 @@ See [`agentic-docs/automation-decision-framework.md`](../../../agentic-docs/auto
 
 ## Vendor support
 
-As of mid-2026 all six vendors support custom commands, in their native shapes:
+Since the 2026 capability convergence all six vendors support custom commands, in their native shapes:
 
 | Vendor | Command shape |
 |---|---|

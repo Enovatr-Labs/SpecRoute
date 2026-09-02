@@ -124,7 +124,7 @@ This is a better home than a growing `CLAUDE.md` for standing project substance 
 
 ### `.agents/` — the emerging neutral location
 
-Alongside `AGENTS.md`, a vendor-neutral **`.agents/` directory** is emerging as the shared home for runtime artifacts. SpecRoute records this from an installed Codex 0.145.0 binary rather than from documentation, because the public docs are inconsistent on it: the binary carries `.agents/skills` as a repo-level skills root, plus `.agents/plugins/marketplace.json`, and enumerates `.agents` beside `.claude` and `.cursor` when detecting external agent configuration.
+Alongside `AGENTS.md`, a vendor-neutral **`.agents/` directory** is emerging as the shared home for runtime artifacts. SpecRoute records this from an installed `codex-cli` binary (0.147.0 at last check) rather than from documentation, because the public docs are inconsistent on it: the binary resolves `.agents` as a repo-level skills root, plus `.agents/plugins/marketplace.json`, and enumerates `.agents` beside `.claude` and `.cursor` when detecting external agent configuration.
 
 The same binary **still** carries `.codex/skills` and `$CODEX_HOME/skills`, and both work today. Treat `.agents/` as the convergence point to watch — not yet a reason to migrate off the per-vendor paths.
 

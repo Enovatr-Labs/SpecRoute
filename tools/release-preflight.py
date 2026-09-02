@@ -127,20 +127,38 @@ def require_match(pattern: str, text: str, label: str, flags: int = 0) -> re.Mat
     return match
 
 
+def mask_fences(text: str) -> str:
+    """Blank out fenced code blocks while preserving offsets and line count.
+
+    Release notes routinely embed fenced YAML/frontmatter examples, whose ``---``
+    lines would otherwise look like the section separator that terminates the
+    notes. Masking keeps every offset valid so matches can be sliced out of the
+    original text.
+    """
+
+    def blank(match: re.Match[str]) -> str:
+        return re.sub(r"[^\n]", " ", match.group(0))
+
+    return FENCE_RE.sub(blank, text)
+
+
 def extract_release_notes(changelog: str, version: str) -> tuple[str, str]:
     heading = re.compile(
         rf"^## \[{re.escape(version)}\] - (\d{{4}}-\d{{2}}-\d{{2}})\s*$",
         re.MULTILINE,
     )
-    match = heading.search(changelog)
+    match = heading.search(mask_fences(changelog))
     if match is None:
         raise GateFailure(
             f"CHANGELOG.md has no exact release heading for [{version}] with a release date"
         )
 
     start = match.end()
-    separator = re.search(r"^---\s*$", changelog[start:], re.MULTILINE)
-    next_release = re.search(r"^## \[", changelog[start:], re.MULTILINE)
+    # Search the masked text so a fenced example inside the notes cannot be
+    # mistaken for the section separator; offsets are identical to `changelog`.
+    tail = mask_fences(changelog)[start:]
+    separator = re.search(r"^---\s*$", tail, re.MULTILINE)
+    next_release = re.search(r"^## \[", tail, re.MULTILINE)
     ends = [
         candidate.start()
         for candidate in (separator, next_release)
@@ -159,7 +177,7 @@ def check_release_metadata(version: str) -> str:
 
     release_headers = re.findall(
         r"^## \[([0-9]+\.[0-9]+\.[0-9]+)\] - \d{4}-\d{2}-\d{2}\s*$",
-        changelog,
+        mask_fences(changelog),
         re.MULTILINE,
     )
     if not release_headers or release_headers[0] != version:
@@ -251,15 +269,25 @@ def run_gate(label: str, command: list[str]) -> None:
             print(f"    {line}")
 
 
-def frontmatter_keys(path: Path) -> set[str]:
+def frontmatter_block(path: Path) -> str:
+    """Return the raw YAML frontmatter, or "" when the file carries none.
+
+    Every frontmatter check must run against this rather than the whole file, so
+    that a `model:` line demonstrated in prose or a fenced example cannot be
+    mistaken for the artifact's own declaration.
+    """
     text = path.read_text(encoding="utf-8")
     if not text.startswith("---\n"):
-        return set()
+        return ""
     end = text.find("\n---\n", 4)
     if end == -1:
-        return set()
+        return ""
+    return text[4:end]
+
+
+def frontmatter_keys(path: Path) -> set[str]:
     keys: set[str] = set()
-    for line in text[4:end].splitlines():
+    for line in frontmatter_block(path).splitlines():
         match = re.match(r"^([A-Za-z][A-Za-z0-9_-]*):", line)
         if match:
             keys.add(match.group(1))
@@ -330,8 +358,11 @@ def check_frontmatter() -> None:
                 relative = path.relative_to(REPO_ROOT)
                 failures.append(f"{relative}: {kind} frontmatter missing {', '.join(missing)}")
 
-            text = path.read_text(encoding="utf-8")
-            model = re.search(r"^model:\s*(\S+)\s*$", text, re.MULTILINE)
+            model = re.search(
+                r"^model:\s*(\S+?)\s*(?:#.*)?$",
+                frontmatter_block(path),
+                re.MULTILINE,
+            )
             if model and model.group(1) in {"flagship", "balanced", "fast"}:
                 failures.append(
                     f"{path.relative_to(REPO_ROOT)}: model uses tier name {model.group(1)!r}"
@@ -589,8 +620,16 @@ def main() -> int:
         files = repository_files()
         check_publication_hygiene(files)
 
+        # Every wiki-parity finding blocks, staleness included. Nothing else in
+        # this preflight checks whether a wiki page still summarizes its sources
+        # accurately - the publish job's live-wiki diff compares the published
+        # wiki against `wiki/`, which is a different guarantee. Timestamp
+        # staleness is a proxy and does over-fire, so the escape hatch is a
+        # maintainer recording the judgement the script cannot make:
+        # `tools/wiki-parity.py --accept wiki/<Page>.md`. That is an explicit,
+        # reviewable assertion that expires on the source's next edit.
         run_gate(
-            "wiki parity (warnings are release-blocking)",
+            "wiki parity (all findings are release-blocking)",
             [sys.executable, "tools/wiki-parity.py"],
         )
         run_gate(

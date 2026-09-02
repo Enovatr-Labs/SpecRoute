@@ -10,9 +10,10 @@ This directory makes SpecRoute's own implementation skills available to agent CL
 
 ## Why it exists
 
-`.agents/skills/` is the emerging vendor-neutral **repo-level skills root**. Codex reads it (the
-0.145.0 binary carries it as a skills root alongside `.codex/skills` and `$CODEX_HOME/skills`), and
-Gemini CLI, Cursor, Devin Desktop and Copilot are converging on the same location.
+`.agents/skills/` is the emerging vendor-neutral **repo-level skills root**. Codex reads it - verified
+against an installed codex-cli binary (0.147.0 at last check), which carries it as a skills root
+alongside `.codex/skills` and `$CODEX_HOME/skills` - and Gemini CLI, Cursor, Devin Desktop and
+Copilot are converging on the same location.
 
 Before this existed, running Codex inside this repository found **no skills at all**. Everything
 Codex-shaped lived under `runtimes/.codex/`, which is a copy-pasteable *template* for consumers -
@@ -31,9 +32,10 @@ consumer-facing examples. Those are different sets on purpose, which is why
 `runtimes/` layouts against each other.
 
 The **body is identical**; only frontmatter differs. `.agents/` carries the Agent Skills
-(`agentskills.io`) minimum - `name`, `description`, and `when_to_use` where useful - and drops
-Claude-only fields such as `allowed-tools` and `argument-hint`, which other runtimes either ignore
-or reject.
+(`agentskills.io`) required minimum - `name` and `description`, the standard's only two required
+fields - and drops `argument-hint` and `user-invocable` (Claude Code extensions) along with
+`allowed-tools` (a standard field, but marked *Experimental*, with support varying between
+implementations). Other runtimes either ignore or reject those.
 
 ## Keeping it in sync
 

@@ -1,6 +1,7 @@
 # Sanitization
 
 <!-- sources: CLAUDE.md, hooks/README.md -->
+<!-- sources-reviewed: CLAUDE.md@9cc6397b4d66, hooks/README.md@fd50faea39fc -->
 
 SpecRoute is open-source and is generalized from internal codebases. **Patterns generalize freely; product names, customer data, and proprietary domain logic do not.** Sanitization is the framework's hard contract.
 

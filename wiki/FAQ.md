@@ -12,11 +12,19 @@ No. There's no `package.json`, no build step, no test suite, no lint config. Spe
 
 The only executables are sanitization-gate hooks and cross-vendor sync utilities under `tools/` — and those are intentionally minimal.
 
+## How does this compare to spec-kit, OpenSpec, or BMAD-METHOD?
+
+Those projects each ship a CLI that scaffolds the artifacts and sequences the flow for you. SpecRoute does not — you copy a runtime directory and edit it, and phase order is upheld by review and hooks you wire yourself rather than by tooling.
+
+That is a trade, not a win. If you want a command to scaffold the files, or a state machine that refuses out-of-order work, a peer is the better choice. If you are on Kiro alone, its native `.kiro/specs/` path is shorter than layering anything on top of it.
+
+[[Spec-Driven Landscape]] maps the whole field, what it is converging on, and the specific cases where you should pick a peer instead.
+
 ## Which agent CLIs are supported?
 
 Six — Claude Code, Codex, Gemini CLI, Kiro, Cursor, and Devin Desktop (see [[Vendor Matrix]]).
 
-Earlier SpecRoute releases sorted these into capability tiers (Full / Near-full / Partial / Rules-only). **As of mid-2026 that distinction no longer holds.** All six have converged on the same capability set — Agent Skills (`SKILL.md`), subagents, custom commands, lifecycle hooks, and MCP. They now differ in **file format and conventions**, not capability class (Codex agents are TOML where the others are Markdown; Gemini commands are TOML where Claude/Cursor are Markdown; MCP config is JSON for most but TOML for Codex).
+Earlier SpecRoute releases sorted these into capability tiers (Full / Near-full / Partial / Rules-only). **Since the 2026 capability convergence that distinction no longer holds.** All six have converged on the same capability set — Agent Skills (`SKILL.md`), subagents, custom commands, lifecycle hooks, and MCP. They now differ in **file format and conventions**, not capability class (Codex agents are TOML where the others are Markdown; Gemini commands are TOML where Claude/Cursor are Markdown; MCP config is JSON for most but TOML for Codex).
 
 The framework's content (PRDs, specs, prompts, rules) and its runtime-layer artifacts (skills, agents, commands, hooks) now land in any of them, each in its native shape.
 

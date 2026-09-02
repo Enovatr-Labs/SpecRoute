@@ -20,8 +20,10 @@ description: <triggers>
 ```
 
 Keep the argument contract and required capabilities in the body. Do not copy
-Claude Code's `argument-hint`, `user-invocable`, or `allowed-tools` fields into
-Codex unless current Codex documentation explicitly adds them.
+Claude Code's `argument-hint` or `user-invocable` extensions into Codex unless
+current Codex documentation explicitly adds them. The same goes for
+`allowed-tools` - a standard field, not a Claude extension, but marked
+*Experimental*, and the shipped Codex template omits it.
 
 ## Codex skill invocation
 
@@ -55,7 +57,7 @@ Two consequences for this layout:
 
 - **Subagents live at `.codex/agents/<slug>.toml`**, not as Markdown with YAML frontmatter. The
   roster the coordinator routes over is that directory. See [`../agents/README.md`](../agents/README.md).
-- **Do not copy Claude's `allowed-tools`.** `Task` and `Agent` are Claude Code tool names; the
+- **Do not copy Claude's `allowed-tools` values.** `Task` and `Agent` are Claude Code tool names; the
   shipped [`all-hands/SKILL.md`](all-hands/SKILL.md) keeps Codex frontmatter to the portable
   `name` / `description` baseline.
 

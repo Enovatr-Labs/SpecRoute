@@ -75,6 +75,20 @@ private-key material, high-confidence provider tokens, literal credentials, and
 credential-bearing URLs without printing matched values. It does not create a
 tag, release, commit, branch update, or package.
 
+Every `wiki-parity.py` finding blocks the release, staleness included. Nothing
+else in the preflight checks whether a wiki page still summarizes its sources
+accurately - the publish job's live-wiki diff compares the *published* wiki
+against `wiki/`, which is a different guarantee entirely.
+
+Timestamp staleness is a proxy, and it over-fires: it cannot tell whether the
+region that changed is one the page actually mirrors. The escape hatch is not to
+weaken the gate but to record the judgement the script cannot make -
+`python3 tools/wiki-parity.py --accept wiki/<Page>.md` stamps a
+`sources-reviewed` marker pinning each source's content digest. While the digest
+matches, that source raises no warning; edit the source and the acknowledgement
+expires and must be re-reviewed. `--accept` never runs over the whole wiki -
+naming the pages is the assertion.
+
 This public preflight is deliberately separate from `provenance-audit.py`. The
 private-source comparison runs only on a maintainer's machine against the exact
 release commit. For `publish` and `resume`, the workflow accepts
@@ -91,14 +105,16 @@ review.
 The workflow's release preflight also compares the live GitHub wiki with the
 tracked `wiki/` source in read-only mode. It reports drift and blocks
 publication; it never writes to the wiki. Wiki publishing remains owned by the
-main-driven `Sync wiki` workflow. Tag pushes and GitHub-App branch updates do
-not recursively trigger other workflows.
+main-driven `Sync wiki` workflow, which the release flow never re-runs because it
+never pushes `main`. GitHub's non-recursion rule covers `GITHUB_TOKEN` only, so
+pushes made with the Release App's installation token *do* start workflows that
+listen for them - the `develop` realignment fires `Markdown link check`.
 
 ## `sync-skills.py`
 
 Body-aware sync of folder-per-skill `SKILL.md` artifacts across every runtime layout under `runtimes/.<vendor>/skills/`: `claude`, `codex`, `gemini`, `kiro`, `cursor`, and `devin`.
 
-It syncs the Markdown **body** below the frontmatter and **preserves each target's own frontmatter**, because the contract differs per vendor (Claude Code carries `argument-hint`/`user-invocable`/`allowed-tools`; the shipped Codex, Gemini, Kiro, and Cursor templates carry `name`/`description`; Devin Desktop uses a YAML-list `allowed-tools` of lowercase tool ids and adds `triggers`). Auxiliary files inside a skill folder (scripts, templates) are copied verbatim.
+It syncs the Markdown **body** below the frontmatter and **preserves each target's own frontmatter**, because the contract differs per vendor (Claude Code carries the `argument-hint`/`user-invocable` extensions plus the standard's `allowed-tools`; the shipped Codex, Gemini, Kiro, and Cursor templates carry `name`/`description`; Devin Desktop uses a YAML-list `allowed-tools` of lowercase tool ids and adds `triggers`). Auxiliary files inside a skill folder (scripts, templates) are copied verbatim.
 
 **Agents are not synced.** Their formats diverge - Claude flat Markdown (`spec-reviewer.md`), Codex standalone TOML (`spec-reviewer.toml`), Devin per-profile directories (`spec-reviewer/AGENT.md`) - so there is no safe file-level copy. Maintain agents per vendor.
 

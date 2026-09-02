@@ -103,9 +103,11 @@ release tag. Correct a bad immutable release with a new patch release.
 
 Wiki publication remains separate. Release preflight verifies, read-only, that
 the live wiki matches `wiki/`; it never republishes it. A merge to `main` that
-changes `wiki/**` triggers `Sync wiki`, while tag pushes and GitHub-App branch
-updates do not recursively start other workflows. Verify or manually rerun the
-main-driven wiki sync if it failed.
+changes `wiki/**` triggers `Sync wiki`; the release flow never pushes `main`, so
+verify or manually rerun that merge-driven sync if it failed. GitHub's
+non-recursion rule covers `GITHUB_TOKEN` only - a push made with the Release
+App's installation token *does* start workflows, so the `develop` realignment
+fires `Markdown link check`.
 
 ## What this project is *not*
 

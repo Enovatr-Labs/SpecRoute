@@ -35,8 +35,8 @@ done
 echo
 echo "── frontmatter check (skills) ──"
 # name + description are the Agent Skills open-standard required pair.
-# argument-hint / user-invocable / allowed-tools are Claude/Codex vendor
-# extensions - warnings only. Contract: SpecRoute wiki, "Frontmatter Contracts".
+# argument-hint / user-invocable are Claude Code extensions; allowed-tools is a
+# standard field marked (Experimental). All three optional - warnings only. Contract: SpecRoute wiki, "Frontmatter Contracts".
 # This project ships no skills today - use find so the check stays quiet
 # instead of erroring on an unmatched glob.
 skill_files=$(find .claude/skills .codex/skills -name SKILL.md 2>/dev/null)

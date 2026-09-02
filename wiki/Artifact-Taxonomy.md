@@ -1,6 +1,7 @@
 # Artifact Taxonomy
 
 <!-- sources: AGENTS.md, README.md -->
+<!-- sources-reviewed: AGENTS.md@4595d729aa63, README.md@96eb9df66b9d -->
 
 Every artifact type SpecRoute defines has a template, a contract, an owner agent, and a place it lives. The canonical table lives in [`AGENTS.md`](https://github.com/Enovatr-Labs/SpecRoute/blob/main/AGENTS.md); this page adds the contracts, relationships, and owners. Vendor-specific implementation evidence is kept separately in [[Vendor Matrix]].
 

@@ -1,6 +1,7 @@
 # Hooks
 
 <!-- sources: hooks/README.md -->
+<!-- sources-reviewed: hooks/README.md@fd50faea39fc -->
 
 Event-triggered automation. Hooks run automatically when something happens (file edit, session start, pre-tool invocation) — the user doesn't invoke them. This is what distinguishes hooks from skills, agents, and commands.
 

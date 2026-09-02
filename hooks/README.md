@@ -94,7 +94,7 @@ Codex has adopted Claude Code's hook event vocabulary almost verbatim - **the ev
 | `SubagentStart` | Subagent begins | No |
 | `SubagentStop` | Subagent finishes | No |
 
-Verified against an installed `codex-cli` 0.145.0 binary. Note Claude Code's `PostToolUseFailure` has **no** Codex counterpart - the convergence is close but not total.
+Verified against an installed `codex-cli` binary (0.147.0 at last check). Note Claude Code's `PostToolUseFailure` has **no** Codex counterpart - the convergence is close but not total.
 
 Discovery order: `~/.codex/hooks.json`, `~/.codex/config.toml` `[hooks]`, `<repo>/.codex/hooks.json`, `<repo>/.codex/config.toml` `[hooks]`, and plugin-bundled `hooks/hooks.json`. Hooks are **enabled by default**. The canonical `[features]` key is `hooks`; `codex_hooks` is a deprecated alias that still works. Disable with `[features] hooks = false`.
 

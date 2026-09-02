@@ -261,6 +261,42 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
+      - name: Recheck dispatch authority
+        # preflight's RELEASE_MANAGERS check is NOT re-executed by GitHub's
+        # "Re-run failed jobs", which reuses the already-successful preflight
+        # result and re-runs only the mutating jobs. Every job that can change
+        # release state therefore rechecks both actors itself, so the
+        # fail-closed guarantee in MAINTAINERS.md holds for partial reruns.
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_ACTOR: ${{ github.actor }}
+          DISPATCH_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          RELEASE_MANAGERS: ${{ vars.RELEASE_MANAGERS }}
+        run: |
+          set -euo pipefail
+          [[ "$DISPATCH_REF" == "refs/heads/main" ]] || {
+            echo "::error::Release operations must be dispatched from the main branch."
+            exit 1
+          }
+          normalized_managers="$(
+            printf '%s' "$RELEASE_MANAGERS" \
+              | tr '[:upper:]' '[:lower:]' \
+              | tr ',' '\n' \
+              | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+              | sed '/^$/d'
+          )"
+          [[ -n "$normalized_managers" ]] || {
+            echo "::error::RELEASE_MANAGERS must be a nonempty comma-separated repository variable."
+            exit 1
+          }
+          for candidate in "$DISPATCH_ACTOR" "$DISPATCH_TRIGGERING_ACTOR"; do
+            normalized_actor="$(printf '%s' "$candidate" | tr '[:upper:]' '[:lower:]')"
+            grep -Fqx -- "$normalized_actor" <<<"$normalized_managers" || {
+              echo "::error::Actor $candidate is not authorized by RELEASE_MANAGERS."
+              exit 1
+            }
+          done
+
       - name: Require the release GitHub App credentials
         env:
           RELEASE_APP_CLIENT_ID: ${{ vars.RELEASE_APP_CLIENT_ID }}
@@ -329,7 +365,7 @@ jobs:
             exit 1
           }
           ruleset_id="$(
-            gh api "repos/$GITHUB_REPOSITORY/rulesets" \
+            gh api --paginate "repos/$GITHUB_REPOSITORY/rulesets" \
               --jq '.[] | select(
                 .name == "release-tags-ruleset"
                 and .target == "tag"
@@ -587,6 +623,42 @@ jobs:
     runs-on: ubuntu-latest
     environment: release
     steps:
+      - name: Recheck dispatch authority
+        # preflight's RELEASE_MANAGERS check is NOT re-executed by GitHub's
+        # "Re-run failed jobs", which reuses the already-successful preflight
+        # result and re-runs only the mutating jobs. Every job that can change
+        # release state therefore rechecks both actors itself, so the
+        # fail-closed guarantee in MAINTAINERS.md holds for partial reruns.
+        env:
+          DISPATCH_REF: ${{ github.ref }}
+          DISPATCH_ACTOR: ${{ github.actor }}
+          DISPATCH_TRIGGERING_ACTOR: ${{ github.triggering_actor }}
+          RELEASE_MANAGERS: ${{ vars.RELEASE_MANAGERS }}
+        run: |
+          set -euo pipefail
+          [[ "$DISPATCH_REF" == "refs/heads/main" ]] || {
+            echo "::error::Release operations must be dispatched from the main branch."
+            exit 1
+          }
+          normalized_managers="$(
+            printf '%s' "$RELEASE_MANAGERS" \
+              | tr '[:upper:]' '[:lower:]' \
+              | tr ',' '\n' \
+              | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+              | sed '/^$/d'
+          )"
+          [[ -n "$normalized_managers" ]] || {
+            echo "::error::RELEASE_MANAGERS must be a nonempty comma-separated repository variable."
+            exit 1
+          }
+          for candidate in "$DISPATCH_ACTOR" "$DISPATCH_TRIGGERING_ACTOR"; do
+            normalized_actor="$(printf '%s' "$candidate" | tr '[:upper:]' '[:lower:]')"
+            grep -Fqx -- "$normalized_actor" <<<"$normalized_managers" || {
+              echo "::error::Actor $candidate is not authorized by RELEASE_MANAGERS."
+              exit 1
+            }
+          done
+
       - name: Require the release GitHub App credentials
         env:
           RELEASE_APP_CLIENT_ID: ${{ vars.RELEASE_APP_CLIENT_ID }}
@@ -648,6 +720,52 @@ jobs:
           }
           [[ "$(jq -r '.branch_policies[0].name' <<<"$policies_json")" == "main" ]] || {
             echo "::error::The release environment deployment branch policy must be exactly main."
+            exit 1
+          }
+          [[ "$(jq -r '.branch_policies[0].type' <<<"$policies_json")" == "branch" ]] || {
+            echo "::error::The release environment policy named main must be a branch policy."
+            exit 1
+          }
+          ruleset_id="$(
+            gh api --paginate "repos/$GITHUB_REPOSITORY/rulesets" \
+              --jq '.[] | select(
+                .name == "release-tags-ruleset"
+                and .target == "tag"
+                and .enforcement == "active"
+              ) | .id' \
+              | head -n 1
+          )"
+          [[ -n "$ruleset_id" ]] || {
+            echo "::error::The active release-tags-ruleset was not found."
+            exit 1
+          }
+          ruleset_json="$(gh api "repos/$GITHUB_REPOSITORY/rulesets/$ruleset_id")" || {
+            echo "::error::Could not inspect the release tag ruleset."
+            exit 1
+          }
+          jq -e \
+            '.conditions.ref_name.include | index("refs/tags/v*") != null' \
+            >/dev/null <<<"$ruleset_json" || {
+            echo "::error::The release tag ruleset must include refs/tags/v*."
+            exit 1
+          }
+          jq -e \
+            '.conditions.ref_name.exclude | type == "array" and length == 0' \
+            >/dev/null <<<"$ruleset_json" || {
+            echo "::error::The release tag ruleset must not exclude any tag refs."
+            exit 1
+          }
+          missing_tag_rules="$(
+            jq -r \
+              '(["deletion", "non_fast_forward", "update"] - [.rules[].type]) | join(",")' \
+              <<<"$ruleset_json"
+          )"
+          [[ -z "$missing_tag_rules" ]] || {
+            echo "::error::The release tag ruleset is missing required immutable-tag controls."
+            exit 1
+          }
+          [[ "$(jq -r '.current_user_can_bypass' <<<"$ruleset_json")" == "never" ]] || {
+            echo "::error::The Release App must not be able to bypass the release tag ruleset."
             exit 1
           }
           immutable_json="$(gh api "repos/$GITHUB_REPOSITORY/immutable-releases")" || {

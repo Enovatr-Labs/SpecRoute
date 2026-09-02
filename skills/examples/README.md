@@ -33,7 +33,7 @@ The skills under [`.claude/skills/`](../../.claude/skills/) at the repository ro
 2. Create `<slug>/SKILL.md` here using [`../skill-template/SKILL.md`](../skill-template/SKILL.md).
 3. Number the steps. Skills feel guided when each step is explicit.
 4. Specify `allowed-tools` minimally - it pre-approves tools for the invoking turn (fewer prompts), it does not restrict the skill. Use `disallowed-tools` to actually remove tools.
-5. Mirror to `runtimes/.<vendor>/skills/<slug>/SKILL.md` for every runtime it should ship in - as of the mid-2026 convergence all supported vendors carry folder-per-skill `SKILL.md`. Use [`tools/sync-skills.py`](../../tools/sync-skills.py) to copy the body across runtimes; it preserves each vendor's own frontmatter.
+5. Mirror to `runtimes/.<vendor>/skills/<slug>/SKILL.md` for every runtime it should ship in - since the 2026 capability convergence all supported vendors carry folder-per-skill `SKILL.md`. Use [`tools/sync-skills.py`](../../tools/sync-skills.py) to copy the body across runtimes; it preserves each vendor's own frontmatter.
 6. Run `/audit` to validate frontmatter and run `/parity` to confirm cross-runtime alignment.
 
 ## Skills vs agents vs commands vs hooks

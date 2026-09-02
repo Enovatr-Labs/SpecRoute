@@ -66,7 +66,7 @@ SpecRoute has verified it directly in Codex, and Devin documents it as the
 recommended repository location. Support claims for other runtimes remain
 ecosystem signals to re-check against current documentation.
 
-This was verified against an **installed Codex 0.145.0 binary**, which carries `.agents/skills` as a repo-level skills root alongside `.agents/plugins/marketplace`, `.agents/plugins/api`, `.agents/hooks`, and `.agents/settings` - and *still* carries `.codex/skills` and `$CODEX_HOME/skills`. The binary check matters because public documentation on this path is inconsistent between vendors and versions.
+This was verified by inspecting an **installed Codex binary** (0.147.0 at last check), which resolves `.agents` as a repo-level skills root and carries `.agents/plugins/marketplace.json` and `.agents/plugins/api_marketplace.json`, enumerating `.agents` beside `.claude` and `.cursor` when it detects external agent configuration - and *still* carries `.codex/skills` and `$CODEX_HOME/skills`. Note the binary composes the skills path at runtime from `.agents` and `skills` rather than storing `.agents/skills` as one literal, so grep for the two parts, not the joined path. The binary check matters because public documentation on this path is inconsistent between vendors and versions.
 
 **Both work today. Do not migrate off `.codex/skills` yet.** The per-vendor directories are not deprecated, and moving early buys nothing but a rollback if the convention shifts again.
 

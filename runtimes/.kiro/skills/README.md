@@ -20,13 +20,23 @@ Kiro follows the Agent Skills open standard (progressive disclosure). Only `name
 
 | Field | Required | Notes |
 |---|---|---|
-| `name` | yes | Must match the folder name. Lowercase, numbers, hyphens only (max 64 chars). |
-| `description` | yes | Describes *when* to use the skill. Kiro matches this against the request to decide activation. |
+| `name` | yes | 1-64 chars. Lowercase alphanumerics (`a`-`z`, `0`-`9`) and hyphens only. Must not start or end with a hyphen, and must not contain consecutive hyphens (`pdf--processing` is invalid). Must match the folder name exactly. |
+| `description` | yes | 1-1024 chars, non-empty. Describes *when* to use the skill. Kiro matches this against the request to decide activation. |
 | `license` | no | License name or reference to a bundled license file. |
-| `compatibility` | no | Environment requirements (required tools, network access). |
-| `metadata` | no | Extra key-value data (author, version). |
+| `compatibility` | no | Environment requirements (required tools, network access). Max 500 chars. |
+| `metadata` | no | Map of string keys to string values (author, version). |
+| `allowed-tools` | no | Standard field, marked **(Experimental)** - a space-separated string of pre-approved tools whose support varies between implementations. Kiro does not consume it. |
 
-> Note: Kiro does NOT use the Claude/Codex skill fields `argument-hint`, `user-invocable`, or `allowed-tools`. When syncing a skill from `.claude/skills/`, strip those fields. Keep the body identical.
+> Note: Kiro does NOT use the Claude extensions `argument-hint` or `user-invocable`, and does not consume the standard's experimental `allowed-tools`. When syncing a skill from `.claude/skills/`, strip those fields. Keep the body identical.
+
+### Progressive disclosure budgets
+
+| Stage | What loads | Budget |
+|---|---|---|
+| Discovery | frontmatter metadata (`name` + `description`) | ~100 tokens, always in context |
+| Activation | the full `SKILL.md` body | < 5000 tokens recommended |
+
+Keep the main `SKILL.md` under 500 lines; move detail into `references/`, `scripts/`, or `assets/`.
 
 ## Invocation
 
@@ -52,8 +62,9 @@ frontmatter:
 
 - **`disable-model-invocation: true` hides it** from the model-facing registry the `@` picker
   completes against. Omit it unless you want the skill reachable *only* from the `/` menu.
-- **`allowed-tools` is comma-separated** (`Read, Grep, Glob, Bash, Agent`). Space separation
-  and stale tool names (`Task` was superseded by `Agent`) fail silently.
+- **`allowed-tools` is a space-separated string** (`Read Grep Glob Bash Agent`), per the standard;
+  Claude Code also accepts a YAML list. Comma separation and stale tool names (`Task` was
+  superseded by `Agent`) fail silently.
 - **The folder name must equal the `name` field.**
 
 Each skill's `SKILL.md` carries a per-runtime invocation table.

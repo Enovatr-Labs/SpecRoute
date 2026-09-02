@@ -59,7 +59,7 @@ See [`steering/README.md`](steering/README.md) for templates.
 
 Both arrived in Kiro 0.9 (2026-02-05), carried forward unchanged into Kiro IDE 1.0, and are the converged capability layer shared with the other vendor runtimes:
 
-- Skills use the Agent Skills open standard (progressive disclosure). Required frontmatter is `name` + `description` only - Kiro does not use the Claude/Codex fields `argument-hint`, `user-invocable`, or `allowed-tools`. See [`skills/README.md`](skills/README.md).
+- Skills use the Agent Skills open standard (progressive disclosure). Required frontmatter is `name` + `description` only - Kiro does not use the Claude extensions `argument-hint` or `user-invocable`. `allowed-tools` *is* a standard field, but the standard marks it (Experimental) with support varying between implementations, and Kiro does not consume it either. See [`skills/README.md`](skills/README.md).
 - Subagents are single-file prompts with frontmatter `name` (required) plus optional `description`, `tools`, `model`, `includeMcpJson`, `includePowers`. Kiro does not use the Claude fields `color` or `memory`. See [`agents/README.md`](agents/README.md).
 
 The samples [`skills/audit-artifact/SKILL.md`](skills/audit-artifact/SKILL.md) and [`agents/spec-reviewer.md`](agents/spec-reviewer.md) mirror their `.claude/` counterparts so cross-vendor sync stays straightforward.

@@ -61,6 +61,20 @@ The Devin renderer uses Devin Local's documented `${env:VAR}` substitution in
 the server's `env` map, so its generated config contains only references to
 shell environment variables.
 
+## Protocol revisions and transports
+
+MCP revision **2026-07-28** made the protocol core stateless (sessions and the
+`Mcp-Session-Id` header were removed) and deprecated HTTP+SSE in favour of streamable
+HTTP, with a 12-month minimum removal window
+([announcement](https://blog.modelcontextprotocol.io/posts/2026-07-28/),
+[specification](https://modelcontextprotocol.io/specification/2026-07-28)).
+
+**No renderer here is affected.** `servers.yaml` and all six renderers emit **stdio**
+servers only — `command` plus `args`, with no transport, URL, session, or header field
+in the schema or in any rendered template. If you later add a remote server, use
+streamable HTTP and consult that vendor's own config documentation for the remote-server
+key; the stdio shape does not extend to it.
+
 ## Adding or removing a server
 
 1. Edit `servers.yaml`.

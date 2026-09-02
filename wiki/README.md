@@ -52,7 +52,7 @@ For larger refreshes, it's easier to `cp wiki/*.md /tmp/specroute-wiki/ && git a
 
 **Getting started:** Quickstart, Repository-Structure
 
-**Concepts:** Philosophy, Spec-Driven-Development, Agentic-Coding-Model, Automation-Decision-Framework, Two-Tier-Docs-Pattern, Multi-Vendor-Context-Files, Documentation-Structure, Agent-Memory
+**Concepts:** Philosophy, Spec-Driven-Development, Spec-Driven-Landscape, Agentic-Coding-Model, Automation-Decision-Framework, Multi-Agent-Orchestration, Two-Tier-Docs-Pattern, Multi-Vendor-Context-Files, Documentation-Structure, Agent-Memory
 
 **Artifacts:** Artifact-Taxonomy, PRDs, Specs, Agents, Skills, Commands, Hooks, Prompts, Rules, Frontmatter-Contracts, Sanitization
 
@@ -62,7 +62,9 @@ For larger refreshes, it's easier to `cp wiki/*.md /tmp/specroute-wiki/ && git a
 
 **Project:** Worked-Example, Implementation-Team, Contributing, Security, Maintainers, Roadmap, Code-of-Conduct, FAQ, Glossary
 
-Total: 35 wiki pages + 3 navigation files.
+Total: 43 wiki pages + 3 navigation files (Home, `_Sidebar`, `_Footer`).
+
+Regenerate the count: `ls wiki/*.md | grep -vE '/(README|_Sidebar|_Footer|Home)\.md$' | wc -l`
 
 ## Should this directory be tracked in the main repo?
 

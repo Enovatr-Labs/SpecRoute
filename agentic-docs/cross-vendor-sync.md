@@ -23,9 +23,10 @@ Things that don't need syncing: vendor-specific config files (`.claude/settings.
 All six vendors carry folder-per-skill `SKILL.md`, so a skill's *instructions* can be
 shared everywhere. The [Agent Skills standard](https://agentskills.io) requires only
 `name` (max 64 chars, matching the enclosing directory) and `description` (max 1024);
-`license`, `compatibility`, and `metadata` are the other standard fields. Everything else
-is a **vendor extension**, and that is where the contracts diverge: Claude Code adds
-`argument-hint`/`user-invocable`/`allowed-tools`/`disallowed-tools`; the shipped
+`license`, `compatibility`, `metadata`, and `allowed-tools` (marked *Experimental*) are the
+other standard fields. Everything else is a **vendor extension**, and that is where the
+contracts diverge: Claude Code adds `argument-hint`/`user-invocable`/`disallowed-tools` and
+carries the standard's `allowed-tools`; the shipped
 Codex/Gemini/Kiro/Cursor templates carry only `name`/`description`; Devin Desktop uses a YAML list of lowercase tool ids
 where Claude uses space-separated capitalised names. So the tool is **body-aware**: it syncs
 the Markdown body below the frontmatter and **preserves each target's own frontmatter**.
@@ -72,7 +73,7 @@ When drift is intentional (for example, a vendor-only integration skill), docume
 
 A vendor-neutral skills root is emerging: **`.agents/skills/<slug>/SKILL.md`**. SpecRoute has verified it directly in Codex and Devin Desktop; support claims for other runtimes remain ecosystem signals to re-check against their current documentation.
 
-This was verified against an **installed Codex 0.145.0 binary**, which carries `.agents/skills` as a repo-level skills root alongside `.agents/plugins/marketplace`, `.agents/plugins/api`, `.agents/hooks`, and `.agents/settings` - and *still* carries `.codex/skills` and `$CODEX_HOME/skills`. The binary check matters because public documentation on this path is inconsistent between vendors and between versions.
+This was verified by inspecting an **installed Codex binary** (0.147.0 at last check), which resolves `.agents` as a repo-level skills root and carries `.agents/plugins/marketplace.json` and `.agents/plugins/api_marketplace.json`, enumerating `.agents` beside `.claude` and `.cursor` when it detects external agent configuration - and *still* carries `.codex/skills` and `$CODEX_HOME/skills`. Note the binary composes the skills path at runtime from `.agents` and `skills` rather than storing `.agents/skills` as one literal, so grep for the two parts, not the joined path. The binary check matters because public documentation on this path is inconsistent between vendors and between versions.
 
 **Both work today. Do not migrate off `.codex/skills` yet.** The per-vendor directories are not deprecated, and moving early buys nothing except a rollback if the convention shifts again.
 

@@ -27,15 +27,17 @@ The directory name is the skill slug. The slug is what users invoke (e.g. `scaff
 
 ```yaml
 ---
-name: <slug>                             # required by the standard; matches enclosing dir (max 64 chars)
-description: <triggers>                  # required by the standard; drives auto-selection (max 1024 chars)
+name: <slug>                             # required by the standard; matches enclosing dir (1-64 chars)
+description: <triggers>                  # required by the standard; drives auto-selection (1-1024 chars)
 license: MIT                             # optional agentskills.io standard field
-compatibility: "Requires bash, git"      # optional agentskills.io standard environment requirements
-metadata:                                # optional agentskills.io standard metadata map
+compatibility: "Requires bash, git"      # optional agentskills.io standard environment requirements (max 500 chars)
+metadata:                                # optional agentskills.io standard metadata map (string keys -> string values)
   author: "<author-or-team>"
   version: "1.0.0"
+allowed-tools: Read Write Edit Glob Bash # optional agentskills.io standard field (EXPERIMENTAL - support
+                                         # varies between implementations); PRE-APPROVES these tools,
+                                         # does not restrict
 # Claude Code extensions - not part of the standard:
-allowed-tools: Read Write Edit Glob Bash # optional; PRE-APPROVES these tools, does not restrict
 disallowed-tools: Bash                   # optional; the field that actually removes tools
 argument-hint: "[arg1] [arg2?]"          # optional argument hint
 user-invocable: true                     # optional; menu visibility only
@@ -46,9 +48,38 @@ The standard requires `name` and `description`. Claude Code itself is looser - *
 
 The standard caps `description` at 1024 characters. Front-load trigger phrases.
 
-### `allowed-tools` is not a sandbox
+### The `name` contract in full
 
-The most common misreading of the contract:
+The standard is stricter about `name` than most authors expect. All five rules apply:
+
+| Rule | Detail |
+|---|---|
+| Length | 1-64 characters. |
+| Charset | Unicode lowercase alphanumerics (`a`-`z`, `0`-`9`) and hyphens only. No uppercase, underscores, dots, or spaces. |
+| No edge hyphens | Must **not** start or end with a hyphen. `-audit` and `audit-` are invalid. |
+| No consecutive hyphens | `pdf--processing` is invalid; `pdf-processing` is valid. |
+| Directory match | Must match the enclosing directory name exactly. This is the standard's one hard structural rule. |
+
+`description` is 1-1024 characters and must be non-empty. `compatibility`, when present, is capped at 500 characters.
+
+### Progressive disclosure budgets
+
+The standard loads a skill in two stages, and each stage has a budget worth designing to:
+
+| Stage | What loads | Budget |
+|---|---|---|
+| Discovery | frontmatter metadata (`name` + `description`) | **~100 tokens**, always in context for every registered skill |
+| Activation | the full `SKILL.md` body | **< 5000 tokens** recommended |
+
+Keep the main `SKILL.md` **under 500 lines**. Past that, move detail into referenced files the skill reads only at the step that needs them - `references/`, `scripts/`, `assets/`. A long skill is not a richer skill; it is one that spends its activation budget before the first step runs. SpecRoute's own skills are measured against this bar too.
+
+### `allowed-tools` is a standard field, and it is not a sandbox
+
+Two things about `allowed-tools` are routinely got wrong.
+
+**It is part of the standard.** `allowed-tools` is an `agentskills.io` field - a space-separated string of pre-approved tools - not a Claude Code extension. The standard marks it **(Experimental)**: support for it may vary between agent implementations. Write it where the target runtime honours it; never depend on it being honoured everywhere, and never treat its absence as a defect. `argument-hint` and `user-invocable`, by contrast, genuinely are Claude Code extensions.
+
+**It does not confine anything.** The most common misreading of the contract:
 
 - **`allowed-tools` pre-approves.** Listed tools run without a permission prompt for the invoking turn, and the grant clears on the next message. It does **not** remove anything from the tool pool - the skill can still reach for tools you left off the list, they just prompt.
 - **`disallowed-tools` restricts.** This is the field that removes tools from the pool for the skill's run.
@@ -96,7 +127,7 @@ The table is SpecRoute's design vocabulary, not four file formats. See "Skills h
 
 ## Per-vendor mirrors
 
-As of mid-2026 **all six** supported vendors consume folder-per-skill `SKILL.md`:
+Since the 2026 capability convergence, **all six** supported vendors consume folder-per-skill `SKILL.md`:
 
 ```
 runtimes/.claude/skills/<slug>/SKILL.md

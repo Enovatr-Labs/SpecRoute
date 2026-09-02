@@ -56,6 +56,14 @@ PRD (business intent + acceptance criteria)
 
 Each stage has a template, an agent assignment, and an acceptance criterion. The cross-references that survive across stages - stable requirement IDs, design `Satisfies:` annotations, task back-refs, test back-refs - are what make the agent's output reviewable.
 
+### How this compares to other spec-driven projects
+
+SpecRoute is not the only framework built on this premise. [spec-kit](https://github.com/github/spec-kit), [OpenSpec](https://github.com/Fission-AI/OpenSpec), and [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) each ship a CLI that scaffolds and sequences the flow for you, and Amazon Kiro - a supported SpecRoute vendor - ships spec-driven development natively in `.kiro/specs/`.
+
+SpecRoute's difference is that it ships no CLI: it is content you copy and edit, with vendor neutrality across six tools as an explicit contract. That is a trade, not a win - if you want a command to scaffold the files or a tool that enforces phase order, a peer is the better choice.
+
+[`agentic-docs/spec-driven-landscape.md`](agentic-docs/spec-driven-landscape.md) maps the field, what it is converging on, and when to pick a peer instead.
+
 ## Core artifact taxonomy
 
 | Artifact | What it is | Lives in |

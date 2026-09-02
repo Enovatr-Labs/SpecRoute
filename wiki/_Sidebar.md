@@ -7,6 +7,7 @@
 ### Concepts
 - [[Philosophy]]
 - [[Spec-Driven Development]]
+- [[Spec-Driven Landscape]]
 - [[Agentic Coding Model]]
 - [[Automation Decision Framework]]
 - [[Multi-Agent Orchestration]]

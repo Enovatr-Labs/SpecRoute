@@ -26,6 +26,162 @@ For a content-only framework, versions are interpreted as:
 - `tools/release-preflight.py` for deterministic, read-only validation of the
   selected version, commit, release metadata, and repository parity before a
   tag or release is created.
+- A `sources-reviewed` marker for wiki pages, and `tools/wiki-parity.py
+  --accept wiki/<Page>.md` to stamp it. The marker pins each declared source's
+  content digest at the moment a maintainer confirmed the summary still holds:
+
+      <!-- sources: hooks/README.md -->
+      <!-- sources-reviewed: hooks/README.md@fd50faea39fc -->
+
+  While the digest matches, that source raises no staleness warning; editing the
+  source expires the acknowledgement and the warning returns, so it can never go
+  permanently stale. `--accept` refuses to run over the whole wiki - naming each
+  page is the assertion. A malformed entry, or one naming a path absent from the
+  page's `sources:` list, is a hard break. The four pages this release flagged
+  (`Artifact-Taxonomy`, `Repository-Structure`, `Hooks`, `Sanitization`) were
+  each checked against the changed regions - none carry the facts that moved -
+  and stamped rather than padded with edits they did not need.
+- `agentic-docs/spec-driven-landscape.md` and `wiki/Spec-Driven-Landscape.md` -
+  SpecRoute's first positioning against the wider spec-driven field. Covers what
+  the field is converging on (named phase gates, a durable project layer held
+  apart from per-change work, Markdown artifacts versioned with the code) and
+  what it has not (no shared format, no portability between frameworks).
+  Compares github/spec-kit, Fission-AI/OpenSpec, bmad-code-org/BMAD-METHOD, and
+  Amazon Kiro - a supported vendor that is also a peer methodology - and includes
+  an unhedged "when to pick a peer instead" section. Every third-party star count
+  and SPDX identifier carries the `gh api` command that regenerates it and the
+  date it was verified (2026-08-31), rather than a hand-maintained number.
+- The complete Agent Skills `name` contract - 1-64 chars, lowercase `a-z`/`0-9`
+  and hyphens only, no leading or trailing hyphen, no consecutive hyphens, and it
+  must match the enclosing directory - documented identically in
+  `wiki/Frontmatter-Contracts.md`, `wiki/Skills.md`, and `skills/README.md`, with
+  `compatibility` capped at 500 characters. The consecutive-hyphen ban appeared
+  nowhere in the repository before this release.
+- Progressive-disclosure budgets from the specification (~100 tokens metadata,
+  <5000 tokens body, <500 lines per `SKILL.md`) in `skills/README.md` and
+  `wiki/Skills.md`. The phrase appeared in the docs; no numeric budget did.
+- `frontmatter-lint` and `/audit` now actually check the limits they cite -
+  name/directory match, name length, charset and hyphen rules, description and
+  `compatibility` lengths, and the body-length budget. Both previously cited
+  limits they never enforced.
+- `skills-ref validate ./my-skill` named as an optional external validator,
+  deliberately **not** wired into `/audit`, hooks, or CI - this repository has no
+  build step or toolchain, and a gate must not depend on an external binary.
+- A third-party-facts rot class in the `doc-currency-check` skill, separating the
+  regenerable claims (star counts, SPDX ids) from the ones no command can
+  regenerate - peer slash-command vocabularies, phase-model names, and artifact
+  directory paths, which change silently between minor versions. Records that a
+  peer's claim about itself is attributed and re-confirmed, never adjudicated.
+
+### Fixed
+
+- **The MCP specification anchor was wrong.** Revision **2026-07-28** is
+  published; three files still described it as "in flight", "imminent rather than
+  shipped", or - dated one day before publication - "a release candidate, not a
+  published specification". All three now state the stateless protocol core, the
+  removal of sessions and the `Mcp-Session-Id` header, and the HTTP+SSE
+  deprecation with its 12-month minimum removal window.
+- **The reassurance attached to that note was right for the wrong reason.**
+  "`servers.yaml` shape is unaffected; only transport wiring is" rested on an
+  MCP revision being unable to change vendor-owned config schemas. Replaced with
+  the verified reason: `servers.yaml` and all six renderers emit **stdio servers
+  only**, so no rendered config is affected. Guidance for remote servers now
+  points at streamable HTTP.
+- **`wiki/MCP-Integration.md` documented a schema that does not exist.** It
+  specified `env`, `enabled_for`, and `notes` - present in neither
+  `servers.yaml` nor any of the six renderers - while omitting the two real
+  fields (`requires_env`, `codex_tool_approvals`), and claimed "renderers ignore
+  servers whose `enabled_for` list excludes them" when every renderer emits every
+  server. `wiki/Adding-a-Vendor.md` instructed contributors to edit those
+  phantom lists. A contributor following the documentation shipped a field that
+  was silently dropped.
+- **`allowed-tools` was misclassified as a Claude Code extension** everywhere the
+  repository classified it, including the two agent briefs - `skill-author` and
+  `template-quality-reviewer` - that author new artifacts and would have kept
+  re-emitting the wrong classification. It is an `agentskills.io` **standard**
+  field marked *(Experimental)*. `argument-hint` and `user-invocable` remain
+  genuine Claude extensions, and the pre-approves-does-not-restrict warning is
+  unchanged.
+- **`/audit` warned on a *missing* `allowed-tools`.** Warning on the absence of a
+  field the specification marks Experimental pushed contributors toward it. The
+  check is removed; absence of an optional field is never a finding.
+- **Four runtime skill READMEs inverted the `allowed-tools` separator** - Kiro,
+  Claude, Cursor, and Gemini each said the field is comma-separated and that
+  space separation "fails silently". The standard specifies a space-separated
+  string, and `/audit` now rejects the comma form, so a consumer following the
+  shipped README wrote a value the repository's own gate refuses. The Claude copy
+  also contradicted its own example twelve lines above.
+- **`when_to_use` was cited as an Agent Skills field** in `.agents/README.md`.
+  It is not in the specification, and no skill in the repository used it.
+- `wiki/README.md`'s page inventory was stale at 35 pages (actual: 43) and
+  omitted `Multi-Agent-Orchestration`; it now ships a regeneration command.
+- **`release-preflight.py` truncated release notes at a fenced example.** The
+  changelog section scan matched `^---$` on raw text without applying the
+  module's existing `FENCE_RE`, so any release entry containing a fenced YAML or
+  frontmatter block ended there. The failure was silent: the publish job verifies
+  the draft body against the same truncated output, so an amputated release would
+  have shipped with every check green. Fence-masking now preserves offsets while
+  blanking fenced regions, and the release-heading scans use it too.
+- **`release-preflight.py` matched `model:` anywhere in a file.** The tier-word
+  check ran against the whole document rather than the frontmatter block, so a
+  `model: flagship` line demonstrated in prose blocked a release, while a file
+  whose frontmatter was clean but whose body showed the anti-pattern was flagged.
+  Extraction is now scoped to the frontmatter via a shared `frontmatter_block`
+  helper, and trailing inline comments are stripped.
+- **The release workflow's `RELEASE_MANAGERS` allowlist was not rechecked on a
+  partial re-run.** It was enforced only in `preflight`; GitHub's "Re-run failed
+  jobs" reuses a successful `preflight` and re-runs only the mutating jobs, so
+  `github.triggering_actor` was never validated on that path - contradicting
+  `MAINTAINERS.md`'s fail-closed guarantee. `publish` and `realign-develop` now
+  recheck both actors and the dispatch ref themselves. Environment review had
+  independently gated mutation, so the exposure was a broken claim, not an open
+  door.
+- **`realign-develop`'s protected-control verification was a truncated copy of
+  `publish`'s.** It omitted the `release-tags-ruleset` lookup, the
+  `refs/tags/v*` include and empty-exclude checks, the
+  deletion/non-fast-forward/update rule check, the `current_user_can_bypass`
+  check, and the branch-policy `type` check. Dispatched standalone it would have
+  force-updated `develop` with the App token under exactly the conditions
+  `publish` refuses on. Both jobs now run the same checks.
+- **The rulesets lookup was unpaginated.** `gh api .../rulesets` pages at 30; a
+  repository with more would fail closed on the misleading "The active
+  release-tags-ruleset was not found." Both call sites now pass `--paginate`.
+- **"GitHub-App branch updates do not recursively trigger other workflows" was
+  wrong** in `MAINTAINERS.md`, `wiki/Maintainers.md`, and `tools/README.md`.
+  GitHub's non-recursion rule covers `GITHUB_TOKEN` only; a push authenticated
+  with a GitHub App installation token *does* start workflows, so the `develop`
+  realignment fires `Markdown link check`. The operational advice - verify the
+  merge-driven `Sync wiki` run separately - is unchanged, but it now rests on the
+  real reason: the release flow never pushes `main`.
+- **`/audit` read only the first physical line of `description:`.** A folded or
+  literal block scalar (`description: >-`) scored as the two characters `>-`, so
+  the 1024-character cap passed trivially and a genuinely over-length description
+  shipped - under-enforcing the very check this release advertises as "now
+  actually enforced". A `yaml_value` helper folds block scalars in and strips
+  trailing inline comments, and is used for `compatibility` too.
+- **Wiki staleness had no way to be acknowledged.** `wiki-parity.py` compares git
+  commit timestamps, so it fires whenever a source is newer than its mirror even
+  when the region that changed is not one that page summarizes - as it did for
+  this release across four pages. The gate stays release-blocking, because
+  nothing else checks whether a wiki page still reflects its sources (the publish
+  job's live-wiki diff compares the *published* wiki against `wiki/`, a different
+  guarantee). What was missing was a way to record the judgement the script
+  cannot make.
+- `skills/examples/README.md` still carried the present-tense "as of the mid-2026
+  convergence" construct this release replaced everywhere else.
+
+### Changed
+
+- Codex facts re-verified against an installed `codex-cli` **0.147.0** binary
+  (previously 0.145.0) across ten locations: the `.agents` skills root, the
+  plugin marketplace paths, external-agent-config enumeration, the 11 hook
+  events, the absent `PostToolUseFailure`, and the deprecated `codex_hooks`
+  alias all still hold. Anchors reshaped to "0.147.0 at last check" so a future
+  bump touches a token rather than a claim, and `.agents/skills` is no longer
+  described as a literal binary string - 0.147.0 composes that path at runtime.
+- "As of mid-2026" replaced with "Since the 2026 capability convergence" in
+  eight files. The month had been overtaken and read as a present-tense currency
+  stamp.
 
 ---
 

@@ -54,7 +54,7 @@ From whichever root file is actually loaded, link to:
 
 ## Vendor mapping notes
 
-- Skills: Gemini supports folder-per-skill `SKILL.md` under `.gemini/skills/`, and also reads the vendor-neutral `.agents/skills/` root. Frontmatter is the Agent Skills standard `name` + `description`; Claude's `argument-hint` / `user-invocable` / `allowed-tools` are not consumed.
+- Skills: Gemini supports folder-per-skill `SKILL.md` under `.gemini/skills/`, and also reads the vendor-neutral `.agents/skills/` root. Frontmatter is the Agent Skills standard `name` + `description`; Claude's `argument-hint` / `user-invocable` extensions are not consumed. `allowed-tools` *is* a standard field, but the standard marks it (Experimental) with support varying between implementations, and the shipped Gemini templates omit it.
 - Subagents: flat agent files under `.gemini/agents/`.
 - Slash commands: TOML files under `.gemini/commands/*.toml` (a `prompt`, not a markdown body or a shell string).
 

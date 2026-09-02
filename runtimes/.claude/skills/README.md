@@ -63,8 +63,9 @@ frontmatter:
 
 - **`disable-model-invocation: true` hides it** from the model-facing registry the `@` picker
   completes against. Omit it unless you want the skill reachable *only* from the `/` menu.
-- **`allowed-tools` is comma-separated** (`Read, Grep, Glob, Bash, Agent`). Space separation
-  and stale tool names (`Task` was superseded by `Agent`) fail silently.
+- **`allowed-tools` is a space-separated string** (`Read Grep Glob Bash Agent`), per the standard;
+  Claude Code also accepts a YAML list. Comma separation and stale tool names (`Task` was
+  superseded by `Agent`) fail silently.
 - **The folder name must equal the `name` field.**
 
 Each skill's `SKILL.md` carries a per-runtime invocation table.

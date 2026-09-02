@@ -115,9 +115,12 @@ Failure recovery is intentionally narrow:
 
 Wiki publication is independent. Release preflight verifies, read-only, that the
 live wiki matches `wiki/`; it never republishes the wiki. A merge to `main` that
-changes `wiki/**` triggers the existing `Sync wiki` workflow. Tag pushes and
-GitHub-App branch updates do not recursively trigger other workflows, so verify
-the main-driven sync separately and rerun it manually if it failed.
+changes `wiki/**` triggers the existing `Sync wiki` workflow. The release flow
+never pushes `main`, so it never re-runs that sync - verify the merge-driven run
+separately and rerun it manually if it failed. GitHub's non-recursion rule
+covers `GITHUB_TOKEN` only: a push made with the Release App's installation
+token *does* start workflows that listen for it, so the `develop` realignment
+fires `Markdown link check`. The release tag matches no current trigger.
 
 Repository-side environment, ruleset, and recovery configuration is maintained
 in the local operations runbook. See [`CHANGELOG.md`](CHANGELOG.md) for release
