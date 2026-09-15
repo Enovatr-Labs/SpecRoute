@@ -37,6 +37,10 @@ The triplet exists because conflating these concerns is a known failure mode:
 
 **Tasks must back-reference requirements.** Every task in `tasks.md` ends with `_Requirements: R1.1, R1.2_`. A task without a requirement back-reference is unscoped. A requirement without any task is unimplemented.
 
+**Ambiguity is marked, not guessed.** Where the PRD leaves something undecided, the requirement carries an inline `[NEEDS CLARIFICATION: <the specific question>]` marker with a matching `Q<N>` open question. A draft may hold at most 3 unresolved markers, and any outstanding marker blocks `Status: Approved`. Resolved questions are kept in `requirements.md` Section 8 (Clarifications) with who decided and when.
+
+**`[P]` is a file-safety claim.** A task heading marked `### 3. [P] <Title>` touches no file that another `[P]` task in the same phase touches and depends on no unfinished task, so the group can run concurrently. Unmarked tasks run in numbered order. `tasks.md` records each phase's group in its Parallel execution table.
+
 ## Lifecycle
 
 1. **Draft** - author drafts the triplet (or single-file spec) under `specs/examples/<feature>/` or wherever the feature lives.

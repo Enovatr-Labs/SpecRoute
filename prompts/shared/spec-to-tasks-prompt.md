@@ -57,6 +57,13 @@ Order:
 - Tasks that consume foundational state come after.
 - Cross-cutting tasks (observability, validation) come last in their phase.
 
+Once ordered, mark the tasks that can run concurrently with `[P]`, placed before the title: `### 1. [P] <Task title>`. A task earns `[P]` only when both hold:
+
+- It touches **no file** that another `[P]` task in the same phase touches.
+- It depends on **no unfinished task**.
+
+Sequential is the safe default - absence of `[P]` means the task waits its turn. When in doubt, leave the marker off.
+
 ### 4. Populate coverage table
 
 The coverage table is the gate. Every `R<N.M>` and every `NFR-<N.M>` must map to at least one task.
@@ -88,6 +95,7 @@ The done checklist at the bottom of `tasks.md` defines completion. Confirm:
 - Every task back-references at least one requirement.
 - Tasks are sequenced - no task depends on a later-numbered task.
 - Each task is small enough that "merge in one PR" is realistic.
+- No `[P]` task shares a file with another `[P]` task in the same phase - if two do, at least one is mis-marked.
 
 ## Anti-patterns to avoid
 
@@ -95,6 +103,7 @@ The done checklist at the bottom of `tasks.md` defines completion. Confirm:
 - **Tasks that bundle multiple requirements.** Hard to review. Split.
 - **Tasks that reference future requirements not yet in `requirements.md`.** That's spec drift; update `requirements.md` first.
 - **Coverage gaps.** A requirement without a task is unimplemented - surface it.
+- **Marking everything `[P]` to look fast.** Parallelism you did not verify is not throughput; it is two agents writing the same file and one of them losing. Mark `[P]` only where the file sets are genuinely disjoint.
 
 ## Final step
 

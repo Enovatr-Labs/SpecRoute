@@ -50,7 +50,7 @@ For a content-only framework, versions are interpreted as:
   Amazon Kiro - a supported vendor that is also a peer methodology - and includes
   an unhedged "when to pick a peer instead" section. Every third-party star count
   and SPDX identifier carries the `gh api` command that regenerates it and the
-  date it was verified (2026-08-31), rather than a hand-maintained number.
+  date it was verified (2026-09-02), rather than a hand-maintained number.
 - The complete Agent Skills `name` contract - 1-64 chars, lowercase `a-z`/`0-9`
   and hyphens only, no leading or trailing hyphen, no consecutive hyphens, and it
   must match the enclosing directory - documented identically in
@@ -67,6 +67,18 @@ For a content-only framework, versions are interpreted as:
 - `skills-ref validate ./my-skill` named as an optional external validator,
   deliberately **not** wired into `/audit`, hooks, or CI - this repository has no
   build step or toolchain, and a gate must not depend on an external binary.
+- A bounded clarification pass in `prompts/shared/prd-to-spec-prompt.md`: scan
+  the PRD against a seven-area ambiguity taxonomy, rank the gaps by impact x
+  uncertainty, ask at most 5 questions one at a time, and park the rest. The
+  requirements and feature-spec templates now take inline
+  `[NEEDS CLARIFICATION: ...]` markers (at most 3 per draft, each tied to a
+  `Q<N>` row, blocking `Status: Approved`), and `requirements-template.md`
+  gains a `## 8. Clarifications` decision log.
+- A `[P]` parallelism marker for task headings in `tasks-template.md` and
+  `spec-to-tasks-prompt.md`, with a per-phase Parallel execution table. `[P]`
+  asserts disjoint file sets and no unfinished dependency; sequential stays the
+  default. The sample project's `tasks.md` applies it and documents where the
+  marker deliberately disagrees with the implementation plan's schedule.
 - A third-party-facts rot class in the `doc-currency-check` skill, separating the
   regenerable claims (star counts, SPDX ids) from the ones no command can
   regenerate - peer slash-command vocabularies, phase-model names, and artifact
@@ -182,6 +194,11 @@ For a content-only framework, versions are interpreted as:
 - "As of mid-2026" replaced with "Since the 2026 capability convergence" in
   eight files. The month had been overtaken and read as a present-tense currency
   stamp.
+- The spec-driven landscape page and its wiki mirror re-verified on
+  2026-09-02: spec-kit's phase model now ends in an implement/converge loop
+  under namespaced `/speckit.*` commands, with `clarify` and `analyze` as
+  optional steps, and the Stars column was regenerated. `doc-currency-check`
+  Step 8 now records this as the incident that justified it.
 
 ---
 

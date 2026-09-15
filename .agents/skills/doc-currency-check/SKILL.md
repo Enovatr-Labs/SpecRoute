@@ -17,9 +17,11 @@ Most checks below exist because that exact failure happened here:
 - A capability table claimed support the runtime layouts didn't ship.
 - A fabricated external "standard" was cited as the authority for a real change.
 
-The exception is **Step 8**, third-party project facts. Nothing has gone wrong there
-yet; it was added when the landscape page first introduced claims about peer projects.
-It is preventive, and saying so keeps this list an honest incident record.
+**Step 8**, third-party project facts, was added preventively when the landscape page
+first introduced claims about peer projects - and has since earned its place: a peer
+added a phase to its published model and renamed nothing, so nothing broke loudly and
+no command regenerated the drift. The shipped page carried the old phase model until
+this step caught it.
 
 ## Step 1: Scope
 
@@ -137,11 +139,11 @@ copy to keep right. A duplicate in this skill is just a second thing to drift.
 
 **Not regenerable** - peer slash-command vocabularies (`/speckit.*`, `/opsx:*`),
 phase-model names (`propose -> apply -> archive`, `constitution -> specify -> plan ->
-tasks -> implement`), and artifact directory paths (`.specify/`, `openspec/specs/`,
-`openspec/changes/`, `.kiro/specs/`). No command regenerates these. They change
-silently, and a wrong one sends the reader to a command or path that no longer exists -
-which reads as authoritative and is entirely false. Check each against the peer's
-**current** README or docs and record the URL in the finding.
+tasks -> implement -> converge`), and artifact directory paths (`.specify/`,
+`openspec/specs/`, `openspec/changes/`, `.kiro/specs/`). No command regenerates these.
+They change silently, and a wrong one sends the reader to a command or path that no
+longer exists - which reads as authoritative and is entirely false. Check each against
+the peer's **current** README or docs and record the URL in the finding.
 
 The discipline the page already follows, which a currency pass must preserve:
 

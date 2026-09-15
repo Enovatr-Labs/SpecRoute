@@ -20,7 +20,7 @@ The interesting result is not that these projects differ - it is how much they i
 
 **1. A written artifact precedes code, and the artifact is the review surface.** All four treat the specification, not the diff, as the thing a human reads carefully. The diff becomes something you check *against* the spec rather than reason about from scratch. This is the shared premise; everything else is mechanism.
 
-**2. Explicit, named phases with gates between them.** spec-kit runs `constitution -> specify -> plan -> tasks -> implement`. OpenSpec runs `propose -> apply -> archive`. Kiro runs requirements -> design -> tasks. SpecRoute runs PRD -> spec triplet -> tasks -> implementation -> validation. The phase counts differ; the conviction that phases must be *named and separated* rather than blurred into one prompt does not.
+**2. Explicit, named phases with gates between them.** spec-kit runs `/speckit.constitution -> specify -> plan -> tasks -> implement -> converge`, and its README instructs repeating implement/converge until `/speckit.converge` reports Converged. OpenSpec runs `propose -> apply -> archive`. Kiro runs requirements -> design -> tasks. SpecRoute runs PRD -> spec triplet -> tasks -> implementation -> validation. The phase counts differ; the conviction that phases must be *named and separated* rather than blurred into one prompt does not.
 
 **3. A durable project-level layer, held apart from per-change work.** spec-kit keeps a constitution at `.specify/memory/constitution.md`. OpenSpec separates `openspec/specs/` (what is true) from `openspec/changes/` (what is being changed). Kiro has `steering/`. SpecRoute has `rules/` and `AGENTS.md`. Four projects, four names, one idea: standing constraints must not be re-litigated inside every change.
 
@@ -40,18 +40,18 @@ The honest summary of the state of the art: the field agrees on the *shape* of s
 
 ## The comparison set
 
-| Project | What it ships | Delivery | License | Artifacts live in | Phase model | Stars (verified 2026-08-31) |
+| Project | What it ships | Delivery | License | Artifacts live in | Phase model | Stars (verified 2026-09-02) |
 |---|---|---|---|---|---|---|
-| [github/spec-kit](https://github.com/github/spec-kit) | CLI + slash-command set | Python CLI | MIT | `.specify/` | `constitution` -> `specify` -> `plan` -> `tasks` -> `implement` | 132,508 |
-| [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | CLI + slash-command set | TypeScript CLI (npm, Node >= 20.19.0) | MIT | `openspec/specs/`, `openspec/changes/` | `propose` -> `apply` -> `archive` | 66,821 |
-| [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | Agent persona library + module system | CLI installer | Reported as `NOASSERTION`, displayed as "Other" | module-defined | full-lifecycle, module-defined | 52,514 |
+| [github/spec-kit](https://github.com/github/spec-kit) | CLI + slash-command set | Python CLI | MIT | `.specify/` | `/speckit.constitution` -> `specify` -> `plan` -> `tasks` -> `implement` -> `converge` (implement/converge loop) | 133,053 |
+| [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | CLI + slash-command set | TypeScript CLI (npm, Node >= 20.19.0) | MIT | `openspec/specs/`, `openspec/changes/` | `propose` -> `apply` -> `archive` | 67,046 |
+| [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | Agent persona library + module system | CLI installer | Reported as `NOASSERTION`, displayed as "Other" | module-defined | full-lifecycle, module-defined | 52,602 |
 | [Amazon Kiro](https://kiro.dev) | IDE with native SDD | Vendor product | Proprietary product | `.kiro/specs/` | requirements -> design -> tasks | n/a (not an OSS repo) |
 | **SpecRoute** | Templates, rules, agent definitions, runtime layouts | Content only - copy directories | Apache-2.0 | per-vendor runtime dirs | PRD -> spec triplet -> tasks -> implementation -> validation | n/a (this project) |
 
 Regenerate the Stars and License columns:
 
 ```bash
-# Reproduces every Stars and License cell above. Last run: 2026-08-31.
+# Reproduces every Stars and License cell above. Last run: 2026-09-02.
 for r in github/spec-kit Fission-AI/OpenSpec bmad-code-org/BMAD-METHOD; do
   gh api "repos/$r" --jq '"\(.full_name)\t\(.stargazers_count)\t\(.license.spdx_id // "NOASSERTION")"'
 done
@@ -63,9 +63,9 @@ Star counts measure attention, not fitness. They are recorded here because they 
 
 ### github/spec-kit
 
-The most widely adopted of the set, and the most complete end-to-end command sequence. `constitution` establishes durable project principles at `.specify/memory/constitution.md`; `specify` captures intent; `plan` produces the technical approach; `tasks` decomposes it; `implement` executes. Each step is a real command that writes real files into `.specify/`, so the flow is enforced by the tooling rather than by the operator's discipline. The Python CLI installs and scaffolds for you, which means a new project is running the full flow in minutes rather than after a directory-copying session.
+The most widely adopted of the set, and the most complete end-to-end command sequence. Its commands are namespaced: `/speckit.constitution` establishes durable project principles at `.specify/memory/constitution.md`; `/speckit.specify` captures intent; `/speckit.plan` produces the technical approach; `/speckit.tasks` decomposes it; `/speckit.implement` executes; and `/speckit.converge` closes the loop - spec-kit's README instructs repeating implement/converge until converge reports Converged. Two commands are documented as optional and sit in the gaps: `/speckit.clarify` (spec-kit describes it as the rename of `/quizme`) before `plan`, and `/speckit.analyze` after `tasks`. Each step is a real command that writes real files into `.specify/`, so the flow is enforced by the tooling rather than by the operator's discipline - in skills-mode installs the same commands render as `speckit-<name>` behind a per-agent invocation prefix, which is why spec-kit's own README shows both forms. The Python CLI installs and scaffolds for you, which means a new project is running the full flow in minutes rather than after a directory-copying session.
 
-**Pick it when:** you want the canonical five-phase flow, installed and scaffolded by a command, with the largest community and the most examples to learn from.
+**Pick it when:** you want the canonical constitution-to-converge loop, installed and scaffolded by a command, with the largest community and the most examples to learn from.
 
 ### Fission-AI/OpenSpec
 

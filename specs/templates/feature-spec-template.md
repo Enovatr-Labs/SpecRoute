@@ -22,6 +22,8 @@ Each requirement has a stable ID. `WHEN <event>, THE <system> SHALL <action>` fo
 - **R2** - TODO
 - **R3** - TODO
 
+Where the PRD leaves something genuinely undecided, mark it inline at the point of ambiguity - `[NEEDS CLARIFICATION: <the specific question>]` - rather than guessing. At most **3** unresolved markers in a draft; more than that means the PRD is not ready to spec against, and the fix is to go back to the PRD. Unresolved markers keep this spec at `Status: Draft`; when a question is answered, replace the marker with the decided answer in the requirement text.
+
 ## 3. Design
 
 ### 3.1 Approach

@@ -12,20 +12,22 @@
 
 > **Spec triplet - part 3 of 3.** This document is the implementation work plan. Tasks are numbered for execution order and back-reference requirement IDs from `requirements.md`. Each task is small enough to land in one PR.
 
+**Parallelism marker.** A task heading may carry `[P]` immediately after its number - `### 1. [P] <Task title>`. `[P]` means the task touches **different files** from every other `[P]` task in the same phase and depends on no unfinished task, so all `[P]` tasks in a phase can be run concurrently. Absence of the marker means sequential, which is the safe default - leave `[P]` off when unsure.
+
 ---
 
 ## Phase 1: <Phase Name>
 
 Goal: <one-line phase outcome>.
 
-### 1. <Task title>
+### 1. [P] <Task title>
 
 - <Concrete sub-step 1>
 - <Concrete sub-step 2>
 - <Concrete sub-step 3>
 - _Requirements: R1.1, R1.2_
 
-### 2. <Task title>
+### 2. [P] <Task title>
 
 - <Sub-step 1>
 - <Sub-step 2>
@@ -42,12 +44,12 @@ For tasks that need finer breakdown:
 
 Goal: <one-line phase outcome>.
 
-### 3. <Task title>
+### 3. [P] <Task title>
 
 - <Sub-step 1>
 - _Requirements: R2.1, NFR-1.1_
 
-### 4. <Task title>
+### 4. [P] <Task title>
 
 - <Sub-step 1>
 - _Requirements: R2.2_
@@ -83,6 +85,18 @@ This map confirms every requirement has at least one task and every NFR is addre
 
 Any requirement without a task is unimplemented. Any task without a requirement back-reference is unscoped - clarify before starting.
 
+## Parallel execution
+
+`[P]` in a task heading means the task touches different files from every other `[P]` task in the same phase and has no unfinished dependency. Tasks without `[P]` run in numbered order. Each phase has at most one parallel group, so the phase advances when the slowest member of the group lands.
+
+| Phase | Parallel group | Starts after | Sequential remainder |
+|---|---|---|---|
+| 1 | 1, 2 | - | 2.1 |
+| 2 | 3, 4 | 2.1 | - |
+| 3 | (none) | 4 | 5 |
+
+If two `[P]` tasks turn out to touch the same file, the marker comes off both and this table is corrected in the same edit. Wrong `[P]` is worse than no `[P]` - it produces merge conflicts that look like implementation bugs.
+
 ## Done checklist
 
 The feature is complete when **all** of the following are true:
@@ -103,3 +117,4 @@ The feature is complete when **all** of the following are true:
 2. **Adding a task**: append to the end of the relevant phase. Numbering is sticky - don't renumber to insert.
 3. **Splitting a task**: keep the parent number and use sub-numbers (e.g. `2.1`, `2.2`). Sub-tasks inherit requirement back-refs unless otherwise stated.
 4. **Removing a task**: mark it `~~strikethrough~~` with a note explaining why; don't delete (numbering is referenced in commits and PR descriptions).
+5. **Marking `[P]`**: add `[P]` after the task number (`### 3. [P] <Title>`) only once you have checked the task's file list against every other `[P]` task in the phase and confirmed no overlap, and that everything it depends on is done. Un-mark it the moment either stops being true - editing the heading and the Parallel execution table in the same pass.

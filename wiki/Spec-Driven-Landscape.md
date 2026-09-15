@@ -19,7 +19,7 @@ This page does **not** benchmark the projects, score them on a feature matrix, o
 The interesting result is not that these projects differ. It is how much they independently agree.
 
 1. **The artifact precedes the code, and the artifact is the review surface.** The diff becomes something you check *against* the spec rather than reason about from scratch.
-2. **Explicit, named phases with gates between them.** `constitution → specify → plan → tasks → implement` · `propose → apply → archive` · requirements → design → tasks · PRD → spec triplet → tasks → implementation → validation. The counts differ; the conviction that phases must be named and separated does not.
+2. **Explicit, named phases with gates between them.** `/speckit.constitution → specify → plan → tasks → implement → converge` (spec-kit's README instructs repeating implement/converge until converge reports Converged) · `propose → apply → archive` · requirements → design → tasks · PRD → spec triplet → tasks → implementation → validation. The counts differ; the conviction that phases must be named and separated does not.
 3. **A durable project-level layer, held apart from per-change work.** spec-kit's constitution, OpenSpec's `openspec/specs/`, Kiro's `steering/`, SpecRoute's `rules/` and `AGENTS.md`. Four names, one idea: standing constraints must not be re-litigated inside every change.
 4. **Settled work separated from in-flight work.** OpenSpec archives applied changes; SpecRoute has `prds/active|deprecated|archive`. Without it, a specs directory becomes an undated pile where current and abandoned intent look identical.
 5. **Artifacts are plain Markdown in the repo, versioned with the code.** None of these projects put specs in an external tracker.
@@ -29,18 +29,18 @@ The interesting result is not that these projects differ. It is how much they in
 
 ## The comparison set
 
-| Project | What it ships | Delivery | License | Artifacts live in | Phase model | Stars (verified 2026-08-31) |
+| Project | What it ships | Delivery | License | Artifacts live in | Phase model | Stars (verified 2026-09-02) |
 |---|---|---|---|---|---|---|
-| [github/spec-kit](https://github.com/github/spec-kit) | CLI + slash-command set | Python CLI | MIT | `.specify/` | `constitution` → `specify` → `plan` → `tasks` → `implement` | 132,508 |
-| [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | CLI + slash-command set | TypeScript CLI (npm, Node >= 20.19.0) | MIT | `openspec/specs/`, `openspec/changes/` | `propose` → `apply` → `archive` | 66,821 |
-| [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | Agent persona library + module system | CLI installer | Reported as `NOASSERTION`, displayed as "Other" | module-defined | full-lifecycle, module-defined | 52,514 |
+| [github/spec-kit](https://github.com/github/spec-kit) | CLI + slash-command set | Python CLI | MIT | `.specify/` | `/speckit.constitution` → `specify` → `plan` → `tasks` → `implement` → `converge` (implement/converge loop) | 133,053 |
+| [Fission-AI/OpenSpec](https://github.com/Fission-AI/OpenSpec) | CLI + slash-command set | TypeScript CLI (npm, Node >= 20.19.0) | MIT | `openspec/specs/`, `openspec/changes/` | `propose` → `apply` → `archive` | 67,046 |
+| [bmad-code-org/BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) | Agent persona library + module system | CLI installer | Reported as `NOASSERTION`, displayed as "Other" | module-defined | full-lifecycle, module-defined | 52,602 |
 | [Amazon Kiro](https://kiro.dev) | IDE with native SDD | Vendor product | Proprietary product | `.kiro/specs/` | requirements → design → tasks | n/a (not an OSS repo) |
 | **SpecRoute** | Templates, rules, agent definitions, runtime layouts | Content only — copy directories | Apache-2.0 | per-vendor runtime dirs | PRD → spec triplet → tasks → implementation → validation | n/a (this project) |
 
 Regenerate the Stars and License columns:
 
 ```bash
-# Reproduces every Stars and License cell above. Last run: 2026-08-31.
+# Reproduces every Stars and License cell above. Last run: 2026-09-02.
 for r in github/spec-kit Fission-AI/OpenSpec bmad-code-org/BMAD-METHOD; do
   gh api "repos/$r" --jq '"\(.full_name)\t\(.stargazers_count)\t\(.license.spdx_id // "NOASSERTION")"'
 done
@@ -52,9 +52,9 @@ Star counts measure attention, not fitness. They are recorded because they are w
 
 ### github/spec-kit
 
-The most widely adopted of the set and the most complete end-to-end command sequence. `constitution` establishes durable principles at `.specify/memory/constitution.md`; `specify` captures intent; `plan` produces the approach; `tasks` decomposes it; `implement` executes. Each step writes real files into `.specify/`, so the flow is enforced by tooling rather than operator discipline, and the Python CLI scaffolds a new project in minutes.
+The most widely adopted of the set and the most complete end-to-end command sequence. Its commands are namespaced: `/speckit.constitution` establishes durable principles at `.specify/memory/constitution.md`; `/speckit.specify` captures intent; `/speckit.plan` produces the approach; `/speckit.tasks` decomposes it; `/speckit.implement` executes; `/speckit.converge` closes the loop, and spec-kit's README instructs repeating implement/converge until converge reports Converged. `/speckit.clarify` (spec-kit describes it as the rename of `/quizme`) before `plan` and `/speckit.analyze` after `tasks` are documented as optional. Each step writes real files into `.specify/`, so the flow is enforced by tooling rather than operator discipline, and the Python CLI scaffolds a new project in minutes.
 
-**Pick it when:** you want the canonical five-phase flow, installed and scaffolded by a command, with the largest community and the most examples to learn from.
+**Pick it when:** you want the canonical constitution-to-converge loop, installed and scaffolded by a command, with the largest community and the most examples to learn from.
 
 ### Fission-AI/OpenSpec
 

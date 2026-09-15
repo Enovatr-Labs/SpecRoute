@@ -45,6 +45,12 @@ Once `R1.1` is published, that ID never gets reused. When a requirement is remov
 ### Tasks must back-reference requirements
 Every task in `tasks.md` ends with `_Requirements: R1.1, R1.2_`. A task without a back-ref is unscoped. A requirement without any task is unimplemented. The **coverage table** in `tasks.md` makes the mapping explicit — every cell populated, no `TODO` rows.
 
+### Ambiguity is marked, not guessed
+Where the PRD is undecided, the requirement carries an inline `[NEEDS CLARIFICATION: <the specific question>]` marker with a matching `Q<N>` open question. At most 3 unresolved markers per draft; any outstanding marker blocks `Status: Approved`. Answers are kept in `requirements.md` Section 8 (Clarifications).
+
+### `[P]` means file-safe to parallelize
+`### 3. [P] <Title>` marks a task that shares no file with another `[P]` task in its phase and has no unfinished dependency. Unmarked tasks run in numbered order. Sequential is the default.
+
 ## Lifecycle
 
 1. **Draft** — author drafts the triplet under `specs/<feature>/` (or wherever the feature lives).

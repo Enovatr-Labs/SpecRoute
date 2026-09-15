@@ -49,7 +49,7 @@ Goal: ship the API endpoint with full filter coverage, RBAC scoping, and observa
 - Validate query plans in staging using `EXPLAIN ANALYZE` on representative filter combinations.
 - _Requirements: R1.1, R1.2, R2.1, R3.1, NFR-1.1_
 
-### 5. Implement search request validator
+### 5. [P] Implement search request validator
 
 - Create `search.validate_request(filters, actor)` function.
 - Validate name and email substring length and character set.
@@ -70,7 +70,7 @@ Goal: ship the API endpoint with full filter coverage, RBAC scoping, and observa
 - Integration test: a manual cross-tenant probe rejected.
 - _Requirements: R5.1, R5.2, R5.3, NFR-2.2_
 
-### 7. Implement search query builder
+### 7. [P] Implement search query builder
 
 - Build parameterized SQL based on the validated filter set.
 - Use `LOWER(name) LIKE LOWER(?)` for name substring; same for email.
@@ -81,7 +81,7 @@ Goal: ship the API endpoint with full filter coverage, RBAC scoping, and observa
 - Unit tests: every filter combination produces expected SQL.
 - _Requirements: R1.1, R1.2, R1.3, R2.1, R3.1_
 
-### 8. Implement cursor encode/decode
+### 8. [P] Implement cursor encode/decode
 
 - Per Phase 0 decision (Task 2), implement encode/decode.
 - HMAC-SHA256 signature (key from existing secrets manager).
@@ -90,7 +90,7 @@ Goal: ship the API endpoint with full filter coverage, RBAC scoping, and observa
 - Replay protection: timestamp older than 24h → 400.
 - _Requirements: R4.1, R4.2_
 
-### 9. Implement Redis cache layer
+### 9. [P] Implement Redis cache layer
 
 - Cache key: `users.search.<sha256(filter_set + organization_id + role)>`.
 - TTL: per Phase 0 decision (Task 1).
@@ -107,7 +107,7 @@ Goal: ship the API endpoint with full filter coverage, RBAC scoping, and observa
 - Unit tests: full request lifecycle.
 - _Requirements: R1.1–R5.3_
 
-### 11. Add observability instrumentation
+### 11. [P] Add observability instrumentation
 
 - Histogram `search.duration_ms` with labels `cache_hit`, `result_count_bucket`.
 - Counter `search.filter_usage_total` with label `filter_name`.
@@ -127,14 +127,14 @@ Goal: ship the API endpoint with full filter coverage, RBAC scoping, and observa
 
 Goal: ship the search page wired to the API.
 
-### 13. Build SearchInput component
+### 13. [P] Build SearchInput component
 
 - Debounced input (300ms).
 - `aria-label`, full keyboard navigation.
 - Unit tests: debounce timing, keyboard handlers.
 - _Requirements: R1.1, NFR-1.4_
 
-### 14. Build FilterChips component
+### 14. [P] Build FilterChips component
 
 - Role selector (dropdown of recognized roles).
 - Status selector (active / disabled / both).
@@ -143,7 +143,7 @@ Goal: ship the search page wired to the API.
 - Unit tests: each filter dispatches the correct query update.
 - _Requirements: R2.1, R3.1_
 
-### 15. Build ResultTable component
+### 15. [P] Build ResultTable component
 
 - Columns: name, email, role, status, last activity.
 - Empty state, error state, loading state (spinner only on >500ms).
@@ -151,7 +151,7 @@ Goal: ship the search page wired to the API.
 - Unit tests: each render state.
 - _Requirements: R1.1–R3.1, NFR-1.4_
 
-### 16. Build CursorPagination component
+### 16. [P] Build CursorPagination component
 
 - Prev/next buttons.
 - Reflect current cursor in URL for shareability.
@@ -241,6 +241,35 @@ Goal: confirm performance and roll out gradually.
 | NFR-4.1 | (existing infra) |
 
 Every requirement maps to ≥ 1 task. Every NFR maps to ≥ 1 task.
+
+## Parallel execution
+
+`[P]` in a task heading means the task touches different files from every other `[P]` task in the same phase and has no unfinished dependency, so the group can be run concurrently. Tasks without `[P]` run in numbered order.
+
+| Phase | Parallel group | Starts after | Sequential remainder |
+|---|---|---|---|
+| 0 | (none) | - | 1, 2, 3 |
+| 1 | 5, 7, 8, 9, 11 | 4 | 6; then 12; then 10 |
+| 2 | 13, 14, 15, 16 | 10 | 17 |
+| 3 | (none) | 17 | 18, 19, 20, 21, 22 |
+
+**`[P]` is a file-safety claim, not a schedule.** Two tasks can share a calendar
+window and still not be `[P]`, and this example has both cases:
+
+- **Task 6 is not `[P]`** even though [`../../implementation-plan.md`](../../implementation-plan.md)
+  Section 4 runs it alongside the Phase 1 group. [`design.md`](design.md) Section 1 puts
+  RBAC enforcement *inside* request validation - the validator injects the
+  `organization_id` filter - so Task 6 edits the same validator Task 5 creates.
+  Same window, same file, so no marker.
+- **Phase 0 has no group** even though Week 1 of the schedule runs Tasks 1, 2, and 3
+  concurrently. Tasks 1 and 2 both write their decision into `design.md`.
+
+The implementation plan answers "who works when" and may overlap tasks freely, because
+two engineers coordinating on one file is a staffing problem it can solve. `[P]` answers
+"what can be written at the same time without a merge conflict", which is a stricter
+question. When the two disagree, the plan is not wrong - it is answering a different one.
+
+Task 10 composes the endpoint from the Phase 1 group, so it lands after every `[P]` member of that group. Task 17 composes the page from the Phase 2 group and additionally depends on Task 10. The dependency order here is the critical path in [`../../implementation-plan.md`](../../implementation-plan.md) Section 2 - only the `[P]` membership differs, for the reason above. When the dependency order changes, change both.
 
 ## Done checklist
 
