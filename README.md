@@ -58,9 +58,9 @@ Each stage has a template, an agent assignment, and an acceptance criterion. The
 
 ### How this compares to other spec-driven projects
 
-SpecRoute is not the only framework built on this premise. [spec-kit](https://github.com/github/spec-kit), [OpenSpec](https://github.com/Fission-AI/OpenSpec), and [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) each ship a CLI that scaffolds and sequences the flow for you, and Amazon Kiro - a supported SpecRoute vendor - ships spec-driven development natively in `.kiro/specs/`.
+SpecRoute is not the only framework built on this premise. [spec-kit](https://github.com/github/spec-kit), [OpenSpec](https://github.com/Fission-AI/OpenSpec), and [BMAD-METHOD](https://github.com/bmad-code-org/BMAD-METHOD) each ship tooling that scaffolds the files for you (a CLI for spec-kit and OpenSpec, an npm installer for BMAD-METHOD's stable line), and Amazon Kiro - a supported SpecRoute vendor - ships spec-driven development natively in `.kiro/specs/`. For contrast, the landscape page also covers Microsoft's [hve-core](https://github.com/microsoft/hve-core), a research-first workflow framework built for GitHub Copilot, which SpecRoute does not support as a vendor.
 
-SpecRoute's difference is that it ships no CLI: it is content you copy and edit, with vendor neutrality across six tools as an explicit contract. That is a trade, not a win - if you want a command to scaffold the files or a tool that enforces phase order, a peer is the better choice.
+SpecRoute's difference is that it ships no CLI: it is content you copy and edit, with vendor neutrality across six tools as an explicit contract. That is a trade, not a win - if you want a command that scaffolds the files and drives each stage in sequence, a peer is the better choice. None of them advertises refusing out-of-order work, though; see the landscape page for what each one actually enforces.
 
 [`agentic-docs/spec-driven-landscape.md`](agentic-docs/spec-driven-landscape.md) maps the field, what it is converging on, and when to pick a peer instead.
 

@@ -179,6 +179,8 @@ Source Design: design.md               # tasks.md only
 ---
 ```
 
+`Status: Approved` is gated on clarification: a requirements draft carrying an unresolved inline `[NEEDS CLARIFICATION: <the specific question>]` marker cannot be marked Approved, and at most 3 such markers may be open at once. Resolved questions move to `requirements.md` Section 8 (Clarifications), recording who decided and when.
+
 ADRs additionally have:
 
 ```yaml

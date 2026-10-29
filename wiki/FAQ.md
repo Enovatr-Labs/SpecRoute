@@ -12,11 +12,13 @@ No. There's no `package.json`, no build step, no test suite, no lint config. Spe
 
 The only executables are sanitization-gate hooks and cross-vendor sync utilities under `tools/` — and those are intentionally minimal.
 
-## How does this compare to spec-kit, OpenSpec, or BMAD-METHOD?
+## How does this compare to spec-kit, OpenSpec, BMAD-METHOD, or hve-core?
 
-Those projects each ship a CLI that scaffolds the artifacts and sequences the flow for you. SpecRoute does not — you copy a runtime directory and edit it, and phase order is upheld by review and hooks you wire yourself rather than by tooling.
+spec-kit, OpenSpec, and BMAD-METHOD each ship tooling that scaffolds the artifacts for you — a CLI for spec-kit and OpenSpec, an npm installer for BMAD-METHOD's stable line. SpecRoute does not — you copy a runtime directory and edit it, and phase order is upheld by review and hooks you wire yourself rather than by tooling.
 
-That is a trade, not a win. If you want a command to scaffold the files, or a state machine that refuses out-of-order work, a peer is the better choice. If you are on Kiro alone, its native `.kiro/specs/` path is shorter than layering anything on top of it.
+That is a trade, not a win. If you want a command that scaffolds the files and drives each stage in sequence, a peer is the better choice — though none of them advertises refusing out-of-order work. If you are on Kiro alone, its native `.kiro/specs/` path is shorter than layering anything on top of it.
+
+hve-core is different in kind: it is research-first rather than spec-first, built for GitHub Copilot only, and installed as a Copilot CLI plugin or VS Code extension rather than a CLI of its own. SpecRoute does not support GitHub Copilot as a vendor, so if you work only in Copilot, look at hve-core.
 
 [[Spec-Driven Landscape]] maps the whole field, what it is converging on, and the specific cases where you should pick a peer instead.
 

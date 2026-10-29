@@ -13,17 +13,120 @@ try:
     d = json.load(sys.stdin)
     print(d.get("tool_input", {}).get("command", ""))
 except Exception:
-    print("")
+    print("__SPECROUTE_UNPARSEABLE_PAYLOAD__")
 ' 2>/dev/null)"
 
 MODE="$(printf '%s' "$COMMAND" | python3 -c '
-import re, sys
-text = sys.stdin.read()
-prefix = r"(?:^|[;&|])\s*(?:[A-Za-z_]\w*=\S+\s+)*(?:command\s+)?"
-git = re.search(prefix + r"git(?:\s+(?:(?:-C|-c|--git-dir|--work-tree)\s+\S+|--(?:git-dir|work-tree)=\S+))*\s+(commit|push)\b", text)
-gh = re.search(prefix + r"gh\s+(?:pr|release)\s+create\b", text)
-print("publish" if gh or git and git.group(1) == "push" else "commit" if git else "none")
+import os, re, shlex, sys
+
+RANK = {"none": 0, "commit": 1, "publish": 2}
+SEPCHARS = set(";&|()\n")
+SKIP = {"{", "}", "!", "if", "then", "else", "elif", "do", "while", "until", "fi", "done"}
+SHELLS = {"bash", "sh", "zsh", "dash", "ksh"}
+# wrapper -> option flags that consume a following value
+WRAPPERS = {
+    "command": set(), "builtin": set(), "nohup": set(), "exec": {"-a"},
+    "time": {"-f", "-o"}, "env": {"-u", "-C", "-S"}, "sudo": {"-u", "-g", "-h", "-p", "-C", "-D", "-R", "-T", "-U"},
+    "doas": {"-u", "-C"}, "nice": {"-n"}, "ionice": {"-c", "-n", "-p"}, "setsid": set(),
+    "stdbuf": {"-i", "-o", "-e"}, "xargs": {"-I", "-n", "-P", "-L", "-s", "-d", "-E"},
+    "timeout": {"-s", "-k"},
+}
+ASSIGN = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*=")
+
+
+def lex(text):
+    lexer = shlex.shlex(text, posix=True, punctuation_chars=";&|()\n")
+    lexer.whitespace = " \t\r"
+    lexer.whitespace_split = True
+    lexer.commenters = ""
+    return list(lexer)
+
+
+def split(words):
+    commands, current = [], []
+    for word in words:
+        if set(word) <= SEPCHARS:
+            if current:
+                commands.append(current)
+            current = []
+        else:
+            current.append(word)
+    if current:
+        commands.append(current)
+    return commands
+
+
+def classify_command(command, depth):
+    while command:
+        word = command[0]
+        base = os.path.basename(word)
+        if word in SKIP or ASSIGN.match(word):
+            command = command[1:]
+        elif base in WRAPPERS:
+            valued = WRAPPERS[base]
+            command = command[1:]
+            while command and (command[0].startswith("-") or ASSIGN.match(command[0]) and base == "env"):
+                flag = command[0]
+                command = command[1:]
+                if flag in valued and command:
+                    command = command[1:]
+            if base == "timeout" and command:
+                command = command[1:]
+        else:
+            break
+    if not command:
+        return "none"
+    base = os.path.basename(command[0])
+    if base in SHELLS:
+        for i, arg in enumerate(command[1:], 1):
+            if arg.startswith("-") and not arg.startswith("--") and "c" in arg[1:]:
+                return classify(command[i + 1], depth + 1) if i + 1 < len(command) else "none"
+        return "none"
+    if base == "eval":
+        return classify(" ".join(command[1:]), depth + 1)
+    mode = "none"
+    if base == "git":
+        index = 1
+        while index < len(command):
+            value = command[index]
+            if value in {"-C", "-c", "--git-dir", "--work-tree", "--namespace"}:
+                index += 2
+            elif value.startswith("-"):
+                index += 1
+            else:
+                break
+        sub = command[index] if index < len(command) else ""
+        mode = "commit" if sub == "commit" else "publish" if sub == "push" else "none"
+    elif base == "gh" and len(command) >= 3 and command[1:3] in (["pr", "create"], ["release", "create"]):
+        mode = "publish"
+    # Command substitution inside arguments still executes.
+    for arg in command[1:]:
+        if "$(" in arg or "`" in arg:
+            sub = classify(arg.replace("`", "$("), depth + 1)
+            if RANK[sub] > RANK[mode]:
+                mode = sub
+    return mode
+
+
+def classify(text, depth=0):
+    if depth > 5:
+        return "publish"
+    try:
+        commands = split(lex(text))
+    except Exception:
+        return "publish"  # fail closed: unparseable input still gets the scan
+    mode = "none"
+    for command in commands:
+        found = classify_command(command, depth)
+        if RANK[found] > RANK[mode]:
+            mode = found
+    return mode
+
+
+print(classify(sys.stdin.read()))
 ')"
+# An unparseable payload fails closed: run the scan instead of allowing.
+[ "$COMMAND" = "__SPECROUTE_UNPARSEABLE_PAYLOAD__" ] && MODE="publish"
 [ "$MODE" != "none" ] || exit 0
 
 [ -f "$WORDLIST" ] || exit 0

@@ -1,3 +1,3 @@
 # Memory Index
 
-- [Landscape page scope](project_landscape_page_scope.md) — no "what we adopted from peers" section, no version column, no numbers in prose; both file copies refresh together
+- [Landscape page scope](project_landscape_page_scope.md) — decision aid only; no numbers in prose; three selection rules incl. hve-core as contrast; both copies together

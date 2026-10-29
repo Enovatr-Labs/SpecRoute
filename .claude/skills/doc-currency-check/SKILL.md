@@ -127,7 +127,8 @@ For each, ask: **can I produce a source?** If not, it either goes or gets restat
 
 `agentic-docs/spec-driven-landscape.md` and its mirror `wiki/Spec-Driven-Landscape.md`
 compare SpecRoute against peer frameworks (github/spec-kit, Fission-AI/OpenSpec,
-bmad-code-org/BMAD-METHOD, and Kiro's native specs). This is the only place SpecRoute
+bmad-code-org/BMAD-METHOD, and Kiro's native specs), plus microsoft/hve-core as an
+adjacent research-first method included for contrast. This is the only place SpecRoute
 asserts facts about *other projects*, and those rot faster than vendor facts: peers
 rename commands and restructure directories between minor versions, with no deprecation
 window and no migration note.
@@ -140,13 +141,43 @@ second copy of that command here.** The landscape page ships it directly beneath
 table it fills, under "The comparison set"; run the page's own command so there is one
 copy to keep right. A duplicate in this skill is just a second thing to drift.
 
-**Not regenerable** - peer slash-command vocabularies (`/speckit.*`, `/opsx:*`),
-phase-model names (`propose -> apply -> archive`, `constitution -> specify -> plan ->
-tasks -> implement -> converge`), and artifact directory paths (`.specify/`,
-`openspec/specs/`, `openspec/changes/`, `.kiro/specs/`). No command regenerates these.
+**Not regenerable** - peer slash-command vocabularies (`/speckit.*`, `/opsx:*`,
+`RPI Agent` and `/rpi-*`), phase-model names (`propose -> apply -> archive`,
+`constitution -> specify -> plan -> tasks -> implement -> converge`, hve-core's
+`research when needed -> plan -> implement -> review -> follow-up`), artifact directory
+paths (`.specify/`, `openspec/specs/`, `openspec/changes/`, `.kiro/specs/`,
+`.copilot-tracking/` and the fact that consumers are told to gitignore it), delivery
+channels (hve-core's Copilot CLI plugin and VS Code extension id), target statements
+(hve-core's "Copilot-only"), and verdict labels (hve-core's plan-critique and review
+outcomes). No command regenerates these.
 They change silently, and a wrong one sends the reader to a command or path that no
 longer exists - which reads as authoritative and is entirely false. Check each against
 the peer's **current** README or docs and record the URL in the finding.
+
+**A borrowed term can vanish while the practice stays.** A phrase the page puts in
+quotation marks is a claim about the peer's *current vocabulary*, not about its behavior.
+BMAD-METHOD's "Agent-as-Code" was quoted here after the phrase had been removed from its
+repository entirely; the practice it named continued unchanged, so nothing read as wrong.
+Grep the peer for the phrase itself, not for the idea behind it.
+
+**A superlative is a set-wide claim, so admitting a project can falsify one.** "The
+deepest agent-persona library of the set" was true of BMAD-METHOD before hve-core was added
+and false afterwards - BMAD ships five named agents, hve-core ships dozens of agent files -
+without BMAD changing or the sentence being touched. When the comparison set grows, re-test
+every most/deepest/sharpest/clearest against the new member, not just the count words.
+
+**Gate-versus-default framing.** Whether a peer's step is *required* or merely *the
+default* is a fact that changes without renaming anything. hve-core's plan critique was
+an unconditional gate in September 2026 and a skippable, explicitly advisory default
+weeks later, and its review became optional in the same commit. A page that calls such a
+step a gate is wrong the moment the peer adds a skip flag, and nothing in the wording
+rots visibly. Re-read the peer's own sentence, not your paraphrase of it.
+
+**Claims about a peer's documentation layout rot fastest of all.** "Their README shows
+both command forms" is a claim about presentation, not behavior: it broke within a day of
+being written here. Where a fact must be cited, cite the peer's reference or
+specification page - a reference page is obliged to be exhaustive, a README is obliged to
+be short.
 
 The discipline the page already follows, which a currency pass must preserve:
 
@@ -175,6 +206,17 @@ instead of asserting it. Re-verifying such a claim means confirming **the peer s
 makes it**, not testing whether it is true. Never promote an attributed claim to an
 asserted one because it looked plausible, and never "correct" a peer's self-description
 against your own count.
+
+A self-description the page **quotes** is re-checked verbatim, not paraphrased back into
+agreement. hve-core's "source of patterns and learning rather than a stable platform,
+foundation, or production dependency" is the live example; a quote the page has
+truncated or reworded is a finding even when its gist still holds.
+
+**Mixed per-artifact licensing.** The SPDX id is regenerable, but it only describes the
+repository. hve-core's is MIT, while individual skills declare Creative Commons licenses
+in their own `license:` frontmatter - one of them non-commercial. The API's `spdx_id`
+cannot see that, so a currency pass re-checks the page's licensing note against the
+peer's skill frontmatter, not just the regenerated table cell.
 
 ## Step 9: Report
 

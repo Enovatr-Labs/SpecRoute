@@ -25,6 +25,8 @@ specroute/
 ├── tools/                     sync-skills.py and other utility scripts
 ├── examples/                  sample-project/ canonical worked example
 ├── assets/                    images and diagrams
+├── scripts/                   sync-wiki.sh - manual wiki publish (CI mirrors it)
+├── wiki/                      sources for the GitHub wiki, published from main
 │
 ├── .claude/                   THIS repo's Claude Code runtime — not the consumer template
     ├── agents/                12 implementation agents
