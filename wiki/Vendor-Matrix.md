@@ -1,6 +1,7 @@
 # Vendor Matrix
 
 <!-- sources: README.md, AGENTS.md, agentic-docs/agent-cli-integrations.md -->
+<!-- sources-reviewed: AGENTS.md@e0c2a235aded, README.md@f67905263c95, agentic-docs/agent-cli-integrations.md@f2da86ccd06a -->
 
 The supported-CLI contract. **Adding a new tool means a new column, not a fork.** This matrix is the single most important table in SpecRoute - it is mirrored in four files (`README.md`, `AGENTS.md`, `agentic-docs/agent-cli-integrations.md`, and this page) and must stay in lock-step across all four.
 

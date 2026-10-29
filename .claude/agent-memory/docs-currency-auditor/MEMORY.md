@@ -1,0 +1,1 @@
+- [Peer repo verification method](reference_peer_repo_verification.md) — shallow clone + grep for landscape peer facts; gh code search is noisy; hve-core license/gitignore notes

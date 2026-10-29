@@ -31,7 +31,7 @@ Read [[Spec-Driven Development]] for the full flow, [[Agentic Coding Model]] for
 ### Concepts
 - [[Philosophy]] — what we believe and why
 - [[Spec-Driven Development]] — PRD → spec → tasks → impl → validation
-- [[Spec-Driven Landscape]] — how SpecRoute relates to spec-kit, OpenSpec, BMAD-METHOD, and Kiro
+- [[Spec-Driven Landscape]] — how SpecRoute relates to spec-kit, OpenSpec, BMAD-METHOD, Kiro, and hve-core
 - [[Agentic Coding Model]] — how four primitives compose
 - [[Automation Decision Framework]] — skill vs agent vs command vs hook
 - [[Two-Tier Docs Pattern]] — short root context + deep references

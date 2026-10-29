@@ -143,6 +143,16 @@ def parse_sources(content: str) -> list[str]:
     return [s.strip() for s in m.group(1).split(",") if s.strip()]
 
 
+def source_in_repo(src: str) -> bool:
+    """True when a manifest source is an existing file inside the repository.
+
+    Rejects absolute paths and `..` escapes so a manifest cannot make the check
+    stat or hash files outside the checkout.
+    """
+    path = (REPO_ROOT / src).resolve()
+    return path.is_relative_to(REPO_ROOT) and path.is_file()
+
+
 def source_digest(path: Path) -> str:
     """Content digest of a source file, as recorded in a sources-reviewed entry.
 
@@ -230,7 +240,7 @@ def accept_pages(page_args: list[str]) -> int:
             failures += 1
             continue
 
-        missing = [src for src in sources if not (REPO_ROOT / src).exists()]
+        missing = [src for src in sources if not source_in_repo(src)]
         if missing:
             print(
                 f"error: {page.name} declares missing source(s): {', '.join(missing)}",
@@ -321,8 +331,10 @@ def main() -> int:
 
         for src in sources:
             src_path = REPO_ROOT / src
-            if not src_path.exists():
-                findings["missing_source"].append(f"{page.name} → {src} (does not exist)")
+            if not source_in_repo(src):
+                findings["missing_source"].append(
+                    f"{page.name} → {src} (does not exist or is outside the repository)"
+                )
                 continue
             # A maintainer reviewed this page against exactly this source content
             # and recorded that the summary still holds. The acknowledgement dies

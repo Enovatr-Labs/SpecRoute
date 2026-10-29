@@ -288,7 +288,7 @@ Hook scripts run on every matching event. They must:
 - **Avoid `eval`** and unquoted command interpolation.
 - **Use `set -u`** to catch unset variables.
 - **Be idempotent** - fires repeatedly without side effects.
-- **Fail closed** on `PreToolUse` / `pre_*` events - exit non-zero blocks the action.
+- **Fail closed** on `PreToolUse` / `pre_*` events - exit 2 blocks the action on Claude Code, Codex, Gemini CLI, Kiro and Devin (other non-zero codes are non-blocking errors); check each vendor's contract.
 - **Print only the final JSON to stdout** (Gemini is strict; others tolerate but don't depend on it).
 
 Malicious shell in hook scripts ships to every consumer who copies the runtime - review hook scripts as carefully as production code. See [`SECURITY.md`](../SECURITY.md).

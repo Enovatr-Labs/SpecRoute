@@ -28,18 +28,27 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Push wiki/ to the wiki repo
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPOSITORY: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.sha }}
         run: |
           set -euo pipefail
 
-          WIKI_REMOTE="https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git"
+          WIKI_REMOTE="https://github.com/${REPOSITORY}.wiki.git"
+          # Send the token as a per-command header rather than embedding it in
+          # the remote URL, where it would persist in wiki-repo/.git/config.
+          AUTH_HEADER="AUTHORIZATION: basic $(printf 'x-access-token:%s' "$GH_TOKEN" | base64 | tr -d '\n')"
+          echo "::add-mask::${AUTH_HEADER#AUTHORIZATION: basic }"
+          git_auth() { git -c "http.https://github.com/.extraheader=${AUTH_HEADER}" "$@"; }
 
           # Clone the wiki repo (separate from this one).
-          git clone "${WIKI_REMOTE}" wiki-repo
+          git_auth clone "${WIKI_REMOTE}" wiki-repo
 
           # Sync wiki/ → wiki-repo/ exactly. --delete removes pages no longer
           # present in wiki/. We exclude .git and the local-only README.md.
@@ -62,5 +71,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "Sync wiki from ${{ github.repository }}@${{ github.sha }}"
-          git push origin HEAD
+          git commit -m "Sync wiki from ${REPOSITORY}@${SOURCE_SHA}"
+          git_auth push origin HEAD

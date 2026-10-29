@@ -4,7 +4,7 @@ Supporting shell scripts. They are **executed via the `hooks` key in `.claude/se
 
 - Be executable (`chmod +x`).
 - Read JSON from stdin (parse with `python3` or `jq`).
-- Exit `0` to allow / proceed; non-zero to block (`PreToolUse` only).
+- Exit `0` to allow / proceed; `2` to block (`PreToolUse` only; other non-zero codes are non-blocking errors).
 - Write actionable messages to stderr.
 - Run sub-second.
 - Be idempotent.

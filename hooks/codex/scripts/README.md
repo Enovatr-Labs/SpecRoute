@@ -66,7 +66,7 @@ esac
 # Validate. Exit 2 with stderr reason to block; exit 0 to allow.
 if <unsafe>; then
   echo "Blocked by sanitization gate." >&2
-  exit 1  # or 2 for hard block
+  exit 2  # 2 blocks
 fi
 exit 0
 ```

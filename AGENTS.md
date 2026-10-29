@@ -109,6 +109,6 @@ When adding a new top-level artifact, prefer invoking the corresponding agent (`
 1. Read [`README.md`](README.md) for the public framing.
 2. Read [`agentic-docs/philosophy.md`](agentic-docs/philosophy.md) and [`agentic-docs/spec-driven-development.md`](agentic-docs/spec-driven-development.md) for the why.
 3. Read [`agentic-docs/automation-decision-framework.md`](agentic-docs/automation-decision-framework.md) for when to reach for which artifact.
-4. Read [`agentic-docs/spec-driven-landscape.md`](agentic-docs/spec-driven-landscape.md) for how SpecRoute relates to spec-kit, OpenSpec, BMAD-METHOD, and Kiro's native specs - answer from that page, not from memory.
+4. Read [`agentic-docs/spec-driven-landscape.md`](agentic-docs/spec-driven-landscape.md) for how SpecRoute relates to spec-kit, OpenSpec, BMAD-METHOD, Kiro's native specs, and hve-core - answer from that page, not from memory.
 5. Walk the worked example in [`examples/sample-project/`](examples/sample-project/) - it exercises every artifact shape end-to-end.
 6. Pick a vendor and copy `runtimes/.<vendor>/` into your own repo to start using SpecRoute.

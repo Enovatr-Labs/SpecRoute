@@ -11,7 +11,7 @@ Supporting shell scripts referenced by `hooks/claude/hooks.template.json`. Each 
   COMMAND="$(printf '%s' "$INPUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("command",""))')"
   ```
 
-- **Exit codes**: `0` allows / proceeds. Non-zero **blocks** (PreToolUse only); `PostToolUse` and `SessionStart` cannot block - non-zero is informational.
+- **Exit codes**: `0` allows / proceeds. `2` **blocks** (PreToolUse only); any other non-zero code is a non-blocking error and the action still runs. `PostToolUse` and `SessionStart` cannot block.
 
 - **Stderr**: Anything on stderr is shown to the user. Use for actionable messages.
 
@@ -33,7 +33,8 @@ These are the canonical worked examples - copy and adapt them rather than starti
 
 ```bash
 #!/usr/bin/env bash
-# Block git commit/push on a custom check.
+# Block git commit/push on a custom check. The substring match below is
+# illustrative; see pre-bash-sanitize.sh for a tokenizing classifier.
 set -u
 INPUT="$(cat)"
 COMMAND="$(printf '%s' "$INPUT" | python3 -c 'import json,sys; print(json.load(sys.stdin).get("tool_input",{}).get("command",""))')"
@@ -42,10 +43,10 @@ case "$COMMAND" in
   *) exit 0 ;;
 esac
 
-# Run check. Exit 1 with stderr message to block.
+# Run check. Exit 2 with a stderr message to block (other non-zero codes do not block).
 if ! <your check command>; then
   echo "Pre-commit check failed: <reason>" >&2
-  exit 1
+  exit 2
 fi
 exit 0
 ```

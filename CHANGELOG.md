@@ -182,6 +182,44 @@ For a content-only framework, versions are interpreted as:
 - `skills/examples/README.md` still carried the present-tense "as of the mid-2026
   convergence" construct this release replaced everywhere else.
 
+### Security
+
+- **The sanitization hook's publish classifier was easy to step around.** All
+  twelve sanitize hooks (this repo's `.claude/hooks/`, `hooks/<vendor>/scripts/`,
+  and every `runtimes/.<vendor>/hooks/scripts/`) classified `git push` on its
+  own line of a multi-line command, `(git push)`, `{ git push; }`,
+  `bash -c "git push"`, `env`/`time`/`nohup`/`sudo` wrappers, and
+  `/usr/bin/git push` as non-publishing, so the forbidden-strings scan never
+  ran. They now share one classifier that splits on newlines and parentheses,
+  unwraps wrappers, recurses into `sh -c` / `eval` / `$(...)`, and compares the
+  command's basename. A parse error, or a hook payload that is not valid JSON,
+  now fails closed: the scan runs instead of being skipped. Quoted text such as
+  `echo "git push"` is still ignored. Each vendor's blocking contract is
+  unchanged.
+- **The Claude example blocking hook never blocked.**
+  `hooks/claude/scripts/example-pre-bash-validate.sh` exited `1`, which Claude
+  Code treats as a non-blocking error; only exit `2` blocks. It now exits `2`,
+  tokenizes the command instead of matching the substring `rm -rf ` (which
+  `rm -fr` evaded), and says it is illustrative rather than a security
+  boundary. The hook READMEs and `wiki/Hooks.md` that repeated "non-zero
+  blocks" now state the exit-2 contract.
+- **Workflow actions were pinned to mutable tags while holding write tokens.**
+  `links.yml`, `sync-wiki.yml`, and `wiki-parity.yml` now pin every action to a
+  full commit SHA, as `release.yml` already did, and their checkouts set
+  `persist-credentials: false`. `links.yml` no longer grants `issues: write` to
+  the link-checking job; a separate job holding only that permission opens the
+  link-rot issue. That job now actually runs: scheduled checks use
+  `fail: false`, so the old `failure()` condition never fired, and the trigger
+  is now lychee's exit code.
+- **Write tokens no longer persist in `.git/config`.** `sync-wiki.yml` sent its
+  token embedded in the wiki clone URL; it and `release.yml`'s
+  `realign-develop` push now pass the token as a per-command header, masked in
+  logs.
+- **`wiki-parity.py` could read outside the repository.** A
+  `<!-- sources: -->` entry with an absolute path or `..` made the check stat
+  and hash files outside the checkout. Such entries are now reported as missing
+  sources.
+
 ### Changed
 
 - Codex facts re-verified against an installed `codex-cli` **0.147.0** binary
@@ -199,6 +237,68 @@ For a content-only framework, versions are interpreted as:
   under namespaced `/speckit.*` commands, with `clarify` and `analyze` as
   optional steps, and the Stars column was regenerated. `doc-currency-check`
   Step 8 now records this as the incident that justified it.
+- The landscape comparison set grew from four projects to five on 2026-09-15.
+  microsoft/hve-core - research-first (RPI) rather than spec-first, and built
+  for GitHub Copilot only - was added under a third, stated selection rule
+  (contrast of method, not adoption), and the "Scope and method" section and
+  every statement about the whole set were rewritten so they stay true. "The
+  deepest agent-persona library of the set", said of BMAD-METHOD, was a
+  superlative the addition falsified on its own, and is gone. The hve-core
+  section records, as attributed facts checked against its tree on 2026-10-05:
+  its plan critique is a skippable default with an explicitly advisory verdict
+  and its review is optional, so neither is called a gate; its
+  `.copilot-tracking/` evidence files are meant to be gitignored, the exception
+  to "versioned with the code"; and some of its bundled skills carry Creative
+  Commons licenses, one of them non-commercial. The addition is carried
+  through `README.md` (the "How this compares" paragraph), the `AGENTS.md`
+  getting-oriented list, `wiki/Home.md`, the `wiki/FAQ.md` comparison heading
+  and a new hve-core paragraph, `ROADMAP.md` and `wiki/Roadmap.md` (the
+  field-positioning item), and the `framework-docs-author` agent's scope line.
+  `doc-currency-check` Step 8 now also re-checks per-artifact licenses and
+  quoted self-descriptions word for word.
+- Two currency passes on 2026-10-05, about five weeks after the first, corrected
+  claims the landscape page had shipped. The second pass ran against every
+  peer's current tree; the third re-verified each claim against a fresh clone
+  rather than against the previous pass. OpenSpec's own workflow docs say
+  "actions, not phases", so the recommendation that credited it with refusing
+  out-of-order work, and "the strictest state machine in the set", are gone.
+  spec-kit documents three optional quality gates rather than two, its README
+  now shows only the skills-mode command form, and the page now says the
+  sequence is carried by its commands rather than "enforced by the tooling".
+  BMAD-METHOD's BMM/BMB/CIS/BMVCS module scheme gave way to individually
+  selectable `bmad-*` skills, and its "Agent-as-Code" was quoted although the
+  phrase no longer appears anywhere in its repository, so the page describes
+  what BMAD ships (five named agents, each a skill that loads a persona)
+  instead. Kiro's section notes that requirements/design/tasks is no longer its
+  only spec shape, and OpenSpec's install line names its official Homebrew
+  formula alongside npm. Star counts were regenerated. `doc-currency-check`
+  gained four rot classes from these passes: gate-versus-default framing, claims
+  about a peer's documentation layout, a borrowed term that vanishes while the
+  practice it named continues, and a superlative as a set-wide claim that
+  admitting a new project can falsify.
+- `wiki/Frontmatter-Contracts.md` records that an unresolved
+  `[NEEDS CLARIFICATION: ...]` marker blocks `Status: Approved`, a contract
+  added to `specs/README.md` in the clarification pass but never mirrored.
+  `wiki/Repository-Structure.md` lists `scripts/` and `wiki/`, which its tree
+  had omitted. With those and the roadmap edits, the eight outstanding wiki
+  staleness warnings are cleared: six resolved by the edits themselves, and
+  `Artifact-Taxonomy` and `Vendor-Matrix` stamped `sources-reviewed` after
+  checking that neither carries any fact that moved.
+- A review of the landscape changes on 2026-10-28 corrected what the passes
+  above had left inconsistent. BMAD-METHOD ships on two lines, and the page had
+  described only one: its stable line still installs through the project's own
+  npm installer (`npx bmad-method install`), while the preview line is what
+  delivers `bmad-*` skills through the Skills CLI or a plugin marketplace. The
+  comparison table, the BMAD section, "Where SpecRoute differs", and "When to
+  pick a peer instead" now say so, and BMAD's release version numbers are gone
+  from prose under the page's no-numbers-in-prose rule. "The most complete
+  end-to-end command sequence", "the clearest thinking about change", and "the
+  sharpest" settled-versus-delta split are scoped to the spec-driven projects
+  rather than claimed across a set that now includes hve-core. `README.md` and
+  `wiki/FAQ.md` no longer suggest that a peer enforces phase order or refuses
+  out-of-order work, which none of them advertises. The wiki mirror regained
+  the `speckit-<name>` command-form sentence and hve-core's full lifecycle
+  steps.
 
 ---
 

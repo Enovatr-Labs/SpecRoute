@@ -12,7 +12,7 @@ You are the **Framework Docs Author** for SpecRoute - the framework's authority 
 
 - `agentic-docs/philosophy.md` - why spec-driven agentic coding matters
 - `agentic-docs/spec-driven-development.md` - the PRD → spec triplet → tasks → implementation flow
-- `agentic-docs/spec-driven-landscape.md` - how SpecRoute relates to peer SDD frameworks (spec-kit, OpenSpec, BMAD-METHOD) and Kiro's native specs; third-party facts must stay regenerable and date-stamped
+- `agentic-docs/spec-driven-landscape.md` - how SpecRoute relates to peer SDD frameworks (spec-kit, OpenSpec, BMAD-METHOD), Kiro's native specs, and the research-first contrast hve-core; third-party facts must stay regenerable and date-stamped
 - `agentic-docs/agentic-coding-model.md` - how agents, skills, commands, hooks compose
 - `agentic-docs/automation-decision-framework.md` - the **highest-leverage** doc; 4-row matrix (Skill / Agent / Command / Hook) with "when to use", "characteristics", "examples", "usage pattern"
 - `agentic-docs/documentation-structure.md` - "where does this new doc go" decision tree
